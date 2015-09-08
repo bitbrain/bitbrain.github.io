@@ -20,22 +20,29 @@ body {
   margin: 10px 30px;
 }
 
+.home {
+  width: 500px;
+  margin: auto;
+}
+
 .menu {
   margin-bottom: 20px;
   & > a {
+    @include boxed;
     & > i { margin-right: 6px; }
     margin: 0 4px;
     color: $clr-foreground;
     display: inline-block;
     font-size: 16px;
     width: 120px;
-    background-color: darken($clr-background, 4%);
     padding: 10px;
     border-radius: 5px;
-
-    &:hover {
-      color: $clr-primary;
-      background-color: darken($clr-background, 6%);
-    }
   }
+}
+
+.post-link {
+  margin-bottom: 12px;
+  display: block;
+  padding: 10px;
+  @include boxed;
 }
