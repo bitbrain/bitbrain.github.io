@@ -26,6 +26,27 @@ body {
   margin: auto;
 }
 
+.post header {
+  width: 545px;
+  margin: auto;
+  margin-bottom: 20px;
+  & > .post-title { font-weight: normal; color: lighten($clr-primary, 5%); }
+  & > .post-meta {
+    margin-top: 10px;
+    font-size: 20px;
+  }
+}
+
+.post article {
+  width: 545px;
+  @include boxed;
+  &:hover { color: $clr-foreground; }
+  margin: auto;
+  padding: 20px;
+  line-height: 24px;
+  text-align: left;
+}
+
 .menu {
   width: 595px;
   margin: auto;

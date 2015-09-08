@@ -2,21 +2,24 @@
  * Syntax highlighting styles
  */
 .highlight {
-    background: #fff;
+    background: $clr-background;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 15px 0;
 
-    .c     { color: #998; font-style: italic } // Comment
+    .c     { color: white; font-style: italic } // Comment
     .err   { color: #a61717; background-color: #e3d2d2 } // Error
-    .k     { font-weight: bold } // Keyword
+    .k     { color: white; font-weight: bold } // Keyword
     .o     { font-weight: bold } // Operator
-    .cm    { color: #998; font-style: italic } // Comment.Multiline
-    .cp    { color: #999; font-weight: bold } // Comment.Preproc
-    .c1    { color: #998; font-style: italic } // Comment.Single
-    .cs    { color: #999; font-weight: bold; font-style: italic } // Comment.Special
+    .cm    { color: white; font-style: italic } // Comment.Multiline
+    .cp    { color: white; font-weight: bold } // Comment.Preproc
+    .c1    { color: white; font-style: italic } // Comment.Single
+    .cs    { color: white; font-weight: bold; font-style: italic } // Comment.Special
     .gd    { color: #000; background-color: #fdd } // Generic.Deleted
     .gd .x { color: #000; background-color: #faa } // Generic.Deleted.Specific
     .ge    { font-style: italic } // Generic.Emph
-    .gr    { color: #a00 } // Generic.Error
-    .gh    { color: #999 } // Generic.Heading
+    .gr    { color: white } // Generic.Error
+    .gh    { color: white } // Generic.Heading
     .gi    { color: #000; background-color: #dfd } // Generic.Inserted
     .gi .x { color: #000; background-color: #afa } // Generic.Inserted.Specific
     .go    { color: #888 } // Generic.Output
