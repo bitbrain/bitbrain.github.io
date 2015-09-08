@@ -3,9 +3,13 @@ layout: default
 ---
 
 <div class="home">
-
   {% for post in site.posts %}
-    <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">
+    {% capture modulo %}{{ forloop.index | mod:2 }}{% endcapture %}
+    {% if modulo == '0' %}
+      <a class="post-link second" href="{{ post.url | prepend: site.baseurl }}">
+    {% else %}
+      <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">
+    {% endif %}
       <div class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</div>
         {{ post.title }}
     </a>

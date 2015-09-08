@@ -21,7 +21,8 @@ body {
 }
 
 .home {
-  width: 500px;
+  text-align: left;
+  width: 595px;
   margin: auto;
 }
 
@@ -41,8 +42,10 @@ body {
 }
 
 .post-link {
+  &.second { margin-left: 10px; }
+  width: 270px;
   margin-bottom: 12px;
-  display: block;
+  display: inline-block;
   padding: 10px;
   @include boxed;
 }
