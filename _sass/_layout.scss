@@ -30,6 +30,7 @@ body {
   width: 545px;
   margin: auto;
   margin-bottom: 20px;
+  margin-top: 40px;
   & > .post-title { font-weight: normal; color: lighten($clr-primary, 5%); }
   & > .post-meta {
     margin-top: 10px;
@@ -40,10 +41,10 @@ body {
 .post article {
   width: 545px;
   @include boxed;
-  &:hover { color: $clr-foreground; }
+  &, &:hover { color: lighten($clr-foreground, 20%); }
   margin: auto;
   padding: 20px;
-  line-height: 24px;
+  line-height: 26px;
   text-align: left;
 }
 
