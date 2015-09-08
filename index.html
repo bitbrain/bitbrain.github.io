@@ -3,18 +3,26 @@ layout: default
 ---
 
 <div class="home">
-  {% for post in site.posts %}
-    {% capture modulo %}{{ forloop.index | mod:2 }}{% endcapture %}
-    {% if modulo == '0' %}
-      <a class="post-link second" href="{{ post.url | prepend: site.baseurl }}">
-    {% else %}
-      <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">
-    {% endif %}
-      <div class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</div>
-        {{ post.title }}
-    </a>
-  {% endfor %}
-
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
-
+  <div class="posts table">
+    <div class="table-row">
+    {% for post in site.posts %}
+      {% capture modulo %}{{ forloop.index | mod:2 }}{% endcapture %}
+      {% if modulo != '0' %}
+        {% unless forloop.first %}
+        </div>
+        <div class="table-row">
+        {% endunless %}
+      {% endif %}
+      {% if modulo == '0' %}
+        <div class="post-link second table-cell">
+      {% else %}
+        <div class="post-link table-cell">
+      {% endif %}
+      <a class="second animated fadeIn" href="{{ post.url | prepend: site.baseurl }}">
+        <div class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</div>
+      {{ post.title }}
+      </a>
+      </div>
+    {% endfor %}
+  </div>
 </div>

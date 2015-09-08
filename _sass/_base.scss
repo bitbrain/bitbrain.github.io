@@ -15,3 +15,17 @@ a {
   text-decoration: none;
   &:hover { color: lighten($clr-primary, 10%); }
 }
+
+.table {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.table-row {
+  display: table-row;
+}
+
+.table-cell {
+  display: table-cell;
+}

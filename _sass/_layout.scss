@@ -27,25 +27,41 @@ body {
 }
 
 .menu {
+  width: 595px;
+  margin: auto;
   margin-bottom: 20px;
-  & > a {
+  & > div > a {
     @include boxed;
     & > i { margin-right: 6px; }
     margin: 0 4px;
     color: $clr-foreground;
-    display: inline-block;
     font-size: 16px;
-    width: 120px;
     padding: 10px;
     border-radius: 5px;
+    display: block;
   }
 }
 
 .post-link {
   &.second { margin-left: 10px; }
-  width: 270px;
+  & > a > .post-meta {
+    color: $clr-foreground;
+    font-size: 12px;
+  }
+  & > a {
+    display: block;
+    margin: 5px;
+    padding: 10px;
+    padding-left: 12px;
+    height: 65px;
+    @include boxed;
+  }
+  line-height: 22px;
   margin-bottom: 12px;
-  display: inline-block;
-  padding: 10px;
-  @include boxed;
+}
+
+.site-footer {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 14px;
 }
