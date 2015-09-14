@@ -23,6 +23,9 @@ layout: default
       {{ post.title }}
       </a>
       </div>
+      {% if forloop.last %}
+      </div>
+      {% endif %}
     {% endfor %}
   </div>
 </div>
