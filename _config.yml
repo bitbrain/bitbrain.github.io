@@ -6,6 +6,8 @@ baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://my-reality.de" # the base hostname & protocol for your site
 twitter_username: tweetmyreality
 github_username:  MyRealityCoding
+paginate: 4
+paginate_path: "/page:num/"
 
 # Build settings
 markdown: kramdown

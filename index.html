@@ -5,7 +5,7 @@ layout: default
 <div class="home">
   <div class="posts table">
     <div class="table-row">
-    {% for post in site.posts %}
+    {% for post in paginator.posts %}
       {% capture modulo %}{{ forloop.index | mod:2 }}{% endcapture %}
       {% if modulo != '0' %}
         {% unless forloop.first %}
@@ -29,3 +29,29 @@ layout: default
     {% endfor %}
   </div>
 </div>
+
+{% if paginator.total_pages > 1 %}
+<div class="pagination">
+  {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}"><i class="fa fa-angle-left"></i></a>
+  {% else %}
+    <span><i class="fa fa-angle-left"></i></span>
+  {% endif %}
+
+  {% for page in (1..paginator.total_pages) %}
+    {% if page == paginator.page %}
+      <em>{{ page }}</em>
+    {% elsif page == 1 %}
+      <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">{{ page }}</a>
+    {% else %}
+      <a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a>
+    {% endif %}
+  {% endfor %}
+
+  {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}"><i class="fa fa-angle-right"></i></a>
+  {% else %}
+    <span><i class="fa fa-angle-right"></i></span>
+  {% endif %}
+</div>
+{% endif %}

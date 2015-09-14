@@ -102,3 +102,33 @@ ul {
 #disqus_thread {
   margin-top: 20px;
 }
+
+.pagination {
+  margin-top: 10px;
+  & > a,
+  & > em,
+  & > span {
+    @include boxed;
+    display: inline-block;
+    padding: 10px 0px;
+    font-size: 14px;
+    width: 48px;
+  }
+  & > span, & > span:hover {
+    color: lighten($clr-background, 6%);
+    background-color: darken($clr-background, 2%);
+    cursor: default;
+  }
+  & > a:hover {
+    color: lighten($clr-primary, 25%);
+  }
+  & > em:hover {
+    color: white;
+  }
+  & > em {
+    color: white;
+    font-weight: bold;
+    font-style: normal;
+    background-color: darken($clr-background, 6%);
+  }
+}
