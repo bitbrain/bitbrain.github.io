@@ -2,6 +2,7 @@
  * Syntax highlighting styles
  */
 .highlight {
+    overflow-x: auto;
     background: $clr-background;
     border-radius: 5px;
     padding: 10px;
@@ -42,14 +43,14 @@
     .ne    { color: lighten($clr-foreground, 20%); font-weight: normal } // Name.Exception
     .nf    { color: lighten($clr-foreground, 20%); font-weight: normal } // Name.Function
     .nn    { color: #555 } // Name.Namespace
-    .nt    { color: #2288ff } // Name.Tag
-    .nv    { color: #2288ff } // Name.Variable
+    .nt    { color: $clr-primary } // Name.Tag
+    .nv    { color: white; } // Name.Variable
     .ow    { font-weight: bold } // Operator.Word
     .w     { color: #bbb } // Text.Whitespace
-    .mf    { color: #2288ff } // Literal.Number.Float
-    .mh    { color: #2288ff } // Literal.Number.Hex
-    .mi    { color: #2288ff } // Literal.Number.Integer
-    .mo    { color: #2288ff } // Literal.Number.Oct
+    .mf    { color: white } // Literal.Number.Float
+    .mh    { color: white } // Literal.Number.Hex
+    .mi    { color: whitef } // Literal.Number.Integer
+    .mo    { color: white } // Literal.Number.Oct
     .sb    { color: white } // Literal.String.Backtick
     .sc    { color: white } // Literal.String.Char
     .sd    { color: white } // Literal.String.Doc
@@ -62,8 +63,8 @@
     .s1    { color: white } // Literal.String.Single
     .ss    { color: white } // Literal.String.Symbol
     .bp    { color: #999 } // Name.Builtin.Pseudo
-    .vc    { color: #2288ff } // Name.Variable.Class
-    .vg    { color: #2288ff } // Name.Variable.Global
-    .vi    { color: #2288ff } // Name.Variable.Instance
-    .il    { color: #2288ff } // Literal.Number.Integer.Long
+    .vc    { color: white } // Name.Variable.Class
+    .vg    { color: white } // Name.Variable.Global
+    .vi    { color: white } // Name.Variable.Instance
+    .il    { color: white } // Literal.Number.Integer.Long
 }

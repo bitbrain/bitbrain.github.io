@@ -82,6 +82,17 @@ body {
   margin-bottom: 12px;
 }
 
+ul {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  li {
+    margin-left: 20px;
+    color: white;
+    font-size: 14px;
+    line-height: 32px;
+  }
+}
+
 .site-footer {
   text-align: center;
   margin: 20px 0;
