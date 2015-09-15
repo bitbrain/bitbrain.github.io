@@ -8,6 +8,11 @@ body {
   & > span { color: $clr-primary; }
 }
 
+.page-content, .table.menu {
+  width: 595px;
+  margin: auto;
+}
+
 .header {
   & > div { display: inline-block; }
   font-size: 30px;
@@ -22,7 +27,6 @@ body {
 
 .home {
   text-align: left;
-  width: 595px;
   margin: auto;
 }
 
@@ -39,7 +43,6 @@ body {
 }
 
 .post article {
-  width: 545px;
   @include boxed;
   &, &:hover { color: lighten($clr-foreground, 20%); }
   margin: auto;
@@ -49,9 +52,7 @@ body {
 }
 
 .menu {
-  width: 595px;
-  margin: auto;
-  margin-bottom: 20px;
+  padding-bottom: 20px;
   & > div > a {
     @include boxed;
     & > i { margin-right: 6px; }
