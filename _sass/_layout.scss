@@ -42,7 +42,7 @@ body {
   }
 }
 
-.post article {
+.post article, .page {
   @include boxed;
   &, &:hover { color: lighten($clr-foreground, 20%); }
   margin: auto;
@@ -54,6 +54,13 @@ body {
     margin: 10px 0;
     width: 100%;
     height: auto;
+  }
+}
+
+.page {
+  margin: 0 5px;
+  p {
+    margin-bottom: 10px;
   }
 }
 
