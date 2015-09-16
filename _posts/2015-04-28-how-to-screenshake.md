@@ -26,7 +26,7 @@ In theory we do 3 things:
 
 Visually it looks something like this:
 
-![camera-scaling](/img/camera-scaling.png)
+![camera-scaling](/blog/img/camera-scaling.png)
 
 # Code example
 

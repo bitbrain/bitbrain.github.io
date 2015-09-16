@@ -49,6 +49,12 @@ body {
   padding: 20px;
   line-height: 26px;
   text-align: left;
+  img {
+    border-radius: 5px;
+    margin: 10px 0;
+    width: 100%;
+    height: auto;
+  }
 }
 
 .menu {
