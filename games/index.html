@@ -1,4 +1,25 @@
 ---
 layout: default
 ---
-Games
+<div class="page">
+I love it to write games! I'm programming, drawing and animating almost everything on my own.  Check out my work in the list below:
+
+<div class="table">
+<div class="table-row table-head">
+<div class="table-cell">Title</div>
+<div class="table-cell">Genre</div>
+<div class="table-cell text-center">Purpose</div>
+<div class="table-cell text-center">Released</div>
+</div>
+{% for game in site.games %}
+<div class="table-row">
+<div class="table-cell"><a href="{{ game.url }}">{{ game.name }}</a></div>
+<div class="table-cell">{{ game.genre }}</div>
+<div class="table-cell text-center">{{ game.tag }}</div>
+<div class="table-cell text-center">{{ game.date }}</div>
+</div>
+{% endfor %}
+</div>
+
+Enjoy what you see? Follow me on <a href="https://github.com/MyRealityCoding">GitHub</a> for more funny stuff!
+</div>
