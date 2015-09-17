@@ -42,6 +42,22 @@ body {
   }
 }
 
+.table-head {
+  color: white;
+  font-size: 14px;
+  & > div {
+    line-height: 30px;
+    padding-top: 5px;
+  }
+}
+
+.data-table {
+  .table-cell {
+    border-bottom: 1px dashed darken($clr-foreground, 20%);
+    padding: 10px 0;
+  }
+}
+
 .post article, .page {
   @include boxed;
   &, &:hover { color: lighten($clr-foreground, 20%); }
