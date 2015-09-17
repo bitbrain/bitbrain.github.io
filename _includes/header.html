@@ -2,11 +2,12 @@
   <div class="header">
     <div class="logo animated fadeIn">bit<span>.</span>brain</div>
   </div>
-
   <div class="menu table animated fadeIn">
-    <div class="table-cell"><a href="{{ "/" | prepend: site.baseurl }}"><i class="fa fa-terminal"></i>blog</a></div>
-    <div class="table-cell"><a href="{{ "/games" | prepend: site.baseurl }}"><i class="fa fa-gamepad"></i>games</a></div>
-    <div class="table-cell"><a href="{{ "/media" | prepend: site.baseurl }}"><i class="fa fa-play-circle"></i>media</a></div>
-    <div class="table-cell"><a href="https://github.com/MyRealityCoding" target="_blank"><i class="fa fa-github"></i>code</a></div>
+  {% for link in site.navigation %}
+         {% assign current = link.url|append:"index.html" %}
+         <div class="table-cell"><a href="{{ link.url | prepend: site.baseurl }}" title="{{link.title}}">
+         {% if link.icon != null %}
+            <i class="fa fa-{{ link.icon }}"></i>{% endif %}{{ link.text }}</a></div>
+  {% endfor %}
   </div>
 </header>

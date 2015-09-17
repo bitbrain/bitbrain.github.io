@@ -11,3 +11,21 @@ paginate_path: "/page:num/"
 
 # Build settings
 markdown: kramdown
+
+navigation:
+- text: Blog
+  title: News, Tutorials and more.
+  url: /
+  icon: terminal
+- text: Games
+  title: All about my games.
+  url: /games/
+  icon: gamepad
+- text: Media
+  title: Videos, images and more.
+  url: /media/
+  icon: youtube-play
+- text: Code
+  title: My github account.
+  url: https://github.com/MyRealityCoding
+  icon: github
