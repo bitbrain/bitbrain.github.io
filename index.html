@@ -3,6 +3,12 @@ layout: default
 ---
 
 <div class="home">
+  <div class="info-box">
+    <div class="table">
+      <img class="table-cell" src="{{ "/img/avatar.png" | prepend: site.baseurl }}" alt="avatar"/>
+      <div class="info table-cell">Game developer from Germany, Hogwarts student and drummer.</div>
+    </div>
+  </div>
   <div class="posts table">
     <div class="table-row">
     {% for post in paginator.posts %}

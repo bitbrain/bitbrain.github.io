@@ -163,3 +163,20 @@ ul {
     background-color: darken($clr-background, 6%);
   }
 }
+
+.info-box {
+  @include boxed;
+  & > .table { table-layout: auto; }
+  padding: 20px;
+  margin: 5px;
+  .info {
+    vertical-align: top;
+    font-size: 18px;
+    line-height: 30px;
+  }
+  img {
+    width: 64px;
+    height: 64px;
+    padding-right: 20px;
+  }
+}
