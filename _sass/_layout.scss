@@ -92,11 +92,19 @@ body {
     border-radius: 5px;
     display: block;
     text-transform: lowercase;
+    &:hover {
+      @extend .animated;
+      @extend .pulse;
+    }
   }
 }
 
 .post-link {
   &.second { margin-left: 10px; }
+  &:hover {
+    @extend .animated;
+    @extend .pulse;
+  }
   & > a > .post-meta {
     color: $clr-foreground;
     font-size: 12px;
