@@ -81,7 +81,7 @@ body {
 }
 
 .menu {
-  padding-bottom: 20px;
+  padding-bottom: 7px;
   & > div > a {
     @include boxed;
     & > i { margin-right: 6px; }
@@ -166,17 +166,19 @@ ul {
 
 .info-box {
   @include boxed;
+  &:hover .info { color: $clr-foreground; }
   & > .table { table-layout: auto; }
   padding: 20px;
   margin: 5px;
   .info {
     vertical-align: top;
     font-size: 18px;
-    line-height: 30px;
+    line-height: 32px;
+    padding-left: 20px;
   }
   img {
     width: 64px;
     height: 64px;
-    padding-right: 20px;
+    border-radius: 5px;
   }
 }

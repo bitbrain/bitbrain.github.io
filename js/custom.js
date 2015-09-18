@@ -47,7 +47,7 @@ function runAjax() {
         // Load the new state's URL via an Ajax Call
         $.get(State.url, function(data){
             // Replace the "<title>" tag's content
-            document.title = "bit.brain";
+            document.title = "my:reality";
 
             // Replace the content of the main container (.content)
             // If you're using another div, you should change the selector

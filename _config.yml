@@ -1,12 +1,12 @@
 # Site settings
-title: bitbrain
+title: my:reality
 email: miguel-gonzalez@gmx.de
 description: Game developer from Germany, Hogwarts student and software engineer.
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://my-reality.de" # the base hostname & protocol for your site
 twitter_username: tweetmyreality
 github_username:  MyRealityCoding
-paginate: 4
+paginate: 6
 paginate_path: "/page:num/"
 
 # Build settings
