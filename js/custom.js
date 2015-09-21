@@ -34,10 +34,12 @@ function runAjax() {
     // Make sure that all clicked links that link to your internal website
     // don't just reload the page but execute a History.pushState call
     $(document).delegate('a[href^="/"],a[href^="'+siteUrl+'"]', "click", function(e) {
-        e.preventDefault();
-        content = jQuery('.page-content');
-        pathname = this.pathname;
-        History.pushState({}, "", pathname);
+        if (siteUrl.indexOf("http") == -1) {
+          e.preventDefault();
+          content = jQuery('.page-content');
+          pathname = this.pathname;
+          History.pushState({}, "", pathname);
+        }
     });
 
     // Catch all History stateChange events
