@@ -39,7 +39,7 @@ layout: default
 </div>
 
 {% if paginator.total_pages > 1 %}
-<div class="pagination animated jello">
+<div class="pagination animated jello" data-sr>
   {% if paginator.previous_page %}
     <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}"><i class="fa fa-angle-left"></i></a>
   {% else %}
