@@ -12,7 +12,7 @@ I love it to write games! I'm programming, drawing and animating almost everythi
 <div class="table-cell text-center">Released</div>
 </div>
 {% for game in site.games %}
-<div class="table-row">
+<div class="table-row" data-sr>
 <div class="table-cell"><a href="{{ game.url }}">{{ game.name }}</a></div>
 <div class="table-cell">{{ game.genre }}</div>
 <div class="table-cell text-center">{{ game.tag }}</div>
@@ -21,5 +21,5 @@ I love it to write games! I'm programming, drawing and animating almost everythi
 {% endfor %}
 </div>
 </p>
-Enjoy what you see? Follow me on <a href="https://github.com/MyRealityCoding">GitHub</a> for more funny stuff!
+<span data-sr>Enjoy what you see? Follow me on <a href="https://github.com/MyRealityCoding">GitHub</a> for more funny stuff!</span>
 </div>

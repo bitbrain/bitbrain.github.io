@@ -26,7 +26,7 @@ layout: default
       {% else %}
         <div class="post-link table-cell">
       {% endif %}
-      <a class="second animated fadeIn" href="{{ post.url | prepend: site.baseurl }}">
+      <a class="second animated fadeIn" href="{{ post.url | prepend: site.baseurl }}" data-sr>
         <div class="post-meta"># {{ post.date | date: "%b %-d, %Y" }}</div>
       {{ post.title }}
       </a>
