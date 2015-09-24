@@ -1,2 +1,2 @@
 # blog
-My personal blog, prodly hosted on Github.
+My personal blog, proudly hosted on Github.
