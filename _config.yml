@@ -57,11 +57,6 @@ games:
   tag: ggj
   date: January 2014
   url:  maze
-- name: Candy Crusher
-  genre: action
-  tag: candyjam
-  date: January 2014
-  url: candycrusher
 - name: Plox
   genre: shooter
   tag: 1gam
