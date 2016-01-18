@@ -25,8 +25,7 @@ In theory we do 3 things:
 - move the camera between the points
 
 Visually it looks something like this:
-
-![camera-scaling](/blog/img/camera-scaling.png)
+<img alt="camera-scaling" src="{{ "/img/camera-scaling.png" | prepend: site.baseurl }}" />
 
 # Code example
 
