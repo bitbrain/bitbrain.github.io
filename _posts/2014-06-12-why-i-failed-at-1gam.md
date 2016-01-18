@@ -3,13 +3,13 @@ layout: post
 title: Why I failed at 1GAM
 excerpt: 12 games in one year are possible. I made it only to 3. In this article I explain why.
 ---
-In a recent article I wrote how motivated I was about to write 12 entire games this year. My motivation was high, I had nothing to loose and I saw it as a big challenge which could be done with discipline and fun. 
+In a recent article I wrote how motivated I was about to write 12 entire games this year. My motivation was high, I had nothing to loose and I saw it as a big challenge which could be done with discipline and fun.
 
 ### January game
 
 In January I wrote my first #1GAM entry, called [Plox](/games/plox). I wrote it within 2 days by using Java in combination with LibGDX. It was fast to write because only swipe and shooting mechanics actually existed. At that point I really thought: "Well, writing games is very easy, this will be no problem for me!"
 
-![plox](/data/plox-wallpaper.png)
+<img alt="plox" src="{{ "/data/plox-wallpaper.png" | prepend: site.baseurl }}" />
 
 ### February game
 
@@ -21,7 +21,7 @@ That month was something special. I collaborated with another guy (greetings to 
 
 ### March game
 
-This month was easy for me, because we were forced to write a game at our university. The theme was "neon" so I decided to combine it with 1GAM. My classmate Jan and I wrote a game called "NeonWars", a 2D 4-in-a-row like game, completely written in C++. 
+This month was easy for me, because we were forced to write a game at our university. The theme was "neon" so I decided to combine it with 1GAM. My classmate Jan and I wrote a game called "NeonWars", a 2D 4-in-a-row like game, completely written in C++.
 
 ### The disaster begins
 
