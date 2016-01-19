@@ -18,7 +18,7 @@ layout: default
       {% if modulo != '0' %}
         {% unless forloop.first %}
         </div>
-        <div class="table-row">
+        <div class="table-row {{ modulo }}">
         {% endunless %}
       {% endif %}
       {% if modulo == '0' %}
