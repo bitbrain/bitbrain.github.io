@@ -88,3 +88,7 @@ modelBatch.end();
 processor.render();
 {% endhighlight %}
 There are far more options to enable shaders. They are very useful to create beautiful graphics because pixels on the screen are directly manipulated by them. Also they are very fast, too!
+
+# Putting everything together
+
+Now it is up to you to make use of the awesomeness of libGDX. For each game state you create an own screen state. After that define routes thorough the screens and which state should be achieved when. For my next project I will use Unity (because an engine becomes very useful when having a huge code and asset base), but for smaller 3D games and gamejams libGDX is just perfect!
