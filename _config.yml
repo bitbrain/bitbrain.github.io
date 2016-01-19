@@ -12,6 +12,9 @@ paginate_path: "/page:num/"
 # Build settings
 markdown: kramdown
 
+gems: [ jekyll-paginate ]
+
+
 navigation:
 - text: Blog
   title: News, Tutorials and more.
