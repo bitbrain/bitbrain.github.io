@@ -35,10 +35,25 @@ navigation:
 
 games:
 
-- name: Craft
+- name: scope
+  genre: shooter
+  tag: gamedev
+  date: not finished
+  url: https://myrealitycoding.itch.io/scope
+- name: spectron
   genre: strategy
   tag: gamedev
   date: not finished
+  url: https://github.com/MyRealityCoding/spectron
+- name: clouboy
+  genre: action
+  tag: 1gam
+  date: September 2015
+  url: https://myrealitycoding.itch.io/clouboy
+- name: Craft
+  genre: strategy
+  tag: gamedev
+  date: July 2015
   url: https://github.com/MyRealityCoding/craft#getting-started
 - name: YoloWars
   genre: shooter
@@ -64,12 +79,12 @@ games:
   genre: shooter
   tag: 1gam
   date: January 2014
-  url: plox
+  url: https://myrealitycoding.itch.io/plox
 - name: AcidSnake
   genre: arcade
   tag: gamedev
   date: August 2013
-  url: http://acidsnake.my-reality.de
+  url: https://myrealitycoding.itch.io/acidsnake
 - name: LittleWars
   genre: strategy
   tag: gamedev
