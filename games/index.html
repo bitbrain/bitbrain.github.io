@@ -3,23 +3,24 @@ layout: default
 ---
 <div class="page">
 I love it to write games! I'm programming, drawing and animating almost everything on my own.  Check out my work in the list below:
-<p>
-<div class="table data-table">
-<div class="table-row table-head">
-<div class="table-cell">Title</div>
-<div class="table-cell">Genre</div>
-<div class="table-cell text-center">Purpose</div>
-<div class="table-cell text-center">Released</div>
-</div>
+<p></p>
+<div class="table">
 {% for game in site.games %}
-<div class="table-row" data-sr>
-<div class="table-cell"><a href="{{ game.url }}">{{ game.name }}</a></div>
-<div class="table-cell">{{ game.genre }}</div>
-<div class="table-cell text-center">{{ game.tag }}</div>
-<div class="table-cell text-center">{{ game.date }}</div>
+<a href="{{ game.url }}" class="table-row game-element" data-sr>
+<div class="table-cell icon">
+  <img src="{{ game.icon }}" alt="{{ game.icon }}"/>
 </div>
+<div class="table-cell">
+  <div class="name">{{ game.name }}</div>
+  <div class="genre">{{ game.genre }}</div>
+</div>
+<div class="table-cell text-center">
+  <div class="tag">#{{ game.tag }}</div>
+  <div class="date">{{ game.date }}</div>
+</div>
+</a>
 {% endfor %}
 </div>
-</p>
+<p></p>
 <span data-sr>Enjoy what you see? Follow me on <a href="https://github.com/MyRealityCoding">GitHub</a> for more funny stuff!</span>
 </div>
