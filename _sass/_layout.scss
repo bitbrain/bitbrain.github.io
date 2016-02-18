@@ -241,3 +241,16 @@ ul {
     color: lighten($clr-background, 20%);
   }
 }
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: lighten($clr-background, 6%);
+}
