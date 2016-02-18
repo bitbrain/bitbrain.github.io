@@ -24,4 +24,4 @@ The example above is very simple and is not a real AI. When executing the tree o
 
 # Conclusion
 
-Implementing a behavior tree is mostly not necessary since there are a lot of libraries available (such as [libGDX-ai](https://github.com/libgdx/gdx-ai/wiki/Behavior-Trees)).
+Creating an own behavior tree implementation is mostly not necessary since there are a lot of libraries available (such as [libGDX-ai](https://github.com/libgdx/gdx-ai/wiki/Behavior-Trees)). Checkout a sample from my recent game **scope** [here](https://github.com/MyRealityCoding/scope/tree/master/core/src/nl/fontys/scope/core/logic/ai).
