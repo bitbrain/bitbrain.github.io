@@ -1,12 +1,17 @@
 ---
 layout: default
 ---
-<div class="page">
-I love it to write games! I'm programming, drawing and animating almost everything on my own.  Check out my work in the list below:
-<p></p>
-<div class="table">
+<div class="info-box">
+  <div class="table">
+    <div class="info table-cell">
+      I love it to write games! I'm programming, drawing and animating almost everything on my own.  Check out my work in the list below:
+    </div>
+  </div>
+</div>
+<div class="posts table">
 {% for game in site.games %}
-<a href="{{ game.url }}" class="table-row game-element" data-sr>
+<div class="post-link">
+<a href="{{ game.url }}" class="table-row" data-sr>
 <div class="table-cell icon">
   <img src="{{ game.icon }}" alt="{{ game.icon }}"/>
 </div>
@@ -14,13 +19,13 @@ I love it to write games! I'm programming, drawing and animating almost everythi
   <div class="name">{{ game.name }}</div>
   <div class="genre">{{ game.genre }}</div>
 </div>
-<div class="table-cell text-center">
+<div class="meta table-cell">
   <div class="tag">#{{ game.tag }}</div>
   <div class="date">{{ game.date }}</div>
 </div>
 </a>
+</div>
 {% endfor %}
 </div>
 <p></p>
-<span data-sr>Enjoy what you see? Follow me on <a href="https://github.com/MyRealityCoding">GitHub</a> for more funny stuff!</span>
-</div>
+<p data-sr class="page">Enjoy what you see? Follow me on <a href="https://github.com/MyRealityCoding">GitHub</a> for more funny stuff!</p>
