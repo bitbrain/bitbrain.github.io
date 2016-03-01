@@ -40,13 +40,13 @@ games:
   tag: gamedev
   date: not finished
   url: https://myrealitycoding.itch.io/scope
-  icon: https://raw.githubusercontent.com/MyRealityCoding/myrealitycoding.github.io/master/img/avatar.png
+  icon: https://raw.githubusercontent.com/MyRealityCoding/scope/master/icon.png
 - name: spectron
   genre: strategy
   tag: gamedev
   date: not finished
   url: https://github.com/MyRealityCoding/spectron
-  icon: https://raw.githubusercontent.com/MyRealityCoding/myrealitycoding.github.io/master/img/avatar.png
+  icon: https://raw.githubusercontent.com/MyRealityCoding/spectron/master/icon.png
 - name: clouboy
   genre: action
   tag: 1gam
