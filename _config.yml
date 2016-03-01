@@ -69,7 +69,7 @@ games:
   genre: strategy
   tag: 1gam
   date: March 2014
-  url:  NeonWars
+  url:  neonwars
   icon: https://raw.githubusercontent.com/MyRealityCoding/myrealitycoding.github.io/master/img/avatar.png
 - name: Shiny Avenger
   genre: shooter
