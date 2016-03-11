@@ -62,7 +62,21 @@ function runAjax() {
     });
 }
 
+function info() {
+  console.log(
+    ' _  _  _  _  _  ____  ____   __   __    __  ____  _  _ \n' +
+    '( \\/ )( \\/ )(_)(  _ \\(  __) / _\\ (  )  (  )(_  _)( \\/ )\n' +
+    '/ \\/ \\ )  /  _  )   / ) _) /    \\/ (_/\\ )(   )(   )  /\n' +
+    '\\_)(_/(__/  (_)(__\\_)(____)\\_/\\_/\\____/(__) (__) (__/\n' +
+    '\n' +
+    ' Welcome, my friend! You like what I do?\n' +
+    ' For questions or requests just ping me on Twitter @tweetmyreality\n' +
+    '\n' +
+    ' - Cheers, Miguel :-)\n');
+}
+
 $(document).ready(function() {
   animate(false);
   runAjax();
+  info();
 });
