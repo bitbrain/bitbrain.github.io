@@ -4,7 +4,7 @@ email: miguel-gonzalez@gmx.de
 description: Game developer from Germany, Hogwarts student and software engineer.
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://my-reality.de" # the base hostname & protocol for your site
-twitter_username: tweetmyreality
+twitter_username: myrealityde
 github_username:  MyRealityCoding
 paginate: 6
 paginate_path: "/page:num/"
@@ -38,13 +38,13 @@ games:
 - name: scope
   genre: shooter
   tag: gamedev
-  date: not finished
+  date: in progress
   url: https://myrealitycoding.itch.io/scope
   icon: https://raw.githubusercontent.com/MyRealityCoding/scope/master/icon.png
 - name: spectron
   genre: strategy
   tag: gamedev
-  date: not finished
+  date: in progress
   url: https://github.com/MyRealityCoding/spectron
   icon: https://raw.githubusercontent.com/MyRealityCoding/spectron/master/icon.png
 - name: clouboy
