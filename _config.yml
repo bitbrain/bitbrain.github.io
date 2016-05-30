@@ -27,7 +27,7 @@ navigation:
 - text: Media
   title: Videos, images and more.
   url: /media/
-  icon: youtube-play
+  icon: soundcloud
 - text: Code
   title: My github account.
   url: https://github.com/MyRealityCoding
