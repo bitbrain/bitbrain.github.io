@@ -24,8 +24,8 @@ navigation:
   title: All about my games.
   url: /games/
   icon: gamepad
-- text: Media
-  title: Videos, images and more.
+- text: Music
+  title: Listen to my work.
   url: /media/
   icon: soundcloud
 - text: Code
