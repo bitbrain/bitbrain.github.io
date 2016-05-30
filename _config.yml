@@ -32,6 +32,10 @@ navigation:
   title: My github account.
   url: https://github.com/MyRealityCoding
   icon: github
+- text: Social
+  title: My twitter account
+  url: https://twitter.com/myrealityde
+  icon: twitter
 
 games:
 
