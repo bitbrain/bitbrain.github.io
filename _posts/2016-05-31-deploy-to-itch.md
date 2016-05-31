@@ -15,7 +15,7 @@ After this guide you are able to:
 * build and upload your game automatically to itch.io on a git push
 * use [Butler](https://github.com/itchio/butler)
 
-The basic goal of this guide is to auto-deploy your games just by using a single git push command locally. You do not need to build your game or upload it anywhere. The toolchain I will show you does it for you. This is very useful and saves a lot of time, since time is always a limited resource!
+The basic goal of this guide is to auto-deploy your games just by using a single git push command locally. You do not need to build your game or upload it anywhere. The toolchain does it for you. This is very useful and saves a lot of time, since time always has been a limited resource!
 
 The basic toolchain works like follows:
 
