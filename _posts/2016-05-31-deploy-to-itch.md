@@ -45,7 +45,7 @@ To generate a new API key go to itch.io and navigate to *Account Settings->API k
 
 # 3. The deployment script
 
-This is the most crucial step. The "heart" of the toolchain will upload your game to itch.io:
+This is the most crucial step. The "heart" of the toolchain will upload your game to itch.io. It uses [Butler](https://github.com/itchio/butler) under the hood, a commandline helper for itch.io, written by [Amos Wenger](https://amos.me). The following script will build your game and deploy it automatically to itch.io:
 {% highlight bash %}
 !#/bin/bash
 
@@ -142,3 +142,5 @@ Cleanup..
 You've successfully erased the API key that was saved on your computer.
 Done.
 {% endhighlight %}
+
+You've got questions or remarks? Let me know if I could help you out!
