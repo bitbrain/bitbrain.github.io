@@ -4,18 +4,21 @@ title: Deploy your games to itch.io
 excerpt: This guide shows you how to easily upload your games automatically to itch.io
 ---
 Before we start I have to tell you what you need to continue:
+
 * an active [Github account](https://github.com/join)
 * an active [itch.io account](https://itch.io/register)
 * connected [TravisCI](https://travis-ci.org) with your Github Account
 * a finished game which you want to upload to itch.io
 
 After this guide you are able to:
+
 * build and upload your game automatically to itch.io on a git push
 * use [Butler](https://github.com/itchio/butler)
 
 The basic goal of this guide is to auto-deploy your games just by using a single git push command locally. You do not need to build your game or upload it anywhere. The toolchain I will show you does it for you. This is very useful and saves a lot of time, since time is always a limited resource!
 
 The basic toolchain works like follows:
+
 1. git push to your Github repository
 2. TravisCI gets notified and starts a new build of your game
 3. After the game has been built on the TravisCI server it starts a deployment script
