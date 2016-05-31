@@ -76,7 +76,7 @@ function info() {
 }
 
 function populateTweet(tweets) {
-  console.log(tweets);
+  
 }
 
 $(document).ready(function() {
