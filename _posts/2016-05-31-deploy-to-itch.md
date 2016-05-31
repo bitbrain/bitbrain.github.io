@@ -32,14 +32,14 @@ Let's get started.
 Follow [the official guide on itch.io](https://itch.io/docs/creators/getting-started#the_dashboard) to setup your game. For this guide we use a fake game with the following data:
 
 **account name:** gamedeveloper<br/>
-**game name:** Mega Awesome Turtles
-**game id on itch.io:** mega-awesome-turtles
+**game name:** Mega Awesome Turtles<br/>
+**game id on itch.io:** mega-awesome-turtles<br/>
 
 # 2. Generate your API key
 
 In order to let TravisCI actually talk to itch.io you need to generate an API key on the itch.io page.
 
-*Note: do not share the API key with anyone. Keep it safe and secret! Be careful!*
+<span style="color:#ff7070;">Note: do not share the API key with anyone. Keep it safe and secret! Be careful!</span>
 
 To generate a new API key go to itch.io and navigate to *Account Settings->API keys->Generate new API key*. Remember the key or copy it because we will need it on a later step.
 
@@ -108,7 +108,7 @@ TravisCI will execute our bash script and execute the game whenever we make a pu
 
 In order to make the deployment script working, TravisCI needs to know a environment variable, called **ITCH_API_KEY**. This needs to be done in the [repository settings as described here](https://docs.travis-ci.com/user/environment-variables/#Defining-Variables-in-Repository-Settings).
 
-*Note: Do not set the API in the deployment script directly! Others will use it to communicate with itch.io on your behalf. Keep the key secret!*
+<span style="color:#ff7070;">Note: Do not set the API in the deployment script directly! Others will use it to communicate with itch.io on your behalf. Keep the key secret!</span>
 
 # 6. Finishing up
 
