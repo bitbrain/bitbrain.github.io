@@ -76,8 +76,7 @@ function info() {
 }
 
 function populateTweet(tweets) {
-  var tweet = tweets[0];
-  console.log(tweet);
+  console.log(tweets);
 }
 
 $(document).ready(function() {
@@ -85,7 +84,7 @@ $(document).ready(function() {
   runAjax();
   info();
   var config = {
-    "id": 'myrealityde',
+    "id": '229941311',
     "dataOnly": true,
     "customCallback": populateTweet
   };
