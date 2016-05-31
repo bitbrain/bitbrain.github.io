@@ -75,8 +75,9 @@ function info() {
     ' - Cheers, Miguel :-)\n');
 }
 
-function populateTweet(tweet) {
-  
+function populateTweet(tweets) {
+  var tweet = tweets[0];
+  console.log(tweet);
 }
 
 $(document).ready(function() {
@@ -84,7 +85,7 @@ $(document).ready(function() {
   runAjax();
   info();
   var config = {
-    "id": '502160051226681344',
+    "id": 'myrealityde',
     "dataOnly": true,
     "customCallback": populateTweet
   };
