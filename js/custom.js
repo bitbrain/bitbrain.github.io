@@ -75,8 +75,18 @@ function info() {
     ' - Cheers, Miguel :-)\n');
 }
 
+function populateTweet(tweet) {
+  
+}
+
 $(document).ready(function() {
   animate(false);
   runAjax();
   info();
+  var config = {
+    "id": '502160051226681344',
+    "dataOnly": true,
+    "customCallback": populateTweet
+  };
+  twitterFetcher.fetch(config);
 });
