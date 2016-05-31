@@ -31,7 +31,7 @@ Let's get started.
 
 Follow [the official guide on itch.io](https://itch.io/docs/creators/getting-started#the_dashboard) to setup your game. For this guide we use a fake game with the following data:
 
-**account name:** gamedeveloper
+**account name:** gamedeveloper<br/>
 **game name:** Mega Awesome Turtles
 **game id on itch.io:** mega-awesome-turtles
 
