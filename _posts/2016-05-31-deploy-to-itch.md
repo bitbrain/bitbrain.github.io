@@ -8,7 +8,7 @@ Before we start I have to tell you what you need to continue:
 * an active [Github account](https://github.com/join)
 * an active [itch.io account](https://itch.io/register)
 * connected [TravisCI](https://travis-ci.org) with your Github Account
-* a finished game which you want to upload to itch.io
+* a buildable game in a Github repository which you want to upload to itch.io. The game doesn't need to be finished, though!
 
 After this guide you are able to:
 
