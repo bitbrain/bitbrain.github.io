@@ -1,11 +1,11 @@
 # Site settings
-title: my:reality
+title: bit:brain
 email: miguel-gonzalez@gmx.de
-description: Game developer from Germany, Hogwarts student and software engineer.
+description: Game developer and software engineer.
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://my-reality.de" # the base hostname & protocol for your site
+url: "https://bitbrain.github.io" # the base hostname & protocol for your site
 twitter_username: myrealityde
-github_username:  MyRealityCoding
+github_username:  bitbrain
 paginate: 6
 paginate_path: "/page:num/"
 
@@ -30,7 +30,7 @@ navigation:
   icon: soundcloud
 - text: Code
   title: My github account.
-  url: https://github.com/MyRealityCoding
+  url: https://github.com/bitbrain
   icon: github
 - text: Social
   title: My twitter account
@@ -44,64 +44,64 @@ games:
   tag: gamedev
   date: in progress
   url: https://myrealitycoding.itch.io/scope
-  icon: https://raw.githubusercontent.com/MyRealityCoding/scope/master/icon.png
+  icon: https://raw.githubusercontent.com/bitbrain/scope/master/icon.png
 - name: spectron
   genre: strategy
   tag: gamedev
   date: in progress
-  url: https://github.com/MyRealityCoding/spectron
-  icon: https://raw.githubusercontent.com/MyRealityCoding/spectron/master/icon.png
+  url: https://github.com/bitbrain/spectron
+  icon: https://raw.githubusercontent.com/bitbrain/spectron/master/icon.png
 - name: clouboy
   genre: action
   tag: 1gam
   date: September 2015
   url: https://myrealitycoding.itch.io/clouboy
-  icon: https://raw.githubusercontent.com/MyRealityCoding/clouboy/master/android/res/drawable-xxhdpi/ic_launcher.png
+  icon: https://raw.githubusercontent.com/bitbrain/clouboy/master/android/res/drawable-xxhdpi/ic_launcher.png
 - name: Craft
   genre: strategy
   tag: gamedev
   date: July 2015
-  url: https://github.com/MyRealityCoding/craft#getting-started
-  icon: https://raw.githubusercontent.com/bitbrain-gaming/craft/master/android/res/drawable-xxhdpi/ic_launcher.png
+  url: https://github.com/bitbrain/craft#getting-started
+  icon: https://raw.githubusercontent.com/bitbrain/craft/master/android/res/drawable-xxhdpi/ic_launcher.png
 - name: YoloWars
   genre: shooter
   tag: gamejam
   date: February 2015
-  url: http://bitbrain-gaming.github.io/lgj
-  icon: https://raw.githubusercontent.com/MyRealityCoding/myrealitycoding.github.io/master/img/avatar.png
+  url: http://bitbrain.github.io/lgj
+  icon: https://raw.githubusercontent.com/bitbrain/bitbrain.github.io/master/img/avatar.png
 - name: NeonWars
   genre: strategy
   tag: 1gam
   date: March 2014
   url:  neonwars
-  icon: https://raw.githubusercontent.com/MyRealityCoding/myrealitycoding.github.io/master/img/avatar.png
+  icon: https://raw.githubusercontent.com/bitbrain/bitbrain.github.io/master/img/avatar.png
 - name: Shiny Avenger
   genre: shooter
   tag: 1gam
   date: February 2014
-  url:  http://shinyavenger.my-reality.de
-  icon: https://raw.githubusercontent.com/MyRealityCoding/myrealitycoding.github.io/master/img/avatar.png
+  url:  https://raw.githubusercontent.com/bitbrain/bitbrain.github.io/master/img/avatar.png
+  icon: https://raw.githubusercontent.com/bitbrain/bitbrain.github.io/master/img/avatar.png
 - name: Maze
   genre: arcade
   tag: ggj
   date: January 2014
   url:  maze
-  icon: https://raw.githubusercontent.com/MyRealityCoding/maze/master/maze-android/res/drawable-hdpi/ic_launcher.png
+  icon: https://raw.githubusercontent.com/bitbrain/maze/master/maze-android/res/drawable-hdpi/ic_launcher.png
 - name: Plox
   genre: shooter
   tag: 1gam
   date: January 2014
   url: https://myrealitycoding.itch.io/plox
-  icon: https://raw.githubusercontent.com/MyRealityCoding/plox/master/plox-android/res/drawable-hdpi/ic_launcher.png
+  icon: https://raw.githubusercontent.com/bitbrain/plox/master/plox-android/res/drawable-hdpi/ic_launcher.png
 - name: AcidSnake
   genre: arcade
   tag: gamedev
   date: August 2013
   url: https://myrealitycoding.itch.io/acidsnake
-  icon: https://raw.githubusercontent.com/MyRealityCoding/acid-snake/master/acid-snake-android/res/drawable-hdpi/ic_launcher.png
+  icon: https://raw.githubusercontent.com/bitbrain/acid-snake/master/acid-snake-android/res/drawable-hdpi/ic_launcher.png
 - name: LittleWars
   genre: strategy
   tag: gamedev
   date: January 2012
   url: littlewars
-  icon: https://raw.githubusercontent.com/MyRealityCoding/littlewars/master/dev/lw_alpha_icon.jpg
+  icon: https://raw.githubusercontent.com/bitbrain/littlewars/master/dev/lw_alpha_icon.jpg
