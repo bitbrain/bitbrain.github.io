@@ -4,7 +4,7 @@ email: miguel-gonzalez@gmx.de
 description: Game developer and software engineer.
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "https://bitbrain.github.io" # the base hostname & protocol for your site
-twitter_username: myrealityde
+twitter_username: bitbrain
 github_username:  bitbrain
 paginate: 6
 paginate_path: "/page:num/"
@@ -34,7 +34,7 @@ navigation:
   icon: github
 - text: Social
   title: My twitter account
-  url: https://twitter.com/myrealityde
+  url: https://twitter.com/bitbrain_
   icon: twitter
 
 games:
