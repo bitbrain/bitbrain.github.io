@@ -8,7 +8,7 @@ permalink:        pretty
 # Setup
 title:            bitbrain
 tagline:          'gamedev. devops. software design.'
-description:      'Hello, my name is [Miguel](https://twitter.com/bitbrain_) and I talk to Computers. Sometimes even to myself.'
+description:      'Hello, my name is <a href="https://twitter.com/bitbrain_" target="_blank">Miguel</a> and I talk to Computers. Sometimes even to myself.'
 url:              https://bitbrain.github.io
 
 author:
