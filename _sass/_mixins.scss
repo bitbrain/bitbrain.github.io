@@ -1,7 +1,0 @@
-@mixin boxed {
-  border-radius: 5px;
-  background-color: darken($clr-background, 4%);
-  &:hover {
-    color: $clr-primary;
-  }
-}

@@ -1,2 +1,3 @@
-# blog
-My personal blog, proudly hosted on Github.
+# bitbrain.github.io
+
+My personal blog.

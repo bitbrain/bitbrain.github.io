@@ -1,107 +1,24 @@
-# Site settings
-title: bit:brain
-email: miguel-gonzalez@gmx.de
-description: Game developer and software engineer.
-baseurl: "" # the subpath of your site, e.g. /blog/
-url: "https://bitbrain.github.io" # the base hostname & protocol for your site
-twitter_username: bitbrain
-github_username:  bitbrain
-paginate: 6
-paginate_path: "/page:num/"
+# Dependencies
+markdown:         redcarpet
+pygments:         true
 
-# Build settings
-markdown: kramdown
+# Permalinks
+permalink:        pretty
 
-gems: [ jekyll-paginate ]
+# Setup
+title:            bitbrain
+tagline:          'gamedev. devops. software design.'
+description:      'Hello, my name is [Miguel](https://twitter.com/bitbrain_) and I talk to Computers. Sometimes even to myself.'
+url:              https://bitbrain.github.io
 
+author:
+  name:           'Miguel Gonzalez Sanchez'
+  url:            https://twitter.com/bitbrain_
 
-navigation:
-- text: Blog
-  title: News, Tutorials and more.
-  url: /
-  icon: terminal
-- text: Games
-  title: All about my games.
-  url: /games/
-  icon: gamepad
-- text: Music
-  title: Listen to my work.
-  url: /media/
-  icon: soundcloud
-- text: Code
-  title: My github account.
-  url: https://github.com/bitbrain
-  icon: github
-- text: Social
-  title: My twitter account
-  url: https://twitter.com/bitbrain_
-  icon: twitter
+paginate:         5
 
-games:
+# Custom vars
+version:          2.0.0
 
-- name: scope
-  genre: shooter
-  tag: gamedev
-  date: in progress
-  url: https://myrealitycoding.itch.io/scope
-  icon: https://raw.githubusercontent.com/bitbrain/scope/master/icon.png
-- name: spectron
-  genre: strategy
-  tag: gamedev
-  date: in progress
-  url: https://github.com/bitbrain/spectron
-  icon: https://raw.githubusercontent.com/bitbrain/spectron/master/icon.png
-- name: clouboy
-  genre: action
-  tag: 1gam
-  date: September 2015
-  url: https://myrealitycoding.itch.io/clouboy
-  icon: https://raw.githubusercontent.com/bitbrain/clouboy/master/android/res/drawable-xxhdpi/ic_launcher.png
-- name: Craft
-  genre: strategy
-  tag: gamedev
-  date: July 2015
-  url: https://github.com/bitbrain/craft#getting-started
-  icon: https://raw.githubusercontent.com/bitbrain/craft/master/android/res/drawable-xxhdpi/ic_launcher.png
-- name: YoloWars
-  genre: shooter
-  tag: gamejam
-  date: February 2015
-  url: http://bitbrain.github.io/lgj
-  icon: https://raw.githubusercontent.com/bitbrain/bitbrain.github.io/master/img/avatar.png
-- name: NeonWars
-  genre: strategy
-  tag: 1gam
-  date: March 2014
-  url:  neonwars
-  icon: https://raw.githubusercontent.com/bitbrain/bitbrain.github.io/master/img/avatar.png
-- name: Shiny Avenger
-  genre: shooter
-  tag: 1gam
-  date: February 2014
-  url:  https://raw.githubusercontent.com/bitbrain/bitbrain.github.io/master/img/avatar.png
-  icon: https://raw.githubusercontent.com/bitbrain/bitbrain.github.io/master/img/avatar.png
-- name: Maze
-  genre: arcade
-  tag: ggj
-  date: January 2014
-  url:  maze
-  icon: https://raw.githubusercontent.com/bitbrain/maze/master/maze-android/res/drawable-hdpi/ic_launcher.png
-- name: Plox
-  genre: shooter
-  tag: 1gam
-  date: January 2014
-  url: https://myrealitycoding.itch.io/plox
-  icon: https://raw.githubusercontent.com/bitbrain/plox/master/plox-android/res/drawable-hdpi/ic_launcher.png
-- name: AcidSnake
-  genre: arcade
-  tag: gamedev
-  date: August 2013
-  url: https://myrealitycoding.itch.io/acidsnake
-  icon: https://raw.githubusercontent.com/bitbrain/acid-snake/master/acid-snake-android/res/drawable-hdpi/ic_launcher.png
-- name: LittleWars
-  genre: strategy
-  tag: gamedev
-  date: January 2012
-  url: littlewars
-  icon: https://raw.githubusercontent.com/bitbrain/littlewars/master/dev/lw_alpha_icon.jpg
+github:
+  repo:           https://github.com/bitbrain/bitbrain.github.io

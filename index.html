@@ -2,64 +2,35 @@
 layout: default
 ---
 
-<div class="home">
-  <div class="info-box">
-    <div class="table">
-      <img class="table-cell animated pulse" src="{{ "/img/avatar.png" | prepend: site.baseurl }}" alt="avatar"/>
-      <div class="info table-cell">
-        Hi, my name is <a href="{{ "/about" | prepend: site.baseurl }}">Miguel</a> and I am a game developer and software engineer. I have a passion for <a href="{{ "/games" | prepend: site.baseurl }}">games</a> and <a href="{{ "/media" | prepend: site.baseurl }}">music</a>.
-      </div>
-    </div>
-  </div>
-  <div class="posts table">
-    <div class="table-row">
-    {% for post in paginator.posts %}
-      {% capture modulo %}{{ forloop.index | mod:2 }}{% endcapture %}
-      {% if modulo != '0' %}
-        {% unless forloop.first %}
-        </div>
-        <div class="table-row {{ modulo }}">
-        {% endunless %}
-      {% endif %}
-      {% if modulo == '0' %}
-        <div class="post-link second table-cell">
-      {% else %}
-        <div class="post-link table-cell">
-      {% endif %}
-      <a class="second animated fadeIn" href="{{ post.url | prepend: site.baseurl }}" data-sr>
-        <div class="post-meta"># {{ post.date | date: "%b %-d, %Y" }}</div>
-      {{ post.title }}
+<div class="posts">
+  {% for post in paginator.posts %}
+  <div class="post">
+    <h1 class="post-title">
+      <a href="{{ post.url }}">
+        {{ post.title }}
       </a>
-      </div>
-      {% if forloop.last %}
-      </div>
-      {% endif %}
-    {% endfor %}
+    </h1>
+
+    <span class="post-date">{{ post.date | date_to_string }}</span>
+
+    {{ post.content }}
   </div>
-</div>
-
-{% if paginator.total_pages > 1 %}
-<div class="pagination animated jello" data-sr>
-  {% if paginator.previous_page %}
-    <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}"><i class="fa fa-angle-left"></i></a>
-  {% else %}
-    <span><i class="fa fa-angle-left"></i></span>
-  {% endif %}
-
-  {% for page in (1..paginator.total_pages) %}
-    {% if page == paginator.page %}
-      <em>{{ page }}</em>
-    {% elsif page == 1 %}
-      <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">{{ page }}</a>
-    {% else %}
-      <a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a>
-    {% endif %}
   {% endfor %}
+</div>
 
+<div class="pagination">
   {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}"><i class="fa fa-angle-right"></i></a>
+    <a class="pagination-item older" href="/page{{paginator.next_page}}">Older</a>
   {% else %}
-    <span><i class="fa fa-angle-right"></i></span>
+    <span class="pagination-item older">Older</span>
+  {% endif %}
+  {% if paginator.previous_page %}
+    {% if paginator.page == 2 %}
+      <a class="pagination-item newer" href="/">Newer</a>
+    {% else %}
+      <a class="pagination-item newer" href="/page{{paginator.previous_page}}">Newer</a>
+    {% endif %}
+  {% else %}
+    <span class="pagination-item newer">Newer</span>
   {% endif %}
 </div>
-{% endif %}
