@@ -15,11 +15,11 @@ Today I would like to share with you my current terminal setup. It basically con
 
 ## The Terminal
 
-The default terminal app on MacOS is definitely lacking of functionality. As [xanderdunn](https://medium.com/@xanderdunn) has [written on Medium](https://medium.com/@xanderdunn/iterm2-vs-terminal-c06976f106ef):
+The default terminal app on MacOS is definitely lacking of functionality. As [xanderdunn](https://medium.com/@xanderdunn) has [written on Medium](https://medium.com/@xanderdunn/iterm2-vs-terminal-c06976f106ef), iTerm2 has huge advantages compared to the default terminal:
 
 > It’s a lot more customizable. For example, I can tell it to shut up and never show me warning dialogues when I’m closing a tab or quitting the app when there’s a running process. Customizability ends up being pretty important for serious developers who are always in the terminal.
 
-Apart from customisation, iTerm2 allows me to split tabs vertically or horizontally on a native basis (different from [tmux](https://gist.github.com/simme/1297707) where it is virtually implemented). With tmux we could achieve similar behavior, however it would way more configuration. As a Mac user I always strive for fast and easy setup. When I change my machine I do not want to spend weeks on customising my Terminal. iTerm2 has lots of inbuilt features which could only be added to the default terminal by using plugins.
+Apart from customisation, iTerm2 allows me to split tabs vertically or horizontally on a native basis (different from [tmux](https://gist.github.com/simme/1297707) where it is virtually implemented). With tmux we could achieve similar behavior, however it would take much longer to set it up and even then it would still not be natively implemented. As a Mac user I always strived for fast and easy setup. When I change my machine I do not want to spend weeks on customising my Terminal. iTerm2 has lots of inbuilt features which could only be added to the default terminal by using plugins.
 
 ## The Shell
 
