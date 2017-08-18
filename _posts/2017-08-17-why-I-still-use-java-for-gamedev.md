@@ -43,7 +43,7 @@ public class HelloWorld {
     if (args.length > 0 && args[0].equals("hey")) {
       System.out.println("Hello World!");
     } else {
-      System.out.println("You didn't greet me! WOW!")
+      System.out.println("You didn't greet me! WOW!");
     }
   }
 }
