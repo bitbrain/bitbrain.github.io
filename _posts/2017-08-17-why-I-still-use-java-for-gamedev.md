@@ -72,7 +72,7 @@ You can do that with many different concepts and in the end you have a small lib
 
 ## Giving birth to your game
 
-What about moving pixels on the screen? Java already has libraries like [Swing](https://en.wikipedia.org/wiki/Swing_(Java)) or [JavaFX](https://en.wikipedia.org/wiki/JavaFX) and I could have easily used that to write games. It seems crazy to go down the Java path for game development but I am not completely stupid. All gamers have powerful graphics cards and it would be absolutely mental not to use them. These GUI libraries rely ob Software Rendering by default, which means the CPU does all the work. So we need a better solution if we want to make a highly performing 3D shooter or the next WoW.
+What about moving pixels on the screen? Java already has libraries like [Swing](https://en.wikipedia.org/wiki/Swing_(Java)) or [JavaFX](https://en.wikipedia.org/wiki/JavaFX) and I could have easily used that to write games. It seems crazy to go down the Java path for game development but I am not completely stupid. All gamers have powerful graphics cards and it would be absolutely mental not to use them. These GUI libraries rely on Software Rendering by default, which means the CPU does all the work. So we need a better solution if we want to make a highly performing 3D shooter or the next WoW.
 
 > Miguel, why not using an Engine then?
 
