@@ -12,7 +12,9 @@ layout: default
     </h1>
 
     <span class="post-date">{{ post.date | date_to_string }}</span>
-
+    {% if post.description != null %}
+    <div class="post-description">{{ post.description }}</div>
+    {% endif %}
     {{ post.content }}
   </div>
   {% endfor %}

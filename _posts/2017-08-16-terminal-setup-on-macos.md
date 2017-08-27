@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Terminal Setup on MacOS
+description: You always wanted to know how I setup my Terminal? That's what this post is about.
 ---
 
 ![terminal-example](/public/media/macos-terminal-example.png)
