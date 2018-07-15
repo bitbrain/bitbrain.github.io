@@ -197,6 +197,7 @@ Uploading Javadoc to Github pages is a little bit more tricky. I want to have th
 
 * each version is persisted in Github pages, e.g. `/docs/1.0.0`
 * the latest docs should be available via `/docs/latest`
+
 ```bash
 # Create temporary directory
 mkdir cd $HOME/docs
@@ -225,6 +226,7 @@ git add -f *
 git commit -m "Travis build $TRAVIS_BUILD_NUMBER - update Javadoc"
 git push -fq origin gh-pages && echo "Successfully deployed Javadoc to /docs"
 ```
+
 [Click here](http://bitbrain.github.io/braingdx/docs/latest/) to see an example of the generated page created.
 
 # Conclusion
