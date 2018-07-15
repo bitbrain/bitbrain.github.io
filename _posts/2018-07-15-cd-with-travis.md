@@ -134,7 +134,7 @@ gpg: invalid radix64 character 82 skipped
 gpg: invalid radix64 character DF skipped
 ...
 ```
-What is going on?! I followed the tutorial step by step and for me it did not want to work. After hours of desperation and crying on the floor I found [something on Github](https://github.com/travis-ci/travis-ci/issues/6936). Apparently, on my Windows 10 machine the ` travis encrypt-file` operation is broken and produces a corrupted encryption. WOW! Thanks for that. How did I fix it? A little bit of Docker 🐳 for the win. Let's create a `Dockerfile`:
+What is going on?! I followed the tutorial step by step and for me it did not want to work. After hours of desperation and crying on the floor I found [something on Github](https://github.com/travis-ci/travis-ci/issues/6936). Apparently, on my Windows 10 machine the `travis encrypt-file` operation is broken and produces a corrupted encryption. WOW! Thanks for that. How did I fix it? A little bit of Docker 🐳 for the win. Let's create a `Dockerfile`:
 ```dockerfile
 FROM ubuntu
 RUN apt-get update && apt-get install ruby ruby-dev gcc g++ make && gem install travis
