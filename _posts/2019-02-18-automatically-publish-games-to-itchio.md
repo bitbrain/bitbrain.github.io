@@ -89,10 +89,6 @@ platform="windows-linux-mac"
 
 prepare_butler
 
-# normally, you'd have a file such as mygame.exe or .zip somewhere
-# we create one just as an example
-
-
 prepare_and_push $project $artifact $platform
 
 echo "Done."
@@ -112,7 +108,7 @@ rvm:
 - 2.2
 
 script:
-   echo "this is my game" > mygame.exe
+   echo "this is my game" > mygame.jar
 
 after_script:
   chmod +x deploy.sh && ./deploy.sh
