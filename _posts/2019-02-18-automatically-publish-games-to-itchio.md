@@ -102,16 +102,24 @@ Afterwards we define a bunch of helper functions. Then we download the latest ve
 This file is required by TravisCI to understand how to build your game. For example, you can setup a Java environment (for Java games) or Objective-C environment (for Unity games). TravisCI ensures that this environment is set up and it will build your game:
 
 ```yml
-language: objective-c
-osx_image: xcode8.1
-rvm:
-- 2.2
+language: android
+jdk:
+  - openjdk8
 
-script:
-   echo "this is my game" > mygame.jar
+android:
+  components:
+    # The BuildTools version used by your project
+    - build-tools-26.0.2
+
+    # The SDK version used to compile your project
+    - android-26
+
+script: 
+  echo "this is my game" > mygame.jar
 
 after_script:
   chmod +x deploy.sh && ./deploy.sh
+
 ```
 Feel free to create a different .yml for Java, C++ or even Android! Read more about that [in the official docs](https://docs.travis-ci.com/user/reference/overview/).
 
