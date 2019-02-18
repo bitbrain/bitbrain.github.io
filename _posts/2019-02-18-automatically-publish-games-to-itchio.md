@@ -30,17 +30,17 @@ For this tutorial, we use the following technologies:
 
 If not already done, create a Github repository to host our source code:
 
-![create-new-github-repo](/media/create-new-github-repo.png)
+![create-new-github-repo](/public/media/create-new-github-repo.png)
 
 # Setup itch.io
 
 Before we can start uploading our first game, we need to create an itch.io game project:
 
-![create-new-game-project](/media/create-new-game-project.png)
+![create-new-game-project](/public/media/create-new-game-project.png)
 
 After your project is created, head over to your account settings to generate a new API key. This key is required so other services such as TravisCI are able to communicate with itch.io.
 
-![create-new-api-key](/media/create-new-api-key.png)
+![create-new-api-key](/public/media/create-new-api-key.png)
 
 # Prepare TravisCI deployment
 
@@ -123,8 +123,8 @@ Feel free to create a different .yml for Java, C++ or even Android! Read more ab
 
 Now we have to configure our TravisCI project. Head over to https://travis-ci.org, authenticate with your Github account and you should be able to import your Github project from there. Once imported, head over to the settings to configure environment variables:
 
-![travis-ci-head-to-settings](/media/travis-ci-head-to-settings.png)
-![travis-ci-add-butler-api-key](/media/travis-ci-add-butler-api-key.png)
+![travis-ci-head-to-settings](/public/media/travis-ci-head-to-settings.png)
+![travis-ci-add-butler-api-key](/public/media/travis-ci-add-butler-api-key.png)
 
 # Run the build
 
@@ -145,4 +145,4 @@ Done.
 ```
 Your latest game version is now available on itch.io:
 
-![itch-io-my-game-upload](/media/itch-io-my-game-upload.png)
+![itch-io-my-game-upload](/public/media/itch-io-my-game-upload.png)
