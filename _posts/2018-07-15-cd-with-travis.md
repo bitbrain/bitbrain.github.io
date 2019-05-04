@@ -2,6 +2,7 @@
 layout: post
 title: Continuous Delivery with Travis and Github
 description: I have released a new library on Maven central. Let me explain how I did that.
+tags: deployment travisci git
 ---
 Some years ago I started working on a project called [braingdx](https://github.com/bitbrain/braingdx). It is a gamejam framework based on [libgdx](https://libgdx.badlogicgames.com/), fully written in **Java**. At some point I decided to make the artifact available for a broader audience. As a result I required a deployment flow to automatically upload the **.jar** files to an artifactory of my choice.
 

@@ -2,6 +2,7 @@
 layout: post
 title: How to automatically publish your game to itch.io
 description: This tutorial explains how you can very easily deploy your game to itch.io
+tags: itchio deployment travisci gamedev
 ---
 # Motivation
 
@@ -114,7 +115,7 @@ android:
     # The SDK version used to compile your project
     - android-26
 
-script: 
+script:
   echo "this is my game" > mygame.jar
 
 after_script:

@@ -2,6 +2,7 @@
 layout: post
 title: Why I still use Java for gamedev
 description: Yes, I use Java for gamedev, but why? Read it here.
+tags: gamedev
 ---
 
 There is an technology, running on billions of devices every single day: Java.

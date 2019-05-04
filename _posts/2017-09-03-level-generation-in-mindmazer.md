@@ -2,7 +2,7 @@
 layout: post
 title: Level Generation in Mindmazer
 description: This article shows how I generated levels for my libgdx game and how I applied seeding to generate them.
-published: true
+tags: gamedev mindmazer devlog
 ---
 Today I want to talk about my project [mindmazer](https://github.com/bitbrain/mindmazer). In this simple 2D puzzle game the player has to remember a certain path to progress to the next stage. When starting this project I had to decide if I give the player a static list of predefined levels. After some time I decided against it and went for a procedural generation approach. In this article I am going to explain how these levels are generated.
 
