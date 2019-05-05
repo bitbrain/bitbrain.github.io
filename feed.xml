@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-05-05T18:33:22+00:00</updated><id>/feed.xml</id><title type="html">bitbrain</title><subtitle>Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamedev and web.
+</subtitle><author><name>bitbrain</name></author><entry><title type="html">How to automatically publish your game to itch.io</title><link href="/2019/02/18/automatically-publish-games-to-itchio.html" rel="alternate" type="text/html" title="How to automatically publish your game to itch.io" /><published>2019-02-18T00:00:00+00:00</published><updated>2019-02-18T00:00:00+00:00</updated><id>/2019/02/18/automatically-publish-games-to-itchio</id><content type="html" xml:base="/2019/02/18/automatically-publish-games-to-itchio.html">&lt;h1 id=&quot;motivation&quot;&gt;Motivation&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;why should I even upload my games automatically?&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This is a good question. Simple answer is, that during a gamejam you can fully concentrate on building your game. Especially, when the deadline is coming closer, you simply have to commit and push your changes, in order to trigger an automatic deployment of your game to itch.io:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;make a code or asset change change locally&lt;/li&gt;
+  &lt;li&gt;commit your change via Git and push it to Github&lt;/li&gt;
+  &lt;li&gt;TravisCI automatically picks up your change and builds your game&lt;/li&gt;
+  &lt;li&gt;TravisCI automatically pushes the new build to itch.io&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This tutorial shows you how to do that!&lt;/p&gt;
+
+&lt;h1 id=&quot;prequisites&quot;&gt;Prequisites&lt;/h1&gt;
+
+&lt;p&gt;For this tutorial, we use the following technologies:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/&quot;&gt;Github&lt;/a&gt; to version control our game code&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://travis-ci.org&quot;&gt;TravisCI&lt;/a&gt; as a build agent to build our game&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://itch.io&quot;&gt;itch.io&lt;/a&gt; to host our game&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://itch.io/docs/butler/pushing.html&quot;&gt;Butler&lt;/a&gt; to upload our game builds to itch.io&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;setup-github-repository&quot;&gt;Setup Github repository&lt;/h1&gt;
+
+&lt;p&gt;If not already done, create a Github repository to host our source code:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/media/create-new-github-repo.png&quot; alt=&quot;create-new-github-repo&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;setup-itchio&quot;&gt;Setup itch.io&lt;/h1&gt;
+
+&lt;p&gt;Before we can start uploading our first game, we need to create an itch.io game project:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/media/create-new-game-project.png&quot; alt=&quot;create-new-game-project&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;After your project is created, head over to your account settings to generate a new API key. This key is required so other services such as TravisCI are able to communicate with itch.io.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/media/create-new-api-key.png&quot; alt=&quot;create-new-api-key&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;prepare-travisci-deployment&quot;&gt;Prepare TravisCI deployment&lt;/h1&gt;
+
+&lt;p&gt;Once the repository exists and itch.io is prepared, we need to prepare TravisCI. This consists of the following steps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;create deployment script&lt;/li&gt;
+  &lt;li&gt;commit and push travis.yml&lt;/li&gt;
+  &lt;li&gt;prepare TravisCI project&lt;/li&gt;
+  &lt;li&gt;setup &lt;code class=&quot;highlighter-rouge&quot;&gt;BUTLER_API_KEY&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;create-deployment-script&quot;&gt;Create deployment script&lt;/h1&gt;
+
+&lt;p&gt;This script will take your artifacts and push it to itch.io. Create a new file, called &lt;code class=&quot;highlighter-rouge&quot;&gt;deploy.sh&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; pipefail
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[[&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-z&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;BUTLER_API_KEY&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then
+  &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Unable to deploy! No BUTLER_API_KEY environment variable specified!&quot;&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;exit &lt;/span&gt;1
+&lt;span class=&quot;k&quot;&gt;fi
+
+&lt;/span&gt;prepare_butler&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Preparing butler...&quot;&lt;/span&gt;
+    download_if_not_exist http://dl.itch.ovh/butler/linux-amd64/head/butler butler
+    &lt;span class=&quot;nb&quot;&gt;chmod&lt;/span&gt; +x butler
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+prepare_and_push&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Push &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$3&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; build to itch.io...&quot;&lt;/span&gt;
+    ./butler push &lt;span class=&quot;nv&quot;&gt;$2&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;:&lt;span class=&quot;nv&quot;&gt;$3&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+download_if_not_exist&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then
+        &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-L&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$2&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+
+&lt;span class=&quot;nv&quot;&gt;project&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;bitbrain/mygame&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;artifact&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;mygame.jar&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;platform&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;windows-linux-mac&quot;&lt;/span&gt;
+
+prepare_butler
+
+prepare_and_push &lt;span class=&quot;nv&quot;&gt;$project&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$artifact&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$platform&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Done.&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;exit &lt;/span&gt;0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This script first checks, if the environment variable &lt;code class=&quot;highlighter-rouge&quot;&gt;BUTLER_API_KEY&lt;/code&gt; is defined. This variable can be setup within Travis and is required for itch.io to authenticate your game upload.
+Afterwards we define a bunch of helper functions. Then we download the latest version of &lt;strong&gt;butler&lt;/strong&gt; and upload the game with it. Please ensure to configure the correct &lt;code class=&quot;highlighter-rouge&quot;&gt;project&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;setup-travisyml&quot;&gt;Setup .travis.yml&lt;/h1&gt;
+
+&lt;p&gt;This file is required by TravisCI to understand how to build your game. For example, you can setup a Java environment (for Java games) or Objective-C environment (for Unity games). TravisCI ensures that this environment is set up and it will build your game:&lt;/p&gt;
+
+&lt;div class=&quot;language-yml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;language&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;android&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;jdk&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;openjdk8&lt;/span&gt;
+
+&lt;span class=&quot;na&quot;&gt;android&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;components&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# The BuildTools version used by your project&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;build-tools-26.0.2&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;# The SDK version used to compile your project&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;android-26&lt;/span&gt;
+
+&lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;echo &quot;this is my game&quot; &amp;gt; mygame.jar&lt;/span&gt;
+
+&lt;span class=&quot;na&quot;&gt;after_script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;chmod +x deploy.sh &amp;amp;&amp;amp; ./deploy.sh&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Feel free to create a different .yml for Java, C++ or even Android! Read more about that &lt;a href=&quot;https://docs.travis-ci.com/user/reference/overview/&quot;&gt;in the official docs&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;prepare-travisci-project&quot;&gt;Prepare TravisCI project&lt;/h1&gt;
+
+&lt;p&gt;Now we have to configure our TravisCI project. Head over to https://travis-ci.org, authenticate with your Github account and you should be able to import your Github project from there. Once imported, head over to the settings to configure environment variables:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/media/travis-ci-head-to-settings.png&quot; alt=&quot;travis-ci-head-to-settings&quot; /&gt;
+&lt;img src=&quot;/public/media/travis-ci-add-butler-api-key.png&quot; alt=&quot;travis-ci-add-butler-api-key&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;run-the-build&quot;&gt;Run the build&lt;/h1&gt;
+
+&lt;p&gt;Congratulations! You successfully set up the pipeline. Let’s run the build to see how your game automatically publishes:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Preparing butler...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 19.6M  100 19.6M    0     0  31.6M      0 --:--:-- --:--:-- --:--:-- 31.6M
+Push windows-linux-mac build to itch.io...
+• For channel `windows-linux-mac`: pushing first build
+• Pushing 16 B (1 files, 0 dirs, 0 symlinks)
+✓ Added 16 B fresh data
+✓ 86 B patch (no savings)
+• Build is now processing, should be up in a bit.
+Use the `butler status bitbrain/mygame:windows-linux-mac` for more information.
+Done.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Your latest game version is now available on itch.io:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/media/itch-io-my-game-upload.png&quot; alt=&quot;itch-io-my-game-upload&quot; /&gt;&lt;/p&gt;</content><author><name>bitbrain</name></author><category term="itchio" /><category term="deployment" /><category term="travisci" /><category term="gamedev" /><summary type="html">Motivation</summary></entry><entry><title type="html">Continuous Delivery with Travis and Github</title><link href="/2018/07/15/cd-with-travis.html" rel="alternate" type="text/html" title="Continuous Delivery with Travis and Github" /><published>2018-07-15T00:00:00+00:00</published><updated>2018-07-15T00:00:00+00:00</updated><id>/2018/07/15/cd-with-travis</id><content type="html" xml:base="/2018/07/15/cd-with-travis.html">&lt;p&gt;Some years ago I started working on a project called &lt;a href=&quot;https://github.com/bitbrain/braingdx&quot;&gt;braingdx&lt;/a&gt;. It is a gamejam framework based on &lt;a href=&quot;https://libgdx.badlogicgames.com/&quot;&gt;libgdx&lt;/a&gt;, fully written in &lt;strong&gt;Java&lt;/strong&gt;. At some point I decided to make the artifact available for a broader audience. As a result I required a deployment flow to automatically upload the &lt;strong&gt;.jar&lt;/strong&gt; files to an artifactory of my choice.&lt;/p&gt;
+
+&lt;h1 id=&quot;the-silly-approach&quot;&gt;The silly approach&lt;/h1&gt;
+
+&lt;p&gt;I just wanted to publish artifacts, but not on each commit. Instead, I decided to go for a multi-&lt;a href=&quot;https://git-scm.com/docs/git-branch&quot;&gt;branch&lt;/a&gt; configuration like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/media/silly-git-flow.svg&quot; alt=&quot;silly-git-flow&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;We have a &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; branch where we commit on. When we decide to release an artifact, we manually (locally) merge into &lt;code class=&quot;highlighter-rouge&quot;&gt;deploy&lt;/code&gt;, push the changes and &lt;a href=&quot;https://travis-ci.org/&quot;&gt;Travis CI&lt;/a&gt; will pickup the build, thanks to the &lt;code class=&quot;highlighter-rouge&quot;&gt;.travis.yml&lt;/code&gt; file configured:&lt;/p&gt;
+&lt;div class=&quot;language-yml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;language&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;java&lt;/span&gt;
+
+&lt;span class=&quot;na&quot;&gt;services&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;docker&lt;/span&gt;
+
+&lt;span class=&quot;na&quot;&gt;jdk&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;openjdk7&lt;/span&gt;
+
+&lt;span class=&quot;na&quot;&gt;cache&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;directories&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;$HOME/.m2&lt;/span&gt;
+
+&lt;span class=&quot;na&quot;&gt;branches&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;only&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;deploy&lt;/span&gt;
+
+&lt;span class=&quot;na&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;global&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;COMMIT=${TRAVIS_COMMIT::8}&lt;/span&gt;
+
+&lt;span class=&quot;na&quot;&gt;before_install&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;export CH_VERSION=$(docker run -v $(pwd):/chime bitbrain/chime:latest CHANGELOG.md version)&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;export CH_TEXT=$(docker run -v $(pwd):/chime bitbrain/chime:latest CHANGELOG.md text)&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;mvn versions:set -DnewVersion=$CH_VERSION&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;chmod +x deployment/deploy.sh&lt;/span&gt;
+
+&lt;span class=&quot;na&quot;&gt;install&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;./deployment/deploy.sh&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;The configuration file has a &lt;code class=&quot;highlighter-rouge&quot;&gt;before_install&lt;/code&gt; section. In there we use a tool written by me called &lt;a href=&quot;https://github.com/bitbrain/chime&quot;&gt;chime&lt;/a&gt;. We run this tool as a Docker container to extract version and changelog information from a &lt;code class=&quot;highlighter-rouge&quot;&gt;CHANGELOG.md&lt;/code&gt; provided. For example, we have a file like this:&lt;/p&gt;
+&lt;div class=&quot;language-markdown highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gh&quot;&gt;# Version 1.1&lt;/span&gt;
+
+This is version 1.1 description.
+&lt;span class=&quot;p&quot;&gt;
+*&lt;/span&gt; some patchnotes
+&lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; more patchnotes
+
+&lt;span class=&quot;gh&quot;&gt;# Version 1.0&lt;/span&gt;
+
+This is version 1.0 description.
+&lt;span class=&quot;p&quot;&gt;
+*&lt;/span&gt; some patchnotes
+&lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; more patchnotes
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;The resulting environment variables would look like this (after &lt;code class=&quot;highlighter-rouge&quot;&gt;before_install&lt;/code&gt; execution):&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$CH_VERSION&lt;/span&gt;
+Version 1.1
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$CH_TEXT&lt;/span&gt;
+This is version 1.0 description.&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; some patchnotes&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; more patchnotes
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Using this approach we can define versions within a &lt;code class=&quot;highlighter-rouge&quot;&gt;CHANGELOG.md&lt;/code&gt; file and it should automatically pick up the latest version from the file. We update the version of the library temporarily via &lt;code class=&quot;highlighter-rouge&quot;&gt;mvn versions:set&lt;/code&gt; with the latest version extracted from the changelog file.&lt;/p&gt;
+
+&lt;p&gt;Afterwards we run a &lt;code class=&quot;highlighter-rouge&quot;&gt;deploy.sh&lt;/code&gt; script during the &lt;code class=&quot;highlighter-rouge&quot;&gt;install&lt;/code&gt; stage:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mvn deploy &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;-DskipTests&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--settings&lt;/span&gt; deployment/settings.xml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;I configured a custom Nexus inside my &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.xml&lt;/code&gt; to push my artifacts to. Users of my library then would need to add the repository via repository statement in their configuration.&lt;/p&gt;
+
+&lt;h1 id=&quot;silly-approach-lots-of-problems&quot;&gt;Silly approach, lots of problems&lt;/h1&gt;
+
+&lt;p&gt;The approach worked fine, however it was not as refined as I hoped it to be:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;my custom Nexus caused SSL Certificate issues on some Windows and Mac machines when trying to download dependencies&lt;/li&gt;
+  &lt;li&gt;it is truly cumbersome to manually switch between &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;deploy&lt;/code&gt; locally and merge all the time&lt;/li&gt;
+  &lt;li&gt;the current multi-branch approach causes lots of merge commits (if we are not able to fast-forward)&lt;/li&gt;
+  &lt;li&gt;sometimes you would forget to switch from &lt;code class=&quot;highlighter-rouge&quot;&gt;deploy&lt;/code&gt; back to &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; locally and suddenly commiting on a wrong branch&lt;/li&gt;
+  &lt;li&gt;not easy to have a mapping from version to commit history (missing &lt;a href=&quot;https://git-scm.com/book/en/v2/Git-Basics-Tagging&quot;&gt;tagging&lt;/a&gt; functionality)&lt;/li&gt;
+  &lt;li&gt;Travis only builds the &lt;code class=&quot;highlighter-rouge&quot;&gt;deploy&lt;/code&gt; branch, not the master branch. We never truly compile each commit on &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; nor run any tests&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;After putting some thought into it I came up with a much better, more light-weighted approach.&lt;/p&gt;
+
+&lt;h1 id=&quot;one-branch-to-rule-them-all&quot;&gt;One branch to rule them all&lt;/h1&gt;
+
+&lt;p&gt;I eventually decided to get rid of the &lt;code class=&quot;highlighter-rouge&quot;&gt;deploy&lt;/code&gt; branch after all. All commits should go to &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; and should be tested and/or deployed on Travis. I would keep the &lt;code class=&quot;highlighter-rouge&quot;&gt;CHANGELOG.md&lt;/code&gt; version extraction and do additional checks to avoid deploying already deployed versions twice:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/media/simple-branch-flow.svg&quot; alt=&quot;simple-branch-flow&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The new flow is executed whenever a new commit is pushed onto &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt;:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;checkout from SCM&lt;/li&gt;
+  &lt;li&gt;extract version and changelog from &lt;code class=&quot;highlighter-rouge&quot;&gt;CHANGELOG.md&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Sign artifacts - this is required in order to push artifacts to &lt;a href=&quot;https://search.maven.org/&quot;&gt;Maven Central&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Install/Deployment
+    &lt;ul&gt;
+      &lt;li&gt;verify if the latest git tag is different than version extracted. Run deployment when extracted version from &lt;code class=&quot;highlighter-rouge&quot;&gt;CHANGELOG.md&lt;/code&gt; is newer&lt;/li&gt;
+      &lt;li&gt;when there is no difference in version, the version had been deployed already. Instead, run unit tests and generate code coverage reports&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Upload additional artifacts
+    &lt;ul&gt;
+      &lt;li&gt;happens on &lt;strong&gt;after_install&lt;/strong&gt; stage&lt;/li&gt;
+      &lt;li&gt;when the new version is different than the latest tag create a new &lt;a href=&quot;https://help.github.com/articles/creating-releases/&quot;&gt;Github Release&lt;/a&gt; which will automatically create a new tag with the current version&lt;/li&gt;
+      &lt;li&gt;upload &lt;a href=&quot;http://bitbrain.github.io/braingdx/docs/latest/&quot;&gt;latest Javadoc&lt;/a&gt; to Github&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;In the rest of this article I will explain how some of these steps work in detail.&lt;/p&gt;
+
+&lt;h1 id=&quot;sign-your-artifacts&quot;&gt;Sign your Artifacts&lt;/h1&gt;
+
+&lt;p&gt;In order to upload your artifacts to Central you require to sign your artifacts with a GPG signature. I recommend &lt;a href=&quot;http://www.debonair.io/post/maven-cd/&quot;&gt;reading this tutorial&lt;/a&gt; to learn how to do that.&lt;/p&gt;
+
+&lt;p&gt;In the tutorial the author explains that we want to encrypt our &lt;code class=&quot;highlighter-rouge&quot;&gt;codesigning.asc&lt;/code&gt; file to prevent strangers from stealing it. We do that by installing and using the &lt;strong&gt;travis&lt;/strong&gt; CLI:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;travis
+travis login
+travis encrypt-file codesigning.asc
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;When running this I discovered that Travis would fail the build:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bad decrypt
+gpg: invalid radix64 character AE skipped
+gpg: invalid radix64 character 13 skipped
+gpg: invalid radix64 character F5 skipped
+gpg: invalid radix64 character BE skipped
+gpg: invalid radix64 character C5 skipped
+gpg: invalid radix64 character AF skipped
+gpg: invalid radix64 character C8 skipped
+gpg: invalid radix64 character 14 skipped
+gpg: invalid radix64 character 82 skipped
+gpg: invalid radix64 character DF skipped
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;What is going on?! I followed the tutorial step by step and for me it did not want to work. After hours of desperation and crying on the floor I found &lt;a href=&quot;https://github.com/travis-ci/travis-ci/issues/6936&quot;&gt;something on Github&lt;/a&gt;. Apparently, on my Windows 10 machine the &lt;code class=&quot;highlighter-rouge&quot;&gt;travis encrypt-file&lt;/code&gt; operation is broken and produces a corrupted encryption. WOW! Thanks for that. How did I fix it? A little bit of Docker 🐳 for the win. Let’s create a &lt;code class=&quot;highlighter-rouge&quot;&gt;Dockerfile&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;language-dockerfile highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; ubuntu&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;RUN &lt;/span&gt;apt-get update &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;ruby ruby-dev gcc g++ make &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; gem &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;travis
+&lt;span class=&quot;k&quot;&gt;VOLUME&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; /test&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;COPY&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; codesigning.asc /test/codesigning.asc&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; GITHUB_TOKEN=&quot;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;CMD&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; [&quot;bash&quot;, &quot;travis login --github-token $GITHUB_TOKEN &amp;amp;&amp;amp; travis-encrypt codesigning.asc &amp;amp;&amp;amp; echo codesigning.asc.enc&quot;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;And then:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Build our image&lt;/span&gt;
+docker build &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; encrypt-asc &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Encrypt the file and produce it&lt;/span&gt;
+docker run &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;GITHUB_TOKEN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;xxx encrypt-asc &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; codesigning.asc.enc
+&lt;span class=&quot;c&quot;&gt;# Clean up the dirty mess!&lt;/span&gt;
+docker &lt;span class=&quot;nb&quot;&gt;rm &lt;/span&gt;encrypt-asc &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;After committing the &lt;strong&gt;codesigning.asc.enc&lt;/strong&gt; file Travis was able to decrypt the GPG private key which is required to sign the artifacts.&lt;/p&gt;
+
+&lt;h1 id=&quot;check-if-version-is-changed&quot;&gt;Check if version is changed&lt;/h1&gt;
+
+&lt;p&gt;In order to check if the version has changed I did the following during the &lt;code class=&quot;highlighter-rouge&quot;&gt;before_install&lt;/code&gt; stage:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;LATEST_TAG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;git describe &lt;span class=&quot;nt&quot;&gt;--abbrev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0 &lt;span class=&quot;nt&quot;&gt;--tags&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;After that we can deploy or just run the tests, depending of the version:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$LATEST_TAG&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CH_VERSION&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then
+&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Latest deployed version=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$LATEST_TAG&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; not equal new version=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CH_VERSION&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;. Deploying...&quot;&lt;/span&gt;
+mvn deploy &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;-Psign&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--settings&lt;/span&gt; deployment/settings.xml
+&lt;span class=&quot;k&quot;&gt;else
+&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Skipping release! &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$LATEST_TAG&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; already released to Nexus! Running tests...&quot;&lt;/span&gt;
+mvn clean &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-T4&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h1 id=&quot;pushing-new-release-to-github&quot;&gt;Pushing new release to Github&lt;/h1&gt;
+
+&lt;p&gt;In order to push the new release automatically to Github, we do the following on the &lt;code class=&quot;highlighter-rouge&quot;&gt;after_install&lt;/code&gt; stage:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;
+git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; user.email &lt;span class=&quot;s2&quot;&gt;&quot;sirlancelbot@gmail.com&quot;&lt;/span&gt;
+git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; user.name &lt;span class=&quot;s2&quot;&gt;&quot;Sir Lancelbot&quot;&lt;/span&gt;
+git clone &lt;span class=&quot;nt&quot;&gt;--quiet&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--branch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;master https://&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;GITHUB_TOKEN&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;@github.com/bitbrain/braingdx
+
+&lt;span class=&quot;c&quot;&gt;# Replacing line endings in body&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sed&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-E&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;':a;N;$!ba;s/\r{0,1}\n/\\n/g'&lt;/span&gt; &amp;lt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CH_TEXT&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'{&quot;tag_name&quot;:&quot;'&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CH_VERSION&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'&quot;,&quot;target_commitish&quot;:&quot;'&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$TRAVIS_BRANCH&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'&quot;,&quot;name&quot;:&quot;Version '&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CH_VERSION&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'&quot;,&quot;body&quot;:&quot;'&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$body&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'&quot;,&quot;draft&quot;:false,&quot;prerelease&quot;:false}'&lt;/span&gt;
+
+curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; POST &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; bitbrain:&lt;span class=&quot;nv&quot;&gt;$GITHUB_TOKEN&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$json&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; https://api.github.com/repos/bitbrain/braingdx/releases
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This will ensure that a latest release has been pushed (including latest changelog content from &lt;code class=&quot;highlighter-rouge&quot;&gt;CHANGELOG.md&lt;/code&gt; and Github will automatically create a tag for us. Next time we run the pipeline, it won’t deploy again since the tag has been updated.&lt;/p&gt;
+
+&lt;h1 id=&quot;uploading-javadoc-to-github-pages&quot;&gt;Uploading Javadoc to Github pages&lt;/h1&gt;
+
+&lt;p&gt;Uploading Javadoc to Github pages is a little bit more tricky. I want to have the following requirements fullfilled:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;each version is persisted in Github pages, e.g. &lt;code class=&quot;highlighter-rouge&quot;&gt;/docs/1.0.0&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;the latest docs should be available via &lt;code class=&quot;highlighter-rouge&quot;&gt;/docs/latest&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Create temporary directory&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;mkdir cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/docs
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/braingdx
+mvn versions:set &lt;span class=&quot;nt&quot;&gt;-DskipTests&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-DnewVersion&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CH_VERSION&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-T4&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; mvn javadoc:javadoc &lt;span class=&quot;nt&quot;&gt;-DskipTests&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-T4&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/docs
+&lt;span class=&quot;c&quot;&gt;# Copy generated Javadocs into a temporary directory&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;cp&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/braingdx/core/target/site/apidocs/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/docs
+
+&lt;span class=&quot;c&quot;&gt;# Cleanup&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-rf&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/braingdx/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/braingdx
+
+&lt;span class=&quot;c&quot;&gt;# Checkout Jekyll branch and create new folder with new version&lt;/span&gt;
+git checkout gh-pages
+&lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/braingdx/docs/&lt;span class=&quot;nv&quot;&gt;$CH_VERSION&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;cp&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/docs/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/braingdx/docs/&lt;span class=&quot;nv&quot;&gt;$CH_VERSION&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Copy also into &quot;latest&quot; docs&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-rf&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/braingdx/docs/latest
+&lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/braingdx/docs/latest
+&lt;span class=&quot;nb&quot;&gt;cp&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/docs/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/braingdx/docs/latest
+
+&lt;span class=&quot;c&quot;&gt;# Add everything and push!&lt;/span&gt;
+git add &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
+git commit &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Travis build &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$TRAVIS_BUILD_NUMBER&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; - update Javadoc&quot;&lt;/span&gt;
+git push &lt;span class=&quot;nt&quot;&gt;-fq&lt;/span&gt; origin gh-pages &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Successfully deployed Javadoc to /docs&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://bitbrain.github.io/braingdx/docs/latest/&quot;&gt;Click here&lt;/a&gt; to see an example of the generated page created.&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;The new flow allows me to have:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;single branch&lt;/li&gt;
+  &lt;li&gt;every commit is tested in Travis&lt;/li&gt;
+  &lt;li&gt;I control deployments via &lt;code class=&quot;highlighter-rouge&quot;&gt;CHANGELOG.md&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Github releases and tags are automatically created&lt;/li&gt;
+  &lt;li&gt;Javadoc is automatically created&lt;/li&gt;
+  &lt;li&gt;on release, artifacts are signed and pushed to Maven Central&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Do you have feedback? Make sure to follow me &lt;a href=&quot;https://twitter.com/bitbrain_&quot;&gt;@bitbrain_&lt;/a&gt; on &lt;strong&gt;Twitter&lt;/strong&gt; and &lt;a href=&quot;https://github.com/bitbrain&quot;&gt;@bitbrain&lt;/a&gt; on &lt;strong&gt;Github&lt;/strong&gt;.&lt;/p&gt;</content><author><name>bitbrain</name></author><category term="deployment" /><category term="travisci" /><category term="git" /><summary type="html">Some years ago I started working on a project called braingdx. It is a gamejam framework based on libgdx, fully written in Java. At some point I decided to make the artifact available for a broader audience. As a result I required a deployment flow to automatically upload the .jar files to an artifactory of my choice.</summary></entry><entry><title type="html">Level Generation in Mindmazer</title><link href="/2017/09/03/level-generation-in-mindmazer.html" rel="alternate" type="text/html" title="Level Generation in Mindmazer" /><published>2017-09-03T00:00:00+00:00</published><updated>2017-09-03T00:00:00+00:00</updated><id>/2017/09/03/level-generation-in-mindmazer</id><content type="html" xml:base="/2017/09/03/level-generation-in-mindmazer.html">&lt;p&gt;Today I want to talk about my project &lt;a href=&quot;https://github.com/bitbrain/mindmazer&quot;&gt;mindmazer&lt;/a&gt;. In this simple 2D puzzle game the player has to remember a certain path to progress to the next stage. When starting this project I had to decide if I give the player a static list of predefined levels. After some time I decided against it and went for a procedural generation approach. In this article I am going to explain how these levels are generated.&lt;/p&gt;
+
+&lt;h1 id=&quot;the-level&quot;&gt;The Level&lt;/h1&gt;
+
+&lt;p&gt;Typical ingame level look like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/media/mindmazer-level-simple.jpg&quot; alt=&quot;mindmazer-level-simple&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You notice that the shapes are quite simple and the path is easy to remember. Therefore, as more you progress in the game as more complex the level become:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/media/mindmazer-level-complex.jpg&quot; alt=&quot;mindmazer-level-complex&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;How to generate those levels? Well, first of all I am using &lt;a href=&quot;https://libgdx.badlogicgames.com&quot;&gt;libgdx&lt;/a&gt; for &lt;a href=&quot;/2017/08/17/why-I-still-use-java-for-gamedev&quot;&gt;all my games&lt;/a&gt;. This Java library allows me to draw things on the screen and to define a framework to run my game with. Unfortunately, this library does not give me an “out-of-the-box” level generator. Thus, I had to write an algorithm myself.&lt;/p&gt;
+
+&lt;h1 id=&quot;biom-data&quot;&gt;Biom Data&lt;/h1&gt;
+
+&lt;p&gt;Let us first describe how a level should get defined. I did not want to have a “random” algorithm which just appends more cells into random directions. The result would be a randomly formed snake where I wouldn’t have any control over. At least I wanted &lt;strong&gt;control&lt;/strong&gt; about various level aspects. Each level is composed out of multiple parts, so called &lt;strong&gt;biomes&lt;/strong&gt;. A biom is defined Java code. Let us take a look at a typical L-Shape:&lt;/p&gt;
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;x
+x
+x x
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This L-Shape can be represented by a &lt;code class=&quot;highlighter-rouge&quot;&gt;byte&lt;/code&gt; array:&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;byte&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;L_SHAPE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+   &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;You might notice that there is an extra entry in the array:&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;byte&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numberOfColumns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;L_SHAPE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;L_SHAPE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;];&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Basically we are telling our level generation to always consider the last entry in a byte array as information about the number of columns in this specific biom. This is all we need as input. We now have full control over which parts should get used to compose a level.&lt;/p&gt;
+
+&lt;h1 id=&quot;biom-conversion&quot;&gt;Biom Conversion&lt;/h1&gt;
+
+&lt;p&gt;We need to prepare the input data (byte arrays) into a format the algorithm understands. This format is a so called &lt;code class=&quot;highlighter-rouge&quot;&gt;Biom&lt;/code&gt; class with the following properties:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;byte[][] data&lt;/code&gt; the biom as a 2-dimensional byte array (without metadata)&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;int startX&lt;/code&gt; the x index on the biom where the player could possibly start&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;int startY&lt;/code&gt; the y index on the biom where the player could possibly start&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;int endX&lt;/code&gt; the x index on the biom where the player could leave&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;int endY&lt;/code&gt; the y index on the biom where the player could leave&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;int length&lt;/code&gt; the number of cells inside a biom&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;int width&lt;/code&gt; the width of a biom (number of cells)&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;int height&lt;/code&gt; the height of a biom (number of cells)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We now call a so called &lt;code class=&quot;highlighter-rouge&quot;&gt;BiomFactory&lt;/code&gt; which creates a Biom object for us:&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Biom&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;biom&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;biomFactory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;L_SHAPE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;If you are interested in how this factory works internally &lt;a href=&quot;https://github.com/bitbrain/mindmazer/blob/master/core/src/de/bitbrain/mindmazer/levelgen/BiomFactory.java&quot;&gt;check out the code on Github&lt;/a&gt;.&lt;/p&gt;</content><author><name>bitbrain</name></author><category term="gamedev" /><category term="mindmazer" /><category term="devlog" /><summary type="html">Today I want to talk about my project mindmazer. In this simple 2D puzzle game the player has to remember a certain path to progress to the next stage. When starting this project I had to decide if I give the player a static list of predefined levels. After some time I decided against it and went for a procedural generation approach. In this article I am going to explain how these levels are generated.</summary></entry><entry><title type="html">Why I still use Java for gamedev</title><link href="/2017/08/17/why-I-still-use-java-for-gamedev.html" rel="alternate" type="text/html" title="Why I still use Java for gamedev" /><published>2017-08-17T00:00:00+00:00</published><updated>2017-08-17T00:00:00+00:00</updated><id>/2017/08/17/why-I-still-use-java-for-gamedev</id><content type="html" xml:base="/2017/08/17/why-I-still-use-java-for-gamedev.html">&lt;p&gt;There is an technology, running on billions of devices every single day: Java.
+Many developers (beardy hipsters) claim this technology belongs to the past, game engines like &lt;a href=&quot;https://unity3d.com/&quot;&gt;Unity&lt;/a&gt; and &lt;a href=&quot;https://www.unrealengine.com/en-US/what-is-unreal-engine-4&quot;&gt;Unreal Engine&lt;/a&gt; are the future! Still, there is one man who hasn’t lost hope. Every single day he is building real games, not written in C# or Javascript. Not even Python or scientific C++. He is just using &lt;a href=&quot;https://www.java.com/en/&quot;&gt;Java&lt;/a&gt;. And this person is me.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/media/unreal-engine-room.jpg&quot; alt=&quot;unreal-engine&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This picture isn’t showing my living room. This is Unreal Engine. Playable in VR. With 60fps at 4K resolution! Awesome, right?&lt;/p&gt;
+
+&lt;h2 id=&quot;the-simple-alternative&quot;&gt;The simple alternative&lt;/h2&gt;
+
+&lt;p&gt;Unfortunately I didn’t create this. But hey, I can show you something amazing I did back then, in Java:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/media/example-game.jpg&quot; alt=&quot;example-game&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Okay, I get you. Why am I doing this to myself? Why not just using a game engine like everyone else? It would have so many advantages to use any game engine of my choice compared to this ancient crap I am doing:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;complete 2D/3D editors for modeling&lt;/li&gt;
+  &lt;li&gt;inbuilt physics, lighting and rainbow machine 🌈&lt;/li&gt;
+  &lt;li&gt;amazing graphics, shader editors&lt;/li&gt;
+  &lt;li&gt;almost no programming skillz required! Just drag and drop all your stuff!&lt;/li&gt;
+  &lt;li&gt;and much more…&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Well, the answer is quite simple: I like to remind myself everyday where I started. My first game was written in &lt;a href=&quot;https://en.wikipedia.org/wiki/Delphi_(programming_language)&quot;&gt;Delphi Pascal&lt;/a&gt;. Back then I even didn’t know much about &lt;a href=&quot;http://searchmicroservices.techtarget.com/definition/object-oriented-programming-OOP&quot;&gt;OOP&lt;/a&gt; or &lt;a href=&quot;https://sourcemaking.com/design_patterns&quot;&gt;Design Patterns&lt;/a&gt;. The only thing I cared about was moving pixels on the screen. It was truly inspiring and it didn’t change, even eight years later.&lt;/p&gt;
+
+&lt;h2 id=&quot;getting-started-with-gamedev&quot;&gt;Getting started with gamedev&lt;/h2&gt;
+
+&lt;p&gt;Many games have been completed by now and the majority of those games is written in “pure” Java. Not exactly pure Java, I am using libraries to access &lt;a href=&quot;https://www.opengl.org/&quot;&gt;OpenGL&lt;/a&gt; but generally I can say that most games are 100% written by hand, without an actual game engine or predefined templating.&lt;/p&gt;
+
+&lt;p&gt;How do I do this? To make a game in Java you basically need three things:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Java skills&lt;/li&gt;
+  &lt;li&gt;Basic understanding of math (ideally vectors, functions and matrices)&lt;/li&gt;
+  &lt;li&gt;Know how to set/move pixels on the screen and how to handle input&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Point 1 and 2 are straight-forward: if you know basically how Java works you can write programms which do stuff for you:&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HelloWorld&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hey&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello World!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;You didn't greet me! WOW!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;In addition you need to know math. For example you could write an immutable &lt;a href=&quot;http://www.bbc.co.uk/education/guides/zxd26sg/revision&quot;&gt;vector&lt;/a&gt; in Java with basic addition and subtraction functionality:&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Vector&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Vector&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;plus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Vector&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;other&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;other&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;other&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Vector&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;minus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Vector&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;other&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;other&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;other&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;You can do that with many different concepts and in the end you have a small library to implement math into your game. For example, turning around a player or calculating the distance between two game objects can be simply done by using vectors.&lt;/p&gt;
+
+&lt;h2 id=&quot;giving-birth-to-your-game&quot;&gt;Giving birth to your game&lt;/h2&gt;
+
+&lt;p&gt;What about moving pixels on the screen? Java already has libraries like &lt;a href=&quot;https://en.wikipedia.org/wiki/Swing_(Java)&quot;&gt;Swing&lt;/a&gt; or &lt;a href=&quot;https://en.wikipedia.org/wiki/JavaFX&quot;&gt;JavaFX&lt;/a&gt; and I could have easily used that to write games. It seems crazy to go down the Java path for game development but I am not completely stupid. All gamers have powerful graphics cards and it would be absolutely mental not to use them. These GUI libraries rely on Software Rendering by default, which means the CPU does all the work. So we need a better solution if we want to make a highly performing 3D shooter or the next WoW.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Miguel, why not using an Engine then?&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Beeep, wrong question! Why bothering with a complex game engine when you can just include a small library which provides all those features for you?&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;complete 2D/3D editors for modeling&lt;/li&gt;
+  &lt;li&gt;inbuilt physics, lighting and rainbow machine 🌈&lt;/li&gt;
+  &lt;li&gt;amazing graphics, shaders&lt;/li&gt;
+  &lt;li&gt;and much more…&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Sounds familiar? I’ll present to you &lt;a href=&quot;https://libgdx.badlogicgames.com/&quot;&gt;libgdx&lt;/a&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/media/libgdx-icon.png&quot; alt=&quot;libgdx-icon&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Yes, this library let me do all this fancy game engine stuff, but in Java! Everything rendered on my &lt;strong&gt;GTX 93849 Extreme Ultra HD Power 5000&lt;/strong&gt; Graphics Card (without FPS limit an initial empty game gets ~15000fps, whoops). Nowadays I takes me 30 minutes to create a simple 3D Snake game in Java. In under 200 lines of code. Without touching any game engine. You’re not believing me? Then you have to wait for a next blog article.&lt;/p&gt;
+
+&lt;h2 id=&quot;why-libgdx&quot;&gt;Why libgdx?&lt;/h2&gt;
+
+&lt;p&gt;This library allows me to combine it with my Java knowledge to write games the same way as you would write a small Swing application. Furthermore it is cross-plattform compatible, so the Java game runs &lt;a href=&quot;http://libgdx.badlogicgames.com/features.html&quot;&gt;on Windows, MacOS, Linux, Android and even iOS&lt;/a&gt;!&lt;/p&gt;
+
+&lt;p&gt;Moreover I really love Java. During the past years I worked with several programming languages, frameworks and libraries, however Java always was the easiest and simplest to work with. For example, C# is great as well. It even has features like &lt;a href=&quot;https://msdn.microsoft.com/en-gb/library/aa288459(v=vs.71).aspx&quot;&gt;Delegates&lt;/a&gt; and &lt;a href=&quot;https://msdn.microsoft.com/en-us/library/x9fsa0sw(v=vs.100).aspx&quot;&gt;Properties&lt;/a&gt; which I really miss in Java. Also C++ is great to work with. Compile natively and have very low overhead, compared to Java. A simple SDL game written in C++ (proc-gen, without assets) can be around ~40kb, while the same game in Java is easily 8MB in size (all required .jar libraries need to get packed in the fat-jar). That’s an increase of 2000%. Still, we’re living in 2017 and file size doesn’t matter anymore (mostly). In terms of resource management &lt;a href=&quot;https://benchmarksgame.alioth.debian.org/u64q/compare.php?lang=java&amp;amp;lang2=gpp&quot;&gt;Java doesn’t do that well compared to C++&lt;/a&gt; but as I said, our computers are monster machines, we just don’t care anymore.&lt;/p&gt;
+
+&lt;h2 id=&quot;conservative-and-old-fashioned&quot;&gt;Conservative and old-fashioned?&lt;/h2&gt;
+
+&lt;p&gt;Do I enjoy Java too much? Probably yes. Could I save lot of time when writing larger games by using an actual game engine? Maybe. Do I want to learn various game engines by heart? Definitely. I am not saying that I blindly refuse to do something different than Java. Regardless, it’s the most fun way to do what I love.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Do what you want independent of technology, library or game engine. It does’t matter how you do it. It doesn’t matter how long it takes to get there. The only thing which matters is that you are doing what you love.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;- Miguel&lt;/p&gt;</content><author><name>bitbrain</name></author><category term="gamedev" /><summary type="html">There is an technology, running on billions of devices every single day: Java. Many developers (beardy hipsters) claim this technology belongs to the past, game engines like Unity and Unreal Engine are the future! Still, there is one man who hasn’t lost hope. Every single day he is building real games, not written in C# or Javascript. Not even Python or scientific C++. He is just using Java. And this person is me.</summary></entry><entry><title type="html">Terminal Setup on MacOS</title><link href="/2017/08/16/terminal-setup-on-macos.html" rel="alternate" type="text/html" title="Terminal Setup on MacOS" /><published>2017-08-16T00:00:00+00:00</published><updated>2017-08-16T00:00:00+00:00</updated><id>/2017/08/16/terminal-setup-on-macos</id><content type="html" xml:base="/2017/08/16/terminal-setup-on-macos.html">&lt;p&gt;&lt;img src=&quot;/public/media/macos-terminal-example.png&quot; alt=&quot;terminal-example&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Today I would like to share with you my current terminal setup. It basically consists of the following parts:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.iterm2.com&quot;&gt;iTerm2&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.zsh.org&quot;&gt;zsh&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://ohmyz.sh&quot;&gt;oh-my-zsh&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://cloud.githubusercontent.com/assets/2618447/6316762/51f34624-ba00-11e4-948a-6ac65a49f8c5.png&quot;&gt;sorin zsh theme&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/deepsweet/Monokai-Soda-iTerm&quot;&gt;Monokai Soda&lt;/a&gt; (modified)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;the-terminal&quot;&gt;The Terminal&lt;/h2&gt;
+
+&lt;p&gt;The default terminal app on MacOS is definitely lacking of functionality. As &lt;a href=&quot;https://medium.com/@xanderdunn&quot;&gt;xanderdunn&lt;/a&gt; has &lt;a href=&quot;https://medium.com/@xanderdunn/iterm2-vs-terminal-c06976f106ef&quot;&gt;written on Medium&lt;/a&gt;, iTerm2 has huge advantages compared to the default terminal:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;It’s a lot more customizable. For example, I can tell it to shut up and never show me warning dialogues when I’m closing a tab or quitting the app when there’s a running process. Customizability ends up being pretty important for serious developers who are always in the terminal.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Apart from customisation, iTerm2 allows me to split tabs vertically or horizontally on a native basis (different from &lt;a href=&quot;https://gist.github.com/simme/1297707&quot;&gt;tmux&lt;/a&gt; where it is virtually implemented). With tmux we could achieve similar behavior, however it would take much longer to set it up and even then it would still not be natively implemented. As a Mac user I always strived for fast and easy setup. When I change my machine I do not want to spend weeks on customising my Terminal. iTerm2 has lots of inbuilt features which could only be added to the default terminal by using plugins.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-shell&quot;&gt;The Shell&lt;/h2&gt;
+
+&lt;p&gt;I used many shells such as &lt;a href=&quot;https://fishshell.com/&quot;&gt;fish&lt;/a&gt; or &lt;a href=&quot;https://gist.github.com/MohamedAlaa/2961058&quot;&gt;tmux&lt;/a&gt;. After all this time I eventually sticked to zsh for different reasons:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://ohmyz.sh/community&quot;&gt;amazing community&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;lots of customizations&lt;/li&gt;
+  &lt;li&gt;syntax highlighting&lt;/li&gt;
+  &lt;li&gt;lots of available plugins&lt;/li&gt;
+  &lt;li&gt;inline auto-suggestions&lt;/li&gt;
+  &lt;li&gt;paginated completion&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To just list some of the great features.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-theme&quot;&gt;The Theme&lt;/h2&gt;
+
+&lt;p&gt;When I started programming I never thought about customising my terminal or favourite IDE. After many years of trying different things I started to like dark themes. It’s 2017 and there are thousands of different themes out there. My favourite is still &lt;a href=&quot;https://atom.io/themes/monokai&quot;&gt;Monokai&lt;/a&gt;, presumably known from the &lt;a href=&quot;https://josephg.com/blog/electron-is-flash-for-the-desktop&quot;&gt;legendary RAM eating machine&lt;/a&gt;, called &lt;a href=&quot;https://atom.io&quot;&gt;Atom&lt;/a&gt;. Monokai has vibrant colours which help me to see things, even at night. It’s just preference but I really love vibrant colours (and Tron).&lt;/p&gt;
+
+&lt;p&gt;I use two different things for the appearance: the &lt;a href=&quot;https://github.com/deepsweet/Monokai-Soda-iTerm&quot;&gt;Monokai Soda&lt;/a&gt; theme for colours and the &lt;a href=&quot;https://cloud.githubusercontent.com/assets/2618447/6316762/51f34624-ba00-11e4-948a-6ac65a49f8c5.png&quot;&gt;sorin zsh theme&lt;/a&gt; theme for the terminal layout. Note that I made the colours of the Soda theme slightly brighter to have an increase in contrast.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;I hope you like my setup. Happy coding!&lt;/p&gt;</content><author><name>bitbrain</name></author><category term="misc" /><category term="showcase" /><category term="howto" /><summary type="html"></summary></entry><entry><title type="html">New blog</title><link href="/2017/08/15/new-blog.html" rel="alternate" type="text/html" title="New blog" /><published>2017-08-15T00:00:00+00:00</published><updated>2017-08-15T00:00:00+00:00</updated><id>/2017/08/15/new-blog</id><content type="html" xml:base="/2017/08/15/new-blog.html">&lt;p&gt;Laziness can be a disease. Unfortunately my brain decided to just stop writing blog articles about stuff I do. This does not mean that I ever stopped. Oh hell no, I even did too much since I last blogged about my life. Things changed drastically in the last 12 months: moving to Central London to work fulltime, having two cats as well as enjoying life more than ever.&lt;/p&gt;
+
+&lt;p&gt;But let’s not talk about boring stuff for now, what can you guys expect on here?&lt;/p&gt;
+
+&lt;p&gt;Let’s sum up some things I want to talk about in the next weeks and months:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Java/Javascript/Groovy/’insert your favourite language here’ tips and tricks!&lt;/li&gt;
+  &lt;li&gt;Working with &lt;a href=&quot;https://aws.amazon.com/&quot;&gt;AWS&lt;/a&gt; and CIs like Jenkins, TravisCI or Bamboo&lt;/li&gt;
+  &lt;li&gt;Motivation, Work/Life Balance&lt;/li&gt;
+  &lt;li&gt;gamedev!!!111 and pixelart&lt;/li&gt;
+  &lt;li&gt;Gaming and Twitter drama&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Sounds interesting? Let’s see what the future holds. See you!&lt;/p&gt;</content><author><name>bitbrain</name></author><category term="introduction" /><summary type="html">Laziness can be a disease. Unfortunately my brain decided to just stop writing blog articles about stuff I do. This does not mean that I ever stopped. Oh hell no, I even did too much since I last blogged about my life. Things changed drastically in the last 12 months: moving to Central London to work fulltime, having two cats as well as enjoying life more than ever.</summary></entry></feed>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.0 -->
+<title>Why I still use Java for gamedev | bitbrain</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Why I still use Java for gamedev" />
+<meta name="author" content="bitbrain" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Yes, I use Java for gamedev, but why? Read it here." />
+<meta property="og:description" content="Yes, I use Java for gamedev, but why? Read it here." />
+<meta property="og:site_name" content="bitbrain" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-08-17T00:00:00+00:00" />
+<script type="application/ld+json">
+{"description":"Yes, I use Java for gamedev, but why? Read it here.","author":{"@type":"Person","name":"bitbrain"},"@type":"BlogPosting","url":"/2017/08/17/why-I-still-use-java-for-gamedev.html","headline":"Why I still use Java for gamedev","dateModified":"2017-08-17T00:00:00+00:00","datePublished":"2017-08-17T00:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"/2017/08/17/why-I-still-use-java-for-gamedev.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="icon" type="image/png" href="/assets/favicon.png" /><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="bitbrain" /><script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
+</head>
+<body><div class="site-header">
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">bitbrain <b class="command_prompt">></b><b class="blinking_cursor">_</b></a>
+    <span class="social_links">
+        
+          <a class="color-cyan-hover" href="https://twitter.com/bitbrain_"><i class="fab fa-twitter-square"></i></a>
+        
+          <a class="color-red-hover" href="https://bitbrain.itch.io"><i class="fab fa-itch-io"></i></a>
+        
+          <a class="color-purple-hover" href="https://github.com/bitbrain"><i class="fab fa-github-square"></i></a>
+        
+
+    </span>
+  </div>
+</div>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="author-box">
+
+<img src="https://gravatar.com/avatar/22a6f62e5da4fbbd51f57656d3738916?s=72" class="author-avatar" />
+
+Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamedev and web.
+
+</div>
+
+<div class="post">
+  <h1 class="post-title">Why I still use Java for gamedev</h1>
+  
+  <div class="post-tags">
+      
+      <a class="tag" href="/tag/gamedev/">gamedev</a>
+      
+  </div>
+  
+  <div class="post-date">Published on 17 Aug 2017</div>
+  
+  <div class="post-description"><span class="color-blue">> </span>Yes, I use Java for gamedev, but why? Read it here.</div>
+  
+  <p>There is an technology, running on billions of devices every single day: Java.
+Many developers (beardy hipsters) claim this technology belongs to the past, game engines like <a href="https://unity3d.com/">Unity</a> and <a href="https://www.unrealengine.com/en-US/what-is-unreal-engine-4">Unreal Engine</a> are the future! Still, there is one man who hasn’t lost hope. Every single day he is building real games, not written in C# or Javascript. Not even Python or scientific C++. He is just using <a href="https://www.java.com/en/">Java</a>. And this person is me.</p>
+
+<p><img src="/public/media/unreal-engine-room.jpg" alt="unreal-engine" /></p>
+
+<p>This picture isn’t showing my living room. This is Unreal Engine. Playable in VR. With 60fps at 4K resolution! Awesome, right?</p>
+
+<h2 id="the-simple-alternative">The simple alternative</h2>
+
+<p>Unfortunately I didn’t create this. But hey, I can show you something amazing I did back then, in Java:</p>
+
+<p><img src="/public/media/example-game.jpg" alt="example-game" /></p>
+
+<p>Okay, I get you. Why am I doing this to myself? Why not just using a game engine like everyone else? It would have so many advantages to use any game engine of my choice compared to this ancient crap I am doing:</p>
+
+<ul>
+  <li>complete 2D/3D editors for modeling</li>
+  <li>inbuilt physics, lighting and rainbow machine 🌈</li>
+  <li>amazing graphics, shader editors</li>
+  <li>almost no programming skillz required! Just drag and drop all your stuff!</li>
+  <li>and much more…</li>
+</ul>
+
+<p>Well, the answer is quite simple: I like to remind myself everyday where I started. My first game was written in <a href="https://en.wikipedia.org/wiki/Delphi_(programming_language)">Delphi Pascal</a>. Back then I even didn’t know much about <a href="http://searchmicroservices.techtarget.com/definition/object-oriented-programming-OOP">OOP</a> or <a href="https://sourcemaking.com/design_patterns">Design Patterns</a>. The only thing I cared about was moving pixels on the screen. It was truly inspiring and it didn’t change, even eight years later.</p>
+
+<h2 id="getting-started-with-gamedev">Getting started with gamedev</h2>
+
+<p>Many games have been completed by now and the majority of those games is written in “pure” Java. Not exactly pure Java, I am using libraries to access <a href="https://www.opengl.org/">OpenGL</a> but generally I can say that most games are 100% written by hand, without an actual game engine or predefined templating.</p>
+
+<p>How do I do this? To make a game in Java you basically need three things:</p>
+
+<ol>
+  <li>Java skills</li>
+  <li>Basic understanding of math (ideally vectors, functions and matrices)</li>
+  <li>Know how to set/move pixels on the screen and how to handle input</li>
+</ol>
+
+<p>Point 1 and 2 are straight-forward: if you know basically how Java works you can write programms which do stuff for you:</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloWorld</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">args</span><span class="o">.</span><span class="na">length</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">].</span><span class="na">equals</span><span class="o">(</span><span class="s">"hey"</span><span class="o">))</span> <span class="o">{</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hello World!"</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"You didn't greet me! WOW!"</span><span class="o">);</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>In addition you need to know math. For example you could write an immutable <a href="http://www.bbc.co.uk/education/guides/zxd26sg/revision">vector</a> in Java with basic addition and subtraction functionality:</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Vector</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">final</span> <span class="kt">float</span> <span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="nf">Vector</span><span class="o">(</span><span class="kt">float</span> <span class="n">x</span><span class="o">,</span> <span class="kt">float</span> <span class="n">y</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="n">Vector</span> <span class="nf">plus</span><span class="o">(</span><span class="n">Vector</span> <span class="n">other</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">Vector</span><span class="o">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="na">x</span><span class="o">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="na">y</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="n">Vector</span> <span class="nf">minus</span><span class="o">(</span><span class="n">Vector</span> <span class="n">other</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">Vector</span><span class="o">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">other</span><span class="o">.</span><span class="na">x</span><span class="o">,</span> <span class="n">y</span> <span class="o">-</span> <span class="n">other</span><span class="o">.</span><span class="na">y</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>You can do that with many different concepts and in the end you have a small library to implement math into your game. For example, turning around a player or calculating the distance between two game objects can be simply done by using vectors.</p>
+
+<h2 id="giving-birth-to-your-game">Giving birth to your game</h2>
+
+<p>What about moving pixels on the screen? Java already has libraries like <a href="https://en.wikipedia.org/wiki/Swing_(Java)">Swing</a> or <a href="https://en.wikipedia.org/wiki/JavaFX">JavaFX</a> and I could have easily used that to write games. It seems crazy to go down the Java path for game development but I am not completely stupid. All gamers have powerful graphics cards and it would be absolutely mental not to use them. These GUI libraries rely on Software Rendering by default, which means the CPU does all the work. So we need a better solution if we want to make a highly performing 3D shooter or the next WoW.</p>
+
+<blockquote>
+  <p>Miguel, why not using an Engine then?</p>
+</blockquote>
+
+<p>Beeep, wrong question! Why bothering with a complex game engine when you can just include a small library which provides all those features for you?</p>
+
+<ul>
+  <li>complete 2D/3D editors for modeling</li>
+  <li>inbuilt physics, lighting and rainbow machine 🌈</li>
+  <li>amazing graphics, shaders</li>
+  <li>and much more…</li>
+</ul>
+
+<p>Sounds familiar? I’ll present to you <a href="https://libgdx.badlogicgames.com/">libgdx</a>:</p>
+
+<p><img src="/public/media/libgdx-icon.png" alt="libgdx-icon" /></p>
+
+<p>Yes, this library let me do all this fancy game engine stuff, but in Java! Everything rendered on my <strong>GTX 93849 Extreme Ultra HD Power 5000</strong> Graphics Card (without FPS limit an initial empty game gets ~15000fps, whoops). Nowadays I takes me 30 minutes to create a simple 3D Snake game in Java. In under 200 lines of code. Without touching any game engine. You’re not believing me? Then you have to wait for a next blog article.</p>
+
+<h2 id="why-libgdx">Why libgdx?</h2>
+
+<p>This library allows me to combine it with my Java knowledge to write games the same way as you would write a small Swing application. Furthermore it is cross-plattform compatible, so the Java game runs <a href="http://libgdx.badlogicgames.com/features.html">on Windows, MacOS, Linux, Android and even iOS</a>!</p>
+
+<p>Moreover I really love Java. During the past years I worked with several programming languages, frameworks and libraries, however Java always was the easiest and simplest to work with. For example, C# is great as well. It even has features like <a href="https://msdn.microsoft.com/en-gb/library/aa288459(v=vs.71).aspx">Delegates</a> and <a href="https://msdn.microsoft.com/en-us/library/x9fsa0sw(v=vs.100).aspx">Properties</a> which I really miss in Java. Also C++ is great to work with. Compile natively and have very low overhead, compared to Java. A simple SDL game written in C++ (proc-gen, without assets) can be around ~40kb, while the same game in Java is easily 8MB in size (all required .jar libraries need to get packed in the fat-jar). That’s an increase of 2000%. Still, we’re living in 2017 and file size doesn’t matter anymore (mostly). In terms of resource management <a href="https://benchmarksgame.alioth.debian.org/u64q/compare.php?lang=java&amp;lang2=gpp">Java doesn’t do that well compared to C++</a> but as I said, our computers are monster machines, we just don’t care anymore.</p>
+
+<h2 id="conservative-and-old-fashioned">Conservative and old-fashioned?</h2>
+
+<p>Do I enjoy Java too much? Probably yes. Could I save lot of time when writing larger games by using an actual game engine? Maybe. Do I want to learn various game engines by heart? Definitely. I am not saying that I blindly refuse to do something different than Java. Regardless, it’s the most fun way to do what I love.</p>
+
+<blockquote>
+  <p>Do what you want independent of technology, library or game engine. It does’t matter how you do it. It doesn’t matter how long it takes to get there. The only thing which matters is that you are doing what you love.</p>
+</blockquote>
+
+<p>- Miguel</p>
+
+</div>
+
+
+<div class="comments">
+<div id="disqus_thread"></div>
+<script>
+  var disqus_config = function () {
+    this.page.url = '/2017/08/17/why-I-still-use-java-for-gamedev.html';
+    this.page.identifier = '/2017/08/17/why-I-still-use-java-for-gamedev.html';
+  };
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://bitbrain-github-io.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</div>
+
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2019/02/18/automatically-publish-games-to-itchio.html">
+            How to automatically publish your game to itch.io
+            <small>18 Feb 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2018/07/15/cd-with-travis.html">
+            Continuous Delivery with Travis and Github
+            <small>15 Jul 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2017/09/03/level-generation-in-mindmazer.html">
+            Level Generation in Mindmazer
+            <small>03 Sep 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+<h2>All tags</h2>
+<div class="tag-cloud">
+    <a href="/tag/deployment/" class="set-3">deployment</a> <a href="/tag/devlog/" class="set-1">devlog</a> <a href="/tag/gamedev/" class="set-5">gamedev</a> <a href="/tag/git/" class="set-1">git</a> <a href="/tag/howto/" class="set-1">howto</a> <a href="/tag/introduction/" class="set-1">introduction</a> <a href="/tag/itchio/" class="set-1">itchio</a> <a href="/tag/mindmazer/" class="set-1">mindmazer</a> <a href="/tag/misc/" class="set-1">misc</a> <a href="/tag/showcase/" class="set-1">showcase</a> <a href="/tag/travisci/" class="set-3">travisci</a>
+</div>
+
+
+
+      </div>
+    </main><footer class="site-footer">
+  <div class="wrapper">
+    <div class="credits"><a href="https://github.com/bitbrain/jekyll-dash">dash</a> for Jekyll by <a href="https://github.com/bitbrain">bitbrain</a></div>
+  </div>
+</footer>
+</body>
+
+</html>
