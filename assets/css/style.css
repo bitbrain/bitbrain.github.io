@@ -241,6 +241,9 @@ pre {
     color: #DAE4ED;
     text-decoration: none; }
 
+.site-footer {
+  margin-bottom: 2em; }
+
 .wrapper {
   text-align: justify; }
 
@@ -292,7 +295,8 @@ pre {
     font-size: 14px; }
 
 .tag-cloud {
-  margin-bottom: 2em; }
+  margin-bottom: 2em;
+  text-align: left; }
   .tag-cloud > a {
     display: inline-block;
     margin-bottom: 1em; }
