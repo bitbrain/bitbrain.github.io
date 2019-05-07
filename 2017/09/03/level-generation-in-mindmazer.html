@@ -120,16 +120,20 @@ x x
 <div class="comments">
 <div id="disqus_thread"></div>
 <script>
-  var disqus_config = function () {
-    this.page.url = '/2017/09/03/level-generation-in-mindmazer.html';
-    this.page.identifier = '/2017/09/03/level-generation-in-mindmazer.html';
-  };
-  (function() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://bitbrain-github-io.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-  })();
+ var disqus_config = function () {
+     this.page.url = '/2017/09/03/level-generation-in-mindmazer.html';
+     this.page.identifier = '/2017/09/03/level-generation-in-mindmazer.html';
+     this.page.title = 'bitbrain';
+ };
+
+ (function() {  // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+     var d = document, s = d.createElement('script');
+
+     s.src = '//bitbrain-github-io.disqus.com/embed.js';
+
+     s.setAttribute('data-timestamp', +new Date());
+     (d.head || d.body).appendChild(s);
+ })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
