@@ -10,12 +10,14 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamedev and web. Born and raised in Germany, studied in the Netherlands, currently living in the UK." />
 <meta property="og:description" content="Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamedev and web. Born and raised in Germany, studied in the Netherlands, currently living in the UK." />
+<link rel="canonical" href="https://bitbrain.github.io/atom.xml" />
+<meta property="og:url" content="https://bitbrain.github.io/atom.xml" />
 <meta property="og:site_name" content="bitbrain" />
 <script type="application/ld+json">
-{"description":"Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamedev and web. Born and raised in Germany, studied in the Netherlands, currently living in the UK.","author":{"@type":"Person","name":"bitbrain"},"@type":"WebPage","url":"/atom.xml","headline":"bitbrain","@context":"https://schema.org"}</script>
+{"description":"Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamedev and web. Born and raised in Germany, studied in the Netherlands, currently living in the UK.","author":{"@type":"Person","name":"bitbrain"},"@type":"WebPage","url":"https://bitbrain.github.io/atom.xml","headline":"bitbrain","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css">
-  <link rel="icon" type="image/png" href="/assets/favicon.png" /><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="bitbrain" /><script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
+  <link rel="icon" type="image/png" href="/assets/favicon.png" /><link type="application/atom+xml" rel="alternate" href="https://bitbrain.github.io/feed.xml" title="bitbrain" /><script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
 </head>
 <body><div class="site-header">
   <div class="wrapper">
@@ -38,10 +40,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
  <title>bitbrain</title>
- <link href="/atom.xml" rel="self"/>
- <link href="/"/>
- <updated>2019-05-09T15:44:45+00:00</updated>
- <id></id>
+ <link href="https://bitbrain.github.io/atom.xml" rel="self"/>
+ <link href="https://bitbrain.github.io/"/>
+ <updated>2019-05-09T15:47:42+00:00</updated>
+ <id>https://bitbrain.github.io</id>
  <author>
    <name></name>
    <email></email>
@@ -50,9 +52,9 @@
  
  <entry>
    <title>How to automatically publish your game to itch.io</title>
-   <link href="/2019/02/18/automatically-publish-games-to-itchio.html"/>
+   <link href="https://bitbrain.github.io/2019/02/18/automatically-publish-games-to-itchio.html"/>
    <updated>2019-02-18T00:00:00+00:00</updated>
-   <id>/2019/02/18/automatically-publish-games-to-itchio</id>
+   <id>https://bitbrain.github.io/2019/02/18/automatically-publish-games-to-itchio</id>
    <content type="html">&lt;h1 id=&quot;motivation&quot;&gt;Motivation&lt;/h1&gt;
 
 &lt;blockquote&gt;
@@ -209,9 +211,9 @@ Done.
  
  <entry>
    <title>Continuous Delivery with Travis and Github</title>
-   <link href="/2018/07/15/cd-with-travis.html"/>
+   <link href="https://bitbrain.github.io/2018/07/15/cd-with-travis.html"/>
    <updated>2018-07-15T00:00:00+00:00</updated>
-   <id>/2018/07/15/cd-with-travis</id>
+   <id>https://bitbrain.github.io/2018/07/15/cd-with-travis</id>
    <content type="html">&lt;p&gt;Some years ago I started working on a project called &lt;a href=&quot;https://github.com/bitbrain/braingdx&quot;&gt;braingdx&lt;/a&gt;. It is a gamejam framework based on &lt;a href=&quot;https://libgdx.badlogicgames.com/&quot;&gt;libgdx&lt;/a&gt;, fully written in &lt;strong&gt;Java&lt;/strong&gt;. At some point I decided to make the artifact available for a broader audience. As a result I required a deployment flow to automatically upload the &lt;strong&gt;.jar&lt;/strong&gt; files to an artifactory of my choice.&lt;/p&gt;
 
 &lt;h1 id=&quot;the-silly-approach&quot;&gt;The silly approach&lt;/h1&gt;
@@ -456,9 +458,9 @@ git push &lt;span class=&quot;nt&quot;&gt;-fq&lt;/span&gt; origin gh-pages &lt;s
  
  <entry>
    <title>Level Generation in Mindmazer</title>
-   <link href="/2017/09/03/level-generation-in-mindmazer.html"/>
+   <link href="https://bitbrain.github.io/2017/09/03/level-generation-in-mindmazer.html"/>
    <updated>2017-09-03T00:00:00+00:00</updated>
-   <id>/2017/09/03/level-generation-in-mindmazer</id>
+   <id>https://bitbrain.github.io/2017/09/03/level-generation-in-mindmazer</id>
    <content type="html">&lt;p&gt;Today I want to talk about my project &lt;a href=&quot;https://github.com/bitbrain/mindmazer&quot;&gt;mindmazer&lt;/a&gt;. In this simple 2D puzzle game the player has to remember a certain path to progress to the next stage. When starting this project I had to decide if I give the player a static list of predefined levels. After some time I decided against it and went for a procedural generation approach. In this article I am going to explain how these levels are generated.&lt;/p&gt;
 
 &lt;h1 id=&quot;the-level&quot;&gt;The Level&lt;/h1&gt;
@@ -516,9 +518,9 @@ x x
  
  <entry>
    <title>Why I still use Java for gamedev</title>
-   <link href="/2017/08/17/why-I-still-use-java-for-gamedev.html"/>
+   <link href="https://bitbrain.github.io/2017/08/17/why-I-still-use-java-for-gamedev.html"/>
    <updated>2017-08-17T00:00:00+00:00</updated>
-   <id>/2017/08/17/why-I-still-use-java-for-gamedev</id>
+   <id>https://bitbrain.github.io/2017/08/17/why-I-still-use-java-for-gamedev</id>
    <content type="html">&lt;p&gt;There is an technology, running on billions of devices every single day: Java.
 Many developers (beardy hipsters) claim this technology belongs to the past, game engines like &lt;a href=&quot;https://unity3d.com/&quot;&gt;Unity&lt;/a&gt; and &lt;a href=&quot;https://www.unrealengine.com/en-US/what-is-unreal-engine-4&quot;&gt;Unreal Engine&lt;/a&gt; are the future! Still, there is one man who hasn’t lost hope. Every single day he is building real games, not written in C# or Javascript. Not even Python or scientific C++. He is just using &lt;a href=&quot;https://www.java.com/en/&quot;&gt;Java&lt;/a&gt;. And this person is me.&lt;/p&gt;
 
@@ -631,9 +633,9 @@ Many developers (beardy hipsters) claim this technology belongs to the past, gam
  
  <entry>
    <title>Terminal Setup on MacOS</title>
-   <link href="/2017/08/16/terminal-setup-on-macos.html"/>
+   <link href="https://bitbrain.github.io/2017/08/16/terminal-setup-on-macos.html"/>
    <updated>2017-08-16T00:00:00+00:00</updated>
-   <id>/2017/08/16/terminal-setup-on-macos</id>
+   <id>https://bitbrain.github.io/2017/08/16/terminal-setup-on-macos</id>
    <content type="html">&lt;p&gt;&lt;img src=&quot;/public/media/macos-terminal-example.png&quot; alt=&quot;terminal-example&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Today I would like to share with you my current terminal setup. It basically consists of the following parts:&lt;/p&gt;
@@ -685,9 +687,9 @@ Many developers (beardy hipsters) claim this technology belongs to the past, gam
  
  <entry>
    <title>New blog</title>
-   <link href="/2017/08/15/new-blog.html"/>
+   <link href="https://bitbrain.github.io/2017/08/15/new-blog.html"/>
    <updated>2017-08-15T00:00:00+00:00</updated>
-   <id>/2017/08/15/new-blog</id>
+   <id>https://bitbrain.github.io/2017/08/15/new-blog</id>
    <content type="html">&lt;p&gt;Laziness can be a disease. Unfortunately my brain decided to just stop writing blog articles about stuff I do. This does not mean that I ever stopped. Oh hell no, I even did too much since I last blogged about my life. Things changed drastically in the last 12 months: moving to Central London to work fulltime, having two cats as well as enjoying life more than ever.&lt;/p&gt;
 
 &lt;p&gt;But let’s not talk about boring stuff for now, what can you guys expect on here?&lt;/p&gt;
