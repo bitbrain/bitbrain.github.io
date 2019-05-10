@@ -42,7 +42,7 @@
  <title>bitbrain</title>
  <link href="https://bitbrain.github.io/atom.xml" rel="self"/>
  <link href="https://bitbrain.github.io/"/>
- <updated>2019-05-10T15:56:52+00:00</updated>
+ <updated>2019-05-10T16:01:36+00:00</updated>
  <id>https://bitbrain.github.io</id>
  <author>
    <name></name>
@@ -51,10 +51,10 @@
 
  
  <entry>
-   <title></title>
-   <link href="https://bitbrain.github.io/2019/05/10/2019-05-10-one-finger-to-rule-them-all.html"/>
-   <updated>2019-05-10T15:56:52+00:00</updated>
-   <id>https://bitbrain.github.io/2019/05/10/2019-05-10-one-finger-to-rule-them-all</id>
+   <title>One Finger to Rule them All</title>
+   <link href="https://bitbrain.github.io/2019/05/10/one-finger-to-rule-them-all.html"/>
+   <updated>2019-05-10T00:00:00+00:00</updated>
+   <id>https://bitbrain.github.io/2019/05/10/one-finger-to-rule-them-all</id>
    <content type="html">&lt;p&gt;Nowadays, smartphones are everywhere. People are swiping up and down, left and right, panning in, double tapping like champions. What people don’t want is having to use more than a single finger, god forbit a second hand just to get a task done on their device. Game developers such as &lt;a href=&quot;https://king.com&quot;&gt;King&lt;/a&gt; have taken that principle to another level for a simple reason: &lt;strong&gt;Accessibility&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;If you want your game to be played by the masses, it needs to be accessible. In order for a game to be accessible, it needs to be supported by the hardware and the user should not get confused how to actually play the game. Personally, I always disliked the fact that controls are being emulated on smartphones via HUDs like this:&lt;/p&gt;
