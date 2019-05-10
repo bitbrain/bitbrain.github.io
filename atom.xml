@@ -42,7 +42,7 @@
  <title>bitbrain</title>
  <link href="https://bitbrain.github.io/atom.xml" rel="self"/>
  <link href="https://bitbrain.github.io/"/>
- <updated>2019-05-10T16:07:47+00:00</updated>
+ <updated>2019-05-10T19:32:04+00:00</updated>
  <id>https://bitbrain.github.io</id>
  <author>
    <name></name>
@@ -770,6 +770,11 @@ Many developers (beardy hipsters) claim this technology belongs to the past, gam
     <div class="credits"><a href="https://github.com/bitbrain/jekyll-dash">dash</a> for Jekyll by <a href="https://github.com/bitbrain">bitbrain</a></div>
   </div>
 </footer>
-</body>
+<script>
+      window.FontAwesomeConfig = {
+        searchPseudoElements: true
+      }
+    </script>
+  </body>
 
 </html>
