@@ -8,15 +8,15 @@
 <meta property="og:title" content="Game design: one finger to rule them all" />
 <meta name="author" content="bitbrain" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Nowadays, smartphones are everywhere. People are swiping up and down, left and right, panning in, double tapping like champions. What people don’t want is having to use more than a single finger, god forbit a second hand just to get a task done on their device. Game developers such as King have taken that principle to another level for a simple reason: Accessibility." />
-<meta property="og:description" content="Nowadays, smartphones are everywhere. People are swiping up and down, left and right, panning in, double tapping like champions. What people don’t want is having to use more than a single finger, god forbit a second hand just to get a task done on their device. Game developers such as King have taken that principle to another level for a simple reason: Accessibility." />
+<meta name="description" content="I love creating games which can be played with just one touch" />
+<meta property="og:description" content="I love creating games which can be played with just one touch" />
 <link rel="canonical" href="https://bitbrain.github.io/2019/05/10/one-finger-to-rule-them-all.html" />
 <meta property="og:url" content="https://bitbrain.github.io/2019/05/10/one-finger-to-rule-them-all.html" />
 <meta property="og:site_name" content="bitbrain" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2019-05-10T00:00:00+00:00" />
 <script type="application/ld+json">
-{"description":"Nowadays, smartphones are everywhere. People are swiping up and down, left and right, panning in, double tapping like champions. What people don’t want is having to use more than a single finger, god forbit a second hand just to get a task done on their device. Game developers such as King have taken that principle to another level for a simple reason: Accessibility.","author":{"@type":"Person","name":"bitbrain"},"@type":"BlogPosting","url":"https://bitbrain.github.io/2019/05/10/one-finger-to-rule-them-all.html","headline":"Game design: one finger to rule them all","dateModified":"2019-05-10T00:00:00+00:00","datePublished":"2019-05-10T00:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://bitbrain.github.io/2019/05/10/one-finger-to-rule-them-all.html"},"@context":"https://schema.org"}</script>
+{"description":"I love creating games which can be played with just one touch","author":{"@type":"Person","name":"bitbrain"},"@type":"BlogPosting","url":"https://bitbrain.github.io/2019/05/10/one-finger-to-rule-them-all.html","headline":"Game design: one finger to rule them all","dateModified":"2019-05-10T00:00:00+00:00","datePublished":"2019-05-10T00:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://bitbrain.github.io/2019/05/10/one-finger-to-rule-them-all.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css">
   <link rel="icon" type="image/png" href="/assets/favicon.png" /><link type="application/atom+xml" rel="alternate" href="https://bitbrain.github.io/feed.xml" title="bitbrain" /><script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
@@ -63,6 +63,8 @@ Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamed
   
   <div class="post-date">Published on 10 May 2019</div>
   
+  <div class="post-description">I love creating games which can be played with just one touch</div>
+  
   <p>Nowadays, smartphones are everywhere. People are swiping up and down, left and right, panning in, double tapping like champions. What people don’t want is having to use more than a single finger, god forbit a second hand just to get a task done on their device. Game developers such as <a href="https://king.com">King</a> have taken that principle to another level for a simple reason: <strong>Accessibility</strong>.</p>
 
 <p>If you want your game to be played by the masses, it needs to be accessible. In order for a game to be accessible, it needs to be supported by the hardware and the user should not get confused how to actually play the game. Personally, I always disliked the fact that controls are being emulated on smartphones via HUDs like this:</p>
@@ -95,7 +97,7 @@ Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamed
 
 <p>Basically, the idea is to reach the end of the level without falling out of bounds. Touch the screen to jump (and effectively flip gravity). This is how my game <strong>scape</strong> loks like:</p>
 
-<video controls="" autoplay="" preload="auto" playsinline="" poster="https://pbs.twimg.com/tweet_video_thumb/D3dLC8CW4AAHcjP.jpg" src="https://video.twimg.com/tweet_video/D3dLC8CW4AAHcjP.mp4" type="video/mp4" style="width:100%;"></video>
+<p><img src="/public/media/scape-showcase.gif" alt="scape-showcase" /></p>
 
 <p>The first thing the player does is touching the screen and one notices that the character will jump as a consequence. However, this has some impact on the initial game design:</p>
 
@@ -105,8 +107,19 @@ Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamed
   <li>the player should also learn in the beginning what the consequences are if no action is taken</li>
 </ul>
 
-<p>To solve all these questions I did a simple trick: I placed a block in front of the player. As a result the player bumps into the block at some point, gets stuck and the moving camera will kill the player if out of bounds.</p>
+<p>To solve all these questions I did a simple trick: I placed a block in front of the player. As a result the player bumps into the block at some point, gets stuck and the moving camera will kill the player if out of bounds:</p>
 
+<p><img src="/public/media/scape-tutorial-block.gif" alt="scape-block" /></p>
+
+<p>The player has no other choice than trying to touch the screen. Each level has been designed so the player automatically initiates actions to play the game, without having an explicit tutorial:</p>
+
+<p><img src="/public/media/scape-tutorial-block-skip.gif" alt="scape-block-skip" /></p>
+
+<p>As a game designer, this is not obvious at first. Only after a couple of iterations I can eventually refine the level structure to ensure the best possible game experience.</p>
+
+<h1 id="into-the-future">Into the Future</h1>
+
+<p>Currently I am refining the level design, updating assets and rewriting the level selection flow. In another blog article I am going to elaborate on that more detailed. Stay tuned!</p>
 
 </div>
 
