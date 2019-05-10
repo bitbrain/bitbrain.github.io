@@ -42,13 +42,65 @@
  <title>bitbrain</title>
  <link href="https://bitbrain.github.io/atom.xml" rel="self"/>
  <link href="https://bitbrain.github.io/"/>
- <updated>2019-05-09T15:47:42+00:00</updated>
+ <updated>2019-05-10T15:52:42+00:00</updated>
  <id>https://bitbrain.github.io</id>
  <author>
    <name></name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title></title>
+   <link href="https://bitbrain.github.io/2019/05/10/2019-05-10-one-finger-to-rule-them-all.html"/>
+   <updated>2019-05-10T15:52:42+00:00</updated>
+   <id>https://bitbrain.github.io/2019/05/10/2019-05-10-one-finger-to-rule-them-all</id>
+   <content type="html">&lt;p&gt;Nowadays, smartphones are everywhere. People are swiping up and down, left and right, panning in, double tapping like champions. What people don’t want is having to use more than a single finger, god forbit a second hand just to get a task done on their device. Game developers such as &lt;a href=&quot;https://king.com&quot;&gt;King&lt;/a&gt; have taken that principle to another level for a simple reason: &lt;strong&gt;Accessibility&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you want your game to be played by the masses, it needs to be accessible. In order for a game to be accessible, it needs to be supported by the hardware and the user should not get confused how to actually play the game. Personally, I always disliked the fact that controls are being emulated on smartphones via HUDs like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://icdn9.digitaltrends.com/image/fortnite-mobile-beginners-guide-gather-720x720.jpg&quot; alt=&quot;fortnite-hud&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Especially on a busy train or a cigarette in one hand, playing those kind of games can be quite tricky. Why don’t all mobile games just have simple &lt;strong&gt;One Finger to Rule them All&lt;/strong&gt; controls?&lt;/p&gt;
+
+&lt;h1 id=&quot;simple-controls-are-challenging&quot;&gt;Simple controls are challenging&lt;/h1&gt;
+
+&lt;p&gt;As a user I do not want to read through manuals or tutorials to learn how to actually play the game. Time is much better spent and there are so many games out there which do not require any tutorials whatsoever. Thus, designing a simple input system which can be just with just one finger is rather challenging:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;how does the player know if he should swipe, pan or where to click?&lt;/li&gt;
+  &lt;li&gt;how do I prevent that the player accidentally uses wrong controls?&lt;/li&gt;
+  &lt;li&gt;how can I ensure the player learns the controls naturally by just trying out?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;the more limited the controls are, the more accessible the game is. However, the amount of input combinations decreases with limited controls.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Finding the perfect balance between those two is the real challenge.&lt;/p&gt;
+
+&lt;h1 id=&quot;a-first-approach&quot;&gt;A first approach&lt;/h1&gt;
+
+&lt;p&gt;Currently I am working on a small game called &lt;strong&gt;scape&lt;/strong&gt; - it is a fast-paced 2D platformer written in &lt;a href=&quot;https://en.wikipedia.org/wiki/Java_(programming_language)&quot;&gt;Java&lt;/a&gt;, using my gamejam framework called &lt;a href=&quot;https://github.com/bitbrain/braingdx&quot;&gt;braingdx&lt;/a&gt;. You play a little virus infecting a compuer system. I got inspired by &lt;a href=&quot;https://yoo-ninja-free.en.uptodown.com/android&quot;&gt;Yoo Ninja!&lt;/a&gt;, one of my favourite Android games:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://img.utdstc.com/screen/13/yoo-ninja-free-1.jpg:l&quot; alt=&quot;yoo-ninja&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Basically, the idea is to reach the end of the level without falling out of bounds. Touch the screen to jump (and effectively flip gravity). This is how my game &lt;strong&gt;scape&lt;/strong&gt; loks like:&lt;/p&gt;
+
+&lt;video controls=&quot;&quot; autoplay=&quot;&quot; preload=&quot;auto&quot; playsinline=&quot;&quot; poster=&quot;https://pbs.twimg.com/tweet_video_thumb/D3dLC8CW4AAHcjP.jpg&quot; src=&quot;https://video.twimg.com/tweet_video/D3dLC8CW4AAHcjP.mp4&quot; type=&quot;video/mp4&quot; style=&quot;width: 100%; height: 100%; position: absolute; background-color: black; top: 0%; left: 0%; transform: rotate(0deg) scale(1.005);&quot;&gt;&lt;/video&gt;
+
+&lt;p&gt;The first thing the player does is touching the screen and one notices that the character will jump as a consequence. However, this has some impact on the initial game design:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;the player should not be punished for not touching the screen initially&lt;/li&gt;
+  &lt;li&gt;the player should notice that he needs to do &lt;em&gt;something&lt;/em&gt; in order to progress&lt;/li&gt;
+  &lt;li&gt;the player should also learn in the beginning what the consequences are if no action is taken&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To solve all these questions I did a simple trick: I placed a block in front of the player. As a result the player bumps into the block at some point, gets stuck and the moving camera will kill the player if out of bounds.&lt;/p&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>How to automatically publish your game to itch.io</title>
