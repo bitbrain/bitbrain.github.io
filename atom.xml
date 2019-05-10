@@ -21,7 +21,7 @@
 </head>
 <body><div class="site-header">
   <div class="wrapper">
-    <a class="site-title" rel="author" href="/">bitbrain <b class="command_prompt">></b><b class="blinking_cursor">_</b></a>
+    <a class="site-title" rel="author" href="/">bitbrain<b class="command_prompt"></b><b class="blinking_cursor">_</b></a>
     <span class="social_links">
         
           <a class="color-cyan-hover" href="https://twitter.com/bitbrain_"><i class="fab fa-twitter-square"></i></a>
@@ -42,7 +42,7 @@
  <title>bitbrain</title>
  <link href="https://bitbrain.github.io/atom.xml" rel="self"/>
  <link href="https://bitbrain.github.io/"/>
- <updated>2019-05-10T19:32:04+00:00</updated>
+ <updated>2019-05-10T20:22:12+00:00</updated>
  <id>https://bitbrain.github.io</id>
  <author>
    <name></name>
@@ -767,7 +767,7 @@ Many developers (beardy hipsters) claim this technology belongs to the past, gam
       </div>
     </main><footer class="site-footer">
   <div class="wrapper">
-    <div class="credits"><a href="https://github.com/bitbrain/jekyll-dash">dash</a> for Jekyll by <a href="https://github.com/bitbrain">bitbrain</a></div>
+    <div class="credits"><a href="https://github.com/bitbrain/jekyll-dash">dash</a> theme for Jekyll by <a href="https://github.com/bitbrain">bitbrain</a> made with <i class="fas fa-heart"></i></div>
   </div>
 </footer>
 <script>

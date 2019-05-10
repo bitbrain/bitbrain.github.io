@@ -73,6 +73,9 @@
 @keyframes blinker {
   50% {
     opacity: 0; } }
+@keyframes type {
+  from {
+    width: 0; } }
 body {
   font: 500 16px/1.5 "Varela Round", sans-serif;
   color: #DAE4ED;
@@ -231,10 +234,25 @@ pre {
   position: relative; }
   .site-header .blinking_cursor {
     animation: blinker 1s none infinite;
-    font-size: 16px; }
+    font-size: 20px; }
   .site-header .command_prompt {
     color: #637AFE;
     font-size: 16px; }
+    .site-header .command_prompt svg {
+      width: 20px;
+      height: 20px;
+      margin-bottom: -1px;
+      margin-left: 1px; }
+    .site-header .command_prompt:before {
+      content: "\f054";
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      font-style: normal;
+      font-variant: normal;
+      text-rendering: auto;
+      font-weight: 900;
+      display: none;
+      -webkit-font-smoothing: antialiased; }
 
 .site-title {
   font-size: 26px;
@@ -279,8 +297,30 @@ pre {
 
 .post-description {
   margin-top: 1em;
-  color: #F24784;
-  font-style: italic; }
+  font-size: 18.4px;
+  color: #DAE4ED;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  animation: type 2s steps(60, end); }
+  .post-description > svg {
+    color: #637AFE;
+    margin-right: 0.6em;
+    margin-bottom: -1px; }
+  .post-description:after {
+    content: "_";
+    animation: blinker 1s none infinite;
+    font-size: 16px; }
+  .post-description:before {
+    content: "\f054";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    font-weight: 900;
+    display: none;
+    -webkit-font-smoothing: antialiased; }
 
 .post {
   margin-bottom: 2em; }
@@ -295,13 +335,19 @@ pre {
   .post img {
     border-radius: 0.3em;
     width: 100%; }
-  .post li {
+  .post ol > li {
+    margin-left: 1em;
+    line-height: 2.025; }
+  .post ul > li {
+    line-height: 2.025;
+    color: #ade0b9;
     list-style: none;
     margin-left: 0; }
-    .post li svg {
+    .post ul > li svg {
       color: #50BD6A;
-      margin-right: 0.5em; }
-    .post li:before {
+      margin-right: 0.5em;
+      margin-bottom: -1px; }
+    .post ul > li:before {
       content: "\f14a";
       font-family: "Font Awesome 5 Free";
       font-weight: 900;
@@ -311,12 +357,12 @@ pre {
       font-weight: 900;
       display: none;
       -webkit-font-smoothing: antialiased; }
-  .post ul {
+  .post ul, .post ol {
     padding: 0;
     margin-left: 0.5em; }
   .post > blockquote {
     margin-top: 2em;
-    margin-bottom: 2em;
+    margin-bottom: 1em;
     margin-left: 0.5em;
     font-style: italic;
     color: #fddb8d; }
@@ -331,11 +377,12 @@ pre {
       display: none;
       -webkit-font-smoothing: antialiased; }
     .post > blockquote > svg.svg-inline--fa {
+      color: #fddb8d;
       float: left;
       width: 3em;
       height: 3em;
       margin-right: 1em; }
-    .post > blockquote svg {
+    .post > blockquote > ul > li > svg {
       color: #fddb8d; }
     .post > blockquote li {
       color: #FCBC28; }
@@ -406,10 +453,10 @@ pre {
 .social_links {
   float: right; }
   .social_links > a {
-    color: #95b2cc;
+    color: #b8cbdc;
     display: inline-block;
     margin-left: 0.2em;
-    font-size: 25px; }
+    font-size: 27px; }
 
 ul.related-posts {
   margin: 0;
