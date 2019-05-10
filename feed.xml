@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://bitbrain.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://bitbrain.github.io/" rel="alternate" type="text/html" /><updated>2019-05-10T20:52:10+00:00</updated><id>https://bitbrain.github.io/feed.xml</id><title type="html">bitbrain</title><subtitle>Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamedev and web. Born and raised in Germany, studied in the Netherlands, currently living in the UK.
-</subtitle><author><name>bitbrain</name></author><entry><title type="html">Game design: one finger to rule them all</title><link href="https://bitbrain.github.io/2019/05/10/one-finger-to-rule-them-all.html" rel="alternate" type="text/html" title="Game design: one finger to rule them all" /><published>2019-05-10T00:00:00+00:00</published><updated>2019-05-10T00:00:00+00:00</updated><id>https://bitbrain.github.io/2019/05/10/one-finger-to-rule-them-all</id><content type="html" xml:base="https://bitbrain.github.io/2019/05/10/one-finger-to-rule-them-all.html">&lt;p&gt;Nowadays, smartphones are everywhere. People are swiping up and down, left and right, panning in, double tapping like champions. What people don’t want is having to use more than a single finger, god forbit a second hand just to get a task done on their device. Game developers such as &lt;a href=&quot;https://king.com&quot;&gt;King&lt;/a&gt; have taken that principle to another level for a simple reason: &lt;strong&gt;Accessibility&lt;/strong&gt;.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://bitbrain.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://bitbrain.github.io/" rel="alternate" type="text/html" /><updated>2019-05-10T20:57:16+00:00</updated><id>https://bitbrain.github.io/feed.xml</id><title type="html">bitbrain</title><subtitle>Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamedev and web. Born and raised in Germany, studied in the Netherlands, currently living in the UK.
+</subtitle><author><name>bitbrain</name></author><entry><title type="html">Game design: one finger to rule them all</title><link href="https://bitbrain.github.io/2019/05/10/one-finger-to-rule-them-all.html" rel="alternate" type="text/html" title="Game design: one finger to rule them all" /><published>2019-05-10T00:00:00+00:00</published><updated>2019-05-10T00:00:00+00:00</updated><id>https://bitbrain.github.io/2019/05/10/one-finger-to-rule-them-all</id><content type="html" xml:base="https://bitbrain.github.io/2019/05/10/one-finger-to-rule-them-all.html">&lt;p&gt;Everyone owns a smartphone nowadays. People are swiping within their apps up and down, left and right, panning in and double tap  whenever they get the opportunity. What people definitely don’t want is having to use more than a single finger. When looking at popular apps like Instagram, Twitter or Boost, the entire UX flow is designed for single-hand use. Game developers such as &lt;a href=&quot;https://king.com&quot;&gt;King&lt;/a&gt; have taken that principle to another level for a simple reason: &lt;strong&gt;Accessibility&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;If you want your game to be played by the masses, it needs to be accessible. In order for a game to be accessible, it needs to be supported by the hardware and the user should not get confused how to actually play the game. Personally, I always disliked the fact that controls are being emulated on smartphones via HUDs like this:&lt;/p&gt;
+&lt;p&gt;If you want your game to be played by the masses, it needs to be accessible. In order for a game to be accessible, it needs to be supported by the hardware and the user should not get confused how to actually play the game. Many mobile games have long and annoying tutorials, explaining the complex UI and input methods such as buttons and virtual HUDs. Personally, I always disliked the fact that controls are being emulated on smartphones via HUDs like this:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://icdn9.digitaltrends.com/image/fortnite-mobile-beginners-guide-gather-720x720.jpg&quot; alt=&quot;fortnite-hud&quot; /&gt;&lt;/p&gt;
 
@@ -9,7 +9,7 @@
 
 &lt;h1 id=&quot;simple-controls-are-challenging&quot;&gt;Simple controls are challenging&lt;/h1&gt;
 
-&lt;p&gt;As a user I do not want to read through manuals or tutorials to learn how to actually play the game. Time is much better spent and there are so many games out there which do not require any tutorials whatsoever. Thus, designing a simple input system which can be just with just one finger is rather challenging:&lt;/p&gt;
+&lt;p&gt;There is a simple reason why so many games try to avoid simple input but instead use more complex input mechanisms: it can become rather complicated to communicate how the game can be played, when there is just a single input method! On the other hand, as a user I do not want to read through manuals or tutorials to learn how to actually play the game. Time is much better spent and there are so many games out there which do not require any tutorials whatsoever. Thus, designing a simple input system which can be just with just one finger is key. Before we can implement simple input, the following questions need to be answered:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;how does the player know if he should swipe, pan or where to click?&lt;/li&gt;
@@ -17,8 +17,10 @@
   &lt;li&gt;how can I ensure the player learns the controls naturally by just trying out?&lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;p&gt;Answering these questions gave me confidence to build all my games with simple controls. This made designing UI components rather hard but eventually paid of by having a really simple game experience.&lt;/p&gt;
+
 &lt;blockquote&gt;
-  &lt;p&gt;the more limited the controls are, the more accessible the game is. However, the amount of input combinations decreases with limited controls.&lt;/p&gt;
+  &lt;p&gt;The more limited the controls are, the more accessible the game is. However, the amount of input combinations decreases with limited controls.&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;Finding the perfect balance between those two is the real challenge.&lt;/p&gt;
@@ -51,9 +53,21 @@
 
 &lt;p&gt;As a game designer, this is not obvious at first. Only after a couple of iterations I can eventually refine the level structure to ensure the best possible game experience.&lt;/p&gt;
 
+&lt;h1 id=&quot;the-dark-side-of-the-moon&quot;&gt;The dark side of the moon&lt;/h1&gt;
+
+&lt;p&gt;Having a character jump via touch is not the most difficult mechanic. The &lt;strong&gt;One Touch Mechanic&lt;/strong&gt; made things especially more tricky when it came to menu flow:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;how do I communicate to the player that he has to swipe in order to switch to the next level in the stage selection?&lt;/li&gt;
+  &lt;li&gt;how does a player know he needs to touch the screen to enter a level?&lt;/li&gt;
+  &lt;li&gt;how does a player know he requires to keep the screen touched to skip a cutscene?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Those questions are just partially answered and I am currently about to rewrite the entire menu flow to improve on that drastically.&lt;/p&gt;
+
 &lt;h1 id=&quot;into-the-future&quot;&gt;Into the Future&lt;/h1&gt;
 
-&lt;p&gt;Currently I am refining the level design, updating assets and rewriting the level selection flow. In another blog article I am going to elaborate on that more detailed. Stay tuned!&lt;/p&gt;</content><author><name>bitbrain</name></author><category term="gamedev" /><category term="devlog" /><category term="scape" /><category term="gamedesign" /><summary type="html">Nowadays, smartphones are everywhere. People are swiping up and down, left and right, panning in, double tapping like champions. What people don’t want is having to use more than a single finger, god forbit a second hand just to get a task done on their device. Game developers such as King have taken that principle to another level for a simple reason: Accessibility.</summary></entry><entry><title type="html">How to automatically publish your game to itch.io</title><link href="https://bitbrain.github.io/2019/02/18/automatically-publish-games-to-itchio.html" rel="alternate" type="text/html" title="How to automatically publish your game to itch.io" /><published>2019-02-18T00:00:00+00:00</published><updated>2019-02-18T00:00:00+00:00</updated><id>https://bitbrain.github.io/2019/02/18/automatically-publish-games-to-itchio</id><content type="html" xml:base="https://bitbrain.github.io/2019/02/18/automatically-publish-games-to-itchio.html">&lt;h1 id=&quot;motivation&quot;&gt;Motivation&lt;/h1&gt;
+&lt;p&gt;Currently I am refining the level design, updating assets and rewriting the level selection flow. In another blog article I am going to elaborate on that more detailed. Stay tuned!&lt;/p&gt;</content><author><name>bitbrain</name></author><category term="gamedev" /><category term="devlog" /><category term="scape" /><category term="gamedesign" /><summary type="html">Everyone owns a smartphone nowadays. People are swiping within their apps up and down, left and right, panning in and double tap whenever they get the opportunity. What people definitely don’t want is having to use more than a single finger. When looking at popular apps like Instagram, Twitter or Boost, the entire UX flow is designed for single-hand use. Game developers such as King have taken that principle to another level for a simple reason: Accessibility.</summary></entry><entry><title type="html">How to automatically publish your game to itch.io</title><link href="https://bitbrain.github.io/2019/02/18/automatically-publish-games-to-itchio.html" rel="alternate" type="text/html" title="How to automatically publish your game to itch.io" /><published>2019-02-18T00:00:00+00:00</published><updated>2019-02-18T00:00:00+00:00</updated><id>https://bitbrain.github.io/2019/02/18/automatically-publish-games-to-itchio</id><content type="html" xml:base="https://bitbrain.github.io/2019/02/18/automatically-publish-games-to-itchio.html">&lt;h1 id=&quot;motivation&quot;&gt;Motivation&lt;/h1&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;why should I even upload my games automatically?&lt;/p&gt;

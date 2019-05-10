@@ -65,9 +65,9 @@ Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamed
   
   <div class="post-description">I love creating games which can be played with just one touch</div>
   
-  <p>Nowadays, smartphones are everywhere. People are swiping up and down, left and right, panning in, double tapping like champions. What people don’t want is having to use more than a single finger, god forbit a second hand just to get a task done on their device. Game developers such as <a href="https://king.com">King</a> have taken that principle to another level for a simple reason: <strong>Accessibility</strong>.</p>
+  <p>Everyone owns a smartphone nowadays. People are swiping within their apps up and down, left and right, panning in and double tap  whenever they get the opportunity. What people definitely don’t want is having to use more than a single finger. When looking at popular apps like Instagram, Twitter or Boost, the entire UX flow is designed for single-hand use. Game developers such as <a href="https://king.com">King</a> have taken that principle to another level for a simple reason: <strong>Accessibility</strong>.</p>
 
-<p>If you want your game to be played by the masses, it needs to be accessible. In order for a game to be accessible, it needs to be supported by the hardware and the user should not get confused how to actually play the game. Personally, I always disliked the fact that controls are being emulated on smartphones via HUDs like this:</p>
+<p>If you want your game to be played by the masses, it needs to be accessible. In order for a game to be accessible, it needs to be supported by the hardware and the user should not get confused how to actually play the game. Many mobile games have long and annoying tutorials, explaining the complex UI and input methods such as buttons and virtual HUDs. Personally, I always disliked the fact that controls are being emulated on smartphones via HUDs like this:</p>
 
 <p><img src="https://icdn9.digitaltrends.com/image/fortnite-mobile-beginners-guide-gather-720x720.jpg" alt="fortnite-hud" /></p>
 
@@ -75,7 +75,7 @@ Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamed
 
 <h1 id="simple-controls-are-challenging">Simple controls are challenging</h1>
 
-<p>As a user I do not want to read through manuals or tutorials to learn how to actually play the game. Time is much better spent and there are so many games out there which do not require any tutorials whatsoever. Thus, designing a simple input system which can be just with just one finger is rather challenging:</p>
+<p>There is a simple reason why so many games try to avoid simple input but instead use more complex input mechanisms: it can become rather complicated to communicate how the game can be played, when there is just a single input method! On the other hand, as a user I do not want to read through manuals or tutorials to learn how to actually play the game. Time is much better spent and there are so many games out there which do not require any tutorials whatsoever. Thus, designing a simple input system which can be just with just one finger is key. Before we can implement simple input, the following questions need to be answered:</p>
 
 <ul>
   <li>how does the player know if he should swipe, pan or where to click?</li>
@@ -83,8 +83,10 @@ Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamed
   <li>how can I ensure the player learns the controls naturally by just trying out?</li>
 </ul>
 
+<p>Answering these questions gave me confidence to build all my games with simple controls. This made designing UI components rather hard but eventually paid of by having a really simple game experience.</p>
+
 <blockquote>
-  <p>the more limited the controls are, the more accessible the game is. However, the amount of input combinations decreases with limited controls.</p>
+  <p>The more limited the controls are, the more accessible the game is. However, the amount of input combinations decreases with limited controls.</p>
 </blockquote>
 
 <p>Finding the perfect balance between those two is the real challenge.</p>
@@ -116,6 +118,18 @@ Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamed
 <p><img src="/public/media/scape-tutorial-block-skip.gif" alt="scape-block-skip" /></p>
 
 <p>As a game designer, this is not obvious at first. Only after a couple of iterations I can eventually refine the level structure to ensure the best possible game experience.</p>
+
+<h1 id="the-dark-side-of-the-moon">The dark side of the moon</h1>
+
+<p>Having a character jump via touch is not the most difficult mechanic. The <strong>One Touch Mechanic</strong> made things especially more tricky when it came to menu flow:</p>
+
+<ul>
+  <li>how do I communicate to the player that he has to swipe in order to switch to the next level in the stage selection?</li>
+  <li>how does a player know he needs to touch the screen to enter a level?</li>
+  <li>how does a player know he requires to keep the screen touched to skip a cutscene?</li>
+</ul>
+
+<p>Those questions are just partially answered and I am currently about to rewrite the entire menu flow to improve on that drastically.</p>
 
 <h1 id="into-the-future">Into the Future</h1>
 
