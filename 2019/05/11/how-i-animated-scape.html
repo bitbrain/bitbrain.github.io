@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.0 -->
+<title>How I animated scape | bitbrain</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="How I animated scape" />
+<meta name="author" content="bitbrain" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="In a previous blog post I talked about game design decisions I made in my most recent game project called scape. You might notice that I have a particular animation style. At the current stage of development scape looks like this:" />
+<meta property="og:description" content="In a previous blog post I talked about game design decisions I made in my most recent game project called scape. You might notice that I have a particular animation style. At the current stage of development scape looks like this:" />
+<link rel="canonical" href="https://bitbrain.github.io/2019/05/11/how-i-animated-scape.html" />
+<meta property="og:url" content="https://bitbrain.github.io/2019/05/11/how-i-animated-scape.html" />
+<meta property="og:site_name" content="bitbrain" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-05-11T00:00:00+00:00" />
+<script type="application/ld+json">
+{"description":"In a previous blog post I talked about game design decisions I made in my most recent game project called scape. You might notice that I have a particular animation style. At the current stage of development scape looks like this:","author":{"@type":"Person","name":"bitbrain"},"@type":"BlogPosting","url":"https://bitbrain.github.io/2019/05/11/how-i-animated-scape.html","headline":"How I animated scape","dateModified":"2019-05-11T00:00:00+00:00","datePublished":"2019-05-11T00:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://bitbrain.github.io/2019/05/11/how-i-animated-scape.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="icon" type="image/png" href="/assets/favicon.png" /><link type="application/atom+xml" rel="alternate" href="https://bitbrain.github.io/feed.xml" title="bitbrain" /><script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
+</head>
+<body><div class="site-header">
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">bitbrain<b class="command_prompt"></b><b class="blinking_cursor">_</b></a>
+    <span class="social_links">
+        <a class="color-cyan-hover" href="https://twitter.com/bitbrain_"><i class="fab fa-twitter-square"></i></a><a class="color-red-hover" href="https://bitbrain.itch.io"><i class="fab fa-itch-io"></i></a><a class="color-purple-hover" href="https://github.com/bitbrain"><i class="fab fa-github-square"></i></a>
+
+    </span>
+  </div>
+</div>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="author-box">
+
+<img src="https://gravatar.com/avatar/22a6f62e5da4fbbd51f57656d3738916?s=256" class="author-avatar" />
+
+Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamedev and web. Born and raised in Germany, studied in the Netherlands, currently living in the UK.
+
+</div>
+
+<div class="post">
+  <h1 class="post-title">How I animated scape</h1>
+  
+  <div class="post-tags">
+      
+      <a class="tag" href="/tag/gamedev/">gamedev</a>
+      
+      <a class="tag" href="/tag/devlog/">devlog</a>
+      
+      <a class="tag" href="/tag/scape/">scape</a>
+      
+      <a class="tag" href="/tag/pixelart/">pixelart</a>
+      
+      <a class="tag" href="/tag/pyxel/">pyxel</a>
+      
+      <a class="tag" href="/tag/tiled/">tiled</a>
+      
+  </div>
+  
+  <div class="post-date">Published on 11 May 2019</div>
+  
+  <p>In a <a href="/2019/05/10/one-finger-to-rule-them-all.html">previous blog post</a> I talked about game design decisions I made in my most recent game project called <a href="https://github.com/bitbrain/scape">scape</a>. You might notice that I have a particular animation style. At the current stage of development scape looks like this:</p>
+
+<p><img src="/public/media/scape-animation-style.gif" alt="scape-animation-style" /></p>
+
+<p>The game did not always look like that! I started creating initial mockups back in 2018. Back then all I knew was the following:</p>
+
+<ul>
+  <li>since I binged <a href="https://en.wikipedia.org/wiki/Mr._Robot">Mr. Robot</a> during that time I really wanted to craft a “hacker” themed game</li>
+  <li>I love the neon aspect of synthwave and cyberpunk - the game should have vibrant colours as well</li>
+  <li>you should be able to play the game like <a href="https://apkpure.com/yoo-ninja-free/com.RunnerGames.game.YooNinja_Lite">Yoo Ninja</a> which is one of my favourite smartphone games ever created</li>
+  <li>I thought it’d be pretty cool to play as a little virus, infecting a computer system</li>
+</ul>
+
+<p>After I thought about the initial design elements of the game I used Pyxel to create a first mockup. Keep in mind, this mockup is from 2018:</p>
+
+<p><img src="/public/media/scape-initial-mockup-from-2018.jpg" alt="scape-initial-mockup" /></p>
+
+<p>Right after creating this mockup <a href="https://github.com/bitbrain/scape/commit/3fb3170379aec277f9dc39dc556f1b9e7cb61a51">I pushed my first commit</a> to Github. Within a couple of hours a prototype has been created with all game mechanics implemented: <strong>jumping</strong> and <strong>flipping gravity</strong>:</p>
+
+<video autoplay="" controls="" loop="" preload="auto">
+<source src="https://video.twimg.com/tweet_video/Dk5G0cIWsAAK_Mu.mp4" type="video/mp4" />
+</video>
+
+<p>Next I am going to explain how I approached the player animation.</p>
+
+<h1 id="animating-the-player">Animating the player</h1>
+
+<p>The player is animated by using a 8x3 spritesheet with a sprite size of 8x8 pixel. All in all, spritesheets in scape are really tiny and I use a virtual camera ingame to zoom into the szene in order to magnify the pixel effect.</p>
+
+<p>This is how the spritesheet looks like:</p>
+
+<p><img src="/public/media/scape-animation-character-spritesheet.png" alt="player-animation" /></p>
+
+<p>The first row is used for basic movement animation. The second row is animating wall climbing. When the player is climbing a wall and moves just vertically, that animation is activated. Also, when a player is cornered or blocked, the third row is used as an animation.
+The animation itself is looping in a so called <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/graphics/g2d/Animation.PlayMode.html#LOOP_PINGPONG">LOOP_PINGPONG</a> fashion. All animation ingame is done by <a href="https://libgdx.badlogicgames.com">libgdx</a>. When the player is jumping though, I am pausing the animation and resetting it to the initial index to achieve some kind of idle effect.</p>
+
+<h1 id="level-animation">Level animation</h1>
+
+<p>More complex to animate are the level animations themselves. Each frame is handdrawn by me within <a href="https://pyxeledit.com">Pyxel</a>. This is really time-consuming but it is also fun to see a sprite coming “to live”.</p>
+
+<p>I have created several spritesheets, each of them has a particular style or purpose:</p>
+
+<ul>
+  <li><strong>vertical spritesheet</strong> contains sprites which are vertically aligned. Animation frames are created from left to right of the spritesheet</li>
+  <li><strong>horizontal spritesheet</strong> contains sprites which are horizontally aligned. Animation frames are created from top to bottom of the spritesheet</li>
+  <li><strong>block spritesheet</strong> contains square sprites. Animation frames are created from left to right of the spritesheet.</li>
+</ul>
+
+<p>After a while I realised that it probably was a mistake creating horizontal spritesheets at all. The simple reason is extendability. In order to build my levels I use the famous <a href="https://www.mapeditor.org">Tiled Editor</a>. In there you can import spritesheets and define animations. Unfortunately, Tiled is counting sprite indices from left to right, row by row. When I want to add more animations to my spritesheet, I have to increase the image size of it, which has an impact on all indices since Tiled requires to recompute those. That can lead to visual glitches and it is not clear what Tiled is doing behind the scenes. Be careful animating sprites vertically!</p>
+
+<blockquote>
+  <p>Within spritesheets, always animate frames from left to right and grow your spritesheet vertically in order to avoid glitches in editors such as Tiled!</p>
+</blockquote>
+
+<p>Within a spritesheet itself an animation is structured as follows:</p>
+
+<p><img src="/public/media/scape-animation-vertical-tileset.png" alt="spritesheet-animation" /></p>
+
+<p>In order to achieve an affect of energy lines cycling through the wires, I carefully picked a pattern with decreasing colour vibrancy which travels through the tile itself. This is how the tile looks animated in Tiled:</p>
+
+<p><img src="/public/media/scape-animation-tile-animation.gif" alt="spritesheet-animation-animated" /></p>
+
+<p>Then I simply have to create hundreds of these handdrawn animations, sounds simple, doesn’t it? Well, I realised after a while that it breaks the immersion when the animations are not in sync. This made things far more complicated since it means that I not only have to animate each tile but also I have to consider sibling tiles to fluidly integrate with eachother.</p>
+
+<h1 id="animating-bytes">Animating bytes</h1>
+
+<p>When playing scape, the player has to collect so called <strong>bytes</strong>. Animating those bytes was much simpler than taking care of individual level tiles:</p>
+
+<p><img src="/public/media/scape-animation-byte-spritesheet.png" alt="byte-spritesheet" /></p>
+
+<p>In-game I then used <a href="https://github.com/AurelienRibon/universal-tween-engine">Universal Tween Engine</a> to animate slight scaling. To improve visual fidelity I also added particle effects which I had created by using <a href="https://github.com/libgdx/libgdx/wiki/2D-Particle-Editor">the 2D particle editor of libgdx</a>:</p>
+
+<p><img src="/public/media/particle2d-editor.gif" alt="particle-editor" /></p>
+
+<p>Within my game code I then rendered these particle effects over the animated and scaled sprites. Later on I also implemented lighting to my game. At that point, I purposfully attached pink lights onto the byte objects so they are visible from the far!</p>
+
+<p>I really enjoy doing manual animation since you have more control over each individual pixel on the screen!</p>
+
+</div>
+
+
+<div class="comments">
+<div id="disqus_thread"></div>
+<script>
+ var disqus_config = function () {
+     this.page.url = 'https://bitbrain.github.io/2019/05/11/how-i-animated-scape.html';
+     this.page.identifier = '/2019/05/11/how-i-animated-scape';
+     this.page.title = 'How I animated scape';
+ };
+
+ (function() {  // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+     var d = document, s = d.createElement('script');
+
+     s.src = '//bitbrain-github-io.disqus.com/embed.js';
+
+     s.setAttribute('data-timestamp', +new Date());
+     (d.head || d.body).appendChild(s);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</div>
+
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2019/05/10/one-finger-to-rule-them-all.html">
+            Game design: one finger to rule them all
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2019/02/18/automatically-publish-games-to-itchio.html">
+            How to automatically publish your game to itch.io
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2018/07/15/cd-with-travis.html">
+            Continuous Delivery with Travis and Github
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+<h2>All tags</h2>
+<div class="tag-cloud">
+    <a href="/tag/deployment/" class="set-2">deployment</a> <a href="/tag/devlog/" class="set-3">devlog</a> <a href="/tag/gamedesign/" class="set-1">gamedesign</a> <a href="/tag/gamedev/" class="set-5">gamedev</a> <a href="/tag/git/" class="set-1">git</a> <a href="/tag/howto/" class="set-1">howto</a> <a href="/tag/introduction/" class="set-1">introduction</a> <a href="/tag/itchio/" class="set-1">itchio</a> <a href="/tag/mindmazer/" class="set-1">mindmazer</a> <a href="/tag/misc/" class="set-1">misc</a> <a href="/tag/pixelart/" class="set-1">pixelart</a> <a href="/tag/pyxel/" class="set-1">pyxel</a> <a href="/tag/scape/" class="set-2">scape</a> <a href="/tag/showcase/" class="set-1">showcase</a> <a href="/tag/tiled/" class="set-1">tiled</a> <a href="/tag/travisci/" class="set-2">travisci</a>
+</div>
+
+
+
+      </div>
+    </main><footer class="site-footer">
+  <div class="wrapper">
+    <div class="credits"><a href="https://github.com/bitbrain/jekyll-dash">dash</a> theme for Jekyll by <a href="https://github.com/bitbrain">bitbrain</a> made with <i class="fas fa-heart"></i></div>
+  </div>
+</footer>
+<script>
+      window.FontAwesomeConfig = {
+        searchPseudoElements: true
+      }
+    </script>
+  </body>
+
+</html>

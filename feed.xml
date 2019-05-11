@@ -1,5 +1,81 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://bitbrain.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://bitbrain.github.io/" rel="alternate" type="text/html" /><updated>2019-05-11T08:39:26+00:00</updated><id>https://bitbrain.github.io/feed.xml</id><title type="html">bitbrain</title><subtitle>Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamedev and web. Born and raised in Germany, studied in the Netherlands, currently living in the UK.
-</subtitle><author><name>bitbrain</name></author><entry><title type="html">Game design: one finger to rule them all</title><link href="https://bitbrain.github.io/2019/05/10/one-finger-to-rule-them-all.html" rel="alternate" type="text/html" title="Game design: one finger to rule them all" /><published>2019-05-10T00:00:00+00:00</published><updated>2019-05-10T00:00:00+00:00</updated><id>https://bitbrain.github.io/2019/05/10/one-finger-to-rule-them-all</id><content type="html" xml:base="https://bitbrain.github.io/2019/05/10/one-finger-to-rule-them-all.html">&lt;p&gt;Everyone owns a smartphone nowadays. People are swiping within their apps up and down, left and right, panning in and double tap  whenever they get the opportunity. What people definitely don’t want is having to use more than a single finger. When looking at popular apps like Instagram, Twitter or Boost, the entire UX flow is designed for single-hand use. Game developers such as &lt;a href=&quot;https://king.com&quot;&gt;King&lt;/a&gt; have taken that principle to another level for a simple reason: &lt;strong&gt;Accessibility&lt;/strong&gt;.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://bitbrain.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://bitbrain.github.io/" rel="alternate" type="text/html" /><updated>2019-05-11T10:45:32+00:00</updated><id>https://bitbrain.github.io/feed.xml</id><title type="html">bitbrain</title><subtitle>Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamedev and web. Born and raised in Germany, studied in the Netherlands, currently living in the UK.
+</subtitle><author><name>bitbrain</name></author><entry><title type="html">How I animated scape</title><link href="https://bitbrain.github.io/2019/05/11/how-i-animated-scape.html" rel="alternate" type="text/html" title="How I animated scape" /><published>2019-05-11T00:00:00+00:00</published><updated>2019-05-11T00:00:00+00:00</updated><id>https://bitbrain.github.io/2019/05/11/how-i-animated-scape</id><content type="html" xml:base="https://bitbrain.github.io/2019/05/11/how-i-animated-scape.html">&lt;p&gt;In a &lt;a href=&quot;/2019/05/10/one-finger-to-rule-them-all.html&quot;&gt;previous blog post&lt;/a&gt; I talked about game design decisions I made in my most recent game project called &lt;a href=&quot;https://github.com/bitbrain/scape&quot;&gt;scape&lt;/a&gt;. You might notice that I have a particular animation style. At the current stage of development scape looks like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/media/scape-animation-style.gif&quot; alt=&quot;scape-animation-style&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The game did not always look like that! I started creating initial mockups back in 2018. Back then all I knew was the following:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;since I binged &lt;a href=&quot;https://en.wikipedia.org/wiki/Mr._Robot&quot;&gt;Mr. Robot&lt;/a&gt; during that time I really wanted to craft a “hacker” themed game&lt;/li&gt;
+  &lt;li&gt;I love the neon aspect of synthwave and cyberpunk - the game should have vibrant colours as well&lt;/li&gt;
+  &lt;li&gt;you should be able to play the game like &lt;a href=&quot;https://apkpure.com/yoo-ninja-free/com.RunnerGames.game.YooNinja_Lite&quot;&gt;Yoo Ninja&lt;/a&gt; which is one of my favourite smartphone games ever created&lt;/li&gt;
+  &lt;li&gt;I thought it’d be pretty cool to play as a little virus, infecting a computer system&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;After I thought about the initial design elements of the game I used Pyxel to create a first mockup. Keep in mind, this mockup is from 2018:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/media/scape-initial-mockup-from-2018.jpg&quot; alt=&quot;scape-initial-mockup&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Right after creating this mockup &lt;a href=&quot;https://github.com/bitbrain/scape/commit/3fb3170379aec277f9dc39dc556f1b9e7cb61a51&quot;&gt;I pushed my first commit&lt;/a&gt; to Github. Within a couple of hours a prototype has been created with all game mechanics implemented: &lt;strong&gt;jumping&lt;/strong&gt; and &lt;strong&gt;flipping gravity&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;video autoplay=&quot;&quot; controls=&quot;&quot; loop=&quot;&quot; preload=&quot;auto&quot;&gt;
+&lt;source src=&quot;https://video.twimg.com/tweet_video/Dk5G0cIWsAAK_Mu.mp4&quot; type=&quot;video/mp4&quot; /&gt;
+&lt;/video&gt;
+
+&lt;p&gt;Next I am going to explain how I approached the player animation.&lt;/p&gt;
+
+&lt;h1 id=&quot;animating-the-player&quot;&gt;Animating the player&lt;/h1&gt;
+
+&lt;p&gt;The player is animated by using a 8x3 spritesheet with a sprite size of 8x8 pixel. All in all, spritesheets in scape are really tiny and I use a virtual camera ingame to zoom into the szene in order to magnify the pixel effect.&lt;/p&gt;
+
+&lt;p&gt;This is how the spritesheet looks like:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/media/scape-animation-character-spritesheet.png&quot; alt=&quot;player-animation&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The first row is used for basic movement animation. The second row is animating wall climbing. When the player is climbing a wall and moves just vertically, that animation is activated. Also, when a player is cornered or blocked, the third row is used as an animation.
+The animation itself is looping in a so called &lt;a href=&quot;https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/graphics/g2d/Animation.PlayMode.html#LOOP_PINGPONG&quot;&gt;LOOP_PINGPONG&lt;/a&gt; fashion. All animation ingame is done by &lt;a href=&quot;https://libgdx.badlogicgames.com&quot;&gt;libgdx&lt;/a&gt;. When the player is jumping though, I am pausing the animation and resetting it to the initial index to achieve some kind of idle effect.&lt;/p&gt;
+
+&lt;h1 id=&quot;level-animation&quot;&gt;Level animation&lt;/h1&gt;
+
+&lt;p&gt;More complex to animate are the level animations themselves. Each frame is handdrawn by me within &lt;a href=&quot;https://pyxeledit.com&quot;&gt;Pyxel&lt;/a&gt;. This is really time-consuming but it is also fun to see a sprite coming “to live”.&lt;/p&gt;
+
+&lt;p&gt;I have created several spritesheets, each of them has a particular style or purpose:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;vertical spritesheet&lt;/strong&gt; contains sprites which are vertically aligned. Animation frames are created from left to right of the spritesheet&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;horizontal spritesheet&lt;/strong&gt; contains sprites which are horizontally aligned. Animation frames are created from top to bottom of the spritesheet&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;block spritesheet&lt;/strong&gt; contains square sprites. Animation frames are created from left to right of the spritesheet.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;After a while I realised that it probably was a mistake creating horizontal spritesheets at all. The simple reason is extendability. In order to build my levels I use the famous &lt;a href=&quot;https://www.mapeditor.org&quot;&gt;Tiled Editor&lt;/a&gt;. In there you can import spritesheets and define animations. Unfortunately, Tiled is counting sprite indices from left to right, row by row. When I want to add more animations to my spritesheet, I have to increase the image size of it, which has an impact on all indices since Tiled requires to recompute those. That can lead to visual glitches and it is not clear what Tiled is doing behind the scenes. Be careful animating sprites vertically!&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Within spritesheets, always animate frames from left to right and grow your spritesheet vertically in order to avoid glitches in editors such as Tiled!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Within a spritesheet itself an animation is structured as follows:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/media/scape-animation-vertical-tileset.png&quot; alt=&quot;spritesheet-animation&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In order to achieve an affect of energy lines cycling through the wires, I carefully picked a pattern with decreasing colour vibrancy which travels through the tile itself. This is how the tile looks animated in Tiled:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/media/scape-animation-tile-animation.gif&quot; alt=&quot;spritesheet-animation-animated&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Then I simply have to create hundreds of these handdrawn animations, sounds simple, doesn’t it? Well, I realised after a while that it breaks the immersion when the animations are not in sync. This made things far more complicated since it means that I not only have to animate each tile but also I have to consider sibling tiles to fluidly integrate with eachother.&lt;/p&gt;
+
+&lt;h1 id=&quot;animating-bytes&quot;&gt;Animating bytes&lt;/h1&gt;
+
+&lt;p&gt;When playing scape, the player has to collect so called &lt;strong&gt;bytes&lt;/strong&gt;. Animating those bytes was much simpler than taking care of individual level tiles:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/media/scape-animation-byte-spritesheet.png&quot; alt=&quot;byte-spritesheet&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In-game I then used &lt;a href=&quot;https://github.com/AurelienRibon/universal-tween-engine&quot;&gt;Universal Tween Engine&lt;/a&gt; to animate slight scaling. To improve visual fidelity I also added particle effects which I had created by using &lt;a href=&quot;https://github.com/libgdx/libgdx/wiki/2D-Particle-Editor&quot;&gt;the 2D particle editor of libgdx&lt;/a&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/media/particle2d-editor.gif&quot; alt=&quot;particle-editor&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Within my game code I then rendered these particle effects over the animated and scaled sprites. Later on I also implemented lighting to my game. At that point, I purposfully attached pink lights onto the byte objects so they are visible from the far!&lt;/p&gt;
+
+&lt;p&gt;I really enjoy doing manual animation since you have more control over each individual pixel on the screen!&lt;/p&gt;</content><author><name>bitbrain</name></author><category term="gamedev" /><category term="devlog" /><category term="scape" /><category term="pixelart" /><category term="pyxel" /><category term="tiled" /><summary type="html">In a previous blog post I talked about game design decisions I made in my most recent game project called scape. You might notice that I have a particular animation style. At the current stage of development scape looks like this:</summary></entry><entry><title type="html">Game design: one finger to rule them all</title><link href="https://bitbrain.github.io/2019/05/10/one-finger-to-rule-them-all.html" rel="alternate" type="text/html" title="Game design: one finger to rule them all" /><published>2019-05-10T00:00:00+00:00</published><updated>2019-05-10T00:00:00+00:00</updated><id>https://bitbrain.github.io/2019/05/10/one-finger-to-rule-them-all</id><content type="html" xml:base="https://bitbrain.github.io/2019/05/10/one-finger-to-rule-them-all.html">&lt;p&gt;Everyone owns a smartphone nowadays. People are swiping within their apps up and down, left and right, panning in and double tap  whenever they get the opportunity. What people definitely don’t want is having to use more than a single finger. When looking at popular apps like Instagram, Twitter or Boost, the entire UX flow is designed for single-hand use. Game developers such as &lt;a href=&quot;https://king.com&quot;&gt;King&lt;/a&gt; have taken that principle to another level for a simple reason: &lt;strong&gt;Accessibility&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;If you want your game to be played by the masses, it needs to be accessible. In order for a game to be accessible, it needs to be supported by the hardware and the user should not get confused how to actually play the game. Many mobile games have long and annoying tutorials, explaining the complex UI and input methods such as buttons and virtual HUDs. Personally, I always disliked the fact that controls are being emulated on smartphones via HUDs like this:&lt;/p&gt;
 
