@@ -36,7 +36,7 @@
  <title>bitbrain</title>
  <link href="https://bitbrain.github.io/atom.xml" rel="self"/>
  <link href="https://bitbrain.github.io/"/>
- <updated>2019-05-11T10:45:32+00:00</updated>
+ <updated>2019-05-11T10:54:45+00:00</updated>
  <id>https://bitbrain.github.io</id>
  <author>
    <name></name>
@@ -125,7 +125,9 @@ The animation itself is looping in a so called &lt;a href=&quot;https://libgdx.b
 
 &lt;p&gt;Within my game code I then rendered these particle effects over the animated and scaled sprites. Later on I also implemented lighting to my game. At that point, I purposfully attached pink lights onto the byte objects so they are visible from the far!&lt;/p&gt;
 
-&lt;p&gt;I really enjoy doing manual animation since you have more control over each individual pixel on the screen!&lt;/p&gt;
+&lt;p&gt;I really enjoy doing manual animation since you have more control over each individual pixel on the screen! The game will release later this year. In the meantime you can already download a pre-release version. Feel free to give me feedback either here or on &lt;a href=&quot;https://twitter.com/bitbrain_&quot;&gt;twitter&lt;/a&gt;! If you are especially interested in further development on this project, make sure to &lt;a href=&quot;https://twitter.com/i/moments/1127137651549667328&quot;&gt;checkout this Moment page&lt;/a&gt; I created.&lt;/p&gt;
+
+&lt;iframe src=&quot;https://itch.io/embed/357509?bg_color=15171A&amp;amp;fg_color=05fecf&amp;amp;link_color=f20179&amp;amp;border_color=15171A&quot; width=&quot;100%&quot; height=&quot;167&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
 </content>
  </entry>
  
