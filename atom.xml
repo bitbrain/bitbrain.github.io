@@ -23,13 +23,7 @@
   <div class="wrapper">
     <a class="site-title" rel="author" href="/">bitbrain<b class="command_prompt"></b><b class="blinking_cursor">_</b></a>
     <span class="social_links">
-        
-          <a class="color-cyan-hover" href="https://twitter.com/bitbrain_"><i class="fab fa-twitter-square"></i></a>
-        
-          <a class="color-red-hover" href="https://bitbrain.itch.io"><i class="fab fa-itch-io"></i></a>
-        
-          <a class="color-purple-hover" href="https://github.com/bitbrain"><i class="fab fa-github-square"></i></a>
-        
+        <a class="color-cyan-hover" href="https://twitter.com/bitbrain_"><i class="fab fa-twitter-square"></i></a><a class="color-red-hover" href="https://bitbrain.itch.io"><i class="fab fa-itch-io"></i></a><a class="color-purple-hover" href="https://github.com/bitbrain"><i class="fab fa-github-square"></i></a>
 
     </span>
   </div>
@@ -42,7 +36,7 @@
  <title>bitbrain</title>
  <link href="https://bitbrain.github.io/atom.xml" rel="self"/>
  <link href="https://bitbrain.github.io/"/>
- <updated>2019-05-10T20:57:16+00:00</updated>
+ <updated>2019-05-11T08:39:26+00:00</updated>
  <id>https://bitbrain.github.io</id>
  <author>
    <name></name>

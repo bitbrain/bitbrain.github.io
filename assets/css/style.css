@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: "Varela Round";
   src: url("/assets/fonts/VarelaRound-Regular.eot");
@@ -101,10 +102,13 @@ body, html {
  * Set `margin-bottom` to maintain vertical rhythm
  */
 h1, h2, h3, h4, h5, h6,
-p, blockquote, pre,
+blockquote, pre,
 ul, ol, dl, figure,
 .highlight {
-  margin-bottom: 15px; }
+  margin-bottom: 10px; }
+
+p {
+  margin: 0.5em 0; }
 
 figure {
   width: 100%;
@@ -147,7 +151,8 @@ li > ol {
   margin-bottom: 0; }
 
 video {
-  width: 100%; }
+  width: 100%;
+  border-radius: 0.3em; }
 
 /**
  * Headings
@@ -189,7 +194,7 @@ blockquote {
 pre,
 code {
   font-size: 15px;
-  border-radius: 3px;
+  border-radius: 0.3em;
   background-color: #1E2227; }
 
 code {
@@ -244,7 +249,7 @@ pre {
       margin-bottom: -1px;
       margin-left: 1px; }
     .site-header .command_prompt:before {
-      content: "\f054";
+      content: "";
       font-family: "Font Awesome 5 Free";
       font-weight: 900;
       font-style: normal;
@@ -302,7 +307,8 @@ pre {
   white-space: nowrap;
   overflow: hidden;
   width: 100%;
-  animation: type 2s steps(60, end); }
+  animation: type 2s steps(60, end);
+  margin-bottom: 1em; }
   .post-description > svg {
     color: #637AFE;
     margin-right: 0.6em;
@@ -312,7 +318,7 @@ pre {
     animation: blinker 1s none infinite;
     font-size: 16px; }
   .post-description:before {
-    content: "\f054";
+    content: "";
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
     font-style: normal;
@@ -337,18 +343,20 @@ pre {
     width: 100%; }
   .post ol > li {
     margin-left: 1em;
-    line-height: 2.025; }
+    text-align: left;
+    margin-bottom: 0.6em; }
   .post ul > li {
-    line-height: 2.025;
+    text-align: left;
+    margin-bottom: 0.6em;
     color: #ade0b9;
     list-style: none;
     margin-left: 0; }
     .post ul > li svg {
       color: #50BD6A;
-      margin-right: 0.5em;
+      margin-right: 0.65em;
       margin-bottom: -1px; }
     .post ul > li:before {
-      content: "\f14a";
+      content: "";
       font-family: "Font Awesome 5 Free";
       font-weight: 900;
       font-style: normal;
@@ -367,7 +375,7 @@ pre {
     font-style: italic;
     color: #fddb8d; }
     .post > blockquote:before {
-      content: "\f10e";
+      content: "";
       font-family: "Font Awesome 5 Free";
       font-weight: 900;
       font-style: normal;
@@ -387,7 +395,7 @@ pre {
     .post > blockquote li {
       color: #FCBC28; }
       .post > blockquote li:before {
-        content: "\f068"; }
+        content: ""; }
       .post > blockquote li > svg {
         margin-left: 2em; }
 
@@ -451,11 +459,13 @@ pre {
     background-color: #171a1e; }
 
 .social_links {
-  float: right; }
+  float: right;
+  text-align: right;
+  display: inline-block; }
   .social_links > a {
     color: #b8cbdc;
     display: inline-block;
-    margin-left: 0.2em;
+    padding-left: 0.3em;
     font-size: 27px; }
 
 ul.related-posts {
@@ -465,14 +475,21 @@ ul.related-posts {
   ul.related-posts > li {
     list-style: none;
     margin-left: 0; }
+    ul.related-posts > li a {
+      display: inline-block;
+      padding-top: 0.5em;
+      padding-bottom: 0.5em; }
+    ul.related-posts > li h3 {
+      display: inline-block;
+      margin: 0; }
     ul.related-posts > li > svg.svg-inline--fa {
-      color: #637AFE;
-      margin-right: 0.5em;
-      float: left;
-      width: 25px;
-      height: 25px; }
+      color: #50BD6A;
+      margin-right: 0.3em;
+      width: 22px;
+      height: 22px;
+      margin-bottom: -2px; }
     ul.related-posts > li:before {
-      content: "\f14b";
+      content: "";
       font-family: "Font Awesome 5 Free";
       font-weight: 900;
       font-style: normal;
