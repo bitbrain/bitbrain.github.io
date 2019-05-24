@@ -424,6 +424,18 @@ pre {
     text-decoration: none;
     color: #9ad9a9;
     background-color: #292f35; }
+  .tag > svg, .tag-cloud > a > svg {
+    margin-right: 0.4em; }
+  .tag:before, .tag-cloud > a:before {
+    content: "";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    font-weight: 900;
+    display: none;
+    -webkit-font-smoothing: antialiased; }
 
 .post-tags {
   margin-top: 0.3em;
@@ -438,7 +450,7 @@ pre {
 
 .pagination {
   font-size: 20px;
-  margin: 2em 0; }
+  margin: 1em 0; }
   .pagination > a, .pagination > span {
     font-weight: normal;
     display: inline-block;
@@ -448,6 +460,8 @@ pre {
     text-align: center; }
     .pagination > a:hover, .pagination > span:hover {
       text-decoration: none; }
+    .pagination > a svg, .pagination > span svg {
+      padding-left: 0.1em; }
   .pagination > a {
     color: #50BD6A;
     background-color: #1E2227; }
