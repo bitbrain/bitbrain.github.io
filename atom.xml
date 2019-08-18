@@ -36,7 +36,7 @@
  <title>bitbrain</title>
  <link href="https://bitbrain.github.io/atom.xml" rel="self"/>
  <link href="https://bitbrain.github.io/"/>
- <updated>2019-08-18T14:48:26+00:00</updated>
+ <updated>2019-08-18T14:51:40+00:00</updated>
  <id>https://bitbrain.github.io</id>
  <author>
    <name></name>
@@ -153,7 +153,7 @@ Instead, you have to write your own z-index ordering logic. Don’t worry though
 &lt;p&gt;So the game object is positioned at a &lt;code class=&quot;highlighter-rouge&quot;&gt;yIndex&lt;/code&gt; of &lt;strong&gt;3&lt;/strong&gt;. The framework does not have a concept of object layers, since each game object is rendered separately, depending on their position. Instead, &lt;strong&gt;braingdx&lt;/strong&gt; only keeps tiledmap layers. A game object is always translated onto the layer underneath. So, a tiledmap layer above the game object will always be rendered above the game object. As a result, the &lt;code class=&quot;highlighter-rouge&quot;&gt;layerIndex&lt;/code&gt; of the assigned tiledmap layer is &lt;strong&gt;0&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;This results to the following computation:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;zIndex = (0 + 1) * 10 - 3 = **7**
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;zIndex = (0 + 1) * 10 - 3 = 7
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;So the player at its current position will have a &lt;code class=&quot;highlighter-rouge&quot;&gt;zIndex&lt;/code&gt; of &lt;strong&gt;7&lt;/strong&gt;. This is all done by &lt;strong&gt;braingdx&lt;/strong&gt; internally. Since game objects are rendered in the order of their &lt;code class=&quot;highlighter-rouge&quot;&gt;zIndex&lt;/code&gt; attribute, it is ensured that game objects can be dynamically drawn before or after a particular tiledmap layer.&lt;/p&gt;
 

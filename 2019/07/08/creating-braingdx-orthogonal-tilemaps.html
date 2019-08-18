@@ -167,7 +167,7 @@ Instead, you have to write your own z-index ordering logic. Don’t worry though
 <p>So the game object is positioned at a <code class="highlighter-rouge">yIndex</code> of <strong>3</strong>. The framework does not have a concept of object layers, since each game object is rendered separately, depending on their position. Instead, <strong>braingdx</strong> only keeps tiledmap layers. A game object is always translated onto the layer underneath. So, a tiledmap layer above the game object will always be rendered above the game object. As a result, the <code class="highlighter-rouge">layerIndex</code> of the assigned tiledmap layer is <strong>0</strong>.</p>
 
 <p>This results to the following computation:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zIndex = (0 + 1) * 10 - 3 = **7**
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zIndex = (0 + 1) * 10 - 3 = 7
 </code></pre></div></div>
 <p>So the player at its current position will have a <code class="highlighter-rouge">zIndex</code> of <strong>7</strong>. This is all done by <strong>braingdx</strong> internally. Since game objects are rendered in the order of their <code class="highlighter-rouge">zIndex</code> attribute, it is ensured that game objects can be dynamically drawn before or after a particular tiledmap layer.</p>
 
