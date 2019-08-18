@@ -91,7 +91,7 @@ Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamed
 
 <p>Given a multi-layered map like this in <a href="https://www.mapeditor.org/">Tiled</a>:</p>
 
-<p><img src="/public/media/legend-of-studentenfutter-screenshot.jpg" alt="los-screenshot" /></p>
+<p><a href="https://bitbrain.itch.io/the-legend-of-studentenfutter"><img src="/public/media/legend-of-studentenfutter-screenshot.jpg" alt="los-screenshot" /></a></p>
 
 <p>Do you note the bridge? How can I achieve that the player gets either rendered below the bridge (when walking beneath it) or is walking on the bridge? What about automatic collision detection? How can I prevent that the player is able to fall off the bridge, but can walk beneath it without problems? All these challenges can not be solved by using <code class="highlighter-rouge">OrthogonalTiledMapRenderer</code> . Instead, you have to write your own z-index ordering logic. Don’t worry though, these challenges have been solved within <strong>braingdx</strong>:</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* within braingdx you simply have this */</span>
