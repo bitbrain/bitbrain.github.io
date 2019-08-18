@@ -4,7 +4,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>Level Generation in Mindmazer | bitbrain</title>
-<meta name="generator" content="Jekyll v3.8.5" />
+<meta name="generator" content="Jekyll v3.8.6" />
 <meta property="og:title" content="Level Generation in Mindmazer" />
 <meta name="author" content="bitbrain" />
 <meta property="og:locale" content="en_US" />
@@ -16,7 +16,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2017-09-03T00:00:00+00:00" />
 <script type="application/ld+json">
-{"description":"This article shows how I generated levels for my libgdx game and how I applied seeding to generate them.","author":{"@type":"Person","name":"bitbrain"},"@type":"BlogPosting","url":"https://bitbrain.github.io/2017/09/03/level-generation-in-mindmazer.html","headline":"Level Generation in Mindmazer","dateModified":"2017-09-03T00:00:00+00:00","datePublished":"2017-09-03T00:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://bitbrain.github.io/2017/09/03/level-generation-in-mindmazer.html"},"@context":"https://schema.org"}</script>
+{"description":"This article shows how I generated levels for my libgdx game and how I applied seeding to generate them.","mainEntityOfPage":{"@type":"WebPage","@id":"https://bitbrain.github.io/2017/09/03/level-generation-in-mindmazer.html"},"@type":"BlogPosting","url":"https://bitbrain.github.io/2017/09/03/level-generation-in-mindmazer.html","headline":"Level Generation in Mindmazer","dateModified":"2017-09-03T00:00:00+00:00","datePublished":"2017-09-03T00:00:00+00:00","author":{"@type":"Person","name":"bitbrain"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css">
   <link rel="icon" type="image/png" href="/assets/favicon.png" /><link type="application/atom+xml" rel="alternate" href="https://bitbrain.github.io/feed.xml" title="bitbrain" /><script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
@@ -79,14 +79,14 @@ x
 x x
 </code></pre></div></div>
 <p>This L-Shape can be represented by a <code class="highlighter-rouge">byte</code> array:</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">byte</span><span class="o">[]</span> <span class="n">L_SHAPE</span> <span class="o">=</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">byte</span><span class="o">[]</span> <span class="no">L_SHAPE</span> <span class="o">=</span> <span class="o">{</span>
    <span class="mi">1</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span>
    <span class="mi">1</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span>
    <span class="mi">1</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">2</span>
 <span class="o">};</span>
 </code></pre></div></div>
 <p>You might notice that there is an extra entry in the array:</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">byte</span> <span class="n">numberOfColumns</span> <span class="o">=</span> <span class="n">L_SHAPE</span><span class="o">[</span><span class="n">L_SHAPE</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">];</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">byte</span> <span class="n">numberOfColumns</span> <span class="o">=</span> <span class="no">L_SHAPE</span><span class="o">[</span><span class="no">L_SHAPE</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">];</span>
 </code></pre></div></div>
 <p>Basically we are telling our level generation to always consider the last entry in a byte array as information about the number of columns in this specific biom. This is all we need as input. We now have full control over which parts should get used to compose a level.</p>
 
@@ -106,7 +106,7 @@ x x
 </ul>
 
 <p>We now call a so called <code class="highlighter-rouge">BiomFactory</code> which creates a Biom object for us:</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Biom</span> <span class="n">biom</span> <span class="o">=</span> <span class="n">biomFactory</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">L_SHAPE</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Biom</span> <span class="n">biom</span> <span class="o">=</span> <span class="n">biomFactory</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="no">L_SHAPE</span><span class="o">);</span>
 </code></pre></div></div>
 <p>If you are interested in how this factory works internally <a href="https://github.com/bitbrain/mindmazer/blob/master/core/src/de/bitbrain/mindmazer/levelgen/BiomFactory.java">check out the code on Github</a>.</p>
 
@@ -144,6 +144,14 @@ x x
     
       <li>
         <h3>
+          <a href="/2019/07/08/creating-braingdx-orthogonal-tilemaps.html">
+            Creating braingdx: orthogonal tilemaps
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/2019/05/11/how-i-animated-scape.html">
             How I animated scape
           </a>
@@ -158,14 +166,6 @@ x x
         </h3>
       </li>
     
-      <li>
-        <h3>
-          <a href="/2019/02/18/automatically-publish-games-to-itchio.html">
-            How to automatically publish your game to itch.io
-          </a>
-        </h3>
-      </li>
-    
   </ul>
 </div>
 
@@ -174,7 +174,7 @@ x x
 
   
   <h2>all tags</h2>
-  <div class="tag-cloud"><a href="/tag/deployment/" class="set-2">deployment</a> <a href="/tag/devlog/" class="set-3">devlog</a> <a href="/tag/gamedesign/" class="set-1">gamedesign</a> <a href="/tag/gamedev/" class="set-5">gamedev</a> <a href="/tag/git/" class="set-1">git</a> <a href="/tag/howto/" class="set-1">howto</a> <a href="/tag/introduction/" class="set-1">introduction</a> <a href="/tag/itchio/" class="set-1">itchio</a> <a href="/tag/mindmazer/" class="set-1">mindmazer</a> <a href="/tag/misc/" class="set-1">misc</a> <a href="/tag/pixelart/" class="set-1">pixelart</a> <a href="/tag/pyxel/" class="set-1">pyxel</a> <a href="/tag/scape/" class="set-2">scape</a> <a href="/tag/showcase/" class="set-1">showcase</a> <a href="/tag/tiled/" class="set-1">tiled</a> <a href="/tag/travisci/" class="set-2">travisci</a></div>
+  <div class="tag-cloud"><a href="/tag/braingdx/" class="set-1">braingdx</a> <a href="/tag/deployment/" class="set-2">deployment</a> <a href="/tag/devlog/" class="set-3">devlog</a> <a href="/tag/gamedesign/" class="set-1">gamedesign</a> <a href="/tag/gamedev/" class="set-5">gamedev</a> <a href="/tag/git/" class="set-1">git</a> <a href="/tag/howto/" class="set-1">howto</a> <a href="/tag/introduction/" class="set-1">introduction</a> <a href="/tag/itchio/" class="set-1">itchio</a> <a href="/tag/java/" class="set-1">java</a> <a href="/tag/libgdx/" class="set-1">libgdx</a> <a href="/tag/mindmazer/" class="set-1">mindmazer</a> <a href="/tag/misc/" class="set-1">misc</a> <a href="/tag/pixelart/" class="set-1">pixelart</a> <a href="/tag/pyxel/" class="set-1">pyxel</a> <a href="/tag/scape/" class="set-2">scape</a> <a href="/tag/showcase/" class="set-1">showcase</a> <a href="/tag/tiled/" class="set-2">tiled</a> <a href="/tag/tmx/" class="set-1">tmx</a> <a href="/tag/travisci/" class="set-2">travisci</a></div>
   
 
 
