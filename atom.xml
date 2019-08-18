@@ -36,7 +36,7 @@
  <title>bitbrain</title>
  <link href="https://bitbrain.github.io/atom.xml" rel="self"/>
  <link href="https://bitbrain.github.io/"/>
- <updated>2019-08-18T14:47:58+00:00</updated>
+ <updated>2019-08-18T14:48:26+00:00</updated>
  <id>https://bitbrain.github.io</id>
  <author>
    <name></name>
@@ -79,7 +79,8 @@
 
 &lt;p&gt;&lt;a href=&quot;https://bitbrain.itch.io/the-legend-of-studentenfutter&quot;&gt;&lt;img src=&quot;/public/media/legend-of-studentenfutter-screenshot.jpg&quot; alt=&quot;los-screenshot&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;Do you note the bridge? How can I achieve that the player gets either rendered below the bridge (when walking beneath it) or is walking on the bridge? What about automatic collision detection? How can I prevent that the player is able to fall off the bridge, but can walk beneath it without problems? All these challenges can not be solved by using &lt;code class=&quot;highlighter-rouge&quot;&gt;OrthogonalTiledMapRenderer&lt;/code&gt; . Instead, you have to write your own z-index ordering logic. Don’t worry though, these challenges have been solved within &lt;strong&gt;braingdx&lt;/strong&gt;:&lt;/p&gt;
+&lt;p&gt;Do you note the bridge? How can I achieve that the player gets either rendered below the bridge (when walking beneath it) or is walking on the bridge? What about automatic collision detection? How can I prevent that the player is able to fall off the bridge, but can walk beneath it without problems? All these challenges can not be solved by using &lt;code class=&quot;highlighter-rouge&quot;&gt;OrthogonalTiledMapRenderer&lt;/code&gt;.
+Instead, you have to write your own z-index ordering logic. Don’t worry though, these challenges have been solved within &lt;strong&gt;braingdx&lt;/strong&gt;:&lt;/p&gt;
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cm&quot;&gt;/* within braingdx you simply have this */&lt;/span&gt;
 &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
 &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;onCreate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;GameContext2D&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
