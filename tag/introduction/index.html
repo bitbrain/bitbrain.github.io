@@ -170,13 +170,11 @@ Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamed
 </div>
 <script type="text/javascript">
 const theme = localStorage.getItem('theme');
-if (theme === 'undefined') {
-   theme = "dark";
-}
-if (theme === "dark") {
-	document.documentElement.setAttribute('data-theme', 'dark');
-} else {
+
+if (theme === "light") {
     document.documentElement.setAttribute('data-theme', 'light');
+} else {
+    document.documentElement.setAttribute('data-theme', 'dark');
 }
 const userPrefers = getComputedStyle(document.documentElement).getPropertyValue('content');
 

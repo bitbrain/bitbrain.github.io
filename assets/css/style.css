@@ -4390,6 +4390,21 @@ readers do not read off random characters that represent icons */
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 @font-face {
+  font-family: 'Font Awesome 5 Free';
+  font-style: normal;
+  font-weight: 400;
+  font-display: auto;
+  src: url("../fonts/fa-regular-400.eot");
+  src: url("../fonts/fa-regular-400.eot?#iefix") format("embedded-opentype"), url("../fonts/fa-regular-400.woff2") format("woff2"), url("../fonts/fa-regular-400.woff") format("woff"), url("../fonts/fa-regular-400.ttf") format("truetype"), url("../fonts/fa-regular-400.svg#fontawesome") format("svg"); }
+.far {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 400; }
+
+/*!
+ * Font Awesome Free 5.11.1 by @fontawesome - https://fontawesome.com
+ * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+ */
+@font-face {
   font-family: 'Font Awesome 5 Brands';
   font-style: normal;
   font-weight: normal;
@@ -4657,12 +4672,8 @@ pre {
     font-size: 20px; }
   .site-header .command_prompt {
     color: #637AFE;
-    font-size: 16px; }
-    .site-header .command_prompt svg {
-      width: 20px;
-      height: 20px;
-      margin-bottom: -1px;
-      margin-left: 1px; }
+    font-size: 16px;
+    margin-left: 0.1em; }
     .site-header .command_prompt:before {
       content: "";
       font-family: "Font Awesome 5 Free";
@@ -4671,8 +4682,8 @@ pre {
       font-variant: normal;
       text-rendering: auto;
       font-weight: 900;
-      display: none;
-      -webkit-font-smoothing: antialiased; }
+      -webkit-font-smoothing: antialiased;
+      margin-right: 0.2em; }
 
 .site-title {
   font-size: 26px;
@@ -4728,15 +4739,12 @@ pre {
   overflow: hidden;
   width: 100%;
   animation: type 2s steps(60, end);
-  margin-bottom: 1em; }
+  margin-bottom: 1em;
+  margin-left: 0.5em; }
   .theme--dark .post-description {
     color: #DAE4ED; }
   .theme--light .post-description {
     color: #1E2227; }
-  .post-description > svg {
-    color: #637AFE;
-    margin-right: 0.6em;
-    margin-bottom: -1px; }
   .post-description:after {
     content: "_";
     animation: blinker 1s none infinite;
@@ -4749,8 +4757,9 @@ pre {
     font-variant: normal;
     text-rendering: auto;
     font-weight: 900;
-    display: none;
-    -webkit-font-smoothing: antialiased; }
+    -webkit-font-smoothing: antialiased;
+    margin-right: 0.5em;
+    color: #637AFE; }
 
 .post {
   margin-bottom: 2em; }
@@ -4760,7 +4769,7 @@ pre {
     margin-top: 1em;
     margin-left: 0.5em; }
     .theme--dark .post .post-date {
-      color: #1E2227; }
+      color: #343b44; }
     .theme--light .post .post-date {
       color: #15171A; }
   .theme--dark .post strong {
@@ -4798,7 +4807,6 @@ pre {
       font-variant: normal;
       text-rendering: auto;
       font-weight: 900;
-      display: none;
       -webkit-font-smoothing: antialiased; }
   .post ul, .post ol {
     padding: 0;
@@ -4820,7 +4828,6 @@ pre {
       font-variant: normal;
       text-rendering: auto;
       font-weight: 900;
-      display: none;
       -webkit-font-smoothing: antialiased; }
     .post > blockquote > svg.svg-inline--fa {
       float: left;
@@ -4852,7 +4859,7 @@ pre {
   .post-link-wrapper > .post-meta {
     font-size: 14px; }
     .theme--dark .post-link-wrapper > .post-meta {
-      color: #1E2227; }
+      color: #343b44; }
     .theme--light .post-link-wrapper > .post-meta {
       color: #15171A; }
 
@@ -4888,8 +4895,8 @@ pre {
     font-variant: normal;
     text-rendering: auto;
     font-weight: 900;
-    display: none;
-    -webkit-font-smoothing: antialiased; }
+    -webkit-font-smoothing: antialiased;
+    margin-right: 0.5em; }
 
 .post-tags {
   margin-top: 0.3em;
@@ -4968,12 +4975,6 @@ ul.related-posts {
     ul.related-posts > li h3 {
       display: inline-block;
       margin: 0; }
-    ul.related-posts > li > svg.svg-inline--fa {
-      color: #50BD6A;
-      margin-right: 0.3em;
-      width: 22px;
-      height: 22px;
-      margin-bottom: -2px; }
     ul.related-posts > li:before {
       content: "";
       font-family: "Font Awesome 5 Free";
@@ -4982,8 +4983,8 @@ ul.related-posts {
       font-variant: normal;
       text-rendering: auto;
       font-weight: 900;
-      display: none;
-      -webkit-font-smoothing: antialiased; }
+      -webkit-font-smoothing: antialiased;
+      color: #50BD6A; }
 
 #theme-toggle {
   background-color: transparent;
@@ -4998,7 +4999,6 @@ ul.related-posts {
     font-variant: normal;
     text-rendering: auto;
     font-weight: 900;
-    display: none;
     -webkit-font-smoothing: antialiased; }
   .theme--dark #theme-toggle.dark {
     color: #DAE4ED; }
@@ -5014,7 +5014,6 @@ ul.related-posts {
       font-variant: normal;
       text-rendering: auto;
       font-weight: 900;
-      display: none;
       -webkit-font-smoothing: antialiased; }
 
 .toggleWrapper {

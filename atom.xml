@@ -34,7 +34,7 @@
  <title>bitbrain</title>
  <link href="https://bitbrain.github.io/atom.xml" rel="self"/>
  <link href="https://bitbrain.github.io/"/>
- <updated>2019-09-23T08:06:19+00:00</updated>
+ <updated>2020-03-11T08:52:26+00:00</updated>
  <id>https://bitbrain.github.io</id>
  <author>
    <name></name>
@@ -1054,13 +1054,11 @@ Many developers (beardy hipsters) claim this technology belongs to the past, gam
 </div>
 <script type="text/javascript">
 const theme = localStorage.getItem('theme');
-if (theme === 'undefined') {
-   theme = "dark";
-}
-if (theme === "dark") {
-	document.documentElement.setAttribute('data-theme', 'dark');
-} else {
+
+if (theme === "light") {
     document.documentElement.setAttribute('data-theme', 'light');
+} else {
+    document.documentElement.setAttribute('data-theme', 'dark');
 }
 const userPrefers = getComputedStyle(document.documentElement).getPropertyValue('content');
 
