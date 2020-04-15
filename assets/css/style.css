@@ -4792,13 +4792,6 @@ pre {
       color: #ade0b9; }
     .theme--light .post ul > li {
       color: #50BD6A; }
-    .post ul > li svg {
-      margin-right: 0.65em;
-      margin-bottom: -1px; }
-      .theme--dark .post ul > li svg {
-        color: #50BD6A; }
-      .theme--light .post ul > li svg {
-        color: #9ad9a9; }
     .post ul > li:before {
       content: "";
       font-family: "Font Awesome 5 Free";
@@ -4807,7 +4800,8 @@ pre {
       font-variant: normal;
       text-rendering: auto;
       font-weight: 900;
-      -webkit-font-smoothing: antialiased; }
+      -webkit-font-smoothing: antialiased;
+      margin-right: 0.5em; }
   .post ul, .post ol {
     padding: 0;
     margin-left: 0.5em; }
@@ -4820,6 +4814,9 @@ pre {
       color: #fddb8d; }
     .theme--light .post > blockquote {
       color: #FCBC28; }
+    .post > blockquote > p {
+      display: block;
+      padding-left: 3em; }
     .post > blockquote:before {
       content: "";
       font-family: "Font Awesome 5 Free";
@@ -4828,28 +4825,16 @@ pre {
       font-variant: normal;
       text-rendering: auto;
       font-weight: 900;
-      -webkit-font-smoothing: antialiased; }
-    .post > blockquote > svg.svg-inline--fa {
+      -webkit-font-smoothing: antialiased;
+      margin-right: -2em;
       float: left;
-      width: 3em;
-      height: 3em;
-      margin-right: 1em; }
-      .theme--dark .post > blockquote > svg.svg-inline--fa {
-        color: #fddb8d; }
-      .theme--light .post > blockquote > svg.svg-inline--fa {
-        color: #FCBC28; }
-    .theme--dark .post > blockquote > ul > li > svg {
-      color: #fddb8d; }
-    .theme--light .post > blockquote > ul > li > svg {
-      color: #FCBC28; }
+      font-size: 2em; }
     .theme--dark .post > blockquote li {
       color: #FCBC28; }
     .theme--light .post > blockquote li {
       color: #eea703; }
     .post > blockquote li:before {
       content: ""; }
-    .post > blockquote li > svg {
-      margin-left: 2em; }
 
 .post-link-wrapper {
   margin-bottom: 1.1em; }
@@ -4885,8 +4870,6 @@ pre {
       background-color: #292f35; }
     .theme--light .tag:hover, .theme--light .tag-cloud > a:hover {
       background-color: white; }
-  .tag > svg, .tag-cloud > a > svg {
-    margin-right: 0.4em; }
   .tag:before, .tag-cloud > a:before {
     content: "";
     font-family: "Font Awesome 5 Free";
@@ -4927,8 +4910,6 @@ pre {
     text-align: center; }
     .pagination > a:hover, .pagination > span:hover {
       text-decoration: none; }
-    .pagination > a svg, .pagination > span svg {
-      padding-left: 0.1em; }
   .pagination > a {
     color: #50BD6A; }
     .theme--dark .pagination > a {
@@ -4984,7 +4965,8 @@ ul.related-posts {
       text-rendering: auto;
       font-weight: 900;
       -webkit-font-smoothing: antialiased;
-      color: #50BD6A; }
+      color: #50BD6A;
+      margin-right: 0.5em; }
 
 #theme-toggle {
   background-color: transparent;
