@@ -4840,7 +4840,9 @@ pre {
   margin-bottom: 1.1em; }
   .post-link-wrapper > .post-link {
     font-size: 16px;
-    font-size: 20px; }
+    font-size: 20px;
+    display: inline-block;
+    text-align: initial; }
   .post-link-wrapper > .post-meta {
     font-size: 14px; }
     .theme--dark .post-link-wrapper > .post-meta {
@@ -4853,7 +4855,7 @@ pre {
   text-align: left; }
   .tag-cloud > a {
     display: inline-block;
-    margin-bottom: 1em; }
+    margin: 0.3em 0.3em 0.3em 0; }
 
 .tag, .tag-cloud > a {
   color: #50BD6A;
@@ -4881,9 +4883,14 @@ pre {
     -webkit-font-smoothing: antialiased;
     margin-right: 0.5em; }
 
+.tag {
+  display: inline-block;
+  margin: 0.3em 0.3em 0.3em 0; }
+
 .post-tags {
   margin-top: 0.3em;
-  margin-bottom: 0.5em; }
+  margin-bottom: 0.5em;
+  text-align: initial; }
 
 .credits {
   font-size: 10px; }
