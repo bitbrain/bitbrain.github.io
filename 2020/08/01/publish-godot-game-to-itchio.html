@@ -91,7 +91,7 @@ Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamed
 
 <p>Next, we are going to set up the secrets within Github. Head over to <code class="language-plaintext highlighter-rouge">Account Settings -&gt; Developer settings -&gt; Personal access tokens</code> and generate a new token:</p>
 
-<p><img src="/public/media/github-create-token.png" alt="gh-token" /></p>
+<p><img src="/public/media/github-create-token.PNG" alt="gh-token" /></p>
 
 <p>You will not be able to see this token again once generated! Save it somewhere locally in a file for later use.</p>
 
@@ -101,7 +101,7 @@ Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamed
 
 <p>Next, head to your Github repository configuration page and add secrets:</p>
 
-<p><img src="/public/media/github-create-secrets.png" alt="gh-secrets" /></p>
+<p><img src="/public/media/github-create-secrets.PNG" alt="gh-secrets" /></p>
 
 <ul>
   <li><code class="language-plaintext highlighter-rouge">BUTLER_CREDENTIALS</code> is the value of the itch.io key you previously generated</li>
@@ -123,7 +123,7 @@ If you want to run new workflows, you’ll need to set up a different PAT and ad
 
 <p>Within Godot, head over to <code class="language-plaintext highlighter-rouge">Project -&gt; Export...</code> and create a new export entry:</p>
 
-<p><img src="/public/media/godot-export-project.png" alt="godot-export" /></p>
+<p><img src="/public/media/godot-export-project.PNG" alt="godot-export" /></p>
 
 <p>Also, make sure to define an export path and give it a name (e.g. <strong>yourgame-windows</strong>). This will be the name of the game file in itch.io. Saving your configuration automatically generates a <code class="language-plaintext highlighter-rouge">export_presets.cfg</code> file that you need to commit to your Github repository. Make sure that your <code class="language-plaintext highlighter-rouge">.gitignore</code> does not accidentally exclude this file!</p>
 
@@ -214,11 +214,11 @@ everytime you push, replace the branch with a different branch, e.g. <code class
 
 <p>Voila! Now commit and push everything and it should automatically create a release for you:</p>
 
-<p><img src="/public/media/github-create-release.png" alt="github-release" /></p>
+<p><img src="/public/media/github-create-release.PNG" alt="github-release" /></p>
 
 <p>After the release is created, Github will automatically trigger the next action to publish your game to itch.io:</p>
 
-<p><img src="/public/media/github-export-to-itch.png" alt="github-itchio" /></p>
+<p><img src="/public/media/github-export-to-itch.PNG" alt="github-itchio" /></p>
 
 </div>
 
