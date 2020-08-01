@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="https://bitbrain.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://bitbrain.github.io/" rel="alternate" type="text/html" /><updated>2020-05-04T17:32:04+00:00</updated><id>https://bitbrain.github.io/feed.xml</id><title type="html">bitbrain</title><subtitle>Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamedev and web. Born and raised in Germany, studied in the Netherlands, currently living in the UK.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://bitbrain.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://bitbrain.github.io/" rel="alternate" type="text/html" /><updated>2020-08-01T14:44:04+00:00</updated><id>https://bitbrain.github.io/feed.xml</id><title type="html">bitbrain</title><subtitle>Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamedev and web. Born and raised in Germany, studied in the Netherlands, currently living in the UK.
 </subtitle><author><name>bitbrain</name></author><entry><title type="html">Building a game from scratch in 48 hours</title><link href="https://bitbrain.github.io/2020/04/08/minibeansjam5-building-a-game.html" rel="alternate" type="text/html" title="Building a game from scratch in 48 hours" /><published>2020-04-08T00:00:00+00:00</published><updated>2020-04-08T00:00:00+00:00</updated><id>https://bitbrain.github.io/2020/04/08/minibeansjam5-building-a-game</id><content type="html" xml:base="https://bitbrain.github.io/2020/04/08/minibeansjam5-building-a-game.html">&lt;p&gt;&lt;a href=&quot;https://itch.io/jam/minibeansjam5&quot;&gt;&lt;img src=&quot;/public/media/minibeansjam5.gif&quot; alt=&quot;minibeansjam5&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Between Friday 3rd-5th April 2020, German &lt;a href=&quot;https://rocketbeans.tv/&quot;&gt;Rocketbeans TV&lt;/a&gt; hosted &lt;a href=&quot;https://itch.io/jam/minibeansjam5&quot;&gt;minibeansjam 5&lt;/a&gt;, a 48 hour gamejam. I submitted a game and managed to finish most bits right in time.&lt;/p&gt;
@@ -190,7 +190,7 @@
 &lt;span class=&quot;n&quot;&gt;tiledMapRenderer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;camera&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;tiledMapRenderer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;render&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;This will render your multi-layered map onto the screen. Job is done then. Or  is it? Before I even started thinking about writing a tiledmap integration, I had to know the challenges ahead of me. I realised that using a simple &lt;code class=&quot;highlighter-rouge&quot;&gt;OrthogonalTiledMapRenderer&lt;/code&gt; does not do the trick at all: the problem are game objects itself.&lt;/p&gt;
+&lt;p&gt;This will render your multi-layered map onto the screen. Job is done then. Or  is it? Before I even started thinking about writing a tiledmap integration, I had to know the challenges ahead of me. I realised that using a simple &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OrthogonalTiledMapRenderer&lt;/code&gt; does not do the trick at all: the problem are game objects itself.&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;a game object is a stateful, dynamic object within a game world which represents anything the player can interact with: characters, items, events, etc.&lt;/p&gt;
@@ -200,7 +200,7 @@
 
 &lt;p&gt;&lt;a href=&quot;https://bitbrain.itch.io/the-legend-of-studentenfutter&quot;&gt;&lt;img src=&quot;/public/media/legend-of-studentenfutter-screenshot.jpg&quot; alt=&quot;los-screenshot&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;Do you note the bridge? How can I achieve that the player gets either rendered below the bridge (when walking beneath it) or is walking on the bridge? What about automatic collision detection? How can I prevent that the player is able to fall off the bridge, but can walk beneath it without problems? All these challenges can not be solved by using &lt;code class=&quot;highlighter-rouge&quot;&gt;OrthogonalTiledMapRenderer&lt;/code&gt;.
+&lt;p&gt;Do you note the bridge? How can I achieve that the player gets either rendered below the bridge (when walking beneath it) or is walking on the bridge? What about automatic collision detection? How can I prevent that the player is able to fall off the bridge, but can walk beneath it without problems? All these challenges can not be solved by using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OrthogonalTiledMapRenderer&lt;/code&gt;.
 Instead, you have to write your own z-index ordering logic. Don’t worry though, these challenges have been solved within &lt;strong&gt;braingdx&lt;/strong&gt;:&lt;/p&gt;
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cm&quot;&gt;/* within braingdx you simply have this */&lt;/span&gt;
 &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
@@ -253,42 +253,42 @@ Instead, you have to write your own z-index ordering logic. Don’t worry though
 &lt;p&gt;&lt;strong&gt;What should be the z-index of a particular tiledmap layer?&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;The formular looks as follows:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;zIndex = (layerIndex + 1) * rows - yIndex
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;zIndex = (layerIndex + 1) * rows - yIndex
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;layerIndex&lt;/code&gt; is the number of the layer, counting from &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; upwards. The &lt;code class=&quot;highlighter-rouge&quot;&gt;rows&lt;/code&gt; attribute is the number of total rows as part of the tiled map. Finally, the &lt;code class=&quot;highlighter-rouge&quot;&gt;yIndex&lt;/code&gt; is the vertical index of the cell, the particular game object is currently on.&lt;/p&gt;
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;layerIndex&lt;/code&gt; is the number of the layer, counting from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt; upwards. The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rows&lt;/code&gt; attribute is the number of total rows as part of the tiled map. Finally, the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;yIndex&lt;/code&gt; is the vertical index of the cell, the particular game object is currently on.&lt;/p&gt;
 
 &lt;p&gt;As a concrete example, let’s imagine the following setup:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;a &lt;code class=&quot;highlighter-rouge&quot;&gt;10x10&lt;/code&gt; orthogonal tiledmap with a tile resolution of &lt;code class=&quot;highlighter-rouge&quot;&gt;32x32&lt;/code&gt; pixels&lt;/li&gt;
-  &lt;li&gt;the map consists of &lt;code class=&quot;highlighter-rouge&quot;&gt;2&lt;/code&gt; tiled layers and a single object layer in between those&lt;/li&gt;
-  &lt;li&gt;a player object is located on the object layer at position &lt;code class=&quot;highlighter-rouge&quot;&gt;x = 60, y = 110&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;10x10&lt;/code&gt; orthogonal tiledmap with a tile resolution of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;32x32&lt;/code&gt; pixels&lt;/li&gt;
+  &lt;li&gt;the map consists of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2&lt;/code&gt; tiled layers and a single object layer in between those&lt;/li&gt;
+  &lt;li&gt;a player object is located on the object layer at position &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x = 60, y = 110&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;braingdx&lt;/strong&gt; will automatically compute the z-index according to the given properties.&lt;/p&gt;
 
-&lt;p&gt;At first, the framework calculates the so called &lt;code class=&quot;highlighter-rouge&quot;&gt;yIndex&lt;/code&gt; as follows:&lt;/p&gt;
+&lt;p&gt;At first, the framework calculates the so called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;yIndex&lt;/code&gt; as follows:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;yIndex = floor(110 / 32) = 3
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;yIndex = floor(110 / 32) = 3
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;So the game object is positioned at a &lt;code class=&quot;highlighter-rouge&quot;&gt;yIndex&lt;/code&gt; of &lt;strong&gt;3&lt;/strong&gt;. The framework does not have a concept of object layers, since each game object is rendered separately, depending on their position. Instead, &lt;strong&gt;braingdx&lt;/strong&gt; only keeps tiledmap layers. A game object is always translated onto the layer underneath. So, a tiledmap layer above the game object will always be rendered above the game object. As a result, the &lt;code class=&quot;highlighter-rouge&quot;&gt;layerIndex&lt;/code&gt; of the assigned tiledmap layer is &lt;strong&gt;0&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;So the game object is positioned at a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;yIndex&lt;/code&gt; of &lt;strong&gt;3&lt;/strong&gt;. The framework does not have a concept of object layers, since each game object is rendered separately, depending on their position. Instead, &lt;strong&gt;braingdx&lt;/strong&gt; only keeps tiledmap layers. A game object is always translated onto the layer underneath. So, a tiledmap layer above the game object will always be rendered above the game object. As a result, the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;layerIndex&lt;/code&gt; of the assigned tiledmap layer is &lt;strong&gt;0&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;This results to the following computation:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;zIndex = (0 + 1) * 10 - 3 = 7
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;zIndex = (0 + 1) * 10 - 3 = 7
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;So the player at its current position will have a &lt;code class=&quot;highlighter-rouge&quot;&gt;zIndex&lt;/code&gt; of &lt;strong&gt;7&lt;/strong&gt;. This is all done by &lt;strong&gt;braingdx&lt;/strong&gt; internally. Since game objects are rendered in the order of their &lt;code class=&quot;highlighter-rouge&quot;&gt;zIndex&lt;/code&gt; attribute, it is ensured that game objects can be dynamically drawn before or after a particular tiledmap layer.&lt;/p&gt;
+&lt;p&gt;So the player at its current position will have a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zIndex&lt;/code&gt; of &lt;strong&gt;7&lt;/strong&gt;. This is all done by &lt;strong&gt;braingdx&lt;/strong&gt; internally. Since game objects are rendered in the order of their &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zIndex&lt;/code&gt; attribute, it is ensured that game objects can be dynamically drawn before or after a particular tiledmap layer.&lt;/p&gt;
 
 &lt;h2 id=&quot;what-about-tiledmap-layers-then&quot;&gt;What about tiledmap layers then?&lt;/h2&gt;
 
-&lt;p&gt;We have learned how &lt;strong&gt;braingdx&lt;/strong&gt; computes &lt;code class=&quot;highlighter-rouge&quot;&gt;zIndex&lt;/code&gt; of game objects and that all game objects are drawn in the order of that index value. However, what about the layers itself? You might remember, that &lt;strong&gt;braingdx&lt;/strong&gt; treats an entire tiledmap layer as a single game object. This means that &lt;strong&gt;braingdx&lt;/strong&gt; does the following when loading tiled maps:&lt;/p&gt;
+&lt;p&gt;We have learned how &lt;strong&gt;braingdx&lt;/strong&gt; computes &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zIndex&lt;/code&gt; of game objects and that all game objects are drawn in the order of that index value. However, what about the layers itself? You might remember, that &lt;strong&gt;braingdx&lt;/strong&gt; treats an entire tiledmap layer as a single game object. This means that &lt;strong&gt;braingdx&lt;/strong&gt; does the following when loading tiled maps:&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;iterate over all layers of the tiledMap&lt;/li&gt;
   &lt;li&gt;in case of a object layer, add a new game object to the game world and assign all the properties such as dimensions, position, type etc. to the game object&lt;/li&gt;
-  &lt;li&gt;in case of a tiledmap layer, add a new game object to the game at position &lt;code class=&quot;highlighter-rouge&quot;&gt;x = 0, y = 0&lt;/code&gt; and set the game object to &lt;code class=&quot;highlighter-rouge&quot;&gt;active = false&lt;/code&gt;. This ensures that the layer itself is excluded from collision detection&lt;/li&gt;
+  &lt;li&gt;in case of a tiledmap layer, add a new game object to the game at position &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x = 0, y = 0&lt;/code&gt; and set the game object to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;active = false&lt;/code&gt;. This ensures that the layer itself is excluded from collision detection&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;Since the framework separates the rendering of game objects, we have to define an own &lt;code class=&quot;highlighter-rouge&quot;&gt;GameObject2DRenderer&lt;/code&gt; for our tiledmap objects:&lt;/p&gt;
+&lt;p&gt;Since the framework separates the rendering of game objects, we have to define an own &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;GameObject2DRenderer&lt;/code&gt; for our tiledmap objects:&lt;/p&gt;
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OrthogonalMapLayerRenderer&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;GameObject2DRenderer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 
    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;TiledMapTileLayer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;layer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
@@ -317,7 +317,7 @@ Instead, you have to write your own z-index ordering logic. Don’t worry though
    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;render&lt;/code&gt; method will be called whenever our tiledmap layer object gets drawn. Since we want to ensure that each layer has its own renderer, we have to generate the game object type for the tiledmap layer and register it to the &lt;strong&gt;RenderManager&lt;/strong&gt;:&lt;/p&gt;
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;render&lt;/code&gt; method will be called whenever our tiledmap layer object gets drawn. Since we want to ensure that each layer has its own renderer, we have to generate the game object type for the tiledmap layer and register it to the &lt;strong&gt;RenderManager&lt;/strong&gt;:&lt;/p&gt;
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;UUID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;randomUUID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getRenderManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;register&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;renderer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -446,12 +446,12 @@ Instead, you have to write your own z-index ordering logic. Don’t worry though
   &lt;li&gt;create deployment script&lt;/li&gt;
   &lt;li&gt;commit and push travis.yml&lt;/li&gt;
   &lt;li&gt;prepare TravisCI project&lt;/li&gt;
-  &lt;li&gt;setup &lt;code class=&quot;highlighter-rouge&quot;&gt;BUTLER_API_KEY&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;setup &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BUTLER_API_KEY&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h1 id=&quot;create-deployment-script&quot;&gt;Create deployment script&lt;/h1&gt;
 
-&lt;p&gt;This script will take your artifacts and push it to itch.io. Create a new file, called &lt;code class=&quot;highlighter-rouge&quot;&gt;deploy.sh&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;This script will take your artifacts and push it to itch.io. Create a new file, called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;deploy.sh&lt;/code&gt;:&lt;/p&gt;
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
 
 &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt;
@@ -491,8 +491,8 @@ prepare_and_push &lt;span class=&quot;nv&quot;&gt;$project&lt;/span&gt; &lt;span
 &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Done.&quot;&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;exit &lt;/span&gt;0
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;This script first checks, if the environment variable &lt;code class=&quot;highlighter-rouge&quot;&gt;BUTLER_API_KEY&lt;/code&gt; is defined. This variable can be setup within Travis and is required for itch.io to authenticate your game upload.
-Afterwards we define a bunch of helper functions. Then we download the latest version of &lt;strong&gt;butler&lt;/strong&gt; and upload the game with it. Please ensure to configure the correct &lt;code class=&quot;highlighter-rouge&quot;&gt;project&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;This script first checks, if the environment variable &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BUTLER_API_KEY&lt;/code&gt; is defined. This variable can be setup within Travis and is required for itch.io to authenticate your game upload.
+Afterwards we define a bunch of helper functions. Then we download the latest version of &lt;strong&gt;butler&lt;/strong&gt; and upload the game with it. Please ensure to configure the correct &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;project&lt;/code&gt;.&lt;/p&gt;
 
 &lt;h1 id=&quot;setup-travisyml&quot;&gt;Setup .travis.yml&lt;/h1&gt;
 
@@ -529,7 +529,7 @@ Afterwards we define a bunch of helper functions. Then we download the latest ve
 &lt;h1 id=&quot;run-the-build&quot;&gt;Run the build&lt;/h1&gt;
 
 &lt;p&gt;Congratulations! You successfully set up the pipeline. Let’s run the build to see how your game automatically publishes:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Preparing butler...
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Preparing butler...
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100 19.6M  100 19.6M    0     0  31.6M      0 --:--:-- --:--:-- --:--:-- 31.6M
@@ -552,7 +552,7 @@ Done.
 
 &lt;p&gt;&lt;img src=&quot;/public/media/silly-git-flow.svg&quot; alt=&quot;silly-git-flow&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;We have a &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; branch where we commit on. When we decide to release an artifact, we manually (locally) merge into &lt;code class=&quot;highlighter-rouge&quot;&gt;deploy&lt;/code&gt;, push the changes and &lt;a href=&quot;https://travis-ci.org/&quot;&gt;Travis CI&lt;/a&gt; will pickup the build, thanks to the &lt;code class=&quot;highlighter-rouge&quot;&gt;.travis.yml&lt;/code&gt; file configured:&lt;/p&gt;
+&lt;p&gt;We have a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;master&lt;/code&gt; branch where we commit on. When we decide to release an artifact, we manually (locally) merge into &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;deploy&lt;/code&gt;, push the changes and &lt;a href=&quot;https://travis-ci.org/&quot;&gt;Travis CI&lt;/a&gt; will pickup the build, thanks to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.travis.yml&lt;/code&gt; file configured:&lt;/p&gt;
 &lt;div class=&quot;language-yml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;language&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;java&lt;/span&gt;
 
 &lt;span class=&quot;na&quot;&gt;services&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
@@ -582,7 +582,7 @@ Done.
 &lt;span class=&quot;na&quot;&gt;install&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
   &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;./deployment/deploy.sh&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;The configuration file has a &lt;code class=&quot;highlighter-rouge&quot;&gt;before_install&lt;/code&gt; section. In there we use a tool written by me called &lt;a href=&quot;https://github.com/bitbrain/chime&quot;&gt;chime&lt;/a&gt;. We run this tool as a Docker container to extract version and changelog information from a &lt;code class=&quot;highlighter-rouge&quot;&gt;CHANGELOG.md&lt;/code&gt; provided. For example, we have a file like this:&lt;/p&gt;
+&lt;p&gt;The configuration file has a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;before_install&lt;/code&gt; section. In there we use a tool written by me called &lt;a href=&quot;https://github.com/bitbrain/chime&quot;&gt;chime&lt;/a&gt;. We run this tool as a Docker container to extract version and changelog information from a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CHANGELOG.md&lt;/code&gt; provided. For example, we have a file like this:&lt;/p&gt;
 &lt;div class=&quot;language-markdown highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gh&quot;&gt;# Version 1.1&lt;/span&gt;
 
 This is version 1.1 description.
@@ -597,20 +597,20 @@ This is version 1.0 description.
 *&lt;/span&gt; some patchnotes
 &lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; more patchnotes
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;The resulting environment variables would look like this (after &lt;code class=&quot;highlighter-rouge&quot;&gt;before_install&lt;/code&gt; execution):&lt;/p&gt;
+&lt;p&gt;The resulting environment variables would look like this (after &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;before_install&lt;/code&gt; execution):&lt;/p&gt;
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$CH_VERSION&lt;/span&gt;
 Version 1.1
 &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$CH_TEXT&lt;/span&gt;
 This is version 1.0 description.&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; some patchnotes&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; more patchnotes
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Using this approach we can define versions within a &lt;code class=&quot;highlighter-rouge&quot;&gt;CHANGELOG.md&lt;/code&gt; file and it should automatically pick up the latest version from the file. We update the version of the library temporarily via &lt;code class=&quot;highlighter-rouge&quot;&gt;mvn versions:set&lt;/code&gt; with the latest version extracted from the changelog file.&lt;/p&gt;
+&lt;p&gt;Using this approach we can define versions within a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CHANGELOG.md&lt;/code&gt; file and it should automatically pick up the latest version from the file. We update the version of the library temporarily via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mvn versions:set&lt;/code&gt; with the latest version extracted from the changelog file.&lt;/p&gt;
 
-&lt;p&gt;Afterwards we run a &lt;code class=&quot;highlighter-rouge&quot;&gt;deploy.sh&lt;/code&gt; script during the &lt;code class=&quot;highlighter-rouge&quot;&gt;install&lt;/code&gt; stage:&lt;/p&gt;
+&lt;p&gt;Afterwards we run a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;deploy.sh&lt;/code&gt; script during the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;install&lt;/code&gt; stage:&lt;/p&gt;
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mvn deploy &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
     &lt;span class=&quot;nt&quot;&gt;-DskipTests&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
     &lt;span class=&quot;nt&quot;&gt;--settings&lt;/span&gt; deployment/settings.xml
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;I configured a custom Nexus inside my &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.xml&lt;/code&gt; to push my artifacts to. Users of my library then would need to add the repository via repository statement in their configuration.&lt;/p&gt;
+&lt;p&gt;I configured a custom Nexus inside my &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;settings.xml&lt;/code&gt; to push my artifacts to. Users of my library then would need to add the repository via repository statement in their configuration.&lt;/p&gt;
 
 &lt;h1 id=&quot;silly-approach-lots-of-problems&quot;&gt;Silly approach, lots of problems&lt;/h1&gt;
 
@@ -618,30 +618,30 @@ This is version 1.0 description.&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;
 
 &lt;ul&gt;
   &lt;li&gt;my custom Nexus caused SSL Certificate issues on some Windows and Mac machines when trying to download dependencies&lt;/li&gt;
-  &lt;li&gt;it is truly cumbersome to manually switch between &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;deploy&lt;/code&gt; locally and merge all the time&lt;/li&gt;
+  &lt;li&gt;it is truly cumbersome to manually switch between &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;master&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;deploy&lt;/code&gt; locally and merge all the time&lt;/li&gt;
   &lt;li&gt;the current multi-branch approach causes lots of merge commits (if we are not able to fast-forward)&lt;/li&gt;
-  &lt;li&gt;sometimes you would forget to switch from &lt;code class=&quot;highlighter-rouge&quot;&gt;deploy&lt;/code&gt; back to &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; locally and suddenly commiting on a wrong branch&lt;/li&gt;
+  &lt;li&gt;sometimes you would forget to switch from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;deploy&lt;/code&gt; back to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;master&lt;/code&gt; locally and suddenly commiting on a wrong branch&lt;/li&gt;
   &lt;li&gt;not easy to have a mapping from version to commit history (missing &lt;a href=&quot;https://git-scm.com/book/en/v2/Git-Basics-Tagging&quot;&gt;tagging&lt;/a&gt; functionality)&lt;/li&gt;
-  &lt;li&gt;Travis only builds the &lt;code class=&quot;highlighter-rouge&quot;&gt;deploy&lt;/code&gt; branch, not the master branch. We never truly compile each commit on &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; nor run any tests&lt;/li&gt;
+  &lt;li&gt;Travis only builds the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;deploy&lt;/code&gt; branch, not the master branch. We never truly compile each commit on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;master&lt;/code&gt; nor run any tests&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;After putting some thought into it I came up with a much better, more light-weighted approach.&lt;/p&gt;
 
 &lt;h1 id=&quot;one-branch-to-rule-them-all&quot;&gt;One branch to rule them all&lt;/h1&gt;
 
-&lt;p&gt;I eventually decided to get rid of the &lt;code class=&quot;highlighter-rouge&quot;&gt;deploy&lt;/code&gt; branch after all. All commits should go to &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; and should be tested and/or deployed on Travis. I would keep the &lt;code class=&quot;highlighter-rouge&quot;&gt;CHANGELOG.md&lt;/code&gt; version extraction and do additional checks to avoid deploying already deployed versions twice:&lt;/p&gt;
+&lt;p&gt;I eventually decided to get rid of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;deploy&lt;/code&gt; branch after all. All commits should go to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;master&lt;/code&gt; and should be tested and/or deployed on Travis. I would keep the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CHANGELOG.md&lt;/code&gt; version extraction and do additional checks to avoid deploying already deployed versions twice:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/public/media/simple-branch-flow.svg&quot; alt=&quot;simple-branch-flow&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;The new flow is executed whenever a new commit is pushed onto &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;The new flow is executed whenever a new commit is pushed onto &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;master&lt;/code&gt;:&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;checkout from SCM&lt;/li&gt;
-  &lt;li&gt;extract version and changelog from &lt;code class=&quot;highlighter-rouge&quot;&gt;CHANGELOG.md&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;extract version and changelog from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CHANGELOG.md&lt;/code&gt;&lt;/li&gt;
   &lt;li&gt;Sign artifacts - this is required in order to push artifacts to &lt;a href=&quot;https://search.maven.org/&quot;&gt;Maven Central&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;Install/Deployment
     &lt;ul&gt;
-      &lt;li&gt;verify if the latest git tag is different than version extracted. Run deployment when extracted version from &lt;code class=&quot;highlighter-rouge&quot;&gt;CHANGELOG.md&lt;/code&gt; is newer&lt;/li&gt;
+      &lt;li&gt;verify if the latest git tag is different than version extracted. Run deployment when extracted version from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CHANGELOG.md&lt;/code&gt; is newer&lt;/li&gt;
       &lt;li&gt;when there is no difference in version, the version had been deployed already. Instead, run unit tests and generate code coverage reports&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
@@ -660,13 +660,13 @@ This is version 1.0 description.&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;
 
 &lt;p&gt;In order to upload your artifacts to Central you require to sign your artifacts with a GPG signature. I recommend &lt;a href=&quot;http://www.debonair.io/post/maven-cd/&quot;&gt;reading this tutorial&lt;/a&gt; to learn how to do that.&lt;/p&gt;
 
-&lt;p&gt;In the tutorial the author explains that we want to encrypt our &lt;code class=&quot;highlighter-rouge&quot;&gt;codesigning.asc&lt;/code&gt; file to prevent strangers from stealing it. We do that by installing and using the &lt;strong&gt;travis&lt;/strong&gt; CLI:&lt;/p&gt;
+&lt;p&gt;In the tutorial the author explains that we want to encrypt our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;codesigning.asc&lt;/code&gt; file to prevent strangers from stealing it. We do that by installing and using the &lt;strong&gt;travis&lt;/strong&gt; CLI:&lt;/p&gt;
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;travis
 travis login
 travis encrypt-file codesigning.asc
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;When running this I discovered that Travis would fail the build:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bad decrypt
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bad decrypt
 gpg: invalid radix64 character AE skipped
 gpg: invalid radix64 character 13 skipped
 gpg: invalid radix64 character F5 skipped
@@ -679,7 +679,7 @@ gpg: invalid radix64 character 82 skipped
 gpg: invalid radix64 character DF skipped
 ...
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;What is going on?! I followed the tutorial step by step and for me it did not want to work. After hours of desperation and crying on the floor I found &lt;a href=&quot;https://github.com/travis-ci/travis-ci/issues/6936&quot;&gt;something on Github&lt;/a&gt;. Apparently, on my Windows 10 machine the &lt;code class=&quot;highlighter-rouge&quot;&gt;travis encrypt-file&lt;/code&gt; operation is broken and produces a corrupted encryption. WOW! Thanks for that. How did I fix it? A little bit of Docker 🐳 for the win. Let’s create a &lt;code class=&quot;highlighter-rouge&quot;&gt;Dockerfile&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;What is going on?! I followed the tutorial step by step and for me it did not want to work. After hours of desperation and crying on the floor I found &lt;a href=&quot;https://github.com/travis-ci/travis-ci/issues/6936&quot;&gt;something on Github&lt;/a&gt;. Apparently, on my Windows 10 machine the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;travis encrypt-file&lt;/code&gt; operation is broken and produces a corrupted encryption. WOW! Thanks for that. How did I fix it? A little bit of Docker 🐳 for the win. Let’s create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Dockerfile&lt;/code&gt;:&lt;/p&gt;
 &lt;div class=&quot;language-dockerfile highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; ubuntu&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;RUN &lt;/span&gt;apt-get update &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;ruby ruby-dev gcc g++ make &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; gem &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;travis
 &lt;span class=&quot;k&quot;&gt;VOLUME&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; /test&lt;/span&gt;
@@ -699,7 +699,7 @@ docker &lt;span class=&quot;nb&quot;&gt;rm &lt;/span&gt;encrypt-asc &lt;span cla
 
 &lt;h1 id=&quot;check-if-version-is-changed&quot;&gt;Check if version is changed&lt;/h1&gt;
 
-&lt;p&gt;In order to check if the version has changed I did the following during the &lt;code class=&quot;highlighter-rouge&quot;&gt;before_install&lt;/code&gt; stage:&lt;/p&gt;
+&lt;p&gt;In order to check if the version has changed I did the following during the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;before_install&lt;/code&gt; stage:&lt;/p&gt;
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;LATEST_TAG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;git describe &lt;span class=&quot;nt&quot;&gt;--abbrev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0 &lt;span class=&quot;nt&quot;&gt;--tags&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;After that we can deploy or just run the tests, depending of the version:&lt;/p&gt;
@@ -715,7 +715,7 @@ mvn clean &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt; &lt;span class=&quo
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;h1 id=&quot;pushing-new-release-to-github&quot;&gt;Pushing new release to Github&lt;/h1&gt;
 
-&lt;p&gt;In order to push the new release automatically to Github, we do the following on the &lt;code class=&quot;highlighter-rouge&quot;&gt;after_install&lt;/code&gt; stage:&lt;/p&gt;
+&lt;p&gt;In order to push the new release automatically to Github, we do the following on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;after_install&lt;/code&gt; stage:&lt;/p&gt;
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;
 git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; user.email &lt;span class=&quot;s2&quot;&gt;&quot;sirlancelbot@gmail.com&quot;&lt;/span&gt;
 git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; user.name &lt;span class=&quot;s2&quot;&gt;&quot;Sir Lancelbot&quot;&lt;/span&gt;
@@ -729,15 +729,15 @@ curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; POST &lt;span class=&quot;
 &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; bitbrain:&lt;span class=&quot;nv&quot;&gt;$GITHUB_TOKEN&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$json&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; https://api.github.com/repos/bitbrain/braingdx/releases
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;This will ensure that a latest release has been pushed (including latest changelog content from &lt;code class=&quot;highlighter-rouge&quot;&gt;CHANGELOG.md&lt;/code&gt; and Github will automatically create a tag for us. Next time we run the pipeline, it won’t deploy again since the tag has been updated.&lt;/p&gt;
+&lt;p&gt;This will ensure that a latest release has been pushed (including latest changelog content from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CHANGELOG.md&lt;/code&gt; and Github will automatically create a tag for us. Next time we run the pipeline, it won’t deploy again since the tag has been updated.&lt;/p&gt;
 
 &lt;h1 id=&quot;uploading-javadoc-to-github-pages&quot;&gt;Uploading Javadoc to Github pages&lt;/h1&gt;
 
 &lt;p&gt;Uploading Javadoc to Github pages is a little bit more tricky. I want to have the following requirements fullfilled:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;each version is persisted in Github pages, e.g. &lt;code class=&quot;highlighter-rouge&quot;&gt;/docs/1.0.0&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;the latest docs should be available via &lt;code class=&quot;highlighter-rouge&quot;&gt;/docs/latest&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;each version is persisted in Github pages, e.g. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/docs/1.0.0&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;the latest docs should be available via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/docs/latest&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Create temporary directory&lt;/span&gt;
@@ -776,7 +776,7 @@ git push &lt;span class=&quot;nt&quot;&gt;-fq&lt;/span&gt; origin gh-pages &lt;s
 &lt;ul&gt;
   &lt;li&gt;single branch&lt;/li&gt;
   &lt;li&gt;every commit is tested in Travis&lt;/li&gt;
-  &lt;li&gt;I control deployments via &lt;code class=&quot;highlighter-rouge&quot;&gt;CHANGELOG.md&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;I control deployments via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CHANGELOG.md&lt;/code&gt;&lt;/li&gt;
   &lt;li&gt;Github releases and tags are automatically created&lt;/li&gt;
   &lt;li&gt;Javadoc is automatically created&lt;/li&gt;
   &lt;li&gt;on release, artifacts are signed and pushed to Maven Central&lt;/li&gt;
@@ -803,7 +803,7 @@ git push &lt;span class=&quot;nt&quot;&gt;-fq&lt;/span&gt; origin gh-pages &lt;s
 x
 x x
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;This L-Shape can be represented by a &lt;code class=&quot;highlighter-rouge&quot;&gt;byte&lt;/code&gt; array:&lt;/p&gt;
+&lt;p&gt;This L-Shape can be represented by a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;byte&lt;/code&gt; array:&lt;/p&gt;
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;byte&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;L_SHAPE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
    &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
    &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
@@ -817,20 +817,20 @@ x x
 
 &lt;h1 id=&quot;biom-conversion&quot;&gt;Biom Conversion&lt;/h1&gt;
 
-&lt;p&gt;We need to prepare the input data (byte arrays) into a format the algorithm understands. This format is a so called &lt;code class=&quot;highlighter-rouge&quot;&gt;Biom&lt;/code&gt; class with the following properties:&lt;/p&gt;
+&lt;p&gt;We need to prepare the input data (byte arrays) into a format the algorithm understands. This format is a so called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Biom&lt;/code&gt; class with the following properties:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;byte[][] data&lt;/code&gt; the biom as a 2-dimensional byte array (without metadata)&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;int startX&lt;/code&gt; the x index on the biom where the player could possibly start&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;int startY&lt;/code&gt; the y index on the biom where the player could possibly start&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;int endX&lt;/code&gt; the x index on the biom where the player could leave&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;int endY&lt;/code&gt; the y index on the biom where the player could leave&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;int length&lt;/code&gt; the number of cells inside a biom&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;int width&lt;/code&gt; the width of a biom (number of cells)&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;int height&lt;/code&gt; the height of a biom (number of cells)&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;byte[][] data&lt;/code&gt; the biom as a 2-dimensional byte array (without metadata)&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;int startX&lt;/code&gt; the x index on the biom where the player could possibly start&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;int startY&lt;/code&gt; the y index on the biom where the player could possibly start&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;int endX&lt;/code&gt; the x index on the biom where the player could leave&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;int endY&lt;/code&gt; the y index on the biom where the player could leave&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;int length&lt;/code&gt; the number of cells inside a biom&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;int width&lt;/code&gt; the width of a biom (number of cells)&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;int height&lt;/code&gt; the height of a biom (number of cells)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;We now call a so called &lt;code class=&quot;highlighter-rouge&quot;&gt;BiomFactory&lt;/code&gt; which creates a Biom object for us:&lt;/p&gt;
+&lt;p&gt;We now call a so called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BiomFactory&lt;/code&gt; which creates a Biom object for us:&lt;/p&gt;
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Biom&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;biom&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;biomFactory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;L_SHAPE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;If you are interested in how this factory works internally &lt;a href=&quot;https://github.com/bitbrain/mindmazer/blob/master/core/src/de/bitbrain/mindmazer/levelgen/BiomFactory.java&quot;&gt;check out the code on Github&lt;/a&gt;.&lt;/p&gt;</content><author><name>bitbrain</name></author><category term="gamedev" /><category term="mindmazer" /><category term="devlog" /><summary type="html">Today I want to talk about my project mindmazer. In this simple 2D puzzle game the player has to remember a certain path to progress to the next stage. When starting this project I had to decide if I give the player a static list of predefined levels. After some time I decided against it and went for a procedural generation approach. In this article I am going to explain how these levels are generated.</summary></entry><entry><title type="html">Why I still use Java for gamedev</title><link href="https://bitbrain.github.io/2017/08/17/why-I-still-use-java-for-gamedev.html" rel="alternate" type="text/html" title="Why I still use Java for gamedev" /><published>2017-08-17T00:00:00+00:00</published><updated>2017-08-17T00:00:00+00:00</updated><id>https://bitbrain.github.io/2017/08/17/why-I-still-use-java-for-gamedev</id><content type="html" xml:base="https://bitbrain.github.io/2017/08/17/why-I-still-use-java-for-gamedev.html">&lt;p&gt;There is an technology, running on billions of devices every single day: Java.

@@ -4,7 +4,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>Creating braingdx: orthogonal tilemaps | bitbrain</title>
-<meta name="generator" content="Jekyll v3.8.6" />
+<meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="Creating braingdx: orthogonal tilemaps" />
 <meta name="author" content="bitbrain" />
 <meta property="og:locale" content="en_US" />
@@ -16,7 +16,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2019-07-08T00:00:00+00:00" />
 <script type="application/ld+json">
-{"description":"Fist part of a blog-series about my gamejam framework called braingdx.","mainEntityOfPage":{"@type":"WebPage","@id":"https://bitbrain.github.io/2019/07/08/creating-braingdx-orthogonal-tilemaps.html"},"@type":"BlogPosting","url":"https://bitbrain.github.io/2019/07/08/creating-braingdx-orthogonal-tilemaps.html","headline":"Creating braingdx: orthogonal tilemaps","dateModified":"2019-07-08T00:00:00+00:00","datePublished":"2019-07-08T00:00:00+00:00","author":{"@type":"Person","name":"bitbrain"},"@context":"https://schema.org"}</script>
+{"description":"Fist part of a blog-series about my gamejam framework called braingdx.","@type":"BlogPosting","url":"https://bitbrain.github.io/2019/07/08/creating-braingdx-orthogonal-tilemaps.html","headline":"Creating braingdx: orthogonal tilemaps","dateModified":"2019-07-08T00:00:00+00:00","datePublished":"2019-07-08T00:00:00+00:00","author":{"@type":"Person","name":"bitbrain"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://bitbrain.github.io/2019/07/08/creating-braingdx-orthogonal-tilemaps.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css">
   <link rel="icon" type="image/png" href="/assets/favicon.png" /><link type="application/atom+xml" rel="alternate" href="https://bitbrain.github.io/feed.xml" title="bitbrain" /></head>
@@ -32,9 +32,12 @@
       <div class="wrapper">
         
   <div class="author-box">
-
-<img src="https://gravatar.com/avatar/22a6f62e5da4fbbd51f57656d3738916?s=256" class="author-avatar" />
-
+    
+    
+        <img src="
+            https://gravatar.com/avatar/22a6f62e5da4fbbd51f57656d3738916?s=256
+        " class="author-avatar" alt="Avatar" />
+    
 Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamedev and web. Born and raised in Germany, studied in the Netherlands, currently living in the UK.
 
 </div>
@@ -83,7 +86,7 @@ Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamed
 <span class="n">tiledMapRenderer</span><span class="o">.</span><span class="na">setView</span><span class="o">(</span><span class="n">camera</span><span class="o">);</span>
 <span class="n">tiledMapRenderer</span><span class="o">.</span><span class="na">render</span><span class="o">();</span>
 </code></pre></div></div>
-<p>This will render your multi-layered map onto the screen. Job is done then. Or  is it? Before I even started thinking about writing a tiledmap integration, I had to know the challenges ahead of me. I realised that using a simple <code class="highlighter-rouge">OrthogonalTiledMapRenderer</code> does not do the trick at all: the problem are game objects itself.</p>
+<p>This will render your multi-layered map onto the screen. Job is done then. Or  is it? Before I even started thinking about writing a tiledmap integration, I had to know the challenges ahead of me. I realised that using a simple <code class="language-plaintext highlighter-rouge">OrthogonalTiledMapRenderer</code> does not do the trick at all: the problem are game objects itself.</p>
 
 <blockquote>
   <p>a game object is a stateful, dynamic object within a game world which represents anything the player can interact with: characters, items, events, etc.</p>
@@ -93,7 +96,7 @@ Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamed
 
 <p><a href="https://bitbrain.itch.io/the-legend-of-studentenfutter"><img src="/public/media/legend-of-studentenfutter-screenshot.jpg" alt="los-screenshot" /></a></p>
 
-<p>Do you note the bridge? How can I achieve that the player gets either rendered below the bridge (when walking beneath it) or is walking on the bridge? What about automatic collision detection? How can I prevent that the player is able to fall off the bridge, but can walk beneath it without problems? All these challenges can not be solved by using <code class="highlighter-rouge">OrthogonalTiledMapRenderer</code>.
+<p>Do you note the bridge? How can I achieve that the player gets either rendered below the bridge (when walking beneath it) or is walking on the bridge? What about automatic collision detection? How can I prevent that the player is able to fall off the bridge, but can walk beneath it without problems? All these challenges can not be solved by using <code class="language-plaintext highlighter-rouge">OrthogonalTiledMapRenderer</code>.
 Instead, you have to write your own z-index ordering logic. Don’t worry though, these challenges have been solved within <strong>braingdx</strong>:</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* within braingdx you simply have this */</span>
 <span class="nd">@Override</span>
@@ -146,42 +149,42 @@ Instead, you have to write your own z-index ordering logic. Don’t worry though
 <p><strong>What should be the z-index of a particular tiledmap layer?</strong></p>
 
 <p>The formular looks as follows:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zIndex = (layerIndex + 1) * rows - yIndex
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zIndex = (layerIndex + 1) * rows - yIndex
 </code></pre></div></div>
-<p>The <code class="highlighter-rouge">layerIndex</code> is the number of the layer, counting from <code class="highlighter-rouge">0</code> upwards. The <code class="highlighter-rouge">rows</code> attribute is the number of total rows as part of the tiled map. Finally, the <code class="highlighter-rouge">yIndex</code> is the vertical index of the cell, the particular game object is currently on.</p>
+<p>The <code class="language-plaintext highlighter-rouge">layerIndex</code> is the number of the layer, counting from <code class="language-plaintext highlighter-rouge">0</code> upwards. The <code class="language-plaintext highlighter-rouge">rows</code> attribute is the number of total rows as part of the tiled map. Finally, the <code class="language-plaintext highlighter-rouge">yIndex</code> is the vertical index of the cell, the particular game object is currently on.</p>
 
 <p>As a concrete example, let’s imagine the following setup:</p>
 
 <ul>
-  <li>a <code class="highlighter-rouge">10x10</code> orthogonal tiledmap with a tile resolution of <code class="highlighter-rouge">32x32</code> pixels</li>
-  <li>the map consists of <code class="highlighter-rouge">2</code> tiled layers and a single object layer in between those</li>
-  <li>a player object is located on the object layer at position <code class="highlighter-rouge">x = 60, y = 110</code></li>
+  <li>a <code class="language-plaintext highlighter-rouge">10x10</code> orthogonal tiledmap with a tile resolution of <code class="language-plaintext highlighter-rouge">32x32</code> pixels</li>
+  <li>the map consists of <code class="language-plaintext highlighter-rouge">2</code> tiled layers and a single object layer in between those</li>
+  <li>a player object is located on the object layer at position <code class="language-plaintext highlighter-rouge">x = 60, y = 110</code></li>
 </ul>
 
 <p><strong>braingdx</strong> will automatically compute the z-index according to the given properties.</p>
 
-<p>At first, the framework calculates the so called <code class="highlighter-rouge">yIndex</code> as follows:</p>
+<p>At first, the framework calculates the so called <code class="language-plaintext highlighter-rouge">yIndex</code> as follows:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yIndex = floor(110 / 32) = 3
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yIndex = floor(110 / 32) = 3
 </code></pre></div></div>
-<p>So the game object is positioned at a <code class="highlighter-rouge">yIndex</code> of <strong>3</strong>. The framework does not have a concept of object layers, since each game object is rendered separately, depending on their position. Instead, <strong>braingdx</strong> only keeps tiledmap layers. A game object is always translated onto the layer underneath. So, a tiledmap layer above the game object will always be rendered above the game object. As a result, the <code class="highlighter-rouge">layerIndex</code> of the assigned tiledmap layer is <strong>0</strong>.</p>
+<p>So the game object is positioned at a <code class="language-plaintext highlighter-rouge">yIndex</code> of <strong>3</strong>. The framework does not have a concept of object layers, since each game object is rendered separately, depending on their position. Instead, <strong>braingdx</strong> only keeps tiledmap layers. A game object is always translated onto the layer underneath. So, a tiledmap layer above the game object will always be rendered above the game object. As a result, the <code class="language-plaintext highlighter-rouge">layerIndex</code> of the assigned tiledmap layer is <strong>0</strong>.</p>
 
 <p>This results to the following computation:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zIndex = (0 + 1) * 10 - 3 = 7
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zIndex = (0 + 1) * 10 - 3 = 7
 </code></pre></div></div>
-<p>So the player at its current position will have a <code class="highlighter-rouge">zIndex</code> of <strong>7</strong>. This is all done by <strong>braingdx</strong> internally. Since game objects are rendered in the order of their <code class="highlighter-rouge">zIndex</code> attribute, it is ensured that game objects can be dynamically drawn before or after a particular tiledmap layer.</p>
+<p>So the player at its current position will have a <code class="language-plaintext highlighter-rouge">zIndex</code> of <strong>7</strong>. This is all done by <strong>braingdx</strong> internally. Since game objects are rendered in the order of their <code class="language-plaintext highlighter-rouge">zIndex</code> attribute, it is ensured that game objects can be dynamically drawn before or after a particular tiledmap layer.</p>
 
 <h2 id="what-about-tiledmap-layers-then">What about tiledmap layers then?</h2>
 
-<p>We have learned how <strong>braingdx</strong> computes <code class="highlighter-rouge">zIndex</code> of game objects and that all game objects are drawn in the order of that index value. However, what about the layers itself? You might remember, that <strong>braingdx</strong> treats an entire tiledmap layer as a single game object. This means that <strong>braingdx</strong> does the following when loading tiled maps:</p>
+<p>We have learned how <strong>braingdx</strong> computes <code class="language-plaintext highlighter-rouge">zIndex</code> of game objects and that all game objects are drawn in the order of that index value. However, what about the layers itself? You might remember, that <strong>braingdx</strong> treats an entire tiledmap layer as a single game object. This means that <strong>braingdx</strong> does the following when loading tiled maps:</p>
 
 <ol>
   <li>iterate over all layers of the tiledMap</li>
   <li>in case of a object layer, add a new game object to the game world and assign all the properties such as dimensions, position, type etc. to the game object</li>
-  <li>in case of a tiledmap layer, add a new game object to the game at position <code class="highlighter-rouge">x = 0, y = 0</code> and set the game object to <code class="highlighter-rouge">active = false</code>. This ensures that the layer itself is excluded from collision detection</li>
+  <li>in case of a tiledmap layer, add a new game object to the game at position <code class="language-plaintext highlighter-rouge">x = 0, y = 0</code> and set the game object to <code class="language-plaintext highlighter-rouge">active = false</code>. This ensures that the layer itself is excluded from collision detection</li>
 </ol>
 
-<p>Since the framework separates the rendering of game objects, we have to define an own <code class="highlighter-rouge">GameObject2DRenderer</code> for our tiledmap objects:</p>
+<p>Since the framework separates the rendering of game objects, we have to define an own <code class="language-plaintext highlighter-rouge">GameObject2DRenderer</code> for our tiledmap objects:</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">OrthogonalMapLayerRenderer</span> <span class="kd">extends</span> <span class="nc">GameObject2DRenderer</span> <span class="o">{</span>
 
    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">TiledMapTileLayer</span> <span class="n">layer</span><span class="o">;</span>
@@ -210,7 +213,7 @@ Instead, you have to write your own z-index ordering logic. Don’t worry though
    <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
-<p>The <code class="highlighter-rouge">render</code> method will be called whenever our tiledmap layer object gets drawn. Since we want to ensure that each layer has its own renderer, we have to generate the game object type for the tiledmap layer and register it to the <strong>RenderManager</strong>:</p>
+<p>The <code class="language-plaintext highlighter-rouge">render</code> method will be called whenever our tiledmap layer object gets drawn. Since we want to ensure that each layer has its own renderer, we have to generate the game object type for the tiledmap layer and register it to the <strong>RenderManager</strong>:</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">id</span> <span class="o">=</span> <span class="no">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
 <span class="n">context</span><span class="o">.</span><span class="na">getRenderManager</span><span class="o">().</span><span class="na">register</span><span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">renderer</span><span class="o">);</span>
 </code></pre></div></div>
