@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://bitbrain.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://bitbrain.github.io/" rel="alternate" type="text/html" /><updated>2020-08-01T15:49:35+00:00</updated><id>https://bitbrain.github.io/feed.xml</id><title type="html">bitbrain</title><subtitle>Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamedev and web. Born and raised in Germany, studied in the Netherlands, currently living in the UK.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://bitbrain.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://bitbrain.github.io/" rel="alternate" type="text/html" /><updated>2020-08-01T15:56:47+00:00</updated><id>https://bitbrain.github.io/feed.xml</id><title type="html">bitbrain</title><subtitle>Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamedev and web. Born and raised in Germany, studied in the Netherlands, currently living in the UK.
 </subtitle><author><name>bitbrain</name></author><entry><title type="html">How to publish your Godot Game to itch.io via Github actions</title><link href="https://bitbrain.github.io/2020/08/01/publish-godot-game-to-itchio.html" rel="alternate" type="text/html" title="How to publish your Godot Game to itch.io via Github actions" /><published>2020-08-01T00:00:00+00:00</published><updated>2020-08-01T00:00:00+00:00</updated><id>https://bitbrain.github.io/2020/08/01/publish-godot-game-to-itchio</id><content type="html" xml:base="https://bitbrain.github.io/2020/08/01/publish-godot-game-to-itchio.html">&lt;p&gt;Manually building and uploading your &lt;a href=&quot;https://godotengine.org&quot;&gt;Godot&lt;/a&gt; games can be painful and time-consuming. In this tutorial am going to show you how to automate the process:&lt;/p&gt;
 
 &lt;ol&gt;
@@ -28,7 +28,7 @@
 
 &lt;p&gt;Next, we are going to set up the secrets within Github. Head over to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Account Settings -&amp;gt; Developer settings -&amp;gt; Personal access tokens&lt;/code&gt; and generate a new token:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/public/media/github-create-token.PNG&quot; alt=&quot;gh-token&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/public/media/github-create-token.png&quot; alt=&quot;gh-token&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;You will not be able to see this token again once generated! Save it somewhere locally in a file for later use.&lt;/p&gt;
 
@@ -38,7 +38,7 @@
 
 &lt;p&gt;Next, head to your Github repository configuration page and add secrets:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/public/media/github-create-secrets.PNG&quot; alt=&quot;gh-secrets&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/public/media/github-create-secrets.png&quot; alt=&quot;gh-secrets&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BUTLER_CREDENTIALS&lt;/code&gt; is the value of the itch.io key you previously generated&lt;/li&gt;
@@ -60,7 +60,7 @@ If you want to run new workflows, you’ll need to set up a different PAT and ad
 
 &lt;p&gt;Within Godot, head over to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Project -&amp;gt; Export...&lt;/code&gt; and create a new export entry:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/public/media/godot-export-project.PNG&quot; alt=&quot;godot-export&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/public/media/godot-export-project.png&quot; alt=&quot;godot-export&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Also, make sure to define an export path and give it a name (e.g. &lt;strong&gt;yourgame-windows&lt;/strong&gt;). This will be the name of the game file in itch.io. Saving your configuration automatically generates a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;export_presets.cfg&lt;/code&gt; file that you need to commit to your Github repository. Make sure that your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.gitignore&lt;/code&gt; does not accidentally exclude this file!&lt;/p&gt;
 
@@ -151,11 +151,11 @@ everytime you push, replace the branch with a different branch, e.g. &lt;code cl
 
 &lt;p&gt;Voila! Now commit and push everything and it should automatically create a release for you:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/public/media/github-create-release.PNG&quot; alt=&quot;github-release&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/public/media/github-create-release.png&quot; alt=&quot;github-release&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;After the release is created, Github will automatically trigger the next action to publish your game to itch.io:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/public/media/github-export-to-itch.PNG&quot; alt=&quot;github-itchio&quot; /&gt;&lt;/p&gt;</content><author><name>bitbrain</name></author><category term="godot" /><category term="github" /><category term="ci" /><category term="itchio" /><summary type="html">Manually building and uploading your Godot games can be painful and time-consuming. In this tutorial am going to show you how to automate the process:</summary></entry><entry><title type="html">Building a game from scratch in 48 hours</title><link href="https://bitbrain.github.io/2020/04/08/minibeansjam5-building-a-game.html" rel="alternate" type="text/html" title="Building a game from scratch in 48 hours" /><published>2020-04-08T00:00:00+00:00</published><updated>2020-04-08T00:00:00+00:00</updated><id>https://bitbrain.github.io/2020/04/08/minibeansjam5-building-a-game</id><content type="html" xml:base="https://bitbrain.github.io/2020/04/08/minibeansjam5-building-a-game.html">&lt;p&gt;&lt;a href=&quot;https://itch.io/jam/minibeansjam5&quot;&gt;&lt;img src=&quot;/public/media/minibeansjam5.gif&quot; alt=&quot;minibeansjam5&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/public/media/github-export-to-itch.png&quot; alt=&quot;github-itchio&quot; /&gt;&lt;/p&gt;</content><author><name>bitbrain</name></author><category term="godot" /><category term="github" /><category term="ci" /><category term="itchio" /><summary type="html">Manually building and uploading your Godot games can be painful and time-consuming. In this tutorial am going to show you how to automate the process:</summary></entry><entry><title type="html">Building a game from scratch in 48 hours</title><link href="https://bitbrain.github.io/2020/04/08/minibeansjam5-building-a-game.html" rel="alternate" type="text/html" title="Building a game from scratch in 48 hours" /><published>2020-04-08T00:00:00+00:00</published><updated>2020-04-08T00:00:00+00:00</updated><id>https://bitbrain.github.io/2020/04/08/minibeansjam5-building-a-game</id><content type="html" xml:base="https://bitbrain.github.io/2020/04/08/minibeansjam5-building-a-game.html">&lt;p&gt;&lt;a href=&quot;https://itch.io/jam/minibeansjam5&quot;&gt;&lt;img src=&quot;/public/media/minibeansjam5.gif&quot; alt=&quot;minibeansjam5&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Between Friday 3rd-5th April 2020, German &lt;a href=&quot;https://rocketbeans.tv/&quot;&gt;Rocketbeans TV&lt;/a&gt; hosted &lt;a href=&quot;https://itch.io/jam/minibeansjam5&quot;&gt;minibeansjam 5&lt;/a&gt;, a 48 hour gamejam. I submitted a game and managed to finish most bits right in time.&lt;/p&gt;
 
