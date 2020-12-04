@@ -2,7 +2,7 @@
 <html lang="en"><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
 <title>How to publish your Godot Game to itch.io via Github actions | bitbrain</title>
 <meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="How to publish your Godot Game to itch.io via Github actions" />
@@ -15,8 +15,10 @@
 <meta property="og:site_name" content="bitbrain" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-08-01T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="How to publish your Godot Game to itch.io via Github actions" />
 <script type="application/ld+json">
-{"description":"Automatically build and deploy your Godot game to itch.io via Github actions.","@type":"BlogPosting","url":"https://bitbrain.github.io/2020/08/01/publish-godot-game-to-itchio.html","headline":"How to publish your Godot Game to itch.io via Github actions","dateModified":"2020-08-01T00:00:00+00:00","datePublished":"2020-08-01T00:00:00+00:00","author":{"@type":"Person","name":"bitbrain"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://bitbrain.github.io/2020/08/01/publish-godot-game-to-itchio.html"},"@context":"https://schema.org"}</script>
+{"datePublished":"2020-08-01T00:00:00+00:00","dateModified":"2020-08-01T00:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://bitbrain.github.io/2020/08/01/publish-godot-game-to-itchio.html"},"@type":"BlogPosting","url":"https://bitbrain.github.io/2020/08/01/publish-godot-game-to-itchio.html","author":{"@type":"Person","name":"bitbrain"},"headline":"How to publish your Godot Game to itch.io via Github actions","description":"Automatically build and deploy your Godot game to itch.io via Github actions.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css">
   <link rel="icon" type="image/png" href="/assets/favicon.png" /><link type="application/atom+xml" rel="alternate" href="https://bitbrain.github.io/feed.xml" title="bitbrain" /></head>
@@ -169,6 +171,7 @@ If you want to run new workflows, you’ll need to set up a different PAT and ad
           <span class="na">relative_project_path</span><span class="pi">:</span> <span class="s">.</span>
         <span class="na">env</span><span class="pi">:</span>
           <span class="na">GITHUB_TOKEN</span><span class="pi">:</span> <span class="s">${{ secrets.GH_CREDENTIALS }}</span>
+          <span class="na">ACTIONS_ALLOW_UNSECURE_COMMANDS</span><span class="pi">:</span> <span class="s1">'</span><span class="s">true'</span>
 </code></pre></div></div>
 <p>Let’s have a look into the steps. First, we define when the action should get triggered. If you do not want to create a new release
 everytime you push, replace the branch with a different branch, e.g. <code class="language-plaintext highlighter-rouge">release</code></p>
