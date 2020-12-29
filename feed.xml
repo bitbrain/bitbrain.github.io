@@ -1,5 +1,62 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://bitbrain.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://bitbrain.github.io/" rel="alternate" type="text/html" /><updated>2020-12-05T12:26:13+00:00</updated><id>https://bitbrain.github.io/feed.xml</id><title type="html">bitbrain</title><subtitle>Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamedev and web. Born and raised in Germany, studied in the Netherlands, currently living in the UK.
-</subtitle><author><name>bitbrain</name></author><entry><title type="html">How to publish your Godot Game to itch.io via Github actions</title><link href="https://bitbrain.github.io/2020/08/01/publish-godot-game-to-itchio.html" rel="alternate" type="text/html" title="How to publish your Godot Game to itch.io via Github actions" /><published>2020-08-01T00:00:00+00:00</published><updated>2020-08-01T00:00:00+00:00</updated><id>https://bitbrain.github.io/2020/08/01/publish-godot-game-to-itchio</id><content type="html" xml:base="https://bitbrain.github.io/2020/08/01/publish-godot-game-to-itchio.html">&lt;p&gt;Manually building and uploading your &lt;a href=&quot;https://godotengine.org&quot;&gt;Godot&lt;/a&gt; games can be painful and time-consuming. In this tutorial am going to show you how to automate the process:&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://bitbrain.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://bitbrain.github.io/" rel="alternate" type="text/html" /><updated>2020-12-29T12:05:52+00:00</updated><id>https://bitbrain.github.io/feed.xml</id><title type="html">bitbrain</title><subtitle>Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamedev and web. Born and raised in Germany, studied in the Netherlands, currently living in the UK.
+</subtitle><author><name>bitbrain</name></author><entry><title type="html">Becoming a gamedev Youtuber</title><link href="https://bitbrain.github.io/2020/12/29/devlog-youtubers.html" rel="alternate" type="text/html" title="Becoming a gamedev Youtuber" /><published>2020-12-29T00:00:00+00:00</published><updated>2020-12-29T00:00:00+00:00</updated><id>https://bitbrain.github.io/2020/12/29/devlog-youtubers</id><content type="html" xml:base="https://bitbrain.github.io/2020/12/29/devlog-youtubers.html">&lt;p&gt;For many years, I remained quiet and built &lt;a href=&quot;https://bitbrain.itch.io&quot;&gt;a lot of little games&lt;/a&gt; just for fun. I may have shared progress on them &lt;a href=&quot;https://twitter.com/bitbrain_&quot;&gt;on Twitter&lt;/a&gt; but that’s it. To be completely honest, I was afraid people might not like what I am doing or that my work &lt;em&gt;is not good enough&lt;/em&gt; for the world to see.&lt;/p&gt;
+
+&lt;p&gt;Finally, after years of hiding, I decided this year &lt;a href=&quot;https://www.youtube.com/bitbraindev&quot;&gt;to become a Youtuber&lt;/a&gt;! Before I go into details, let me first talk a little bit about Youtube a bit, especially the game development section.&lt;/p&gt;
+
+&lt;h1 id=&quot;the-four-types-of-gamedev-content&quot;&gt;The four types of gamedev content&lt;/h1&gt;
+
+&lt;p&gt;Before I became a creator, I used to only watch devlogs myself. I am probably subscribes to over 80 different creators and each of them has their unique strengths. Generally, they can be categorised as follows:&lt;/p&gt;
+
+&lt;h2 id=&quot;type-a-the-informative-game-developer&quot;&gt;Type A: The informative Game Developer&lt;/h2&gt;
+
+&lt;p&gt;This type focuses purely on sharing knowledge and learnings without wasting anyones time. Entertainment-first is not a priority but rather showing progress. A very good example of this is &lt;a href=&quot;https://www.youtube.com/c/Miziziziz&quot;&gt;Miziziziz&lt;/a&gt; - he is the master of efficiency when it comes to condensing information within a single video. What also makes him great is that Miziziziz is very knowledgable in the stuff he’s doing!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/media/mizizizi.png&quot; alt=&quot;type-a&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;type-b-the-relaxed-game-developer&quot;&gt;Type B: The relaxed Game Developer&lt;/h2&gt;
+
+&lt;p&gt;Sometimes, after a hectic day, you just want to relax and not worry about consuming information as quickly as possible. Rather, you’d like to watch someone explaining thoroughly their process and how to live a healthy, productive life. One of my favourite Youtubers, &lt;a href=&quot;https://www.youtube.com/c/DevDuck/videos&quot;&gt;devduck&lt;/a&gt;, is a prime-example of this. His editing style is always very relaxed but also kinda melancholic. Watching his videos really motivated me to get up early in the morning (we’re talking like 5am) to enjoy game development in its fullest.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/media/devduck1.png&quot; alt=&quot;type-b&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;type-c-the-entertainer&quot;&gt;Type C: The Entertainer&lt;/h2&gt;
+
+&lt;p&gt;You find most devlogs dry and boring and always skip most of it? You prefer watching Twitch streamers for their personality? You like banter and swear just for fun? Then &lt;a href=&quot;https://www.youtube.com/randallthomas&quot;&gt;Randy&lt;/a&gt; is your guy! One of my favourite videos is &lt;a href=&quot;https://www.youtube.com/watch?v=lahpnRVxkU8&quot;&gt;Simulating every single pixel in my game&lt;/a&gt;. In that particular episode, Randy shows off various alter-ego characters, each having a particular responsibility. In addition, his Australian accent makes the videos highly enjoyable (if you like that kind of humour).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/media/randy.png&quot; alt=&quot;type-c&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;type-d-the-newcomer&quot;&gt;Type D: The Newcomer&lt;/h2&gt;
+
+&lt;p&gt;Sometimes it surprises me to see brilliant videos but the creators have less than 1000 subscribers. It amazes me how many awesome creators are out there, and almost nobody watched their videos yet. A few of these newcomers are (in my opinion) on-par with the “big ones” such as &lt;strong&gt;devduck&lt;/strong&gt; or &lt;strong&gt;heartbeast&lt;/strong&gt;. What makes these creators so unique is their personality, the editing style and the type of content they create. For example &lt;a href=&quot;https://www.youtube.com/channel/UCHwsuay541hn0rj-Bqvm3WA/videos&quot;&gt;Obvious Dev&lt;/a&gt; is an aspiring game developer from Germany, working on his game called &lt;strong&gt;Exo Colony&lt;/strong&gt;. Like me, he is quite German and we have a severe lack of German game developers on Youtube. Let’s unite!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/media/obviousdev.png&quot; alt=&quot;type-d&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Another great Youtuber is &lt;a href=&quot;https://www.youtube.com/channel/UCiTOqFuPAIweN5dy7y-xJuQ/videos&quot;&gt;Element Mill&lt;/a&gt;. I discovered him by accident and &lt;a href=&quot;https://www.youtube.com/watch?v=oU3hwuV3wyM&quot;&gt;his production value is comparable&lt;/a&gt; to a creator with a few million subscribers. Insanity!&lt;/p&gt;
+
+&lt;h1 id=&quot;my-youtube-channel&quot;&gt;My Youtube channel&lt;/h1&gt;
+
+&lt;p&gt;After I got inspired by all those awesome creators, I decided for myself to join the bunch and become a Youtuber myself. I wanted to produce devlogs, document my workflows and show my struggles and achievements. I bought myself a &lt;a href=&quot;https://www.canon.co.uk/cameras/eos-m50/&quot;&gt;CANON M50&lt;/a&gt; and a &lt;a href=&quot;https://www.bluemic.com/en-us/products/yeti/&quot;&gt;Blue Yeti Microphone&lt;/a&gt; and started filming my first video.&lt;/p&gt;
+
+&lt;p&gt;Suddenly I realised: what kind of style do I actually aim for? I really don’t find myself funny, so probably trying to push for Funny/Entertainer content might be not ideal. Then I thought: &lt;strong&gt;Why even trying to fit into a box? Just do whatever!&lt;/strong&gt; which is initially very difficult. So, I went ahead and created my first two videos:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=Sonkr6vf4Eo&quot;&gt;I build my first crafting game in Godot Engine!&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=XUwLMpPMOL4&quot;&gt;Lighting and inventory update for my Godot crafting game!&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I have received dozens of comments and a lot of feedback. While creating these videos, I tried not to copy any of the previouslu mentioned Youtubers but simply did what I found interesting/fun to do. In handsight, I accidentally tried to copy some things from other Youtubers by filling my videos with so called B-Roll (the content between the content). In my last video, I might have even overdone this and lost focus on what I actually wanna do: show insights into my gamedev process.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/media/bitbrainyt.png&quot; alt=&quot;bitbrain&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;expectations-vs-reality&quot;&gt;Expectations vs. Reality&lt;/h1&gt;
+
+&lt;p&gt;Before I created my first video, I thought it would be rather easy to produce content. When editing for many hours just to create a few minutes of content, I had to learn that it is &lt;strong&gt;very exhausting and challenging&lt;/strong&gt; to do this kind of &lt;strong&gt;work&lt;/strong&gt;. Another learning was that it can be rather tempting to produce content &lt;strong&gt;for the clicks&lt;/strong&gt; rather than just focusing on the content itself. Regardless, I would have never expected to get that many followers in just a few months. Over 300 people have subscribed to my channel already and over 4000 views have accumulated! Thank you for everyone joining my gamedev journey.&lt;/p&gt;
+
+&lt;h1 id=&quot;the-future&quot;&gt;The future&lt;/h1&gt;
+
+&lt;p&gt;In 2021, I have big plans for my Youtube channel. Obviously, I will continue my devlog series on &lt;a href=&quot;https://bitbrain.itch.io/cave&quot;&gt;cave&lt;/a&gt; but also I have plans to do different types of content such as interviews, collaborations and tutorials!&lt;/p&gt;
+
+&lt;p&gt;Stay tuned. ♥&lt;/p&gt;</content><author><name>bitbrain</name></author><category term="devlog" /><category term="godot" /><category term="gamedev" /><category term="youtube" /><summary type="html">For many years, I remained quiet and built a lot of little games just for fun. I may have shared progress on them on Twitter but that’s it. To be completely honest, I was afraid people might not like what I am doing or that my work is not good enough for the world to see.</summary></entry><entry><title type="html">How to publish your Godot Game to itch.io via Github actions</title><link href="https://bitbrain.github.io/2020/08/01/publish-godot-game-to-itchio.html" rel="alternate" type="text/html" title="How to publish your Godot Game to itch.io via Github actions" /><published>2020-08-01T00:00:00+00:00</published><updated>2020-08-01T00:00:00+00:00</updated><id>https://bitbrain.github.io/2020/08/01/publish-godot-game-to-itchio</id><content type="html" xml:base="https://bitbrain.github.io/2020/08/01/publish-godot-game-to-itchio.html">&lt;p&gt;Manually building and uploading your &lt;a href=&quot;https://godotengine.org&quot;&gt;Godot&lt;/a&gt; games can be painful and time-consuming. In this tutorial am going to show you how to automate the process:&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;let Github build your game via &lt;a href=&quot;https://github.com/actions&quot;&gt;Github Actions&lt;/a&gt;&lt;/li&gt;
@@ -1141,18 +1198,4 @@ Many developers (beardy hipsters) claim this technology belongs to the past, gam
 
 &lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
 
-&lt;p&gt;I hope you like my setup. Happy coding!&lt;/p&gt;</content><author><name>bitbrain</name></author><category term="misc" /><category term="showcase" /><category term="howto" /><summary type="html"></summary></entry><entry><title type="html">New blog</title><link href="https://bitbrain.github.io/2017/08/15/new-blog.html" rel="alternate" type="text/html" title="New blog" /><published>2017-08-15T00:00:00+00:00</published><updated>2017-08-15T00:00:00+00:00</updated><id>https://bitbrain.github.io/2017/08/15/new-blog</id><content type="html" xml:base="https://bitbrain.github.io/2017/08/15/new-blog.html">&lt;p&gt;Laziness can be a disease. Unfortunately my brain decided to just stop writing blog articles about stuff I do. This does not mean that I ever stopped. Oh hell no, I even did too much since I last blogged about my life. Things changed drastically in the last 12 months: moving to Central London to work fulltime, having two cats as well as enjoying life more than ever.&lt;/p&gt;
-
-&lt;p&gt;But let’s not talk about boring stuff for now, what can you guys expect on here?&lt;/p&gt;
-
-&lt;p&gt;Let’s sum up some things I want to talk about in the next weeks and months:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Java/Javascript/Groovy/’insert your favourite language here’ tips and tricks!&lt;/li&gt;
-  &lt;li&gt;Working with &lt;a href=&quot;https://aws.amazon.com/&quot;&gt;AWS&lt;/a&gt; and CIs like Jenkins, TravisCI or Bamboo&lt;/li&gt;
-  &lt;li&gt;Motivation, Work/Life Balance&lt;/li&gt;
-  &lt;li&gt;gamedev!!!111 and pixelart&lt;/li&gt;
-  &lt;li&gt;Gaming and Twitter drama&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Sounds interesting? Let’s see what the future holds. See you!&lt;/p&gt;</content><author><name>bitbrain</name></author><category term="introduction" /><summary type="html">Laziness can be a disease. Unfortunately my brain decided to just stop writing blog articles about stuff I do. This does not mean that I ever stopped. Oh hell no, I even did too much since I last blogged about my life. Things changed drastically in the last 12 months: moving to Central London to work fulltime, having two cats as well as enjoying life more than ever.</summary></entry></feed>
+&lt;p&gt;I hope you like my setup. Happy coding!&lt;/p&gt;</content><author><name>bitbrain</name></author><category term="misc" /><category term="showcase" /><category term="howto" /><summary type="html"></summary></entry></feed>
