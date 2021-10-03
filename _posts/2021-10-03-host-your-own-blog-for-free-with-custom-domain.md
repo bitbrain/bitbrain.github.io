@@ -50,7 +50,9 @@ and then head over to [http://127.0.0.1:4000](http://127.0.0.1:4000/) to view yo
 
 push your Jekyll site to Github:
 ```
-git add -A && git commit -am "setup Jekyll blog"
+git add -A \
+&& git commit -am "setup Jekyll blog" \
+&& git push origin main
 ```
 ## 3. Github Action
 
