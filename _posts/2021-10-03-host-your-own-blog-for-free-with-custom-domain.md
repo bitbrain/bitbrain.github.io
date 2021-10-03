@@ -25,7 +25,9 @@ git checkout --orphan gh-pages \
 && git checkout main
 ```
 Then head into `Settings->Pages` of your repository in Github and set your source branch of Github pages:
+
 ![set-source-branch](/public/media/set-source-branch.jpg)
+
 This will ensure that Github looks up any content on that branch and serves it automatically at the following url:
 ```
 https://<your-username>.github.io
@@ -43,6 +45,7 @@ jekyll new --skip-bundle .
 bundle install && jekyll serve
 ```
 and then head over to [http://127.0.0.1:4000](http://127.0.0.1:4000/) to view your page locally:
+
 ![jekyll-default-page](/public/media/jekyll-default-page.jpg)
 
 push your Jekyll site to Github:
