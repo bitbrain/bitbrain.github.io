@@ -94,7 +94,9 @@ Copy the token that is shown and define a new secret within your repository call
 
 Next, push your changes to your repository:
 ```bash
-git add -A && git commit -m "Setup workflow"
+git add -A \
+&& git commit -m "Setup workflow" \
+&& git push origin main
 ```
 Within your repository on Github you should now seen a new action getting triggered:
 
