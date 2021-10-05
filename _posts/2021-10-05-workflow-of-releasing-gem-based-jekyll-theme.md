@@ -80,6 +80,8 @@ I discarded this workflow and introduced a completely new one built from scratch
     - in case the tag does not exist yet, create a new git tag and push a new Github release
 3. Whenever a new tag has been pushed, build and publish the gem for that tag to rubygems.org
 
+![jekyll-dash-build](/public/media/jekyll-dash-build-tag.jpg)
+
 In order to check that the gem version exists as a tag, I am using the `github-tag-action`:
 ```yml
 - name: 💎 Extract gemspec info
