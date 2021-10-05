@@ -3,7 +3,11 @@ layout: post
 title: Workflow of releasing a gem-based Jekyll theme 
 tags: github ruby jekyll automation
 ---
-This [Jekyll](https://jekyllrb.com/)-based blog has been built with a custom theme created called [jekyll-dash](https://github.com/bitbrain/jekyll-dash). Initially, I built this theme just to share it with others, however, more and more people started using it over the past few months. In this article I want to highlight some of the challenges I faced trying to maintain this theme for a lot of people and the workflow I introduced that helped me to overcome these challenges.
+This [Jekyll](https://jekyllrb.com/)-based blog has been built with a custom theme created called [jekyll-dash](https://github.com/bitbrain/jekyll-dash). Initially, I built this theme just to share it with others, however, more and more people started using it over the past few months.
+
+[![jekyll-dash-logo](../public/media/jekyll-dash-logo.png)](https://github.com/bitbrain/jekyll-dash)
+
+In this article I want to highlight some of the challenges I faced trying to maintain this theme for a lot of people and the workflow I introduced that helped me to overcome these challenges.
 
 # An "auto-update" theme
 
