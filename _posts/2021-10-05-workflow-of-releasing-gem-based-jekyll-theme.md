@@ -97,9 +97,9 @@ In order to check that the gem version exists as a tag, I am using the `github-t
   uses: mukunku/tag-exists-action@v1.0.0
   id: tag-check
   with: 
-    tag: 'v${{ steps.gemspec_fetch.outputs.version }}'
+    tag: {% raw %}'v${{ steps.gemspec_fetch.outputs.version }}'{% endraw %}
   env:
-    GITHUB_TOKEN: ${{ secrets.GH_CREDENTIALS }}
+    GITHUB_TOKEN: {% raw %}${{ secrets.GH_CREDENTIALS }}{% endraw %}
 ```
 This allows me then to apply an `if` conditional on any other steps:
 ```yml
@@ -108,9 +108,9 @@ This allows me then to apply an `if` conditional on any other steps:
   id: tag_version
   uses: mathieudutour/github-tag-action@v5.6
   with:
-    github_token: ${{ secrets.GH_CREDENTIALS }}
+    github_token: {% raw %}${{ secrets.GH_CREDENTIALS }}{% endraw %}
     default_bump: false
-    custom_tag:  ${{ steps.gemspec_fetch.outputs.version }}
+    custom_tag:  {% raw %}${{ steps.gemspec_fetch.outputs.version }}{% endraw %}
     tag_prefix: v
 ```
 The slightly tricky part was to extract the version from the .gemspec file. For that I build [my own Github Action](https://github.com/bitbrain/gemspec-fetch) that is using [parse-gemspec-cli](https://github.com/packsaddle/ruby-parse_gemspec-cli) to [extract the metadata accordingly](https://github.com/bitbrain/gemspec-fetch/blob/main/entrypoint.sh):
