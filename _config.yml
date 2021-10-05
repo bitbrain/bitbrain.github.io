@@ -3,7 +3,8 @@ url: https://bitbrain.github.io
 author: bitbrain
 email: miguel-gonzalez@gmx.de
 description: > # this means to ignore newlines until "show_exerpts:"
-  Hi there, I am Miguel and I create games! Occasionally I blog about cloud, gamedev and web. Born and raised in Germany, studied in the Netherlands, currently living in the UK.
+  Miguel is a software engineer and indie game developer currently based in the UK.
+  <br/>He occasionally blogs about software design, continuous integration and game development with Godot Engine.
 show_excerpts: false # set to true to show excerpts on the homepage
 
 paginate: 5
@@ -49,3 +50,6 @@ theme: jekyll-dash
 plugins:
   - liquid-md5
   - jekyll/tagging
+
+avatar_source: local
+avatar_path: /public/avatar.gif
