@@ -43,6 +43,9 @@ dash:
     - url: https://github.com/bitbrain
       icon: github-square
       color: yellow
+      
+   avatar_source: local
+   avatar_path: /public/avatar.gif
 
 # Build settings
 theme: jekyll-dash
@@ -51,5 +54,4 @@ plugins:
   - liquid-md5
   - jekyll/tagging
 
-avatar_source: local
-avatar_path: /public/avatar.gif
+
