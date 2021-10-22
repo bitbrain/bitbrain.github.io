@@ -1,6 +1,4 @@
-# bitbra.in
-
-Jekyll sources of my personal blog on bitbra.in
+# 👉 [bitbra.in](https://bitbra.in)
 
 ![build-status](https://github.com/bitbrain/bitbrain.github.io/actions/workflows/github-pages.yml/badge.svg)
 
