@@ -28,7 +28,7 @@ dash:
     - url: https://soundcloud.com/myrealityde
       icon: soundcloud
       color: orange
-    - url: https://twitter.com/bitbrain_
+    - url: https://twitter.com/bitbrain
       icon: twitter-square
       color: cyan
     - url: https://bitbrain.itch.io
@@ -37,7 +37,7 @@ dash:
     - url: https://www.twitch.tv/bitbrain_
       icon: twitch
       color: purple
-    - url: https://www.youtube.com/channel/UCZDjQltHRNiXIYXMBeLDleA
+    - url: https://www.youtube.com/@bitbraindev
       icon: youtube
       color: red
     - url: https://github.com/bitbrain
