@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: update ruby
-        run: "apt-get install rubygems"
+        run: "sudo apt-get update && sudo apt-get install rubygems"
       - uses: actions/checkout@v2
       - uses: actions/cache@v2
         with:
