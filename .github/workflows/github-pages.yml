@@ -11,8 +11,6 @@ jobs:
   github-pages:
     runs-on: ubuntu-latest
     steps:
-      - name: update ruby
-        run: "sudo apt-get update && sudo apt-get install rubygems"
       - uses: actions/checkout@v2
       - uses: actions/cache@v2
         with:
