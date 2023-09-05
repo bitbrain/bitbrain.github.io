@@ -6,7 +6,7 @@ tags: godot addon gamedev
 
 **Godot addons offer a powerful way to extend the engine's functionality without having to modify its core.** This flexibility empowers the community to create custom solutions without burdening the engine itself. However, as addon developers, we must strike a balance between compatibility and functionality. This article explores the trade-offs involved, focusing primarily on Godot Engine 4.x.
 
-## The Antonomy of a Godot Release
+## The Anatomy of a Godot Release
 
 Godot currently has two **major** versions in circulation:
 
