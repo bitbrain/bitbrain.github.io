@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html class="direction--ltr"lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Workflow of releasing a gem-based Jekyll theme | bitbrain</title>
+<meta name="generator" content="Jekyll v4.3.3" />
+<meta property="og:title" content="Workflow of releasing a gem-based Jekyll theme" />
+<meta name="author" content="bitbrain" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This Jekyll-based blog has been built with a custom theme created called jekyll-dash. Initially, I built this theme just to share it with others, however, more and more people started using it over the past few months." />
+<meta property="og:description" content="This Jekyll-based blog has been built with a custom theme created called jekyll-dash. Initially, I built this theme just to share it with others, however, more and more people started using it over the past few months." />
+<link rel="canonical" href="https://bitbrain.github.io/2021/10/05/workflow-of-releasing-gem-based-jekyll-theme.html" />
+<meta property="og:url" content="https://bitbrain.github.io/2021/10/05/workflow-of-releasing-gem-based-jekyll-theme.html" />
+<meta property="og:site_name" content="bitbrain" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-10-05T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Workflow of releasing a gem-based Jekyll theme" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"bitbrain"},"dateModified":"2021-10-05T00:00:00+00:00","datePublished":"2021-10-05T00:00:00+00:00","description":"This Jekyll-based blog has been built with a custom theme created called jekyll-dash. Initially, I built this theme just to share it with others, however, more and more people started using it over the past few months.","headline":"Workflow of releasing a gem-based Jekyll theme","mainEntityOfPage":{"@type":"WebPage","@id":"https://bitbrain.github.io/2021/10/05/workflow-of-releasing-gem-based-jekyll-theme.html"},"url":"https://bitbrain.github.io/2021/10/05/workflow-of-releasing-gem-based-jekyll-theme.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  <link rel="stylesheet" href="/assets/css/magnific-popup.css"><link type="application/atom+xml" rel="alternate" href="https://bitbrain.github.io/feed.xml" title="bitbrain" /><script src="https://code.jquery.com/jquery-3.2.0.min.js"></script> 
+  <script src="/assets/js/jquery.magnific-popup.js"></script>
+</head>
+<body><div class="site-header">
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">bitbrain<b class="command_prompt"></b><b class="blinking_cursor">_</b></a>
+    <span class="social_links">
+        
+        
+        <a class="color-orange-hover" href="https://soundcloud.com/myrealityde"><i class="fab fa-soundcloud"></i></a>
+        
+        
+        
+        <a class="color-cyan-hover" href="https://twitter.com/bitbrain"><i class="fab fa-twitter-square"></i></a>
+        
+        
+        
+        <a class="color-red-hover" href="https://bitbrain.itch.io"><i class="fab fa-itch-io"></i></a>
+        
+        
+        
+        <a class="color-purple-hover" href="https://www.twitch.tv/bitbrain_"><i class="fab fa-twitch"></i></a>
+        
+        
+        
+        <a class="color-red-hover" href="https://www.youtube.com/@bitbraindev"><i class="fab fa-youtube"></i></a>
+        
+        
+        
+        <a class="color-yellow-hover" href="https://github.com/bitbrain"><i class="fab fa-github-square"></i></a>
+        
+        
+    </span>
+  </div>
+</div>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        
+  <div class="author-box">
+
+
+<img src="
+    /public/avatar.gif
+" class="author-avatar" alt="Avatar" />
+<div class="description">Miguel is a software engineer and indie game developer currently based in the UK. <br/>He occasionally blogs about software design, continuous integration and game development with Godot Engine.
+</div>
+
+</div>
+
+
+<div class="post">
+  <h1 class="post-title">Workflow of releasing a gem-based Jekyll theme</h1>
+  
+  <div class="post-tags">
+      
+      <a class="tag" href="/tag/github/">github</a>
+      
+      <a class="tag" href="/tag/ruby/">ruby</a>
+      
+      <a class="tag" href="/tag/jekyll/">jekyll</a>
+      
+      <a class="tag" href="/tag/automation/">automation</a>
+      
+  </div>
+  
+  <div class="post-date">
+    Published on 05 Oct 2021
+    
+  </div>
+  
+  <p>This <a href="https://jekyllrb.com/">Jekyll</a>-based blog has been built with a custom theme created called <a href="https://github.com/bitbrain/jekyll-dash">jekyll-dash</a>. Initially, I built this theme just to share it with others, however, more and more people started using it over the past few months.</p>
+
+<p><a href="https://github.com/bitbrain/jekyll-dash"><img src="/public/media/jekyll-dash-logo.png" alt="jekyll-dash-logo" /></a></p>
+
+<p>In this article I want to highlight some of the challenges I faced trying to maintain this theme for a lot of people and the workflow I introduced that helped me to overcome these challenges.</p>
+
+<h1 id="an-auto-update-theme">An “auto-update” theme</h1>
+
+<p>When I first started this theme I found it quite annoying that I constantly had to manually update my Jekyll files such as layouts, Sass and pages to apply a change to my blog. Especially, when trying to keep the theme in its <a href="https://github.com/bitbrain/jekyll-dash">own dedicated repository</a> this can become a demanding chore.</p>
+
+<p>The solution to this was to bundle my theme as a so called <a href="https://rubygems.org/">Ruby gem</a> and then use that gem within the <code class="language-plaintext highlighter-rouge">_config.yml</code> of Jekyll:</p>
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">theme</span><span class="pi">:</span> <span class="s">jekyll-dash</span>
+</code></pre></div></div>
+<p>Jekyll will automatically apply the theme if it is specified as a gem within <code class="language-plaintext highlighter-rouge">Gemfile</code>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem 'jekyll-dash'
+</code></pre></div></div>
+<p>Whenever I push a new version of the gem to the public rubygems repository, rebuilding my site would use the new changes and automatically include them - neat!</p>
+
+<h1 id="limitations-of-github-pages">Limitations of Github Pages</h1>
+
+<p>Unfortunately, I quickly had to realise that a lot of people were unable to use my theme natively within Github pages. Github are actually the creators behind Jekyll and when you create a repository containing Jekyll files, it will automatically build them for you and publish them <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site">when the Github pages feature is enabled</a>.</p>
+
+<p>There was just one problem: <a href="https://pages.github.com/versions/">Github pages did not support Jekyll 4.x</a> at the moment of this writing but only Jekyll 3.x. This becomes a problem because my theme was natively built with Jekyll 4.</p>
+
+<p>Therefore, I had to introduce a multi-version workflow:</p>
+
+<ul>
+  <li>version <code class="language-plaintext highlighter-rouge">1.x</code> will support Jekyll 3</li>
+  <li>version <code class="language-plaintext highlighter-rouge">2.x</code> will support Jekyll 4</li>
+</ul>
+
+<p>I created separate branches for those and specified the Jekyll version explicitly within the <code class="language-plaintext highlighter-rouge">.gemspec</code> file of <a href="https://github.com/bitbrain/jekyll-dash/blob/main/jekyll-dash.gemspec">jekyll-dash</a>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spec.add_runtime_dependency "jekyll", "~&gt; 4.0"
+</code></pre></div></div>
+<p>This worked very well for my usecase and I was able to use the theme natively in Github pages.</p>
+
+<p>For what reason would I want to use Jekyll outside of the native Github pages integration then? Well, due to security reasons, Github Pages does only allow a very specific set of Jekyll plugins to be enabled. This restricts customisation of the site. For example, I also needed the following features:</p>
+
+<ul>
+  <li>gravatar support</li>
+  <li>auto-generated tags and tag cloud</li>
+</ul>
+
+<p>The solution was to build the site externally outside of Github Pages but then push the generated site <a href="https://github.com/bitbrain/bitbrain.github.io">onto a Github Pages enabled repository</a>. I achieved that by using <a href="https://travis-ci.org/">travis-ci.org</a> which became eventually difficult to manage. As a result, I left Travis behind and moved over to <a href="https://docs.github.com/en/actions">Github Actions</a>.</p>
+
+<h1 id="improving-the-workflow">Improving the workflow</h1>
+
+<p>My initial release workflow looked as follows:</p>
+
+<ol>
+  <li>push a new commit to the <code class="language-plaintext highlighter-rouge">main</code> branch containing the updated version within the <code class="language-plaintext highlighter-rouge">.gemspec</code></li>
+  <li>push a new tag for the given commit</li>
+  <li>release the gem (see script below)</li>
+</ol>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">before_install</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">gem install bundler -v 2.0.1</span>
+<span class="na">script</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">bundle install</span>
+<span class="na">deploy</span><span class="pi">:</span>
+  <span class="na">provider</span><span class="pi">:</span> <span class="s">rubygems</span>
+  <span class="na">api_key</span><span class="pi">:</span> <span class="s">$RUBYGEMS_API_KEY</span>
+  <span class="na">gem</span><span class="pi">:</span> <span class="s">jekyll-dash</span>
+  <span class="na">on</span><span class="pi">:</span>
+    <span class="na">tags</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">repo</span><span class="pi">:</span> <span class="s">bitbrain/jekyll-dash</span>
+</code></pre></div></div>
+<p>There were a couple of issues with this approach:</p>
+
+<ul>
+  <li>the pipeline ran outside of Github while Github support Github Actions out-of-the-box</li>
+  <li>unable to see what each release entails, as Github releases and git tags were not created for a new release</li>
+  <li>difficult to manage multiple major versions, as this pipeline would always deploy what the tag said. I had to be very careful to not cause unecessary merge conflicts</li>
+  <li>individual commits were not really built and tested. Especially for people trying to make contributions it was difficult to tell if their change would break the Jekyll build</li>
+</ul>
+
+<p>I discarded this workflow and introduced a completely new one built from scratch based on <strong>Github Actions</strong>:</p>
+
+<ol>
+  <li>Build jekyll site for each individual commit and report on its status code</li>
+  <li>When committing to the branches <code class="language-plaintext highlighter-rouge">main</code> (v2.x) and <code class="language-plaintext highlighter-rouge">1.x</code> (v1.x) respectively, do the following:
+    <ul>
+      <li>extract the current gem version from the .gemspec file <a href="https://github.com/bitbrain/gemspec-fetch">with a custom-built Github action</a></li>
+      <li>check git history if a tag for the extracted gem version exists already</li>
+      <li>in case the tag does not exist yet, create a new git tag and push a new Github release</li>
+    </ul>
+  </li>
+  <li>Whenever a new tag has been pushed, build and publish the gem for that tag to rubygems.org</li>
+</ol>
+
+<p><img src="/public/media/jekyll-dash-build-tag.jpg" alt="jekyll-dash-build" /></p>
+
+<p>In order to check that the gem version exists as a tag, I am using the <code class="language-plaintext highlighter-rouge">github-tag-action</code>:</p>
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">💎 Extract gemspec info</span>
+  <span class="na">id</span><span class="pi">:</span> <span class="s">gemspec_fetch</span>
+  <span class="na">uses</span><span class="pi">:</span> <span class="s">bitbrain/gemspec-fetch@1.0.0</span>
+  <span class="na">with</span><span class="pi">:</span>
+    <span class="na">specfile</span><span class="pi">:</span> <span class="s">jekyll-dash.gemspec</span>
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">🕵️‍♂️ investigate if tag exists</span>
+  <span class="na">uses</span><span class="pi">:</span> <span class="s">mukunku/tag-exists-action@v1.0.0</span>
+  <span class="na">id</span><span class="pi">:</span> <span class="s">tag-check</span>
+  <span class="na">with</span><span class="pi">:</span> 
+    <span class="na">tag</span><span class="pi">:</span> <span class="s1">'</span><span class="s">v${{</span><span class="nv"> </span><span class="s">steps.gemspec_fetch.outputs.version</span><span class="nv"> </span><span class="s">}}'</span>
+  <span class="na">env</span><span class="pi">:</span>
+    <span class="na">GITHUB_TOKEN</span><span class="pi">:</span> <span class="s">${{ secrets.GH_CREDENTIALS }}</span>
+</code></pre></div></div>
+<p>This allows me then to apply an <code class="language-plaintext highlighter-rouge">if</code> conditional on any other steps:</p>
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">🔖Build tag</span>
+  <span class="na">if</span><span class="pi">:</span> <span class="s">${{ steps.tag-check.outputs.exists == 'false' }}</span>
+  <span class="na">id</span><span class="pi">:</span> <span class="s">tag_version</span>
+  <span class="na">uses</span><span class="pi">:</span> <span class="s">mathieudutour/github-tag-action@v5.6</span>
+  <span class="na">with</span><span class="pi">:</span>
+    <span class="na">github_token</span><span class="pi">:</span> <span class="s">${{ secrets.GH_CREDENTIALS }}</span>
+    <span class="na">default_bump</span><span class="pi">:</span> <span class="kc">false</span>
+    <span class="na">custom_tag</span><span class="pi">:</span>  <span class="s">${{ steps.gemspec_fetch.outputs.version }}</span>
+    <span class="na">tag_prefix</span><span class="pi">:</span> <span class="s">v</span>
+</code></pre></div></div>
+<p>The slightly tricky part was to extract the version from the .gemspec file. For that I build <a href="https://github.com/bitbrain/gemspec-fetch">my own Github Action</a> that is using <a href="https://github.com/packsaddle/ruby-parse_gemspec-cli">parse-gemspec-cli</a> to <a href="https://github.com/bitbrain/gemspec-fetch/blob/main/entrypoint.sh">extract the metadata accordingly</a>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="nv">SPEC_DATA</span><span class="o">=</span><span class="si">$(</span>parse-gemspec-cli <span class="nv">$INPUT_SPECFILE</span><span class="si">)</span>
+
+<span class="nb">echo</span> <span class="s2">"::set-output name=name::</span><span class="si">$(</span><span class="nb">echo</span> <span class="nv">$SPEC_DATA</span> | jq <span class="nt">-r</span> <span class="s1">'.name'</span><span class="si">)</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="s2">"::set-output name=description::</span><span class="si">$(</span><span class="nb">echo</span> <span class="nv">$SPEC_DATA</span> | jq <span class="nt">-r</span> <span class="s1">'.description'</span><span class="si">)</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="s2">"::set-output name=summary::</span><span class="si">$(</span><span class="nb">echo</span> <span class="nv">$SPEC_DATA</span> | jq <span class="nt">-r</span> <span class="s1">'.summary'</span><span class="si">)</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="s2">"::set-output name=version::</span><span class="si">$(</span><span class="nb">echo</span> <span class="nv">$SPEC_DATA</span> | jq <span class="nt">-r</span> <span class="s1">'.version'</span><span class="si">)</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="s2">"::set-output name=homepage::</span><span class="si">$(</span><span class="nb">echo</span> <span class="nv">$SPEC_DATA</span> | jq <span class="nt">-r</span> <span class="s1">'.homepage'</span><span class="si">)</span><span class="s2">"</span>
+</code></pre></div></div>
+<p>This new workflow allows me to build and test every single commit and it gives me full control of when I want to release a new gem: I simply bump the version of the gem manually within the .gemspec and Github will do the rest for me!</p>
+
+</div>
+
+
+<div class="comments">
+<div id="disqus_thread"></div>
+<script>
+ var disqus_config = function () {
+     this.page.url = 'https://bitbrain.github.io/2021/10/05/workflow-of-releasing-gem-based-jekyll-theme.html';
+     this.page.identifier = '/2021/10/05/workflow-of-releasing-gem-based-jekyll-theme';
+     this.page.title = 'Workflow of releasing a gem-based Jekyll theme';
+ };
+
+ (function() {  // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+     var d = document, s = d.createElement('script');
+
+     s.src = '//bitbrain-github-io.disqus.com/embed.js';
+
+     s.setAttribute('data-timestamp', +new Date());
+     (d.head || d.body).appendChild(s);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</div>
+
+
+
+
+<div class="related">
+  <h2>related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2023/09/03/godot-addon-compatibility.html">
+            Godot Version Compatibility: A Guide for Addon Developers
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2021/10/03/host-your-own-blog-for-free-with-custom-domain.html">
+            Host your own blog with Jekyll and Github Pages
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2020/12/29/devlog-youtubers.html">
+            Becoming a gamedev Youtuber
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+  
+  <h2>all tags</h2>
+  <div class="tag-cloud"><a href="/tag/addon/" class="set-1">addon</a> <a href="/tag/automation/" class="set-1">automation</a> <a href="/tag/braingdx/" class="set-1">braingdx</a> <a href="/tag/ci/" class="set-1">ci</a> <a href="/tag/deployment/" class="set-1">deployment</a> <a href="/tag/devlog/" class="set-2">devlog</a> <a href="/tag/gamedesign/" class="set-1">gamedesign</a> <a href="/tag/gamedev/" class="set-5">gamedev</a> <a href="/tag/git/" class="set-1">git</a> <a href="/tag/github/" class="set-2">github</a> <a href="/tag/godot/" class="set-2">godot</a> <a href="/tag/howto/" class="set-1">howto</a> <a href="/tag/introduction/" class="set-1">introduction</a> <a href="/tag/itchio/" class="set-1">itchio</a> <a href="/tag/java/" class="set-1">java</a> <a href="/tag/jekyll/" class="set-1">jekyll</a> <a href="/tag/libgdx/" class="set-1">libgdx</a> <a href="/tag/mindmazer/" class="set-1">mindmazer</a> <a href="/tag/minibeansjam/" class="set-1">minibeansjam</a> <a href="/tag/misc/" class="set-1">misc</a> <a href="/tag/pixelart/" class="set-1">pixelart</a> <a href="/tag/ruby/" class="set-1">ruby</a> <a href="/tag/scape/" class="set-1">scape</a> <a href="/tag/showcase/" class="set-1">showcase</a> <a href="/tag/tiled/" class="set-1">tiled</a> <a href="/tag/tmx/" class="set-1">tmx</a> <a href="/tag/travisci/" class="set-1">travisci</a> <a href="/tag/tutorial/" class="set-1">tutorial</a> <a href="/tag/youtube/" class="set-1">youtube</a></div>
+  
+
+
+
+
+<script>
+  let i = 0;
+  const text = '';
+  const speed = parseInt('50');
+  
+  function typeWriter() {
+    if (i < text.length) {
+      document.getElementById('animated-post-description').innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+
+  document.getElementById('animated-post-description').style.display = 'initial';
+  typeWriter();
+
+  // Image modal
+  var $imgs = [];
+  $('img').each(function(idx) {
+    var obj = {
+      src: $(this).attr('src')
+    }
+    $imgs.push(obj);
+    var elem = $(this);
+    $(this).click(function() {
+      $('.modal').magnificPopup('open', idx);
+    });
+  });
+
+  $('.modal').magnificPopup({
+    items: $imgs,
+    type: 'image',
+    closeOnContentClick: true,
+    mainClass: 'mfp-img-mobile',
+    image: {
+      verticalFit: true
+    }
+    
+  });
+</script>
+
+      </div>
+    </main><footer class="site-footer">
+  <div class="wrapper">
+    <div class="credits"><a href="https://github.com/bitbrain/jekyll-dash">dash</a> theme for Jekyll by <a href="https://github.com/bitbrain">bitbrain</a> made with <i class="fas fa-heart"></i><div class="toggleWrapper">
+    <input type="checkbox" class="dn" id="theme-toggle" onclick="modeSwitcher()" checked />
+    <label for="theme-toggle" class="toggle">
+    <span class="toggle__handler">
+      <span class="crater crater--1"></span>
+      <span class="crater crater--2"></span>
+      <span class="crater crater--3"></span>
+    </span>
+        <span class="star star--1"></span>
+        <span class="star star--2"></span>
+        <span class="star star--3"></span>
+        <span class="star star--4"></span>
+        <span class="star star--5"></span>
+        <span class="star star--6"></span>
+    </label>
+</div>
+<script type="text/javascript">
+const theme = localStorage.getItem('theme');
+
+if (theme === "light") {
+    document.documentElement.setAttribute('data-theme', 'light');
+} else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+}
+const userPrefers = getComputedStyle(document.documentElement).getPropertyValue('content');
+
+function activateDarkTheme() {
+    document.getElementById('theme-toggle').checked = true;
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.documentElement.classList.add('theme--dark');
+    document.documentElement.classList.remove('theme--light');
+	document.getElementById("theme-toggle").className = 'light';
+	window.localStorage.setItem('theme', 'dark');
+}
+
+function activateLightTheme() {
+    document.getElementById('theme-toggle').checked = false;
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.documentElement.classList.add('theme--light');
+    document.documentElement.classList.remove('theme--dark');
+	document.getElementById("theme-toggle").className = 'dark';
+	window.localStorage.setItem('theme', 'light');
+}
+
+if (theme === "dark") {
+    activateDarkTheme();
+} else if (theme === "light") {
+    activateLightTheme();
+} else if  (userPrefers === "light") {
+    activateDarkTheme();
+} else {
+    activateDarkTheme();
+}
+
+function modeSwitcher() {
+	let currentMode = document.documentElement.getAttribute('data-theme');
+	if (currentMode === "dark") {
+	    activateLightTheme();
+	} else {
+	    activateDarkTheme();
+	}
+}
+</script></div>
+  </div>
+</footer>
+
+
+<script>
+      window.FontAwesomeConfig = {
+        searchPseudoElements: true
+      }
+    </script>
+  </body>
+
+</html>
