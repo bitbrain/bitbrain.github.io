@@ -1,24 +1,32 @@
-name: Deploy to Github Pages 
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches:
-      - master 
+      - master
   schedule:
-      - cron:  '0 0 * * *'
+    - cron: "0 0 * * *"
 
 jobs:
-  github-pages:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
         with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gems-v2-${{ hashFiles('**/Gemfile') }}
-          restore-keys: |
-            ${{ runner.os }}-gems-v2
-      - uses: helaili/jekyll-action@v2
+          ruby-version: "3.3.4"
+
+      - name: Install dependencies & build site
+        uses: limjh16/jekyll-action-ts@v2
         with:
-          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
-          target_branch: gh-pages
+          enable_cache: true
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.CUSTOM_GITHUB_TOKEN  }}
+          publish_dir: ./_site
+          publish_branch: gh-pages
