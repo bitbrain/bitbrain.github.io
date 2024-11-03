@@ -6,7 +6,6 @@ gem 'liquid-md5'
 gem 'jekyll-tagging'
 gem 'jekyll-admin', group: :jekyll_plugins
 gem 'jekyll'
-gem 'jekyll-admin'
 gem 'wdm', '>= 0.1.0', if: Gem.win_platform?
 gem 'logger'
 gem 'csv'
