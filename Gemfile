@@ -7,7 +7,6 @@ gem 'liquid-md5'
 gem 'jekyll-tagging'
 gem 'jekyll-admin', group: :jekyll_plugins
 gem 'rack'
-gem 'rack-handler', '~> 1.0' # Add this gem to provide Rack handlers
 gem 'webrick'
 
 # Windows-specific gems
