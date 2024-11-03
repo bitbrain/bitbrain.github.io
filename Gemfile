@@ -6,10 +6,14 @@ gem 'liquid-md5'
 gem 'jekyll-tagging'
 gem 'jekyll-admin', group: :jekyll_plugins
 gem 'jekyll'
-gem 'wdm', '>= 0.1.0', if: Gem.win_platform?
+gem 'rack'
+gem 'webrick'
+
+# Windows-specific gems
+gem 'wdm', '>= 0.1.0', platforms: :mingw
+
+# Additional gems to silence warnings about future Ruby versions
 gem 'logger'
 gem 'csv'
 gem 'ostruct'
 gem 'bigdecimal'
-gem 'rack'
-gem 'webrick'
