@@ -1,12 +1,13 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
+gem 'jekyll'
 gem 'jekyll-dash', '~> 2'
 gem 'jekyll-sass-converter', '~> 2.0'
 gem 'liquid-md5'
 gem 'jekyll-tagging'
 gem 'jekyll-admin', group: :jekyll_plugins
-gem 'jekyll'
 gem 'rack'
+gem 'rack-handler', '~> 1.0' # Add this gem to provide Rack handlers
 gem 'webrick'
 
 # Windows-specific gems
