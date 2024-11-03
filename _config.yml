@@ -54,4 +54,12 @@ plugins:
   - liquid-md5
   - jekyll/tagging
 
+jekyll_admin:
+  hidden_links:
+    - posts
+    - pages
+    - staticfiles
+    - datafiles
+    - configuration
+  homepage: "pages"
 
