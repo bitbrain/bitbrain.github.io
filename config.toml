@@ -1,0 +1,45 @@
+# The URL the site will be built for
+base_url = "https://bitbra.in"
+
+# The theme to use
+theme = "boring"
+
+# Whether to automatically compile all Sass files in the sass directory
+compile_sass = false
+
+# Whether to build a search index to be used later on by a JavaScript library
+build_search_index = true
+
+[markdown]
+# Whether to do syntax highlighting
+# Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
+highlight_code = true
+
+[extra]
+# Put all your custom variables here
+homepage_title = "bitbrain"
+homepage_subtitle = "Lead Software Engineer. Godot Engine evangelist."
+homepage_img_url = "/images/hello.jpg"
+
+# Refer https://support.google.com/analytics/answer/9539598?hl=en
+google_analytics_measurement_id = ""
+
+# Refer https://icons8.com/line-awesome for list of icons
+# Both `url` and `icon` should be set for each entry
+[[extra.social]]
+url = "https://github.com/bitbrain"
+icon = "lab la-github"
+
+[[extra.social]]
+url = "https://youtube.com/@bitbraindev"
+icon = "lab la-youtube"
+
+[[extra.social]]
+url = "https://bsky.app/profile/bitbra.in"
+icon = "las la-at"
+
+[[extra.social]]
+url = "https://mastodon.gamedev.place/@bitbraindev"
+icon = "lab la-mastodon"
+
+

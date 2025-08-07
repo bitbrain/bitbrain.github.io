@@ -1,32 +1,17 @@
-name: Deploy to GitHub Pages
-
-on:
-  push:
-    branches:
-      - master
-  schedule:
-    - cron: "0 0 * * *"
-
+# On every push this script is executed
+on: push
+name: Build and deploy GH Pages
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
     steps:
-      - name: Check out the repository
-        uses: actions/checkout@v2
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: "3.3.4"
-
-      - name: Install dependencies & build site
-        uses: limjh16/jekyll-action-ts@v2
-        with:
-          enable_cache: true
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.CUSTOM_GITHUB_TOKEN  }}
-          publish_dir: ./_site
-          publish_branch: gh-pages
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: build_and_deploy
+        uses: shalzz/zola-deploy-action@master
+        env:
+          # Target branch
+          PAGES_BRANCH: gh-pages
+          # Provide personal access token
+          TOKEN: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
