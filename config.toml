@@ -39,7 +39,7 @@ url = "https://bsky.app/profile/bitbra.in"
 icon = "las la-at"
 
 [[extra.social]]
-url = "https://bitbraindev.gamedev.place"
+url = "https://mastodon.gamedev.place/@bitbraindev"
 icon = "lab la-mastodon"
 
 
