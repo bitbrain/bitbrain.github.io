@@ -175,3 +175,4 @@ Then you can use it as such:
 const NanoID = preload('nanoid.gd')
 print(NanoID.generate())
 ```
+I hope you found these somewhat useful. Rock and stone! 💎⛏️
