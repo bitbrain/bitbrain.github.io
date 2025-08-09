@@ -4,6 +4,8 @@ base_url = "https://bitbra.in"
 # The theme to use
 theme = "boring"
 
+title = "bitbrain"
+
 # Whether to automatically compile all Sass files in the sass directory
 compile_sass = false
 
