@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+    <head>
+        <meta charset="utf-8">
+
+        
+        
+
+        <link rel="stylesheet" href="/css/style.css"/>
+        <link rel="stylesheet" href="/line-awesome/css/line-awesome.min.css"/>
+        <script src="/js/main.js" defer></script>
+        
+    <title>Level Generation in Mindmazer | bitbrain</title>
+
+    </head>
+
+    <body class="bg-white dark:bg-slate-900 transition ease-in-out">
+        <section>
+            
+    
+<div class="sticky top-0 bg-slate-100 dark:bg-slate-800">
+    <div class="container mx-auto flex place-content-between
+        py-16 lg:py-8 font-sans text-6xl lg:text-2xl text-slate-900
+        dark:text-slate-300">
+        <div class="flex">
+            
+            
+            
+            
+            <a class="m-0 p-0 text-slate-900 hover:text-slate-700
+                            dark:text-slate-300 dark:hover:text-slate-200" href="&#x2F;blog&#x2F;">
+                /blog
+            </a>
+            
+            
+            
+            
+            
+            
+        </div>
+        <div class="flex gap-4">
+            <div id="back-to-top" class="hidden cursor-pointer">
+                <i class="las la-level-up-alt"></i>
+            </div>
+            <a href="/"><i class="las la-home"></i></a>
+            <div id="darkmode-toggle" class="cursor-pointer">
+                <div class="hidden dark:inline">
+                    <i class="las la-sun"></i>
+                </div>
+                <div class="inline dark:hidden">
+                    <i class="las la-moon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="container mb-16">
+        <div class="mt-4 font-serif text-slate-600 dark:text-slate-500 text-4xl lg:text-base">
+            2017-09-03
+        </div>
+        <h1 class="w-full mt-4 mb-8 font-serif text-8xl lg:text-4xl text-slate-900 dark:text-slate-300">
+            Level Generation in Mindmazer
+        </h1>
+        <div class="w-100 border-t mb-8 border-slate-300 dark:border-slate-700"></div>
+        <div class="prose-boring">
+            <p>Today I want to talk about my project <a href="https://github.com/bitbrain/mindmazer">mindmazer</a>. In this simple 2D puzzle game the player has to remember a certain path to progress to the next stage. When starting this project I had to decide if I give the player a static list of predefined levels. After some time I decided against it and went for a procedural generation approach. In this article I am going to explain how these levels are generated.</p>
+<h1 id="the-level">The Level</h1>
+<p>Typical ingame level look like this:</p>
+<p><img src="/images/mindmazer-level-simple.webp" alt="mindmazer-level-simple" /></p>
+<p>You notice that the shapes are quite simple and the path is easy to remember. Therefore, as more you progress in the game as more complex the level become:</p>
+<p><img src="/images/mindmazer-level-complex.webp" alt="mindmazer-level-complex" /></p>
+<p>How to generate those levels? Well, first of all I am using <a href="https://libgdx.badlogicgames.com">libgdx</a> for <a href="/2017/08/17/why-I-still-use-java-for-gamedev">all my games</a>. This Java library allows me to draw things on the screen and to define a framework to run my game with. Unfortunately, this library does not give me an "out-of-the-box" level generator. Thus, I had to write an algorithm myself.</p>
+<h1 id="biom-data">Biom Data</h1>
+<p>Let us first describe how a level should get defined. I did not want to have a "random" algorithm which just appends more cells into random directions. The result would be a randomly formed snake where I wouldn't have any control over. At least I wanted <strong>control</strong> about various level aspects. Each level is composed out of multiple parts, so called <strong>biomes</strong>. A biom is defined Java code. Let us take a look at a typical L-Shape:</p>
+<pre data-lang="text" style="background-color:#2b303b;color:#c0c5ce;" class="language-text "><code class="language-text" data-lang="text"><span>x
+</span><span>x
+</span><span>x x
+</span></code></pre>
+<p>This L-Shape can be represented by a <code>byte</code> array:</p>
+<pre data-lang="java" style="background-color:#2b303b;color:#c0c5ce;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#b48ead;">byte[] </span><span style="color:#d08770;">L_SHAPE </span><span>= {
+</span><span>   </span><span style="color:#d08770;">1</span><span>, </span><span style="color:#d08770;">0</span><span>,
+</span><span>   </span><span style="color:#d08770;">1</span><span>, </span><span style="color:#d08770;">0</span><span>,
+</span><span>   </span><span style="color:#d08770;">1</span><span>, </span><span style="color:#d08770;">1</span><span>, </span><span style="color:#d08770;">2
+</span><span>};
+</span></code></pre>
+<p>You might notice that there is an extra entry in the array:</p>
+<pre data-lang="java" style="background-color:#2b303b;color:#c0c5ce;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#b48ead;">byte</span><span> numberOfColumns = </span><span style="color:#d08770;">L_SHAPE</span><span>[</span><span style="color:#d08770;">L_SHAPE</span><span>.length - </span><span style="color:#d08770;">1</span><span>];
+</span></code></pre>
+<p>Basically we are telling our level generation to always consider the last entry in a byte array as information about the number of columns in this specific biom. This is all we need as input. We now have full control over which parts should get used to compose a level.</p>
+<h1 id="biom-conversion">Biom Conversion</h1>
+<p>We need to prepare the input data (byte arrays) into a format the algorithm understands. This format is a so called <code>Biom</code> class with the following properties:</p>
+<ul>
+<li><code>byte[][] data</code> the biom as a 2-dimensional byte array (without metadata)</li>
+<li><code>int startX</code> the x index on the biom where the player could possibly start</li>
+<li><code>int startY</code> the y index on the biom where the player could possibly start</li>
+<li><code>int endX</code> the x index on the biom where the player could leave</li>
+<li><code>int endY</code> the y index on the biom where the player could leave</li>
+<li><code>int length</code> the number of cells inside a biom</li>
+<li><code>int width</code> the width of a biom (number of cells)</li>
+<li><code>int height</code> the height of a biom (number of cells)</li>
+</ul>
+<p>We now call a so called <code>BiomFactory</code> which creates a Biom object for us:</p>
+<pre data-lang="java" style="background-color:#2b303b;color:#c0c5ce;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#ebcb8b;">Biom</span><span> biom = biomFactory.</span><span style="color:#bf616a;">create</span><span>(</span><span style="color:#d08770;">L_SHAPE</span><span>);
+</span></code></pre>
+<p>If you are interested in how this factory works internally <a href="https://github.com/bitbrain/mindmazer/blob/master/core/src/de/bitbrain/mindmazer/levelgen/BiomFactory.java">check out the code on Github</a>.</p>
+
+        </div>
+    </div>
+
+        </section>
+    </body>
+</html>

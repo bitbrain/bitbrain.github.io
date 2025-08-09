@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+    <head>
+        <meta charset="utf-8">
+
+        
+        
+
+        <link rel="stylesheet" href="/css/style.css"/>
+        <link rel="stylesheet" href="/line-awesome/css/line-awesome.min.css"/>
+        <script src="/js/main.js" defer></script>
+        
+    <title>Godot File Compression | bitbrain</title>
+
+    </head>
+
+    <body class="bg-white dark:bg-slate-900 transition ease-in-out">
+        <section>
+            
+    
+<div class="sticky top-0 bg-slate-100 dark:bg-slate-800">
+    <div class="container mx-auto flex place-content-between
+        py-16 lg:py-8 font-sans text-6xl lg:text-2xl text-slate-900
+        dark:text-slate-300">
+        <div class="flex">
+            
+            
+            
+            
+            <a class="m-0 p-0 text-slate-900 hover:text-slate-700
+                            dark:text-slate-300 dark:hover:text-slate-200" href="&#x2F;blog&#x2F;">
+                /blog
+            </a>
+            
+            
+            
+            
+            
+            
+        </div>
+        <div class="flex gap-4">
+            <div id="back-to-top" class="hidden cursor-pointer">
+                <i class="las la-level-up-alt"></i>
+            </div>
+            <a href="/"><i class="las la-home"></i></a>
+            <div id="darkmode-toggle" class="cursor-pointer">
+                <div class="hidden dark:inline">
+                    <i class="las la-sun"></i>
+                </div>
+                <div class="inline dark:hidden">
+                    <i class="las la-moon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="container mb-16">
+        <div class="mt-4 font-serif text-slate-600 dark:text-slate-500 text-4xl lg:text-base">
+            2024-07-10
+        </div>
+        <h1 class="w-full mt-4 mb-8 font-serif text-8xl lg:text-4xl text-slate-900 dark:text-slate-300">
+            Godot File Compression
+        </h1>
+        <div class="w-100 border-t mb-8 border-slate-300 dark:border-slate-700"></div>
+        <div class="prose-boring">
+            <p>I am maintaining a <a href="https://godotengine.org">Godot Engine</a> addon called <a href="https://github.com/bitbrain/pandora">Pandora</a> and maintainers reported a very strange bug that I solved in <a href="https://github.com/bitbrain/pandora/pull/185">this pull request</a>:</p>
+<p>The compression of the <code>data.pandora</code> file was not working and in this blog article I want to explain how compression in Godot works, how I solved it and maybe you can learn a thing or two!</p>
+<p><a href="https://github.com/bitbrain/pandora"><img src="/images/pandora-logo.svg" alt="pandora-logo" /></a></p>
+<h1 id="why-compression">Why compression?</h1>
+<p>Compression is by no means a way to encrypt your data. Someone with malicious intent <strong>can</strong> decompress the contents and modify it to their needs. However, compression is still useful to reduce the size of the final <code>.pck</code> file that gets shipped with your Godot game. Also, as an added bonus, it will be much harder for someone without technical knowledge to modify e.g. raw json files.</p>
+<h1 id="storing-json">Storing JSON</h1>
+<p>Imagine you have some json like so:</p>
+<pre data-lang="json" style="background-color:#2b303b;color:#c0c5ce;" class="language-json "><code class="language-json" data-lang="json"><span>{
+</span><span>  &quot;</span><span style="color:#a3be8c;">item</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">Golden Axe</span><span>&quot;
+</span><span>}
+</span></code></pre>
+<p>and you want to store that to a file. Usually, in Godot you can do this:</p>
+<pre data-lang="gd" style="background-color:#2b303b;color:#c0c5ce;" class="language-gd "><code class="language-gd" data-lang="gd"><span style="color:#b48ead;">var </span><span style="color:#bf616a;">file </span><span>= FileAccess.</span><span style="color:#bf616a;">open</span><span>(&#39;</span><span style="color:#a3be8c;">item.json</span><span>&#39;, FileAccess.WRITE)
+</span></code></pre>
+<p>This then allows you to write to the file our item like so:</p>
+<pre data-lang="gd" style="background-color:#2b303b;color:#c0c5ce;" class="language-gd "><code class="language-gd" data-lang="gd"><span style="color:#b48ead;">var </span><span style="color:#bf616a;">data</span><span>:</span><span style="color:#b48ead;">Dictionary </span><span>= { item: &quot;</span><span style="color:#a3be8c;">Golden Axe</span><span>&quot; }
+</span><span>file.</span><span style="color:#bf616a;">store_string</span><span>(JSON.</span><span style="color:#bf616a;">stringify</span><span>(data))
+</span><span>file.</span><span style="color:#bf616a;">close</span><span>()
+</span></code></pre>
+<h1 id="storing-compressed-files">Storing compressed files</h1>
+<p>So far, so good. Now, how would we actually store compressed files? The code looks surprisingly similar!</p>
+<pre data-lang="gd" style="background-color:#2b303b;color:#c0c5ce;" class="language-gd "><code class="language-gd" data-lang="gd"><span style="color:#b48ead;">var </span><span style="color:#bf616a;">file </span><span>= FileAccess.</span><span style="color:#bf616a;">open_compressed</span><span>(&#39;</span><span style="color:#a3be8c;">item.json</span><span>&#39;, FileAccess.WRITE)
+</span><span style="color:#b48ead;">var </span><span style="color:#bf616a;">data</span><span>:</span><span style="color:#b48ead;">Dictionary </span><span>= { item: &quot;</span><span style="color:#a3be8c;">Golden Axe</span><span>&quot; }
+</span><span>file.</span><span style="color:#bf616a;">store_string</span><span>(JSON.</span><span style="color:#bf616a;">stringify</span><span>(data))
+</span><span>file.</span><span style="color:#bf616a;">close</span><span>()
+</span></code></pre>
+<p>So, what is the problem here if this code works fine? It has to do with exporting your game in Godot!</p>
+<h1 id="exporting-addon-files">Exporting addon files</h1>
+<p>When someone uses a Godot addon that relies on specific files (such as <code>data.pandora</code> files for storing state), those files will <strong>not</strong> be automatically exported.</p>
+<blockquote>
+<p>Pandora does not use a <code>.json</code> but rather <code>.pandora</code> extension on purpose to discourage people from modifying it manually.</p>
+</blockquote>
+<p>When exporting the game, one would need to define the exported files explicitly in the export settings:</p>
+<p><img src="/images/godot-export.webp" alt="godot-export" /></p>
+<p>However, this is not sustainable and having to remember to register random files whenever you want to export your game does not scale. This is why Godot introduced the <code>EditorExportPlugin</code>:</p>
+<pre data-lang="gd" style="background-color:#2b303b;color:#c0c5ce;" class="language-gd "><code class="language-gd" data-lang="gd"><span>@</span><span style="color:#b48ead;">tool
+</span><span style="color:#b48ead;">extends</span><span style="color:#a3be8c;"> EditorPlugin
+</span><span>
+</span><span style="color:#b48ead;">func </span><span style="color:#8fa1b3;">_enter_tree</span><span>() -&gt; </span><span style="color:#b48ead;">void</span><span>:
+</span><span>   </span><span style="color:#bf616a;">add_export_plugin</span><span>(MyExportPlugin.</span><span style="color:#bf616a;">new</span><span>())
+</span><span>
+</span><span style="color:#b48ead;">class </span><span style="color:#ebcb8b;">MyExportPlugin </span><span style="color:#b48ead;">extends</span><span style="color:#a3be8c;"> EditorExportPlugin</span><span>:
+</span><span>
+</span><span>	</span><span style="color:#b48ead;">func </span><span style="color:#8fa1b3;">_export_begin</span><span>(</span><span style="color:#bf616a;">features</span><span>: </span><span style="color:#bf616a;">PackedStringArray</span><span>, </span><span style="color:#bf616a;">is_debug</span><span>: </span><span style="color:#bf616a;">bool</span><span>, </span><span style="color:#bf616a;">path</span><span>: </span><span style="color:#bf616a;">String</span><span>, </span><span style="color:#bf616a;">flags</span><span>: </span><span style="color:#bf616a;">int</span><span>):
+</span><span>    </span><span style="color:#65737e;"># add_file(&quot;some-file.json&quot;, data, false)
+</span><span>    </span><span style="color:#b48ead;">pass
+</span><span>
+</span><span>	</span><span style="color:#b48ead;">func </span><span style="color:#8fa1b3;">_get_name</span><span>() -&gt; </span><span style="color:#b48ead;">String</span><span>:
+</span><span>		</span><span style="color:#b48ead;">return </span><span>&quot;</span><span style="color:#a3be8c;">MyExportPlugin</span><span>&quot;
+</span></code></pre>
+<p>As you can see, this plugin gets shipped with the addon and it allows the addon creator to specify additional files that should be auto-exported when someone uses the addon. In Pandora, the <code>data.pandora</code> file should not be compressed by default when being used in the editor but only for <strong>release builds</strong>. Reason being is that it is much more friendly for version control systems like <a href="https://git-scm.com">git</a> and it also makes debugging things easier within Pandora itself.</p>
+<p>The <code>is_debug</code> flag tells us if someone intents to export a game as debug or release build, so we can use the flag to conditionally add the file.</p>
+<blockquote>
+<p>Note: the <code>path</code> argument of the <code>_export_begin</code> method is the path where the game will be exported to.</p>
+</blockquote>
+<p>The <code>add_file</code> signature requires a <code>PackedByteArray</code> as a 2nd argument, which effectively is the bytes of the file that should be stored away:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>func _export_begin(features: PackedStringArray, is_debug: bool, path: String, flags: int):
+</span><span>    var pandora_path = &quot;res://data.pandora&quot;
+</span><span>    # open the uncompressed normal file from the project folder
+</span><span>    var file = FileAccess.open(pandora_path, FileAccess.READ)
+</span><span>    # let&#39;s get the bytes from the file
+</span><span>    var data:PackedByteArray = file.get_buffer(file.get_length())
+</span><span>    add_file(pandora_path, data, false)
+</span><span>    # always remember to close the file
+</span><span>    file.close()
+</span></code></pre>
+<p>so, how do we store the file compressed? We cannot use <code>open_compressed</code> here because the file we are trying to store compressed is uncompressed:</p>
+<pre data-lang="gd" style="background-color:#2b303b;color:#c0c5ce;" class="language-gd "><code class="language-gd" data-lang="gd"><span style="color:#b48ead;">var </span><span style="color:#bf616a;">pandora_path </span><span>= &quot;</span><span style="color:#a3be8c;">res://data.pandora</span><span>&quot;
+</span><span>  </span><span style="color:#65737e;"># This will fail! `data.pandora` file is not compressed!
+</span><span>  </span><span style="color:#b48ead;">var </span><span style="color:#bf616a;">file </span><span>= FileAccess.</span><span style="color:#bf616a;">open_compressed</span><span>(pandora_path, FileAccess.READ)
+</span></code></pre>
+<p>A first idea I had was to <a href="https://docs.godotengine.org/en/stable/classes/class_packedbytearray.html#class-packedbytearray-method-compress">compress</a> the <code>PackedByteArray</code> itself:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>var data:PackedByteArray = file.get_buffer(file.get_length())
+</span><span>add_file(pandora_path, data.compress(), false)
+</span></code></pre>
+<p>the assumption is that the exported file can be opened like this when running your <strong>release</strong> build of your game at runtime:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>var data = FileAccess.open_compressed(&quot;res://data.pandora&quot;, FileAccess.READ)
+</span></code></pre>
+<p>However, that fails with error code <code>15</code>. What on earth is that error? I highly recommend bookmarking the <a href="https://docs.godotengine.org">official Godot docs</a>, because they are extremely useful, especially for situations like this: we find our answer in the ancient archives under the <code>Error</code> section (<a href="https://docs.godotengine.org/en/stable/classes/class_%40globalscope.html#enum-globalscope-error">link</a>):</p>
+<blockquote>
+<p>Error ERR_FILE_UNRECOGNIZED = 15</p>
+<p>File: Unrecognized error.</p>
+</blockquote>
+<p>Ah, so Godot itself does not recognize the file as compressed!</p>
+<h1 id="solving-the-mystery">Solving the mystery</h1>
+<p>I reached out on the official <strong>Godot Contributor chat</strong> and <a href="https://chat.godotengine.org/channel/editor?msg=n8yvre5oNTSg8n4Rg">contributor bruvzg kindly provided me</a> with this information:</p>
+<blockquote>
+<p>[...] you can replicate compressed file format if you want it to be readable with open_compressed, it's not complex, the mine difference compressing is done in blocks, format is:</p>
+</blockquote>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>magic
+</span><span>    char[4] &quot;GCPF&quot;
+</span><span>
+</span><span>header
+</span><span>    uint32_t compression_mode (Compression::MODE_ZSTD by default)
+</span><span>    uint32_t block_size (4096 by default)
+</span><span>    uint32_t uncompressed_size
+</span><span>
+</span><span>block compressed sizes, number of blocks = (uncompressed_size / block_size) + 1
+</span><span>    uint32_t block_sizes[]
+</span><span>
+</span><span>followed by compressed block data, same as calling `compress` for each source `block_size`
+</span></code></pre>
+<p>In case you are confused now, stay with me - this all will make sense in a bit. The format you are seeing there is <strong>not code</strong> but it describes <strong>bytes</strong> that need to be present in the compressed file for Godot to understand it. Picture it like a recipe or instruction manual that is stored at the beginning of your file and Godot will read that to understand what to do with your compressed content.</p>
+<h1 id="what-are-bytes-anyway">What are bytes anyway?</h1>
+<p>To decompress for a bit (pun intended), let us take a step back and understand how our exported file actually looks like. Remember, we previously attempted to export our file like so:</p>
+<pre data-lang="gd" style="background-color:#2b303b;color:#c0c5ce;" class="language-gd "><code class="language-gd" data-lang="gd"><span style="color:#b48ead;">var </span><span style="color:#bf616a;">data</span><span>:PackedByteArray = file.</span><span style="color:#bf616a;">get_buffer</span><span>(file.</span><span style="color:#bf616a;">get_length</span><span>())
+</span><span style="color:#bf616a;">add_file</span><span>(pandora_path, data.</span><span style="color:#bf616a;">compress</span><span>(), </span><span style="color:#d08770;">false</span><span>)
+</span></code></pre>
+<p>We can use a nifty tool like <a href="https://github.com/DmitriySalnikov/GodotPCKExplorer">GodotPCKExplorer</a> to inspect + unpack exported Godot builds. This becomes especially useful to investigate the export logic of our <code>EditorExportPlugin</code>. Opening the <code>pck</code> file to our exported <strong>release</strong> build of our game indeed shows the file:</p>
+<p><img src="/images/godot-pck-explorer.webp" alt="godot-pck-explorer" /></p>
+<p>We then can click <code>Extract &gt; Extract Selected</code> and save the file to a location of our choice. This then allows us to inspect the file furter. Opening that file in a text editor shows us an odd character:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>{
+</span><span>  &quot;item&quot;: &quot;Golden Pickaxe&quot;
+</span><span>}
+</span></code></pre>
+<p>This is because the file is compressed - there is a much better way at looking at the file itself, which is by using a hex editor, such as <a href="https://hexed.it/">hexed.it</a>:
+<img src="/images/data-pandora-bytes.webp" alt="data-pandora-bytes" /></p>
+<p>A <code>char</code> is precisely 1 byte, and looking at our compression spec again, Godot expects the first 4 bytes to consist of the following characters: <code>GCPF</code>, which would look like this:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>47 43 50 46
+</span></code></pre>
+<p>In case a file does not start with these exact bytes, Godot will not be able to open it correctly. The same goes for the next byte headers: <code>uint32_t</code> is precisely 4 bytes, meaning the next 12 bytes should contain the <code>compression_mode</code>, <code>block_size</code> and <code>uncompressed_size</code>:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>47 43 50 46 00 00 00 00 00 10 00 00 1E 00 00 00
+</span></code></pre>
+<ul>
+<li><code>00 00 00 00</code> is the compression mode - we pick the default which is MODE_ZSTD (0)</li>
+<li><code>00 10 00 00</code> represents 4096 as the block size</li>
+<li><code>1E 00 00 00</code> is the uncompressed size of our file = 30 bytes</li>
+</ul>
+<p>The remaining bytes will be the compressed data that gets produced by compressing our <code>PackedByteArray</code>.</p>
+<h1 id="applying-the-knowledge">Applying the knowledge</h1>
+<p>With our gained knowledge, let us create a new script that is able to compress any text into Godot compatible <code>PackedByteArray</code> format!</p>
+<pre data-lang="gd" style="background-color:#2b303b;color:#c0c5ce;" class="language-gd "><code class="language-gd" data-lang="gd"><span style="color:#65737e;"># The block size which we hardcode
+</span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">BLOCK_SIZE </span><span>= </span><span style="color:#d08770;">4096
+</span><span style="color:#65737e;"># Godot Compression magic keyword
+</span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">MAGIC </span><span>= &quot;</span><span style="color:#a3be8c;">GCPF</span><span>&quot;
+</span><span>
+</span><span>
+</span><span style="color:#65737e;">## magic
+</span><span style="color:#65737e;">##     char[4] &quot;GCPF&quot;
+</span><span style="color:#65737e;">##
+</span><span style="color:#65737e;">## header
+</span><span style="color:#65737e;">##     uint32_t compression_mode (Compression::MODE_ZSTD by default)
+</span><span style="color:#65737e;">##     uint32_t block_size (4096 by default)
+</span><span style="color:#65737e;">##     uint32_t uncompressed_size
+</span><span style="color:#65737e;">##
+</span><span style="color:#65737e;">## block compressed sizes, number of blocks = (uncompressed_size / block_size) + 1
+</span><span style="color:#65737e;">##     uint32_t block_sizes[]
+</span><span style="color:#65737e;">##
+</span><span style="color:#65737e;">## followed by compressed block data, same as calling `compress` for each source `block_size`
+</span><span style="color:#b48ead;">static func </span><span style="color:#8fa1b3;">compress</span><span>(</span><span style="color:#bf616a;">text</span><span>: </span><span style="color:#bf616a;">String</span><span>, </span><span style="color:#bf616a;">compression_mode</span><span>:</span><span style="color:#bf616a;">FileAccess</span><span>.</span><span style="color:#bf616a;">CompressionMode</span><span> = </span><span style="color:#bf616a;">FileAccess</span><span>.</span><span style="color:#bf616a;">COMPRESSION_FASTLZ</span><span>) -&gt; </span><span style="color:#ebcb8b;">PackedByteArray</span><span>:
+</span><span>	</span><span style="color:#b48ead;">var </span><span style="color:#bf616a;">data </span><span>= </span><span style="color:#bf616a;">_encode_string</span><span>(text)
+</span><span>	</span><span style="color:#b48ead;">var </span><span style="color:#bf616a;">uncompressed_size </span><span>= data.</span><span style="color:#bf616a;">size</span><span>()
+</span><span>
+</span><span>	</span><span style="color:#b48ead;">var </span><span style="color:#bf616a;">num_blocks </span><span>= </span><span style="color:#b48ead;">int</span><span>(</span><span style="color:#bf616a;">ceil</span><span>(</span><span style="color:#b48ead;">float</span><span>(uncompressed_size) / BLOCK_SIZE))
+</span><span>
+</span><span>	</span><span style="color:#b48ead;">var </span><span style="color:#bf616a;">buffer </span><span>= </span><span style="color:#bf616a;">PackedByteArray</span><span>()
+</span><span>
+</span><span>	buffer.</span><span style="color:#bf616a;">append_array</span><span>(</span><span style="color:#bf616a;">_encode_string</span><span>(MAGIC))
+</span><span>
+</span><span>	buffer.</span><span style="color:#bf616a;">append_array</span><span>(</span><span style="color:#bf616a;">_encode_uint32</span><span>(compression_mode))
+</span><span>	buffer.</span><span style="color:#bf616a;">append_array</span><span>(</span><span style="color:#bf616a;">_encode_uint32</span><span>(BLOCK_SIZE))
+</span><span>	buffer.</span><span style="color:#bf616a;">append_array</span><span>(</span><span style="color:#bf616a;">_encode_uint32</span><span>(uncompressed_size))
+</span><span>
+</span><span>	</span><span style="color:#b48ead;">var </span><span style="color:#bf616a;">block_sizes </span><span>= </span><span style="color:#bf616a;">PackedByteArray</span><span>()
+</span><span>	</span><span style="color:#b48ead;">var </span><span style="color:#bf616a;">compressed_blocks </span><span>= []
+</span><span>
+</span><span>	</span><span style="color:#b48ead;">for</span><span> i in </span><span style="color:#bf616a;">range</span><span>(num_blocks):
+</span><span>		</span><span style="color:#b48ead;">var </span><span style="color:#bf616a;">start </span><span>= i * BLOCK_SIZE
+</span><span>		</span><span style="color:#b48ead;">var </span><span style="color:#bf616a;">end </span><span>= </span><span style="color:#bf616a;">min</span><span>((i + </span><span style="color:#d08770;">1</span><span>) * BLOCK_SIZE, uncompressed_size)
+</span><span>		</span><span style="color:#b48ead;">var </span><span style="color:#bf616a;">block_data </span><span>= </span><span style="color:#bf616a;">PackedByteArray</span><span>()
+</span><span>		</span><span style="color:#b48ead;">var </span><span style="color:#bf616a;">block_index </span><span>= start
+</span><span>		</span><span style="color:#b48ead;">while</span><span> block_index &lt; end:
+</span><span>			block_data.</span><span style="color:#bf616a;">append</span><span>(data[block_index])
+</span><span>			block_index += </span><span style="color:#d08770;">1
+</span><span>
+</span><span>		</span><span style="color:#b48ead;">var </span><span style="color:#bf616a;">compressed_block </span><span>= block_data.</span><span style="color:#bf616a;">compress</span><span>(compression_mode)
+</span><span>		block_sizes.</span><span style="color:#bf616a;">append_array</span><span>(</span><span style="color:#bf616a;">_encode_uint32</span><span>(compressed_block.</span><span style="color:#bf616a;">size</span><span>()))
+</span><span>		compressed_blocks.</span><span style="color:#bf616a;">append</span><span>(compressed_block)
+</span><span>
+</span><span>	buffer.</span><span style="color:#bf616a;">append_array</span><span>(block_sizes)
+</span><span>
+</span><span>	</span><span style="color:#b48ead;">for</span><span> block in compressed_blocks:
+</span><span>		buffer.</span><span style="color:#bf616a;">append_array</span><span>(block)
+</span><span>
+</span><span>	</span><span style="color:#b48ead;">return</span><span> buffer
+</span><span>
+</span><span style="color:#65737e;"># Godot is Little Endian by default, so the order here is crucial!
+</span><span style="color:#b48ead;">static func </span><span style="color:#8fa1b3;">_encode_uint32</span><span>(</span><span style="color:#bf616a;">value</span><span>: </span><span style="color:#bf616a;">int</span><span>) -&gt; </span><span style="color:#ebcb8b;">PackedByteArray</span><span>:
+</span><span>	</span><span style="color:#b48ead;">var </span><span style="color:#bf616a;">arr </span><span>= </span><span style="color:#bf616a;">PackedByteArray</span><span>()
+</span><span>	arr.</span><span style="color:#bf616a;">append</span><span>(value &amp; </span><span style="color:#d08770;">0xFF</span><span>)
+</span><span>	arr.</span><span style="color:#bf616a;">append</span><span>((value &gt;&gt; </span><span style="color:#d08770;">8</span><span>) &amp; </span><span style="color:#d08770;">0xFF</span><span>)
+</span><span>	arr.</span><span style="color:#bf616a;">append</span><span>((value &gt;&gt; </span><span style="color:#d08770;">16</span><span>) &amp; </span><span style="color:#d08770;">0xFF</span><span>)
+</span><span>	arr.</span><span style="color:#bf616a;">append</span><span>((value &gt;&gt; </span><span style="color:#d08770;">24</span><span>) &amp; </span><span style="color:#d08770;">0xFF</span><span>)
+</span><span>	</span><span style="color:#b48ead;">return</span><span> arr
+</span><span>
+</span><span>
+</span><span style="color:#b48ead;">static func </span><span style="color:#8fa1b3;">_encode_string</span><span>(</span><span style="color:#bf616a;">value</span><span>: </span><span style="color:#bf616a;">String</span><span>) -&gt; </span><span style="color:#ebcb8b;">PackedByteArray</span><span>:
+</span><span>	</span><span style="color:#b48ead;">var </span><span style="color:#bf616a;">arr </span><span>= </span><span style="color:#bf616a;">PackedByteArray</span><span>()
+</span><span>	</span><span style="color:#b48ead;">for</span><span> char in value:
+</span><span>		arr.</span><span style="color:#bf616a;">append_array</span><span>(char.</span><span style="color:#bf616a;">to_ascii_buffer</span><span>())
+</span><span>	</span><span style="color:#b48ead;">return</span><span> arr
+</span></code></pre>
+<p>With this component, we can now easily adjust our previous code:</p>
+<pre data-lang="gd" style="background-color:#2b303b;color:#c0c5ce;" class="language-gd "><code class="language-gd" data-lang="gd"><span style="color:#b48ead;">const </span><span style="color:#bf616a;">Compression </span><span>= </span><span style="color:#bf616a;">preload</span><span>(&#39;</span><span style="color:#a3be8c;">compression.gd</span><span>&#39;)
+</span><span>
+</span><span style="color:#b48ead;">func </span><span style="color:#8fa1b3;">_export_begin</span><span>(</span><span style="color:#bf616a;">features</span><span>: </span><span style="color:#bf616a;">PackedStringArray</span><span>, </span><span style="color:#bf616a;">is_debug</span><span>: </span><span style="color:#bf616a;">bool</span><span>, </span><span style="color:#bf616a;">path</span><span>: </span><span style="color:#bf616a;">String</span><span>, </span><span style="color:#bf616a;">flags</span><span>: </span><span style="color:#bf616a;">int</span><span>):
+</span><span>    </span><span style="color:#b48ead;">var </span><span style="color:#bf616a;">pandora_path </span><span>= &quot;</span><span style="color:#a3be8c;">res://data.pandora</span><span>&quot;
+</span><span>    </span><span style="color:#65737e;"># open the uncompressed normal file from the project folder
+</span><span>    </span><span style="color:#b48ead;">var </span><span style="color:#bf616a;">file </span><span>= FileAccess.</span><span style="color:#bf616a;">open</span><span>(pandora_path, FileAccess.READ)
+</span><span>    </span><span style="color:#b48ead;">var </span><span style="color:#bf616a;">text</span><span>:</span><span style="color:#b48ead;">String </span><span>= file.</span><span style="color:#bf616a;">get_as_text</span><span>()
+</span><span>    </span><span style="color:#65737e;"># compress the file into the correct format so Godot can load it again
+</span><span>    </span><span style="color:#b48ead;">var </span><span style="color:#bf616a;">compressed</span><span>:PackedByteArray = Compression.</span><span style="color:#bf616a;">compress</span><span>(text)
+</span><span>    </span><span style="color:#bf616a;">add_file</span><span>(pandora_path, compressed, false)
+</span><span>    file.</span><span style="color:#bf616a;">close</span><span>()
+</span></code></pre>
+<p>With the above trick, you can now open the file via <code>open_compressed</code> without problems!</p>
+<p>I hope you enjoyed this little sneakpeak into the development of my addon. Feel free to checkout <a href="https://github.com/bitbrain/pandora">pandora</a> for yourself. I also have <a href="https://youtube.com/@bitbraindev">a Youtube channel</a> where I document my gamedev journey - check it out!</p>
+
+        </div>
+    </div>
+
+        </section>
+    </body>
+</html>
