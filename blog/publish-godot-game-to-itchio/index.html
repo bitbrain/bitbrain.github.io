@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+    <head>
+        <meta charset="utf-8">
+        
+        <script>
+            const isDarkMode = localStorage.getItem('is_darkmode_set') === 'true';
+            if (isDarkMode) {
+                document.documentElement.classList.add('dark');
+            }
+        </script>
+        
+        <meta name="color-scheme" content="light dark">
+
+        
+        
+
+        
+        <link rel="alternate"
+              type="application/atom+xml"
+              title="bitbrain feed"
+              href="https://bitbra.in/atom.xml">
+        
+
+        <link rel="stylesheet" href="/css/style.css"/>
+        <link rel="stylesheet" href="/line-awesome/css/line-awesome.min.css"/>
+        <script src="/js/main.js" defer></script>
+        
+    <title>How to publish your Godot Game to itch.io via Github actions | bitbrain</title>
+
+    </head>
+
+    <body class="bg-white dark:bg-slate-900 transition ease-in-out">
+        <section>
+            
+    
+<div class="sticky top-0 bg-slate-100 dark:bg-slate-800">
+    <div class="container mx-auto flex place-content-between
+        py-16 lg:py-8 font-sans text-6xl lg:text-2xl text-slate-900
+        dark:text-slate-300">
+        <div class="flex">
+            
+            
+            
+            
+            <a class="m-0 p-0 text-slate-900 hover:text-slate-700
+                            dark:text-slate-300 dark:hover:text-slate-200" href="&#x2F;blog&#x2F;">
+                /blog
+            </a>
+            
+            
+            
+            
+            
+            
+        </div>
+        <div class="flex gap-4">
+            <div id="back-to-top" class="hidden cursor-pointer">
+                <i class="las la-level-up-alt"></i>
+            </div>
+            <a href="/"><i class="las la-home"></i></a>
+            
+            <a href="https://bitbra.in/atom.xml"><i class="las la-rss"></i></a>
+            
+            <div id="darkmode-toggle" class="cursor-pointer">
+                <div class="hidden dark:inline">
+                    <i class="las la-sun"></i>
+                </div>
+                <div class="inline dark:hidden">
+                    <i class="las la-moon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="container mb-16">
+        <div class="mt-4 font-serif text-slate-600 dark:text-slate-500 text-4xl lg:text-base">
+            2020-08-01
+        </div>
+        <h1 class="w-full mt-4 mb-8 font-serif text-8xl lg:text-4xl text-slate-900 dark:text-slate-300">
+            How to publish your Godot Game to itch.io via Github actions
+        </h1>
+        <div class="w-100 border-t mb-8 border-slate-300 dark:border-slate-700"></div>
+        <div class="prose-boring">
+            <p>Manually building and uploading your <a href="https://godotengine.org">Godot</a> games can be painful and time-consuming. In this tutorial am going to show you how to automate the process:</p>
+<ol>
+<li>let Github build your game via <a href="https://github.com/actions">Github Actions</a></li>
+<li>Github creates a new release</li>
+<li>publish automatically to <a href="https://itch.io">itch.io</a></li>
+</ol>
+<h1 id="prequisites">Prequisites</h1>
+<ul>
+<li>Github account</li>
+<li>itch.io account</li>
+<li>published game page on itch.io</li>
+<li>a Godot game project pushed to a Github repository</li>
+</ul>
+<h1 id="initial-setup">Initial setup</h1>
+<h2 id="setting-up-itch-io">Setting up itch.io</h2>
+<p>In order to make this entire process work, we first have to setup a so called token in itch.io:</p>
+<p><img src="/images/create-new-api-key.webp" alt="api-key" /></p>
+<h2 id="setup-secrets-in-github">Setup secrets in Github</h2>
+<p>Next, we are going to set up the secrets within Github. Head over to <code>Account Settings -&gt; Developer settings -&gt; Personal access tokens</code> and generate a new token:</p>
+<p><img src="/images/github-create-token.webp" alt="gh-token" /></p>
+<p>You will not be able to see this token again once generated! Save it somewhere locally in a file for later use.</p>
+<blockquote>
+<p>ATTENTION! Never use keys/tokens within your code! Hackers can easily gain access to your account then. Instead, set up Github secrets that you can reference in your scripts.</p>
+</blockquote>
+<p>Next, head to your Github repository configuration page and add secrets:</p>
+<p><img src="/images/github-create-secrets.webp" alt="gh-secrets" /></p>
+<ul>
+<li><code>BUTLER_CREDENTIALS</code> is the value of the itch.io key you previously generated</li>
+<li><code>GH_CREDENTIALS</code> is the value of your Github token you previously generated</li>
+</ul>
+<p>It is <strong>very</strong> important to use a custom <code>GH_CREDENTIALS</code> within Github actions. Due to a limitation, Github <a href="https://github.community/t/workflow-set-for-on-release-not-triggering-not-showing-up/16286/5">does not trigger any action</a> when the default <code>GITHUB_TOKEN</code> secret is being used to create releases:</p>
+<blockquote>
+<p>Releases created when authenticating with the GITHUB_TOKEN will prevent new workflows from running.
+If you want to run new workflows, you’ll need to set up a different PAT and add that as a secret.</p>
+<ul>
+<li>ethomson (Github Staff)</li>
+</ul>
+</blockquote>
+<h2 id="create-a-export-presets-cfg-file">Create a export_presets.cfg file</h2>
+<p>Within Godot, head over to <code>Project -&gt; Export...</code> and create a new export entry:</p>
+<p><img src="/images/godot-export-project.webp" alt="godot-export" /></p>
+<p>Also, make sure to define an export path and give it a name (e.g. <strong>yourgame-windows</strong>). This will be the name of the game file in itch.io. Saving your configuration automatically generates a <code>export_presets.cfg</code> file that you need to commit to your Github repository. Make sure that your <code>.gitignore</code> does not accidentally exclude this file!</p>
+<h1 id="create-github-actions">Create Github actions</h1>
+<p>After you setup the secrets within your repository and pushed your export presets, it is now time to configure the Github actions.</p>
+<p>Within the root of your repository, create a new <code>.github/workflows</code> directory that will contain all the actions (<code>*.yml</code> files).</p>
+<h2 id="create-release-action">Create release action</h2>
+<p>Create a new file under <code>.github/workflows/create-release.yml</code>:</p>
+<pre data-lang="yaml" style="background-color:#2b303b;color:#c0c5ce;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span style="color:#d08770;">on</span><span>:
+</span><span>  </span><span style="color:#bf616a;">push</span><span>:
+</span><span>    </span><span style="color:#bf616a;">branches</span><span>:
+</span><span>      - </span><span style="color:#a3be8c;">master
+</span><span>
+</span><span style="color:#bf616a;">jobs</span><span>:
+</span><span>  </span><span style="color:#bf616a;">export_game</span><span>:
+</span><span>    </span><span style="color:#65737e;"># Always use ubuntu-latest for this action
+</span><span>    </span><span style="color:#bf616a;">runs-on</span><span>: </span><span style="color:#a3be8c;">ubuntu-latest
+</span><span>    </span><span style="color:#65737e;"># Job name, can be anything
+</span><span>    </span><span style="color:#bf616a;">name</span><span>: </span><span style="color:#a3be8c;">Export game to Github
+</span><span>    </span><span style="color:#bf616a;">steps</span><span>:
+</span><span>      </span><span style="color:#65737e;"># Always include the checkout step so that
+</span><span>      </span><span style="color:#65737e;"># your project is available for Godot to export
+</span><span>      - </span><span style="color:#bf616a;">name</span><span>: </span><span style="color:#a3be8c;">checkout
+</span><span>        </span><span style="color:#bf616a;">uses</span><span>: </span><span style="color:#a3be8c;">actions/checkout@v2.3.1
+</span><span>        </span><span style="color:#65737e;"># Ensure that you get the entire project history
+</span><span>        </span><span style="color:#bf616a;">with</span><span>:
+</span><span>          </span><span style="color:#bf616a;">fetch-depth</span><span>: </span><span style="color:#d08770;">0
+</span><span>      - </span><span style="color:#bf616a;">name</span><span>: </span><span style="color:#a3be8c;">create game release
+</span><span>        </span><span style="color:#65737e;"># Use latest version (see releases for all versions)
+</span><span>        </span><span style="color:#bf616a;">uses</span><span>: </span><span style="color:#a3be8c;">firebelley/godot-export@v2.3.0
+</span><span>        </span><span style="color:#bf616a;">with</span><span>:
+</span><span>          </span><span style="color:#65737e;"># Defining all the required inputs
+</span><span>          </span><span style="color:#65737e;"># I used the mono version of Godot in this example
+</span><span>          </span><span style="color:#bf616a;">godot_executable_download_url</span><span>: </span><span style="color:#a3be8c;">https://downloads.tuxfamily.org/godotengine/3.2.2/mono/Godot_v3.2.2-stable_mono_linux_headless_64.zip
+</span><span>          </span><span style="color:#bf616a;">godot_export_templates_download_url</span><span>: </span><span style="color:#a3be8c;">https://downloads.tuxfamily.org/godotengine/3.2.2/mono/Godot_v3.2.2-stable_mono_export_templates.tpz
+</span><span>          </span><span style="color:#65737e;"># set this either to . or your game path, e.g. ./godot in case
+</span><span>          </span><span style="color:#65737e;"># your game is within a sub-directory
+</span><span>          </span><span style="color:#bf616a;">relative_project_path</span><span>: </span><span style="color:#d08770;">.
+</span><span>        </span><span style="color:#bf616a;">env</span><span>:
+</span><span>          </span><span style="color:#bf616a;">GITHUB_TOKEN</span><span>: </span><span style="color:#a3be8c;">${% raw %}{{ secrets.GH_CREDENTIALS }}{% endraw %}
+</span><span>          </span><span style="color:#bf616a;">ACTIONS_ALLOW_UNSECURE_COMMANDS</span><span>: &#39;</span><span style="color:#a3be8c;">true</span><span>&#39;
+</span></code></pre>
+<p>Let's have a look into the steps. First, we define when the action should get triggered. If you do not want to create a new release
+everytime you push, replace the branch with a different branch, e.g. <code>release</code></p>
+<pre data-lang="yaml" style="background-color:#2b303b;color:#c0c5ce;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span style="color:#d08770;">on</span><span>:
+</span><span>  </span><span style="color:#bf616a;">push</span><span>:
+</span><span>    </span><span style="color:#bf616a;">branches</span><span>:
+</span><span>      - </span><span style="color:#a3be8c;">master
+</span></code></pre>
+<p>Afterwards, we use the <code>firebelley/godot-export</code> action to build our game. This one requires the <code>export_presets.cfg</code>  to be present in your <code>relative_project_path</code> specified in order to work. Also, it is important to set the environment variable so Github is able to push a new release for us:</p>
+<pre data-lang="yaml" style="background-color:#2b303b;color:#c0c5ce;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span style="color:#bf616a;">GITHUB_TOKEN</span><span>: </span><span style="color:#a3be8c;">${% raw %}{{ secrets.GH_CREDENTIALS }}{% endraw %}
+</span></code></pre>
+<p>The versioning will be done automatically for you, however you can also provide additional configuration to the action to control the versioning yourself.</p>
+<h2 id="publish-to-itch-io-action">Publish to itch.io action</h2>
+<p>The following example publishes to Windows only, however you can add additional platform releases as additional jobs. Create a new file under <code>.github/workflows/publish-to-itchio.yml</code>:</p>
+<pre data-lang="yaml" style="background-color:#2b303b;color:#c0c5ce;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span style="color:#d08770;">on</span><span>:
+</span><span>  </span><span style="color:#bf616a;">release</span><span>:
+</span><span>    </span><span style="color:#bf616a;">types</span><span>: [</span><span style="color:#a3be8c;">published</span><span>]
+</span><span>
+</span><span style="color:#bf616a;">jobs</span><span>:
+</span><span>  </span><span style="color:#bf616a;">release_windows</span><span>:
+</span><span>    </span><span style="color:#bf616a;">runs-on</span><span>: </span><span style="color:#a3be8c;">ubuntu-latest
+</span><span>    </span><span style="color:#bf616a;">steps</span><span>:
+</span><span>      - </span><span style="color:#bf616a;">name</span><span>: </span><span style="color:#a3be8c;">download Windows
+</span><span>        </span><span style="color:#bf616a;">id</span><span>: </span><span style="color:#a3be8c;">download-windows
+</span><span>        </span><span style="color:#bf616a;">uses</span><span>: </span><span style="color:#a3be8c;">dsaltares/fetch-gh-release-asset@master
+</span><span>        </span><span style="color:#bf616a;">with</span><span>:
+</span><span>          </span><span style="color:#bf616a;">file</span><span>: </span><span style="color:#a3be8c;">yourgame-windows.zip
+</span><span>        </span><span style="color:#bf616a;">env</span><span>:
+</span><span>          </span><span style="color:#bf616a;">GITHUB_TOKEN</span><span>: &quot;</span><span style="color:#a3be8c;">${% raw %}{{ secrets.GH_CREDENTIALS }}{% endraw %}</span><span>&quot;
+</span><span>      - </span><span style="color:#bf616a;">name</span><span>: </span><span style="color:#a3be8c;">deploy to itch.io (Windows)
+</span><span>        </span><span style="color:#bf616a;">uses</span><span>: </span><span style="color:#a3be8c;">josephbmanley/butler-publish-itchio-action@master
+</span><span>        </span><span style="color:#bf616a;">env</span><span>:
+</span><span>          </span><span style="color:#bf616a;">BUTLER_CREDENTIALS</span><span>: </span><span style="color:#a3be8c;">${% raw %}{{ secrets.BUTLER_CREDENTIALS }}{% endraw %}
+</span><span>          </span><span style="color:#bf616a;">CHANNEL</span><span>: </span><span style="color:#a3be8c;">windows
+</span><span>          </span><span style="color:#bf616a;">ITCH_GAME</span><span>: </span><span style="color:#a3be8c;">yourgame
+</span><span>          </span><span style="color:#bf616a;">ITCH_USER</span><span>: </span><span style="color:#a3be8c;">your itchio account
+</span><span>          </span><span style="color:#bf616a;">PACKAGE</span><span>: </span><span style="color:#a3be8c;">yourgame-windows.zip
+</span><span>          </span><span style="color:#bf616a;">VERSION</span><span>: </span><span style="color:#a3be8c;">${% raw %}{{ steps.download-windows.outputs.version }}{% endraw %}
+</span></code></pre>
+<p>Voila! Now commit and push everything and it should automatically create a release for you:</p>
+<p><img src="/images/github-create-release.webp" alt="github-release" /></p>
+<p>After the release is created, Github will automatically trigger the next action to publish your game to itch.io:</p>
+<p><img src="/images/github-export-to-itch.webp" alt="github-itchio" /></p>
+
+        </div>
+    </div>
+
+        </section>
+    </body>
+</html>

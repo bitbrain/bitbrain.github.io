@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+    <head>
+        <meta charset="utf-8">
+        
+        <script>
+            const isDarkMode = localStorage.getItem('is_darkmode_set') === 'true';
+            if (isDarkMode) {
+                document.documentElement.classList.add('dark');
+            }
+        </script>
+        
+        <meta name="color-scheme" content="light dark">
+
+        
+        
+
+        
+        <link rel="alternate"
+              type="application/atom+xml"
+              title="bitbrain feed"
+              href="https://bitbra.in/atom.xml">
+        
+
+        <link rel="stylesheet" href="/css/style.css"/>
+        <link rel="stylesheet" href="/line-awesome/css/line-awesome.min.css"/>
+        <script src="/js/main.js" defer></script>
+        
+    <title>How to automatically publish your game to itch.io | bitbrain</title>
+
+    </head>
+
+    <body class="bg-white dark:bg-slate-900 transition ease-in-out">
+        <section>
+            
+    
+<div class="sticky top-0 bg-slate-100 dark:bg-slate-800">
+    <div class="container mx-auto flex place-content-between
+        py-16 lg:py-8 font-sans text-6xl lg:text-2xl text-slate-900
+        dark:text-slate-300">
+        <div class="flex">
+            
+            
+            
+            
+            <a class="m-0 p-0 text-slate-900 hover:text-slate-700
+                            dark:text-slate-300 dark:hover:text-slate-200" href="&#x2F;blog&#x2F;">
+                /blog
+            </a>
+            
+            
+            
+            
+            
+            
+        </div>
+        <div class="flex gap-4">
+            <div id="back-to-top" class="hidden cursor-pointer">
+                <i class="las la-level-up-alt"></i>
+            </div>
+            <a href="/"><i class="las la-home"></i></a>
+            
+            <a href="https://bitbra.in/atom.xml"><i class="las la-rss"></i></a>
+            
+            <div id="darkmode-toggle" class="cursor-pointer">
+                <div class="hidden dark:inline">
+                    <i class="las la-sun"></i>
+                </div>
+                <div class="inline dark:hidden">
+                    <i class="las la-moon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="container mb-16">
+        <div class="mt-4 font-serif text-slate-600 dark:text-slate-500 text-4xl lg:text-base">
+            2019-02-18
+        </div>
+        <h1 class="w-full mt-4 mb-8 font-serif text-8xl lg:text-4xl text-slate-900 dark:text-slate-300">
+            How to automatically publish your game to itch.io
+        </h1>
+        <div class="w-100 border-t mb-8 border-slate-300 dark:border-slate-700"></div>
+        <div class="prose-boring">
+            <h1 id="motivation">Motivation</h1>
+<blockquote>
+<p>why should I even upload my games automatically?</p>
+</blockquote>
+<p>This is a good question. Simple answer is, that during a gamejam you can fully concentrate on building your game. Especially, when the deadline is coming closer, you simply have to commit and push your changes, in order to trigger an automatic deployment of your game to itch.io:</p>
+<ol>
+<li>make a code or asset change change locally</li>
+<li>commit your change via Git and push it to Github</li>
+<li>TravisCI automatically picks up your change and builds your game</li>
+<li>TravisCI automatically pushes the new build to itch.io</li>
+</ol>
+<p>This tutorial shows you how to do that!</p>
+<h1 id="prequisites">Prequisites</h1>
+<p>For this tutorial, we use the following technologies:</p>
+<ul>
+<li><a href="https://github.com/">Github</a> to version control our game code</li>
+<li><a href="https://travis-ci.org">TravisCI</a> as a build agent to build our game</li>
+<li><a href="https://itch.io">itch.io</a> to host our game</li>
+<li><a href="https://itch.io/docs/butler/pushing.html">Butler</a> to upload our game builds to itch.io</li>
+</ul>
+<h1 id="setup-github-repository">Setup Github repository</h1>
+<p>If not already done, create a Github repository to host our source code:</p>
+<p><img src="/images/create-new-github-repo.webp" alt="create-new-github-repo" /></p>
+<h1 id="setup-itch-io">Setup itch.io</h1>
+<p>Before we can start uploading our first game, we need to create an itch.io game project:</p>
+<p><img src="/images/create-new-game-project.webp" alt="create-new-game-project" /></p>
+<p>After your project is created, head over to your account settings to generate a new API key. This key is required so other services such as TravisCI are able to communicate with itch.io.</p>
+<p><img src="/images/create-new-api-key.webp" alt="create-new-api-key" /></p>
+<h1 id="prepare-travisci-deployment">Prepare TravisCI deployment</h1>
+<p>Once the repository exists and itch.io is prepared, we need to prepare TravisCI. This consists of the following steps:</p>
+<ol>
+<li>create deployment script</li>
+<li>commit and push travis.yml</li>
+<li>prepare TravisCI project</li>
+<li>setup <code>BUTLER_API_KEY</code></li>
+</ol>
+<h1 id="create-deployment-script">Create deployment script</h1>
+<p>This script will take your artifacts and push it to itch.io. Create a new file, called <code>deploy.sh</code>:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#65737e;">#!/bin/bash
+</span><span>
+</span><span style="color:#96b5b4;">set </span><span style="color:#bf616a;">-e
+</span><span style="color:#96b5b4;">set </span><span style="color:#bf616a;">-o</span><span> pipefail
+</span><span>
+</span><span style="color:#b48ead;">if </span><span style="color:#96b5b4;">[[ </span><span style="color:#bf616a;">-z </span><span>&quot;$</span><span style="color:#a3be8c;">{</span><span style="color:#bf616a;">BUTLER_API_KEY</span><span style="color:#a3be8c;">}</span><span>&quot; </span><span style="color:#96b5b4;">]]</span><span>; </span><span style="color:#b48ead;">then
+</span><span>  </span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">Unable to deploy! No BUTLER_API_KEY environment variable specified!</span><span>&quot;
+</span><span>  </span><span style="color:#96b5b4;">exit</span><span> 1
+</span><span style="color:#b48ead;">fi
+</span><span>
+</span><span style="color:#8fa1b3;">prepare_butler</span><span>() {
+</span><span>    </span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">Preparing butler...</span><span>&quot;
+</span><span>    </span><span style="color:#bf616a;">download_if_not_exist</span><span> http://dl.itch.ovh/butler/linux-amd64/head/butler butler
+</span><span>    </span><span style="color:#bf616a;">chmod</span><span> +x butler
+</span><span>}
+</span><span>
+</span><span style="color:#8fa1b3;">prepare_and_push</span><span>() {
+</span><span>    </span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">Push </span><span>$</span><span style="color:#bf616a;">3</span><span style="color:#a3be8c;"> build to itch.io...</span><span>&quot;
+</span><span>    </span><span style="color:#bf616a;">./butler</span><span> push $</span><span style="color:#bf616a;">2 </span><span>$</span><span style="color:#bf616a;">1</span><span>:$</span><span style="color:#bf616a;">3
+</span><span>}
+</span><span>
+</span><span style="color:#8fa1b3;">download_if_not_exist</span><span>() {
+</span><span>    </span><span style="color:#b48ead;">if </span><span style="color:#96b5b4;">[ </span><span>! </span><span style="color:#bf616a;">-f </span><span>$</span><span style="color:#bf616a;">2 </span><span style="color:#96b5b4;">]</span><span>; </span><span style="color:#b48ead;">then
+</span><span>        </span><span style="color:#bf616a;">curl -L -O </span><span>$</span><span style="color:#bf616a;">1 </span><span>&gt; $</span><span style="color:#bf616a;">2
+</span><span>    </span><span style="color:#b48ead;">fi
+</span><span>}
+</span><span>
+</span><span>
+</span><span style="color:#bf616a;">project</span><span>=&quot;</span><span style="color:#a3be8c;">bitbrain/mygame</span><span>&quot;
+</span><span style="color:#bf616a;">artifact</span><span>=&quot;</span><span style="color:#a3be8c;">mygame.jar</span><span>&quot;
+</span><span style="color:#bf616a;">platform</span><span>=&quot;</span><span style="color:#a3be8c;">windows-linux-mac</span><span>&quot;
+</span><span>
+</span><span style="color:#bf616a;">prepare_butler
+</span><span>
+</span><span style="color:#bf616a;">prepare_and_push </span><span>$</span><span style="color:#bf616a;">project </span><span>$</span><span style="color:#bf616a;">artifact </span><span>$</span><span style="color:#bf616a;">platform
+</span><span>
+</span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">Done.</span><span>&quot;
+</span><span style="color:#96b5b4;">exit</span><span> 0
+</span></code></pre>
+<p>This script first checks, if the environment variable <code>BUTLER_API_KEY</code> is defined. This variable can be setup within Travis and is required for itch.io to authenticate your game upload.
+Afterwards we define a bunch of helper functions. Then we download the latest version of <strong>butler</strong> and upload the game with it. Please ensure to configure the correct <code>project</code>.</p>
+<h1 id="setup-travis-yml">Setup .travis.yml</h1>
+<p>This file is required by TravisCI to understand how to build your game. For example, you can setup a Java environment (for Java games) or Objective-C environment (for Unity games). TravisCI ensures that this environment is set up and it will build your game:</p>
+<pre data-lang="yml" style="background-color:#2b303b;color:#c0c5ce;" class="language-yml "><code class="language-yml" data-lang="yml"><span style="color:#bf616a;">language</span><span>: </span><span style="color:#a3be8c;">android
+</span><span style="color:#bf616a;">jdk</span><span>:
+</span><span>  - </span><span style="color:#a3be8c;">openjdk8
+</span><span>
+</span><span style="color:#bf616a;">android</span><span>:
+</span><span>  </span><span style="color:#bf616a;">components</span><span>:
+</span><span>    </span><span style="color:#65737e;"># The BuildTools version used by your project
+</span><span>    - </span><span style="color:#a3be8c;">build-tools-26.0.2
+</span><span>
+</span><span>    </span><span style="color:#65737e;"># The SDK version used to compile your project
+</span><span>    - </span><span style="color:#a3be8c;">android-26
+</span><span>
+</span><span style="color:#bf616a;">script</span><span>:
+</span><span>  </span><span style="color:#a3be8c;">echo &quot;this is my game&quot; &gt; mygame.jar
+</span><span>
+</span><span style="color:#bf616a;">after_script</span><span>:
+</span><span>  </span><span style="color:#a3be8c;">chmod +x deploy.sh &amp;&amp; ./deploy.sh
+</span><span>
+</span></code></pre>
+<p>Feel free to create a different .yml for Java, C++ or even Android! Read more about that <a href="https://docs.travis-ci.com/user/reference/overview/">in the official docs</a>.</p>
+<h1 id="prepare-travisci-project">Prepare TravisCI project</h1>
+<p>Now we have to configure our TravisCI project. Head over to https://travis-ci.org, authenticate with your Github account and you should be able to import your Github project from there. Once imported, head over to the settings to configure environment variables:</p>
+<p><img src="/images/travis-ci-head-to-settings.webp" alt="travis-ci-head-to-settings" />
+<img src="/images/travis-ci-add-butler-api-key.webp" alt="travis-ci-add-butler-api-key" /></p>
+<h1 id="run-the-build">Run the build</h1>
+<p>Congratulations! You successfully set up the pipeline. Let's run the build to see how your game automatically publishes:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>Preparing butler...
+</span><span>  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+</span><span>                                 Dload  Upload   Total   Spent    Left  Speed
+</span><span>100 19.6M  100 19.6M    0     0  31.6M      0 --:--:-- --:--:-- --:--:-- 31.6M
+</span><span>Push windows-linux-mac build to itch.io...
+</span><span>• For channel `windows-linux-mac`: pushing first build
+</span><span>• Pushing 16 B (1 files, 0 dirs, 0 symlinks)
+</span><span>✓ Added 16 B fresh data
+</span><span>✓ 86 B patch (no savings)
+</span><span>• Build is now processing, should be up in a bit.
+</span><span>Use the `butler status bitbrain/mygame:windows-linux-mac` for more information.
+</span><span>Done.
+</span></code></pre>
+<p>Your latest game version is now available on itch.io:</p>
+<p><img src="/images/itch-io-my-game-upload.webp" alt="itch-io-my-game-upload" /></p>
+
+        </div>
+    </div>
+
+        </section>
+    </body>
+</html>
