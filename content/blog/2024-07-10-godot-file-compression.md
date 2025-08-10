@@ -169,7 +169,7 @@ We can use a nifty tool like [GodotPCKExplorer](https://github.com/DmitriySalnik
 We then can click `Extract > Extract Selected` and save the file to a location of our choice. This then allows us to inspect the file furter. Opening that file in a text editor shows us an odd character:
 
 ```
-{
+{
   "item": "Golden Pickaxe"
 }
 ```
