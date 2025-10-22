@@ -2,7 +2,7 @@
 base_url = "https://bitbra.in"
 
 # The theme to use
-theme = "boring"
+theme = "zola-dash"
 
 title = "bitbrain"
 
