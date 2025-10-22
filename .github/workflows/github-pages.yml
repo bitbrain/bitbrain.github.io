@@ -16,7 +16,7 @@ jobs:
           node-version: 20
       - name: Install JS dependencies and build CSS
         run: |
-          cd themes/boring
+          cd themes/zola-dash
           yarn install --frozen-lockfile
           yarn build
         shell: bash
