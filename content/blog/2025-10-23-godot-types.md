@@ -14,7 +14,7 @@ Many types in Godot such as [AStar3D](https://docs.godotengine.org/en/stable/cla
 extends Node
 
 func fun_with_refs() -> void:
-   var my_ref = AStar3D.new() # creates a refcount
+   var my_ref = AStar3D.new() # AStar3D is of type RefCounted
 
 func _ready() -> void:
    fun_with_refs()
@@ -24,7 +24,7 @@ This can be extremely handy: you don't actually have to worry about freeing obje
 
 For in-built types like `Color` or `String`, Godot utilizes **value semantics**, this means that when you assign a color or string, it will create always an independent copy.
 ```gd
-var a = Vector2(5, 10)
+var a = Vector2(5, 10) # Vector2 is an inbuilt-type
 var b = a
 b.x = 99
 
@@ -40,7 +40,7 @@ Well... not really bad. Just bad for beginners. `Object` type can bite you if yo
 extends Node
 
 func memory_leak() -> void:
-   var node = Node.new()
+   var node = Node.new() # Node is of type Object
 
 func _ready() -> void:
    memory_leak()
