@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+    <head>
+        <meta charset="utf-8">
+        
+        <script>
+            const isDarkMode = localStorage.getItem('is_darkmode_set') === 'true';
+            if (isDarkMode) {
+                document.documentElement.classList.add('dark');
+            }
+        </script>
+        
+        <meta name="color-scheme" content="light dark">
+
+        
+        
+        
+            
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        
+                        
+                            
+                            
+                            
+                                
+                            
+                        
+                    
+                
+            
+            
+            
+        
+        
+        
+            <link rel="me" href="https:&#x2F;&#x2F;mastodon.gamedev.place&#x2F;@bitbraindev">
+        
+
+        
+        
+
+        
+        <link rel="alternate"
+              type="application/atom+xml"
+              title="bitbrain feed"
+              href="https://bitbra.in/atom.xml">
+        
+
+        
+        <link rel="icon" type="image/webp" href="https://bitbra.in/favicon.webp?h=0d4aaa30fc76312a3ebe">
+        <link rel="icon" type="image/png" href="https://bitbra.in/favicon.png?h=44b76b5cf66397d57be1" sizes="32x32">
+
+        <link rel="stylesheet" href="https://bitbra.in/css/style.css?h=02ededa3d6ae0ee7a513"/>
+        <link rel="stylesheet" href="https://bitbra.in/line-awesome/css/line-awesome.min.css?h=ce61a18cf084f1500379"/>
+        <script src="https://bitbra.in/js/main.js?h=6ebbb40a03fcd672fbed" defer></script>
+        
+    <title>Terminal Setup on MacOS | bitbrain</title>
+    
+    
+    
+    
+    
+    
+        
+    
+    
+        
+        
+            
+        
+    
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Terminal Setup on MacOS">
+    <meta property="og:description" content="You always wanted to know how I setup my Terminal? That&#x27;s what this post is about.">
+    <meta property="og:url" content="https:&#x2F;&#x2F;bitbra.in&#x2F;blog&#x2F;terminal-setup-on-macos&#x2F;">
+    <meta property="og:site_name" content="bitbrain">
+    <meta property="og:image" content="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Terminal Setup on MacOS">
+    <meta name="twitter:description" content="You always wanted to know how I setup my Terminal? That&#x27;s what this post is about.">
+    <meta name="twitter:image" content="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg">
+    
+    
+    
+        
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                    
+                    
+                        
+                        
+                        
+                            
+                        
+                    
+                
+            
+        
+        
+        
+    
+    
+    
+        
+        
+        
+        
+            
+            
+            <meta name="fediverse:creator" content="@bitbraindev@mastodon.gamedev.place">
+        
+    
+
+    </head>
+
+    <body class="bg-white dark:bg-slate-900 transition ease-in-out">
+        <section>
+            
+    
+<div class="sticky top-0 bg-slate-100 dark:bg-slate-800">
+    <div class="container mx-auto flex place-content-between
+        py-16 lg:py-8 font-sans text-6xl lg:text-2xl text-slate-900
+        dark:text-white">
+        <div class="flex">
+            
+            
+            
+            
+            <a class="m-0 p-0 text-slate-900 hover:text-slate-700
+                            dark:text-white dark:hover:text-white" href="&#x2F;blog&#x2F;">
+                /blog
+            </a>
+            
+            
+            
+            
+            
+            
+        </div>
+        <div class="flex gap-4 header-links">
+            <div id="back-to-top" class="hidden cursor-pointer">
+                <i class="las la-level-up-alt"></i>
+            </div>
+            <a href="/"><i class="las la-home"></i></a>
+            
+            <a href="https://bitbra.in/atom.xml"><i class="las la-rss"></i></a>
+            
+            <div id="darkmode-toggle" class="cursor-pointer">
+                <div class="hidden dark:inline">
+                    <i class="las la-sun"></i>
+                </div>
+                <div class="inline dark:hidden">
+                    <i class="las la-moon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="container mb-16">
+        <div class="mt-4 font-serif text-slate-600 dark:text-slate-500 text-4xl lg:text-base">
+            2017-08-16
+        </div>
+        <h1 class="w-full mt-4 mb-8 font-serif text-8xl lg:text-4xl text-slate-900 dark:text-slate-300">
+            Terminal Setup on MacOS
+        </h1>
+        <div class="w-100 border-t mb-8 border-slate-300 dark:border-slate-700"></div>
+        <div class="prose-boring">
+            <p><img src="/images/macos-terminal-example.webp" alt="terminal-example" /></p>
+<p>Today I would like to share with you my current terminal setup. It basically consists of the following parts:</p>
+<ul>
+<li><a href="https://www.iterm2.com">iTerm2</a></li>
+<li><a href="http://www.zsh.org">zsh</a></li>
+<li><a href="http://ohmyz.sh">oh-my-zsh</a></li>
+<li><a href="https://cloud.githubusercontent.com/assets/2618447/6316762/51f34624-ba00-11e4-948a-6ac65a49f8c5.png">sorin zsh theme</a></li>
+<li><a href="https://github.com/deepsweet/Monokai-Soda-iTerm">Monokai Soda</a> (modified)</li>
+</ul>
+<h2 id="the-terminal">The Terminal</h2>
+<p>The default terminal app on MacOS is definitely lacking of functionality. As <a href="https://medium.com/@xanderdunn">xanderdunn</a> has <a href="https://medium.com/@xanderdunn/iterm2-vs-terminal-c06976f106ef">written on Medium</a>, iTerm2 has huge advantages compared to the default terminal:</p>
+<blockquote>
+<p>It’s a lot more customizable. For example, I can tell it to shut up and never show me warning dialogues when I’m closing a tab or quitting the app when there’s a running process. Customizability ends up being pretty important for serious developers who are always in the terminal.</p>
+</blockquote>
+<p>Apart from customisation, iTerm2 allows me to split tabs vertically or horizontally on a native basis (different from <a href="https://gist.github.com/simme/1297707">tmux</a> where it is virtually implemented). With tmux we could achieve similar behavior, however it would take much longer to set it up and even then it would still not be natively implemented. As a Mac user I always strived for fast and easy setup. When I change my machine I do not want to spend weeks on customising my Terminal. iTerm2 has lots of inbuilt features which could only be added to the default terminal by using plugins.</p>
+<h2 id="the-shell">The Shell</h2>
+<p>I used many shells such as <a href="https://fishshell.com/">fish</a> or <a href="https://gist.github.com/MohamedAlaa/2961058">tmux</a>. After all this time I eventually sticked to zsh for different reasons:</p>
+<ul>
+<li><a href="http://ohmyz.sh/community">amazing community</a></li>
+<li>lots of customizations</li>
+<li>syntax highlighting</li>
+<li>lots of available plugins</li>
+<li>inline auto-suggestions</li>
+<li>paginated completion</li>
+</ul>
+<p>To just list some of the great features.</p>
+<h2 id="the-theme">The Theme</h2>
+<p>When I started programming I never thought about customising my terminal or favourite IDE. After many years of trying different things I started to like dark themes. It's 2017 and there are thousands of different themes out there. My favourite is still <a href="https://atom.io/themes/monokai">Monokai</a>, presumably known from the <a href="https://josephg.com/blog/electron-is-flash-for-the-desktop">legendary RAM eating machine</a>, called <a href="https://atom.io">Atom</a>. Monokai has vibrant colours which help me to see things, even at night. It's just preference but I really love vibrant colours (and Tron).</p>
+<p>I use two different things for the appearance: the <a href="https://github.com/deepsweet/Monokai-Soda-iTerm">Monokai Soda</a> theme for colours and the <a href="https://cloud.githubusercontent.com/assets/2618447/6316762/51f34624-ba00-11e4-948a-6ac65a49f8c5.png">sorin zsh theme</a> theme for the terminal layout. Note that I made the colours of the Soda theme slightly brighter to have an increase in contrast.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>I hope you like my setup. Happy coding!</p>
+
+        </div>
+        
+        
+        
+        <div class="bg-slate-100 dark:bg-slate-800 mt-12">
+            <div class="flex items-stretch lg:items-stretch">
+                
+                
+                
+                
+                    
+                
+                
+                    
+                    
+                        
+                    
+                    <div class="author-box__media">
+                        <img src="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg" alt="" class="author-box__avatar"/>
+                    </div>
+                
+                <div class="text-4xl lg:text-base text-slate-700 dark:text-slate-400 flex-1 author-box__content">
+                    
+                        <h2 class="font-serif text-6xl lg:text-2xl text-slate-900 dark:text-slate-300 m-0 author-box__title">bitbrain</h2>
+                    
+                    
+                        <div class="font-sans text-5xl lg:text-xl text-slate-600 dark:text-slate-500 mb-4 author-box__subtitle">Lead Software Engineer. Godot Engine evangelist.</div>
+                    
+                    
+                    
+                        
+                    
+                    
+                        <div class="mt-2 text-8xl lg:text-4xl flex gap-3 homepage-social author-box__social">
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;github.com&#x2F;bitbrain" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-github"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;youtube.com&#x2F;@bitbraindev" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-youtube"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;bsky.app&#x2F;profile&#x2F;bitbra.in" target="_blank" rel="me noopener noreferrer">
+                                        <i class="las la-at"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;mastodon.gamedev.place&#x2F;@bitbraindev" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-mastodon"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                        </div>
+                    
+            </div>
+        </div>
+        
+    </div>
+
+        </section>
+    </body>
+</html>

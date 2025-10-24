@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+    <head>
+        <meta charset="utf-8">
+        
+        <script>
+            const isDarkMode = localStorage.getItem('is_darkmode_set') === 'true';
+            if (isDarkMode) {
+                document.documentElement.classList.add('dark');
+            }
+        </script>
+        
+        <meta name="color-scheme" content="light dark">
+
+        
+        
+        
+            
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        
+                        
+                            
+                            
+                            
+                                
+                            
+                        
+                    
+                
+            
+            
+            
+        
+        
+        
+            <link rel="me" href="https:&#x2F;&#x2F;mastodon.gamedev.place&#x2F;@bitbraindev">
+        
+
+        
+        
+
+        
+        <link rel="alternate"
+              type="application/atom+xml"
+              title="bitbrain feed"
+              href="https://bitbra.in/atom.xml">
+        
+
+        
+        <link rel="icon" type="image/webp" href="https://bitbra.in/favicon.webp?h=0d4aaa30fc76312a3ebe">
+        <link rel="icon" type="image/png" href="https://bitbra.in/favicon.png?h=44b76b5cf66397d57be1" sizes="32x32">
+
+        <link rel="stylesheet" href="https://bitbra.in/css/style.css?h=02ededa3d6ae0ee7a513"/>
+        <link rel="stylesheet" href="https://bitbra.in/line-awesome/css/line-awesome.min.css?h=ce61a18cf084f1500379"/>
+        <script src="https://bitbra.in/js/main.js?h=6ebbb40a03fcd672fbed" defer></script>
+        
+    <title>Why I still use Java for gamedev | bitbrain</title>
+    
+    
+    
+    
+    
+    
+        
+    
+    
+        
+        
+            
+        
+    
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Why I still use Java for gamedev">
+    <meta property="og:description" content="Yes, I use Java for gamedev, but why? Read it here.">
+    <meta property="og:url" content="https:&#x2F;&#x2F;bitbra.in&#x2F;blog&#x2F;why-i-still-use-java-for-gamedev&#x2F;">
+    <meta property="og:site_name" content="bitbrain">
+    <meta property="og:image" content="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Why I still use Java for gamedev">
+    <meta name="twitter:description" content="Yes, I use Java for gamedev, but why? Read it here.">
+    <meta name="twitter:image" content="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg">
+    
+    
+    
+        
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                    
+                    
+                        
+                        
+                        
+                            
+                        
+                    
+                
+            
+        
+        
+        
+    
+    
+    
+        
+        
+        
+        
+            
+            
+            <meta name="fediverse:creator" content="@bitbraindev@mastodon.gamedev.place">
+        
+    
+
+    </head>
+
+    <body class="bg-white dark:bg-slate-900 transition ease-in-out">
+        <section>
+            
+    
+<div class="sticky top-0 bg-slate-100 dark:bg-slate-800">
+    <div class="container mx-auto flex place-content-between
+        py-16 lg:py-8 font-sans text-6xl lg:text-2xl text-slate-900
+        dark:text-white">
+        <div class="flex">
+            
+            
+            
+            
+            <a class="m-0 p-0 text-slate-900 hover:text-slate-700
+                            dark:text-white dark:hover:text-white" href="&#x2F;blog&#x2F;">
+                /blog
+            </a>
+            
+            
+            
+            
+            
+            
+        </div>
+        <div class="flex gap-4 header-links">
+            <div id="back-to-top" class="hidden cursor-pointer">
+                <i class="las la-level-up-alt"></i>
+            </div>
+            <a href="/"><i class="las la-home"></i></a>
+            
+            <a href="https://bitbra.in/atom.xml"><i class="las la-rss"></i></a>
+            
+            <div id="darkmode-toggle" class="cursor-pointer">
+                <div class="hidden dark:inline">
+                    <i class="las la-sun"></i>
+                </div>
+                <div class="inline dark:hidden">
+                    <i class="las la-moon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="container mb-16">
+        <div class="mt-4 font-serif text-slate-600 dark:text-slate-500 text-4xl lg:text-base">
+            2017-08-17
+        </div>
+        <h1 class="w-full mt-4 mb-8 font-serif text-8xl lg:text-4xl text-slate-900 dark:text-slate-300">
+            Why I still use Java for gamedev
+        </h1>
+        <div class="w-100 border-t mb-8 border-slate-300 dark:border-slate-700"></div>
+        <div class="prose-boring">
+            <p>There is an technology, running on billions of devices every single day: Java.
+Many developers (beardy hipsters) claim this technology belongs to the past, game engines like <a href="https://unity3d.com/">Unity</a> and <a href="https://www.unrealengine.com/en-US/what-is-unreal-engine-4">Unreal Engine</a> are the future! Still, there is one man who hasn't lost hope. Every single day he is building real games, not written in C# or Javascript. Not even Python or scientific C++. He is just using <a href="https://www.java.com/en/">Java</a>. And this person is me.</p>
+<p><img src="/images/unreal-engine-room.webp" alt="unreal-engine" /></p>
+<p>This picture isn't showing my living room. This is Unreal Engine. Playable in VR. With 60fps at 4K resolution! Awesome, right?</p>
+<h2 id="the-simple-alternative">The simple alternative</h2>
+<p>Unfortunately I didn't create this. But hey, I can show you something amazing I did back then, in Java:</p>
+<p><img src="/images/example-game.webp" alt="example-game" /></p>
+<p>Okay, I get you. Why am I doing this to myself? Why not just using a game engine like everyone else? It would have so many advantages to use any game engine of my choice compared to this ancient crap I am doing:</p>
+<ul>
+<li>complete 2D/3D editors for modeling</li>
+<li>inbuilt physics, lighting and rainbow machine 🌈</li>
+<li>amazing graphics, shader editors</li>
+<li>almost no programming skillz required! Just drag and drop all your stuff!</li>
+<li>and much more...</li>
+</ul>
+<p>Well, the answer is quite simple: I like to remind myself everyday where I started. My first game was written in <a href="https://en.wikipedia.org/wiki/Delphi_(programming_language)">Delphi Pascal</a>. Back then I even didn't know much about <a href="http://searchmicroservices.techtarget.com/definition/object-oriented-programming-OOP">OOP</a> or <a href="https://sourcemaking.com/design_patterns">Design Patterns</a>. The only thing I cared about was moving pixels on the screen. It was truly inspiring and it didn't change, even eight years later.</p>
+<h2 id="getting-started-with-gamedev">Getting started with gamedev</h2>
+<p>Many games have been completed by now and the majority of those games is written in "pure" Java. Not exactly pure Java, I am using libraries to access <a href="https://www.opengl.org/">OpenGL</a> but generally I can say that most games are 100% written by hand, without an actual game engine or predefined templating.</p>
+<p>How do I do this? To make a game in Java you basically need three things:</p>
+<ol>
+<li>Java skills</li>
+<li>Basic understanding of math (ideally vectors, functions and matrices)</li>
+<li>Know how to set/move pixels on the screen and how to handle input</li>
+</ol>
+<p>Point 1 and 2 are straight-forward: if you know basically how Java works you can write programms which do stuff for you:</p>
+<pre data-lang="java" style="background-color:#090a0c;color:#dae4ed;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#5981f5;">public class </span><span>HelloWorld </span><span style="color:#b7c3ce;">{
+</span><span>  </span><span style="color:#5981f5;">public static void </span><span style="color:#ffffff;">main</span><span style="color:#b7c3ce;">(</span><span>String</span><span style="color:#5981f5;">[] </span><span style="color:#ffffff;">args</span><span style="color:#b7c3ce;">) {
+</span><span>    </span><span style="color:#5981f5;">if </span><span style="color:#b7c3ce;">(</span><span>args</span><span style="color:#b7c3ce;">.</span><span>length </span><span style="color:#b7c3ce;">&gt; </span><span style="color:#ea9433;">0 </span><span style="color:#b7c3ce;">&amp;&amp;</span><span> args[</span><span style="color:#ea9433;">0</span><span>]</span><span style="color:#b7c3ce;">.</span><span style="color:#ffffff;">equals</span><span style="color:#b7c3ce;">(&quot;</span><span style="color:#4ebc6b;">hey</span><span style="color:#b7c3ce;">&quot;)) {
+</span><span>      System</span><span style="color:#b7c3ce;">.</span><span>out</span><span style="color:#b7c3ce;">.</span><span style="color:#ffffff;">println</span><span style="color:#b7c3ce;">(&quot;</span><span style="color:#4ebc6b;">Hello World!</span><span style="color:#b7c3ce;">&quot;);
+</span><span>    </span><span style="color:#b7c3ce;">} </span><span style="color:#5981f5;">else </span><span style="color:#b7c3ce;">{
+</span><span>      System</span><span style="color:#b7c3ce;">.</span><span>out</span><span style="color:#b7c3ce;">.</span><span style="color:#ffffff;">println</span><span style="color:#b7c3ce;">(&quot;</span><span style="color:#4ebc6b;">You didn&#39;t greet me! WOW!</span><span style="color:#b7c3ce;">&quot;);
+</span><span>    </span><span style="color:#b7c3ce;">}
+</span><span>  </span><span style="color:#b7c3ce;">}
+</span><span style="color:#b7c3ce;">}
+</span></code></pre>
+<p>In addition you need to know math. For example you could write an immutable <a href="http://www.bbc.co.uk/education/guides/zxd26sg/revision">vector</a> in Java with basic addition and subtraction functionality:</p>
+<pre data-lang="java" style="background-color:#090a0c;color:#dae4ed;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#5981f5;">public class </span><span>Vector </span><span style="color:#b7c3ce;">{
+</span><span>
+</span><span>  </span><span style="color:#5981f5;">private final float </span><span>x</span><span style="color:#b7c3ce;">, </span><span>y</span><span style="color:#b7c3ce;">;
+</span><span>
+</span><span>  </span><span style="color:#5981f5;">public </span><span style="color:#ffffff;">Vector</span><span style="color:#b7c3ce;">(</span><span style="color:#5981f5;">float </span><span style="color:#ffffff;">x</span><span style="color:#b7c3ce;">, </span><span style="color:#5981f5;">float </span><span style="color:#ffffff;">y</span><span style="color:#b7c3ce;">) {
+</span><span>    </span><span style="color:#ffffff;">this</span><span style="color:#b7c3ce;">.</span><span>x </span><span style="color:#b7c3ce;">=</span><span> x</span><span style="color:#b7c3ce;">;
+</span><span>    </span><span style="color:#ffffff;">this</span><span style="color:#b7c3ce;">.</span><span>y </span><span style="color:#b7c3ce;">=</span><span> y</span><span style="color:#b7c3ce;">;
+</span><span>  </span><span style="color:#b7c3ce;">}
+</span><span>
+</span><span>  </span><span style="color:#5981f5;">public </span><span>Vector </span><span style="color:#ffffff;">plus</span><span style="color:#b7c3ce;">(</span><span>Vector </span><span style="color:#ffffff;">other</span><span style="color:#b7c3ce;">) {
+</span><span>    </span><span style="color:#5981f5;">return new </span><span>Vector</span><span style="color:#b7c3ce;">(</span><span>x </span><span style="color:#b7c3ce;">+</span><span> other</span><span style="color:#b7c3ce;">.</span><span>x</span><span style="color:#b7c3ce;">,</span><span> y </span><span style="color:#b7c3ce;">+</span><span> other</span><span style="color:#b7c3ce;">.</span><span>y</span><span style="color:#b7c3ce;">);
+</span><span>  </span><span style="color:#b7c3ce;">}
+</span><span>
+</span><span>  </span><span style="color:#5981f5;">public </span><span>Vector </span><span style="color:#ffffff;">minus</span><span style="color:#b7c3ce;">(</span><span>Vector </span><span style="color:#ffffff;">other</span><span style="color:#b7c3ce;">) {
+</span><span>    </span><span style="color:#5981f5;">return new </span><span>Vector</span><span style="color:#b7c3ce;">(</span><span>x </span><span style="color:#b7c3ce;">-</span><span> other</span><span style="color:#b7c3ce;">.</span><span>x</span><span style="color:#b7c3ce;">,</span><span> y </span><span style="color:#b7c3ce;">-</span><span> other</span><span style="color:#b7c3ce;">.</span><span>y</span><span style="color:#b7c3ce;">);
+</span><span>  </span><span style="color:#b7c3ce;">}
+</span><span style="color:#b7c3ce;">}
+</span></code></pre>
+<p>You can do that with many different concepts and in the end you have a small library to implement math into your game. For example, turning around a player or calculating the distance between two game objects can be simply done by using vectors.</p>
+<h2 id="giving-birth-to-your-game">Giving birth to your game</h2>
+<p>What about moving pixels on the screen? Java already has libraries like <a href="https://en.wikipedia.org/wiki/Swing_(Java)">Swing</a> or <a href="https://en.wikipedia.org/wiki/JavaFX">JavaFX</a> and I could have easily used that to write games. It seems crazy to go down the Java path for game development but I am not completely stupid. All gamers have powerful graphics cards and it would be absolutely mental not to use them. These GUI libraries rely on Software Rendering by default, which means the CPU does all the work. So we need a better solution if we want to make a highly performing 3D shooter or the next WoW.</p>
+<blockquote>
+<p>Miguel, why not using an Engine then?</p>
+</blockquote>
+<p>Beeep, wrong question! Why bothering with a complex game engine when you can just include a small library which provides all those features for you?</p>
+<ul>
+<li>complete 2D/3D editors for modeling</li>
+<li>inbuilt physics, lighting and rainbow machine 🌈</li>
+<li>amazing graphics, shaders</li>
+<li>and much more...</li>
+</ul>
+<p>Sounds familiar? I'll present to you <a href="https://libgdx.badlogicgames.com/">libgdx</a>:</p>
+<p><img src="/images/libgdx-icon.webp" alt="libgdx-icon" /></p>
+<p>Yes, this library let me do all this fancy game engine stuff, but in Java! Everything rendered on my <strong>GTX 93849 Extreme Ultra HD Power 5000</strong> Graphics Card (without FPS limit an initial empty game gets ~15000fps, whoops). Nowadays I takes me 30 minutes to create a simple 3D Snake game in Java. In under 200 lines of code. Without touching any game engine. You're not believing me? Then you have to wait for a next blog article.</p>
+<h2 id="why-libgdx">Why libgdx?</h2>
+<p>This library allows me to combine it with my Java knowledge to write games the same way as you would write a small Swing application. Furthermore it is cross-plattform compatible, so the Java game runs <a href="http://libgdx.badlogicgames.com/features.html">on Windows, MacOS, Linux, Android and even iOS</a>!</p>
+<p>Moreover I really love Java. During the past years I worked with several programming languages, frameworks and libraries, however Java always was the easiest and simplest to work with. For example, C# is great as well. It even has features like <a href="https://msdn.microsoft.com/en-gb/library/aa288459(v=vs.71).aspx">Delegates</a> and <a href="https://msdn.microsoft.com/en-us/library/x9fsa0sw(v=vs.100).aspx">Properties</a> which I really miss in Java. Also C++ is great to work with. Compile natively and have very low overhead, compared to Java. A simple SDL game written in C++ (proc-gen, without assets) can be around ~40kb, while the same game in Java is easily 8MB in size (all required .jar libraries need to get packed in the fat-jar). That's an increase of 2000%. Still, we're living in 2017 and file size doesn't matter anymore (mostly). In terms of resource management <a href="https://benchmarksgame.alioth.debian.org/u64q/compare.php?lang=java&amp;lang2=gpp">Java doesn't do that well compared to C++</a> but as I said, our computers are monster machines, we just don't care anymore.</p>
+<h2 id="conservative-and-old-fashioned">Conservative and old-fashioned?</h2>
+<p>Do I enjoy Java too much? Probably yes. Could I save lot of time when writing larger games by using an actual game engine? Maybe. Do I want to learn various game engines by heart? Definitely. I am not saying that I blindly refuse to do something different than Java. Regardless, it's the most fun way to do what I love.</p>
+<blockquote>
+<p>Do what you want independent of technology, library or game engine. It does't matter how you do it. It doesn't matter how long it takes to get there. The only thing which matters is that you are doing what you love.</p>
+</blockquote>
+<p>- Miguel</p>
+
+        </div>
+        
+        
+        
+        <div class="bg-slate-100 dark:bg-slate-800 mt-12">
+            <div class="flex items-stretch lg:items-stretch">
+                
+                
+                
+                
+                    
+                
+                
+                    
+                    
+                        
+                    
+                    <div class="author-box__media">
+                        <img src="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg" alt="" class="author-box__avatar"/>
+                    </div>
+                
+                <div class="text-4xl lg:text-base text-slate-700 dark:text-slate-400 flex-1 author-box__content">
+                    
+                        <h2 class="font-serif text-6xl lg:text-2xl text-slate-900 dark:text-slate-300 m-0 author-box__title">bitbrain</h2>
+                    
+                    
+                        <div class="font-sans text-5xl lg:text-xl text-slate-600 dark:text-slate-500 mb-4 author-box__subtitle">Lead Software Engineer. Godot Engine evangelist.</div>
+                    
+                    
+                    
+                        
+                    
+                    
+                        <div class="mt-2 text-8xl lg:text-4xl flex gap-3 homepage-social author-box__social">
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;github.com&#x2F;bitbrain" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-github"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;youtube.com&#x2F;@bitbraindev" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-youtube"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;bsky.app&#x2F;profile&#x2F;bitbra.in" target="_blank" rel="me noopener noreferrer">
+                                        <i class="las la-at"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;mastodon.gamedev.place&#x2F;@bitbraindev" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-mastodon"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                        </div>
+                    
+            </div>
+        </div>
+        
+    </div>
+
+        </section>
+    </body>
+</html>

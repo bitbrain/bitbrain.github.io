@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+    <head>
+        <meta charset="utf-8">
+        
+        <script>
+            const isDarkMode = localStorage.getItem('is_darkmode_set') === 'true';
+            if (isDarkMode) {
+                document.documentElement.classList.add('dark');
+            }
+        </script>
+        
+        <meta name="color-scheme" content="light dark">
+
+        
+        
+        
+            
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        
+                        
+                            
+                            
+                            
+                                
+                            
+                        
+                    
+                
+            
+            
+            
+        
+        
+        
+            <link rel="me" href="https:&#x2F;&#x2F;mastodon.gamedev.place&#x2F;@bitbraindev">
+        
+
+        
+        
+
+        
+        <link rel="alternate"
+              type="application/atom+xml"
+              title="bitbrain feed"
+              href="https://bitbra.in/atom.xml">
+        
+
+        
+        <link rel="icon" type="image/webp" href="https://bitbra.in/favicon.webp?h=0d4aaa30fc76312a3ebe">
+        <link rel="icon" type="image/png" href="https://bitbra.in/favicon.png?h=44b76b5cf66397d57be1" sizes="32x32">
+
+        <link rel="stylesheet" href="https://bitbra.in/css/style.css?h=02ededa3d6ae0ee7a513"/>
+        <link rel="stylesheet" href="https://bitbra.in/line-awesome/css/line-awesome.min.css?h=ce61a18cf084f1500379"/>
+        <script src="https://bitbra.in/js/main.js?h=6ebbb40a03fcd672fbed" defer></script>
+        
+    <title>Godot Version Compatibility: A Guide for Addon Developers | bitbrain</title>
+    
+    
+    
+    
+    
+    
+        
+    
+    
+        
+        
+            
+        
+    
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Godot Version Compatibility: A Guide for Addon Developers">
+    
+    <meta property="og:url" content="https:&#x2F;&#x2F;bitbra.in&#x2F;blog&#x2F;godot-addon-compatibility&#x2F;">
+    <meta property="og:site_name" content="bitbrain">
+    <meta property="og:image" content="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Godot Version Compatibility: A Guide for Addon Developers">
+    
+    <meta name="twitter:image" content="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg">
+    
+    
+    
+        
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                    
+                    
+                        
+                        
+                        
+                            
+                        
+                    
+                
+            
+        
+        
+        
+    
+    
+    
+        
+        
+        
+        
+            
+            
+            <meta name="fediverse:creator" content="@bitbraindev@mastodon.gamedev.place">
+        
+    
+
+    </head>
+
+    <body class="bg-white dark:bg-slate-900 transition ease-in-out">
+        <section>
+            
+    
+<div class="sticky top-0 bg-slate-100 dark:bg-slate-800">
+    <div class="container mx-auto flex place-content-between
+        py-16 lg:py-8 font-sans text-6xl lg:text-2xl text-slate-900
+        dark:text-white">
+        <div class="flex">
+            
+            
+            
+            
+            <a class="m-0 p-0 text-slate-900 hover:text-slate-700
+                            dark:text-white dark:hover:text-white" href="&#x2F;blog&#x2F;">
+                /blog
+            </a>
+            
+            
+            
+            
+            
+            
+        </div>
+        <div class="flex gap-4 header-links">
+            <div id="back-to-top" class="hidden cursor-pointer">
+                <i class="las la-level-up-alt"></i>
+            </div>
+            <a href="/"><i class="las la-home"></i></a>
+            
+            <a href="https://bitbra.in/atom.xml"><i class="las la-rss"></i></a>
+            
+            <div id="darkmode-toggle" class="cursor-pointer">
+                <div class="hidden dark:inline">
+                    <i class="las la-sun"></i>
+                </div>
+                <div class="inline dark:hidden">
+                    <i class="las la-moon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="container mb-16">
+        <div class="mt-4 font-serif text-slate-600 dark:text-slate-500 text-4xl lg:text-base">
+            2023-09-03
+        </div>
+        <h1 class="w-full mt-4 mb-8 font-serif text-8xl lg:text-4xl text-slate-900 dark:text-slate-300">
+            Godot Version Compatibility: A Guide for Addon Developers
+        </h1>
+        <div class="w-100 border-t mb-8 border-slate-300 dark:border-slate-700"></div>
+        <div class="prose-boring">
+            <p><strong>Godot addons offer a powerful way to extend the engine's functionality without having to modify its core.</strong> This flexibility empowers the community to create custom solutions without burdening the engine itself. However, as addon developers, we must strike a balance between compatibility and functionality. This article explores the trade-offs involved, focusing primarily on Godot Engine 4.x.</p>
+<h2 id="the-anatomy-of-a-godot-release">The Anatomy of a Godot Release</h2>
+<p>Godot currently has two <strong>major</strong> versions in circulation:</p>
+<ul>
+<li><strong>Godot 3.x</strong>: This older version is known for its stability and backward compatibility. It's particularly useful for projects that require lighter hardware capabilities, such as mobile games.</li>
+<li><strong>Godot 4.x</strong>: This is the newer, more advanced version, boasting superior graphics capabilities through Vulkan and significant reworks of various systems.</li>
+</ul>
+<p>Each major version consists of <strong>minor</strong> versions (e.g., Godot 4.0, 4.1, etc.) that mainly introduce new features and bug fixes. These are followed by <strong>maintenance</strong> versions (e.g., 4.0.1, 4.1.2) focusing on bug fixes, compatibility improvements, and minor UX enhancements. Typically, maintenance releases are non-API-breaking.</p>
+<h2 id="crafting-a-compatibility-matrix">Crafting a Compatibility Matrix</h2>
+<p>When developing addons, it's crucial to consider which Godot features you'll be using from the outset. Suppose you have an addon compatible with all minor versions of Godot 4.x. Your initial compatibility matrix might look like this:</p>
+<table><thead><tr><th>Godot Version</th><th>Addon Version</th></tr></thead><tbody>
+<tr><td>4.0.x</td><td>1.0.x</td></tr>
+<tr><td>4.1.x</td><td>1.0.x</td></tr>
+</tbody></table>
+<p>Let's say Godot 4.1 introduces a <a href="https://github.com/godotengine/godot/pull/76264">new feature</a> called <strong>static variables</strong>:</p>
+<pre data-lang="gdscript" style="background-color:#090a0c;color:#dae4ed;" class="language-gdscript "><code class="language-gdscript" data-lang="gdscript"><span>class_name CustomClass extends RefCounted
+</span><span>
+</span><span># shared between instances of this class
+</span><span>static var my_var:int
+</span></code></pre>
+<p>Using this feature would make your addon incompatible with Godot 4.0.x. You now have three options:</p>
+<h3 id="option-1-maintain-support-for-godot-4-0">Option 1: Maintain Support for Godot 4.0</h3>
+<blockquote>
+<p>✅ Maximum flexibility<br />
+⛔️ High administrative overhead</p>
+</blockquote>
+<table><thead><tr><th>Godot Version</th><th>Addon Version</th></tr></thead><tbody>
+<tr><td>4.0.x</td><td>1.0.x</td></tr>
+<tr><td>4.1.x</td><td>1.1.x</td></tr>
+</tbody></table>
+<p>You could maintain a separate <code>1.0</code> branch for Godot 4.0.x compatibility, cherry-picking bug fixes as needed. This approach increases administrative overhead, especially if you're using Continuous Integration.</p>
+<h3 id="option-2-drop-support-for-godot-4-0">Option 2: Drop Support for Godot 4.0</h3>
+<blockquote>
+<p>✅ Access to all new features<br />
+⛔️ Risk of alienating some users</p>
+</blockquote>
+<table><thead><tr><th>Godot Version</th><th>Addon Version</th></tr></thead><tbody>
+<tr><td>4.1.x</td><td>1.1.x</td></tr>
+</tbody></table>
+<p>By dropping support for older versions, you can fully utilize the new features but may lose users who are still on Godot 4.0.x.</p>
+<h3 id="option-3-maintain-broad-compatibility">Option 3: Maintain Broad Compatibility</h3>
+<blockquote>
+<p>✅ Broad user base<br />
+⛔️ Limited access to new features</p>
+</blockquote>
+<table><thead><tr><th>Godot Version</th><th>Addon Version</th></tr></thead><tbody>
+<tr><td>4.x</td><td>1.x</td></tr>
+</tbody></table>
+<p>This approach minimizes administrative work but restricts you from using newer features.</p>
+<h2 id="which-option-to-pick">Which Option to Pick?</h2>
+<p>The best approach depends on various factors:</p>
+<ul>
+<li><strong>User Base</strong>: Check <a href="https://godotengine.github.io/issue-stats/">issue stats</a> to gauge the popularity of different Godot versions.</li>
+<li><strong>Feature Importance</strong>: Assess how critical new Godot features are for your addon's functionality.</li>
+<li><strong>Administrative Overhead</strong>: Be realistic about the time and effort you can invest in maintaining multiple branches.</li>
+<li><strong>Backporting</strong>: Consider whether a feature could be backported to older versions, especially if it's a game-changer.</li>
+</ul>
+<h2 id="supporting-godot-3-x">Supporting Godot 3.x</h2>
+<p>If you wish to support both Godot 3 and 4, you can maintain separate branches for each. For example, my addon <a href="https://bitbra.in/beehave/#/?id=%f0%9f%93%a6-installation">beehave</a> has two branches: <strong>godot-4.x</strong> and <strong>godot-3.x</strong>, each tailored to its respective Godot version.</p>
+
+        </div>
+        
+        
+        
+        <div class="bg-slate-100 dark:bg-slate-800 mt-12">
+            <div class="flex items-stretch lg:items-stretch">
+                
+                
+                
+                
+                    
+                
+                
+                    
+                    
+                        
+                    
+                    <div class="author-box__media">
+                        <img src="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg" alt="" class="author-box__avatar"/>
+                    </div>
+                
+                <div class="text-4xl lg:text-base text-slate-700 dark:text-slate-400 flex-1 author-box__content">
+                    
+                        <h2 class="font-serif text-6xl lg:text-2xl text-slate-900 dark:text-slate-300 m-0 author-box__title">bitbrain</h2>
+                    
+                    
+                        <div class="font-sans text-5xl lg:text-xl text-slate-600 dark:text-slate-500 mb-4 author-box__subtitle">Lead Software Engineer. Godot Engine evangelist.</div>
+                    
+                    
+                    
+                        
+                    
+                    
+                        <div class="mt-2 text-8xl lg:text-4xl flex gap-3 homepage-social author-box__social">
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;github.com&#x2F;bitbrain" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-github"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;youtube.com&#x2F;@bitbraindev" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-youtube"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;bsky.app&#x2F;profile&#x2F;bitbra.in" target="_blank" rel="me noopener noreferrer">
+                                        <i class="las la-at"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;mastodon.gamedev.place&#x2F;@bitbraindev" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-mastodon"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                        </div>
+                    
+            </div>
+        </div>
+        
+    </div>
+
+        </section>
+    </body>
+</html>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+    <head>
+        <meta charset="utf-8">
+        
+        <script>
+            const isDarkMode = localStorage.getItem('is_darkmode_set') === 'true';
+            if (isDarkMode) {
+                document.documentElement.classList.add('dark');
+            }
+        </script>
+        
+        <meta name="color-scheme" content="light dark">
+
+        
+        
+        
+            
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        
+                        
+                            
+                            
+                            
+                                
+                            
+                        
+                    
+                
+            
+            
+            
+        
+        
+        
+            <link rel="me" href="https:&#x2F;&#x2F;mastodon.gamedev.place&#x2F;@bitbraindev">
+        
+
+        
+        
+
+        
+        <link rel="alternate"
+              type="application/atom+xml"
+              title="bitbrain feed"
+              href="https://bitbra.in/atom.xml">
+        
+
+        
+        <link rel="icon" type="image/webp" href="https://bitbra.in/favicon.webp?h=0d4aaa30fc76312a3ebe">
+        <link rel="icon" type="image/png" href="https://bitbra.in/favicon.png?h=44b76b5cf66397d57be1" sizes="32x32">
+
+        <link rel="stylesheet" href="https://bitbra.in/css/style.css?h=02ededa3d6ae0ee7a513"/>
+        <link rel="stylesheet" href="https://bitbra.in/line-awesome/css/line-awesome.min.css?h=ce61a18cf084f1500379"/>
+        <script src="https://bitbra.in/js/main.js?h=6ebbb40a03fcd672fbed" defer></script>
+        
+    <title>Building a game from scratch in 48 hours | bitbrain</title>
+    
+    
+    
+    
+    
+    
+        
+    
+    
+        
+        
+            
+        
+    
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Building a game from scratch in 48 hours">
+    <meta property="og:description" content="I built a game in 48 hours from scratch. Let me show you how I did this.">
+    <meta property="og:url" content="https:&#x2F;&#x2F;bitbra.in&#x2F;blog&#x2F;minibeansjam5-building-a-game&#x2F;">
+    <meta property="og:site_name" content="bitbrain">
+    <meta property="og:image" content="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Building a game from scratch in 48 hours">
+    <meta name="twitter:description" content="I built a game in 48 hours from scratch. Let me show you how I did this.">
+    <meta name="twitter:image" content="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg">
+    
+    
+    
+        
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                    
+                    
+                        
+                        
+                        
+                            
+                        
+                    
+                
+            
+        
+        
+        
+    
+    
+    
+        
+        
+        
+        
+            
+            
+            <meta name="fediverse:creator" content="@bitbraindev@mastodon.gamedev.place">
+        
+    
+
+    </head>
+
+    <body class="bg-white dark:bg-slate-900 transition ease-in-out">
+        <section>
+            
+    
+<div class="sticky top-0 bg-slate-100 dark:bg-slate-800">
+    <div class="container mx-auto flex place-content-between
+        py-16 lg:py-8 font-sans text-6xl lg:text-2xl text-slate-900
+        dark:text-white">
+        <div class="flex">
+            
+            
+            
+            
+            <a class="m-0 p-0 text-slate-900 hover:text-slate-700
+                            dark:text-white dark:hover:text-white" href="&#x2F;blog&#x2F;">
+                /blog
+            </a>
+            
+            
+            
+            
+            
+            
+        </div>
+        <div class="flex gap-4 header-links">
+            <div id="back-to-top" class="hidden cursor-pointer">
+                <i class="las la-level-up-alt"></i>
+            </div>
+            <a href="/"><i class="las la-home"></i></a>
+            
+            <a href="https://bitbra.in/atom.xml"><i class="las la-rss"></i></a>
+            
+            <div id="darkmode-toggle" class="cursor-pointer">
+                <div class="hidden dark:inline">
+                    <i class="las la-sun"></i>
+                </div>
+                <div class="inline dark:hidden">
+                    <i class="las la-moon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="container mb-16">
+        <div class="mt-4 font-serif text-slate-600 dark:text-slate-500 text-4xl lg:text-base">
+            2020-04-08
+        </div>
+        <h1 class="w-full mt-4 mb-8 font-serif text-8xl lg:text-4xl text-slate-900 dark:text-slate-300">
+            Building a game from scratch in 48 hours
+        </h1>
+        <div class="w-100 border-t mb-8 border-slate-300 dark:border-slate-700"></div>
+        <div class="prose-boring">
+            <p><a href="https://itch.io/jam/minibeansjam5"><img src="/images/minibeansjam5.webp" alt="minibeansjam5" /></a></p>
+<p>Between Friday 3rd-5th April 2020, German <a href="https://rocketbeans.tv/">Rocketbeans TV</a> hosted <a href="https://itch.io/jam/minibeansjam5">minibeansjam 5</a>, a 48 hour gamejam. I submitted a game and managed to finish most bits right in time.</p>
+<p>The purpose is not to win anything, it's more a fun thing to do and it challenges your skills in time management, setting priorities as well as health care. (yes, you <strong>NEED</strong> sleep!)</p>
+<h1 id="preparation">Preparation</h1>
+<p>Personally, I need to be in the right mood to approach something like a gamejam. I am a quite emotional developer and if I feel down or unwell, my creativity kinda stalls. That's why I don't <em>prepare</em> for gamejams in general. As a general rule though, please consider the following before approaching <strong>any</strong> gamejam:</p>
+<ul>
+<li><strong>gamejams are there to have fun</strong>. Do not stress yourself! I know it can quite daunting at first, however, we're all in the same boat. Enjoy it!</li>
+<li><strong>fix your sleep cycle!</strong> There is nothing worse than a broken sleep cycle. I know, people have their preferred time to stay awake (some people even like to work only during night). This is completely fine. However, make sure you keep it consistent, since otherwise you might oversleep on the last day and miss the deadline.</li>
+<li><strong>stay hydrated!</strong> prepare yourself with your favourite drink (sparkling water or still water is my favourite pick) - this keeps the brain cells active and moist!</li>
+<li><strong>Stay Away From Energy Drinks (SAFED)</strong></li>
+<li><strong>sharpen your tools</strong> on kick-off day, make sure you have everything already opened, preloaded etc. so you do not have to do it once the themes are announced.</li>
+<li><strong>Together is Better!</strong> find people who want to do it with you. I promise you it changes the entire experience.</li>
+</ul>
+<p>Interestingly, I purposefully did this game on my own. Initially, I was looking for a team but then I wanted to challenge myself: can I build a game including assets, programming, level design, game design, writing, sound design and music myself in such a short time?</p>
+<p><img src="/images/challenge-accepted-meme.webp" alt="challenge-accepted" /></p>
+<h1 id="picking-a-theme">Picking a theme</h1>
+<p>The theme has been announced around 6pm on Friday:</p>
+<blockquote class="twitter-tweet" data-lang="en" data-theme="dark"><p lang="de" dir="ltr">Der <a href="https://twitter.com/hashtag/miniBeansjam5?src=hash&amp;ref_src=twsrc%5Etfw">#miniBeansjam5</a> Countdown hat begonnen!<br>Hier sind die Begriffe für das <a href="https://twitter.com/hashtag/GameJam?src=hash&amp;ref_src=twsrc%5Etfw">#GameJam</a> Thema!<br><br>Wählt mindestens 2 der 3 Begriffe: Explosion, Elastisch und/oder Jenseits.<br><br>Die Zeit endet am Sonntag um 19:00 Uhr, also in 48 Stunden!<br>Viel Spaß bei unserem <a href="https://twitter.com/hashtag/GameJam?src=hash&amp;ref_src=twsrc%5Etfw">#GameJam</a>!<a href="https://twitter.com/hashtag/gamedev?src=hash&amp;ref_src=twsrc%5Etfw">#gamedev</a> <a href="https://twitter.com/hashtag/rbtv?src=hash&amp;ref_src=twsrc%5Etfw">#rbtv</a> <a href="https://t.co/5Rnw3iR1OM">pic.twitter.com/5Rnw3iR1OM</a></p>&mdash; miniBeansjam (@minibeansjam) <a href="https://twitter.com/minibeansjam/status/1246120117433520131?ref_src=twsrc%5Etfw">April 3, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p>For my all non-German friends, this basically says to pick one or more of the following themes:</p>
+<ul>
+<li>Explosion</li>
+<li>Elastic</li>
+<li>Beyond</li>
+</ul>
+<p>The themes are not super strict but can be interpreted in any way. Their main purpose is to guide your imagination! The first thing I always do is creating <strong>a mindmap</strong>:</p>
+<p><img src="/images/mindmap-minibeansjam5.webp" alt="challenge-accepted" /></p>
+<p>You can use whatever tool you prefer for this, after a quick Google search I found <a href="https://app.mindmapmaker.org/#m:new">mindmapmaker.org</a>.</p>
+<p>I stared at my creation for a couple of minutes until I realised: I want to build a <strong>zombie shooter survival horror</strong>!</p>
+<h1 id="setting-up-the-project">Setting up the project</h1>
+<p>The next step for me is to set up a project. Many people also do offline games (like board games) where this obviously is not applicable.</p>
+<h2 id="version-control">Version control</h2>
+<p>A version control system (VSC) <a href="https://git-scm.com/">like git</a> helps you to track your changes over time. The idea is that every change you do to your project is stored in the cloud and can be accessed at any given time. For that, I use Github for that:</p>
+<p><a href="https://github.com/bitbrain/shelter"><img src="/images/shelter-github-screenshot.webp" alt="shelter-github" /></a></p>
+<p>It is important to use a VSC since it can save you a lot of pain. Using something like Dropbox is very difficult once you want to play around with features but you do not have the concept of branches. Also, working with multiple people on the same file can be challenging with something like Dropbox. Version control becomes a <strong>MUST</strong> in bigger teams.</p>
+<h2 id="generating-the-project-files">Generating the project files</h2>
+<p>Next up I generate the project. I build all my games in Java, more specifically with frameworks like <a href="https://libgdx.badlogicgames.com/">libgdx</a> and <a href="https://github.com/bitbrain/braingdx">braingdx</a>. Then I commit the changes to Git and push them to my Github repository:</p>
+<p><a href="https://github.com/bitbrain/shelter/commit/778eadaff2618b342a05dcd64813310c0f482f9c"><img src="/images/shelter-initial-commit.webp" alt="shelter-initial-commit" /></a></p>
+<p>Obviously, using when something like <a href="https://unity.com/">Unity Engine</a>, you'd push the project files of your Unity project.</p>
+<h1 id="plan-your-time-wisely">Plan your time wisely</h1>
+<p>This is the first critical stage. When I attended my first game jams a couple of years ago, I'd already rush ahead and implement <strong>features</strong> like health system, fighting, enemies or shooting. Those things are useful and make your game fun, however, now might not be the right time to do this. In my head, it looks a little bit like this:</p>
+<p><img src="/images/48-gamejam-timeline.webp" alt="48hour-timeline" /></p>
+<p>I call this the <strong>Gamejam Flow Pyramid</strong> (excuse my poor MSPaint skills. Also, arrows are now up to scale). The idea is the following:</p>
+<ul>
+<li><strong>Day 1</strong>: working out the core mechanic of your game. After the first day, your game is basically already playable, but most likely is 0 fun since reward systems, UI, assets, etc. are missing. However, <strong>mechanically</strong> the foundation for your game is set.</li>
+<li><strong>Day 2</strong>: Powermode! It's time to implement all your features, assets and build a basic (functional) UI. At the end of the day, mostly only polishing and nice-to-have features should be left. Also, do not worry about the game loop or menu flow, that's all for the last day.</li>
+<li><strong>Day 3</strong>: Wrapping it up. Time to finish the game loop, build menu flows (logo screen -&gt; main menu -&gt; ingame -&gt; game over, etc.) . Also try to polish your game as much as possible: add particle effects, screen shake, more animations, etc. and add features you think will make the game more fun.</li>
+</ul>
+<p>Obviously, this order is just a suggestion and always works for me the best. Also, for multi-disciplinary teams this order can be moved around or things like assets and levels can be prepared already on Day 1 while developers work on implementing game mechanics. On Day 2 and Day 3, artists, writers and composers can then work on polishing existing stuff or extend the game.</p>
+<h1 id="day-1-the-dancing-man">Day 1: the dancing man</h1>
+<p>After setting up my project, I opened my <a href="https://pyxeledit.com">Pyxel Edit</a> to create a simple tileset:</p>
+<p><img src="/images/shelter-tileset.webp" alt="shelter-tileset" /></p>
+<p>I added a lot of variation to different grass tiles so the game looks okay when walking over a plain of grass. If you haven't seen tile sets like this yet: <a href="https://doc.mapeditor.org/en/stable/manual/using-the-terrain-tool/">Tiled map editor has Terrain support</a> and it makes things so much more easier to build nice-looking maps with the terrain editor:</p>
+<p><img src="/images/shelter-terrain-editor.webp" alt="shelter-terrain-editor" /></p>
+<p>Once the terrain has been defined, you can simply draw terrain within tiled:</p>
+<p><img src="/images/shelter-terrain-example.webp" alt="shelter-terrain-example" /></p>
+<p>That's all I needed for level design right now. Time to work on my core mechanic: the walking soldier. To achieve that, I wanted to do a 2.5-dimensional illusion where you can perceive depth:</p>
+<p><img src="/images/2.5d-example.webp" alt="2.5d-example" /></p>
+<p>Next up I created the player tileset. In previous games I always used to have WASD movement and four directions. However, that can be very limiting and I wanted the player to move in ANY direction. That's why the tileset needs to take diagonal movement into account:</p>
+<p><img src="/images/shelter-player-tileset.webp" alt="shelter-player-tileset" /></p>
+<p>Implementing this into the game <a href="https://github.com/bitbrain/braingdx/wiki/animations">with the animation system of my framework braingdx</a> was straight-forward. Here is the result:</p>
+<blockquote class="twitter-tweet" data-theme="dark"><p lang="en" dir="ltr">Implemented movement 🏃‍♀️ and rotation 💃<br><br>Next up: running animation and weapon system.<a href="https://twitter.com/hashtag/gamedev?src=hash&amp;ref_src=twsrc%5Etfw">#gamedev</a> <a href="https://twitter.com/minibeansjam?ref_src=twsrc%5Etfw">@minibeansjam</a> <a href="https://t.co/tZO43xUzBu">pic.twitter.com/tZO43xUzBu</a></p>&mdash; 〽️ɪɢᴜᴇʟ (@bitbrain_) <a href="https://twitter.com/bitbrain_/status/1246172775494176768?ref_src=twsrc%5Etfw">April 3, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+<p>Enough for the first day. Time to go to bed! 😴💤</p>
+<h1 id="day-2-zombie-apocalypse">Day 2: zombie apocalypse</h1>
+<p>The second day was about building out the core mechanics such as implementing shooting and zombies:</p>
+<blockquote class="twitter-tweet" data-theme="dark"><p lang="en" dir="ltr">Implemented <a href="https://twitter.com/hashtag/box2d?src=hash&amp;ref_src=twsrc%5Etfw">#box2d</a> physics and shadows. Now I can bump into zombies.<br><br>Now working on the first weapon, shooting &amp; running animations. <a href="https://t.co/MKmT2fP4IH">pic.twitter.com/MKmT2fP4IH</a></p>&mdash; 〽️ɪɢᴜᴇʟ (@bitbrain_) <a href="https://twitter.com/bitbrain_/status/1246417958055837701?ref_src=twsrc%5Etfw">April 4, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+<p>Making zombies was rather easy: I desaturated the colours of the player texture, painted the skin green and made the eyes red:</p>
+<p><img src="/images/shelter-zombie-tileset.webp" alt="shelter-player-tileset" /></p>
+<p>Yes, this means zombies have the same animation as the player, but nobody hopefully notices this! <em>flies away</em></p>
+<blockquote class="twitter-tweet" data-theme="dark"><p lang="en" dir="ltr">Shooting in action.<br><br>Next up: making zombies aggressive and more animations.<a href="https://twitter.com/hashtag/minibeansjam5?src=hash&amp;ref_src=twsrc%5Etfw">#minibeansjam5</a> <a href="https://twitter.com/minibeansjam?ref_src=twsrc%5Etfw">@minibeansjam</a> <a href="https://t.co/TicPbc33EI">pic.twitter.com/TicPbc33EI</a></p>&mdash; 〽️ɪɢᴜᴇʟ (@bitbrain_) <a href="https://twitter.com/bitbrain_/status/1246500096042205185?ref_src=twsrc%5Etfw">April 4, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+<p>After implementing shooting zombies and a health system, it was time to do something entirely different: composing a soundtrack. Since I wanted to save time and I was all on my own, I had to do a few design decisions before composing:</p>
+<ul>
+<li>the track should be repeatable without noticing and should not become boring</li>
+<li>the track should be rather ambient based</li>
+<li>the game is action-based but I wanted to keep it horror, so it should not have any percussion work</li>
+</ul>
+<p>I spun up my Ableton and came up with this:</p>
+<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/791093143&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+<p>I added tons of base and reverb to give a sense of loneliness. Also notice those weird tones towards the end? That's me just randomly punching my MIDI keyboard.</p>
+<h1 id="day-3-taking-shelter">Day 3: taking shelter</h1>
+<p>On the last day I recorded various sound effects myself:</p>
+<ul>
+<li><strong>zombie sounds</strong> by moaning into the microphone and pitching it</li>
+<li><strong>footstep sounds</strong> by shaking my leather jacket</li>
+<li><strong>shot impact sounds</strong> by squishing a wet towel</li>
+<li><strong>door sounds</strong> by opening and closing one of our old doors and adding reverb</li>
+</ul>
+<p>Also, there are more sound effects I downloaded from the internet since it was rather difficult to record them myself:</p>
+<ul>
+<li>death sound</li>
+<li>explosion sound</li>
+<li>reload sound</li>
+<li>weapon shoot sound</li>
+</ul>
+<h1 id="last-words">Last words</h1>
+<p>That's how I built the game. Obviously, there was much more stuff done on the code front. Checkout this video to see all the code I wrote during this project:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dbCTbEMASB8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>I just want to thank the other participants <a href="https://itch.io/jam/minibeansjam5/entries">for their amazing games</a> (I played them all!) and also give special thanks to <a href="https://rocketbeans.tv/bohnen/65/Dmitrij">Dima (Dmitrij Chotin)</a> for organising this great event. Hey, <a href="https://twitter.com/retrodima">follow him on Twitter</a>! He built an amazing game, too.</p>
+<p>Oh! I almost forgot! You can play the game here:</p>
+<iframe src="https://itch.io/embed/603286?border_width=0&amp;dark=true" width="550" height="165" frameborder="0"><a href="https://bitbrain.itch.io/shelter">shelter by bitbrain</a></iframe>
+
+        </div>
+        
+        
+        
+        <div class="bg-slate-100 dark:bg-slate-800 mt-12">
+            <div class="flex items-stretch lg:items-stretch">
+                
+                
+                
+                
+                    
+                
+                
+                    
+                    
+                        
+                    
+                    <div class="author-box__media">
+                        <img src="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg" alt="" class="author-box__avatar"/>
+                    </div>
+                
+                <div class="text-4xl lg:text-base text-slate-700 dark:text-slate-400 flex-1 author-box__content">
+                    
+                        <h2 class="font-serif text-6xl lg:text-2xl text-slate-900 dark:text-slate-300 m-0 author-box__title">bitbrain</h2>
+                    
+                    
+                        <div class="font-sans text-5xl lg:text-xl text-slate-600 dark:text-slate-500 mb-4 author-box__subtitle">Lead Software Engineer. Godot Engine evangelist.</div>
+                    
+                    
+                    
+                        
+                    
+                    
+                        <div class="mt-2 text-8xl lg:text-4xl flex gap-3 homepage-social author-box__social">
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;github.com&#x2F;bitbrain" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-github"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;youtube.com&#x2F;@bitbraindev" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-youtube"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;bsky.app&#x2F;profile&#x2F;bitbra.in" target="_blank" rel="me noopener noreferrer">
+                                        <i class="las la-at"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;mastodon.gamedev.place&#x2F;@bitbraindev" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-mastodon"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                        </div>
+                    
+            </div>
+        </div>
+        
+    </div>
+
+        </section>
+    </body>
+</html>

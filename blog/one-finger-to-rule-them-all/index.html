@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+    <head>
+        <meta charset="utf-8">
+        
+        <script>
+            const isDarkMode = localStorage.getItem('is_darkmode_set') === 'true';
+            if (isDarkMode) {
+                document.documentElement.classList.add('dark');
+            }
+        </script>
+        
+        <meta name="color-scheme" content="light dark">
+
+        
+        
+        
+            
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        
+                        
+                            
+                            
+                            
+                                
+                            
+                        
+                    
+                
+            
+            
+            
+        
+        
+        
+            <link rel="me" href="https:&#x2F;&#x2F;mastodon.gamedev.place&#x2F;@bitbraindev">
+        
+
+        
+        
+
+        
+        <link rel="alternate"
+              type="application/atom+xml"
+              title="bitbrain feed"
+              href="https://bitbra.in/atom.xml">
+        
+
+        
+        <link rel="icon" type="image/webp" href="https://bitbra.in/favicon.webp?h=0d4aaa30fc76312a3ebe">
+        <link rel="icon" type="image/png" href="https://bitbra.in/favicon.png?h=44b76b5cf66397d57be1" sizes="32x32">
+
+        <link rel="stylesheet" href="https://bitbra.in/css/style.css?h=02ededa3d6ae0ee7a513"/>
+        <link rel="stylesheet" href="https://bitbra.in/line-awesome/css/line-awesome.min.css?h=ce61a18cf084f1500379"/>
+        <script src="https://bitbra.in/js/main.js?h=6ebbb40a03fcd672fbed" defer></script>
+        
+    <title>Game design: one finger to rule them all | bitbrain</title>
+    
+    
+    
+    
+    
+    
+        
+    
+    
+        
+        
+            
+        
+    
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Game design: one finger to rule them all">
+    <meta property="og:description" content="I love creating games which can be played with just one touch">
+    <meta property="og:url" content="https:&#x2F;&#x2F;bitbra.in&#x2F;blog&#x2F;one-finger-to-rule-them-all&#x2F;">
+    <meta property="og:site_name" content="bitbrain">
+    <meta property="og:image" content="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Game design: one finger to rule them all">
+    <meta name="twitter:description" content="I love creating games which can be played with just one touch">
+    <meta name="twitter:image" content="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg">
+    
+    
+    
+        
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                    
+                    
+                        
+                        
+                        
+                            
+                        
+                    
+                
+            
+        
+        
+        
+    
+    
+    
+        
+        
+        
+        
+            
+            
+            <meta name="fediverse:creator" content="@bitbraindev@mastodon.gamedev.place">
+        
+    
+
+    </head>
+
+    <body class="bg-white dark:bg-slate-900 transition ease-in-out">
+        <section>
+            
+    
+<div class="sticky top-0 bg-slate-100 dark:bg-slate-800">
+    <div class="container mx-auto flex place-content-between
+        py-16 lg:py-8 font-sans text-6xl lg:text-2xl text-slate-900
+        dark:text-white">
+        <div class="flex">
+            
+            
+            
+            
+            <a class="m-0 p-0 text-slate-900 hover:text-slate-700
+                            dark:text-white dark:hover:text-white" href="&#x2F;blog&#x2F;">
+                /blog
+            </a>
+            
+            
+            
+            
+            
+            
+        </div>
+        <div class="flex gap-4 header-links">
+            <div id="back-to-top" class="hidden cursor-pointer">
+                <i class="las la-level-up-alt"></i>
+            </div>
+            <a href="/"><i class="las la-home"></i></a>
+            
+            <a href="https://bitbra.in/atom.xml"><i class="las la-rss"></i></a>
+            
+            <div id="darkmode-toggle" class="cursor-pointer">
+                <div class="hidden dark:inline">
+                    <i class="las la-sun"></i>
+                </div>
+                <div class="inline dark:hidden">
+                    <i class="las la-moon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="container mb-16">
+        <div class="mt-4 font-serif text-slate-600 dark:text-slate-500 text-4xl lg:text-base">
+            2019-05-10
+        </div>
+        <h1 class="w-full mt-4 mb-8 font-serif text-8xl lg:text-4xl text-slate-900 dark:text-slate-300">
+            Game design: one finger to rule them all
+        </h1>
+        <div class="w-100 border-t mb-8 border-slate-300 dark:border-slate-700"></div>
+        <div class="prose-boring">
+            <p>Everyone owns a smartphone nowadays. People are swiping within their apps up and down, left and right, panning in and double tap  whenever they get the opportunity. What people definitely don't want is having to use more than a single finger. When looking at popular apps like Instagram, Twitter or Boost, the entire UX flow is designed for single-hand use. Game developers such as <a href="https://king.com">King</a> have taken that principle to another level for a simple reason: <strong>Accessibility</strong>.</p>
+<p>If you want your game to be played by the masses, it needs to be accessible. In order for a game to be accessible, it needs to be supported by the hardware and the user should not get confused how to actually play the game. Many mobile games have long and annoying tutorials, explaining the complex UI and input methods such as buttons and virtual HUDs. Personally, I always disliked the fact that controls are being emulated on smartphones via HUDs like this:</p>
+<p><img src="https://icdn9.digitaltrends.com/image/fortnite-mobile-beginners-guide-gather-720x720.jpg" alt="fortnite-hud" /></p>
+<p>Especially on a busy train or a cigarette in one hand, playing those kind of games can be quite tricky. Why don't all mobile games just have simple <strong>One Finger to Rule them All</strong> controls?</p>
+<h1 id="simple-controls-are-challenging">Simple controls are challenging</h1>
+<p>There is a simple reason why so many games try to avoid simple input but instead use more complex input mechanisms: it can become rather complicated to communicate how the game can be played, when there is just a single input method! On the other hand, as a user I do not want to read through manuals or tutorials to learn how to actually play the game. Time is much better spent and there are so many games out there which do not require any tutorials whatsoever. Thus, designing a simple input system which can be just with just one finger is key. Before we can implement simple input, the following questions need to be answered:</p>
+<ul>
+<li>how does the player know if he should swipe, pan or where to click?</li>
+<li>how do I prevent that the player accidentally uses wrong controls?</li>
+<li>how can I ensure the player learns the controls naturally by just trying out?</li>
+</ul>
+<p>Answering these questions gave me confidence to build all my games with simple controls. This made designing UI components rather hard but eventually paid of by having a really simple game experience.</p>
+<blockquote>
+<p>The more limited the controls are, the more accessible the game is. However, the amount of input combinations decreases with limited controls.</p>
+</blockquote>
+<p>Finding the perfect balance between those two is the real challenge.</p>
+<h1 id="a-first-approach">A first approach</h1>
+<p>Currently I am working on a small game called <strong>scape</strong> - it is a fast-paced 2D platformer written in <a href="https://en.wikipedia.org/wiki/Java_(programming_language)">Java</a>, using my gamejam framework called <a href="https://github.com/bitbrain/braingdx">braingdx</a>. You play a little virus infecting a compuer system. I got inspired by <a href="https://yoo-ninja-free.en.uptodown.com/android">Yoo Ninja!</a>, one of my favourite Android games:</p>
+<p><img src="https://img.utdstc.com/screen/13/yoo-ninja-free-1.jpg:l" alt="yoo-ninja" /></p>
+<p>Basically, the idea is to reach the end of the level without falling out of bounds. Touch the screen to jump (and effectively flip gravity). This is how my game <strong>scape</strong> loks like:</p>
+<p><img src="/images/scape-showcase.webp" alt="scape-showcase" /></p>
+<p>The first thing the player does is touching the screen and one notices that the character will jump as a consequence. However, this has some impact on the initial game design:</p>
+<ul>
+<li>the player should not be punished for not touching the screen initially</li>
+<li>the player should notice that he needs to do <em>something</em> in order to progress</li>
+<li>the player should also learn in the beginning what the consequences are if no action is taken</li>
+</ul>
+<p>To solve all these questions I did a simple trick: I placed a block in front of the player. As a result the player bumps into the block at some point, gets stuck and the moving camera will kill the player if out of bounds:</p>
+<p><img src="/images/scape-tutorial-block.webp" alt="scape-block" /></p>
+<p>The player has no other choice than trying to touch the screen. Each level has been designed so the player automatically initiates actions to play the game, without having an explicit tutorial:</p>
+<p><img src="/images/scape-tutorial-block-skip.webp" alt="scape-block-skip" /></p>
+<p>As a game designer, this is not obvious at first. Only after a couple of iterations I can eventually refine the level structure to ensure the best possible game experience.</p>
+<h1 id="the-dark-side-of-the-moon">The dark side of the moon</h1>
+<p>Having a character jump via touch is not the most difficult mechanic. The <strong>One Touch Mechanic</strong> made things especially more tricky when it came to menu flow:</p>
+<ul>
+<li>how do I communicate to the player that he has to swipe in order to switch to the next level in the stage selection?</li>
+<li>how does a player know he needs to touch the screen to enter a level?</li>
+<li>how does a player know he requires to keep the screen touched to skip a cutscene?</li>
+</ul>
+<p>Those questions are just partially answered and I am currently about to rewrite the entire menu flow to improve on that drastically.</p>
+<h1 id="into-the-future">Into the Future</h1>
+<p>Currently I am refining the level design, updating assets and rewriting the level selection flow. In another blog article I am going to elaborate on that more detailed. Stay tuned!</p>
+
+        </div>
+        
+        
+        
+        <div class="bg-slate-100 dark:bg-slate-800 mt-12">
+            <div class="flex items-stretch lg:items-stretch">
+                
+                
+                
+                
+                    
+                
+                
+                    
+                    
+                        
+                    
+                    <div class="author-box__media">
+                        <img src="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg" alt="" class="author-box__avatar"/>
+                    </div>
+                
+                <div class="text-4xl lg:text-base text-slate-700 dark:text-slate-400 flex-1 author-box__content">
+                    
+                        <h2 class="font-serif text-6xl lg:text-2xl text-slate-900 dark:text-slate-300 m-0 author-box__title">bitbrain</h2>
+                    
+                    
+                        <div class="font-sans text-5xl lg:text-xl text-slate-600 dark:text-slate-500 mb-4 author-box__subtitle">Lead Software Engineer. Godot Engine evangelist.</div>
+                    
+                    
+                    
+                        
+                    
+                    
+                        <div class="mt-2 text-8xl lg:text-4xl flex gap-3 homepage-social author-box__social">
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;github.com&#x2F;bitbrain" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-github"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;youtube.com&#x2F;@bitbraindev" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-youtube"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;bsky.app&#x2F;profile&#x2F;bitbra.in" target="_blank" rel="me noopener noreferrer">
+                                        <i class="las la-at"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;mastodon.gamedev.place&#x2F;@bitbraindev" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-mastodon"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                        </div>
+                    
+            </div>
+        </div>
+        
+    </div>
+
+        </section>
+    </body>
+</html>

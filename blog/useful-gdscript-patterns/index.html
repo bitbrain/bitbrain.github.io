@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+    <head>
+        <meta charset="utf-8">
+        
+        <script>
+            const isDarkMode = localStorage.getItem('is_darkmode_set') === 'true';
+            if (isDarkMode) {
+                document.documentElement.classList.add('dark');
+            }
+        </script>
+        
+        <meta name="color-scheme" content="light dark">
+
+        
+        
+        
+            
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        
+                        
+                            
+                            
+                            
+                                
+                            
+                        
+                    
+                
+            
+            
+            
+        
+        
+        
+            <link rel="me" href="https:&#x2F;&#x2F;mastodon.gamedev.place&#x2F;@bitbraindev">
+        
+
+        
+        
+
+        
+        <link rel="alternate"
+              type="application/atom+xml"
+              title="bitbrain feed"
+              href="https://bitbra.in/atom.xml">
+        
+
+        
+        <link rel="icon" type="image/webp" href="https://bitbra.in/favicon.webp?h=0d4aaa30fc76312a3ebe">
+        <link rel="icon" type="image/png" href="https://bitbra.in/favicon.png?h=44b76b5cf66397d57be1" sizes="32x32">
+
+        <link rel="stylesheet" href="https://bitbra.in/css/style.css?h=02ededa3d6ae0ee7a513"/>
+        <link rel="stylesheet" href="https://bitbra.in/line-awesome/css/line-awesome.min.css?h=ce61a18cf084f1500379"/>
+        <script src="https://bitbra.in/js/main.js?h=6ebbb40a03fcd672fbed" defer></script>
+        
+    <title>Useful gdscript patterns | bitbrain</title>
+    
+    
+    
+    
+    
+    
+        
+    
+    
+        
+        
+            
+        
+    
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Useful gdscript patterns">
+    
+    <meta property="og:url" content="https:&#x2F;&#x2F;bitbra.in&#x2F;blog&#x2F;useful-gdscript-patterns&#x2F;">
+    <meta property="og:site_name" content="bitbrain">
+    <meta property="og:image" content="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Useful gdscript patterns">
+    
+    <meta name="twitter:image" content="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg">
+    
+    
+    
+        
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                    
+                    
+                        
+                        
+                        
+                            
+                        
+                    
+                
+            
+        
+        
+        
+    
+    
+    
+        
+        
+        
+        
+            
+            
+            <meta name="fediverse:creator" content="@bitbraindev@mastodon.gamedev.place">
+        
+    
+
+    </head>
+
+    <body class="bg-white dark:bg-slate-900 transition ease-in-out">
+        <section>
+            
+    
+<div class="sticky top-0 bg-slate-100 dark:bg-slate-800">
+    <div class="container mx-auto flex place-content-between
+        py-16 lg:py-8 font-sans text-6xl lg:text-2xl text-slate-900
+        dark:text-white">
+        <div class="flex">
+            
+            
+            
+            
+            <a class="m-0 p-0 text-slate-900 hover:text-slate-700
+                            dark:text-white dark:hover:text-white" href="&#x2F;blog&#x2F;">
+                /blog
+            </a>
+            
+            
+            
+            
+            
+            
+        </div>
+        <div class="flex gap-4 header-links">
+            <div id="back-to-top" class="hidden cursor-pointer">
+                <i class="las la-level-up-alt"></i>
+            </div>
+            <a href="/"><i class="las la-home"></i></a>
+            
+            <a href="https://bitbra.in/atom.xml"><i class="las la-rss"></i></a>
+            
+            <div id="darkmode-toggle" class="cursor-pointer">
+                <div class="hidden dark:inline">
+                    <i class="las la-sun"></i>
+                </div>
+                <div class="inline dark:hidden">
+                    <i class="las la-moon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="container mb-16">
+        <div class="mt-4 font-serif text-slate-600 dark:text-slate-500 text-4xl lg:text-base">
+            2025-08-09
+        </div>
+        <h1 class="w-full mt-4 mb-8 font-serif text-8xl lg:text-4xl text-slate-900 dark:text-slate-300">
+            Useful gdscript patterns
+        </h1>
+        <div class="w-100 border-t mb-8 border-slate-300 dark:border-slate-700"></div>
+        <div class="prose-boring">
+            <p>On <a href="https://youtube.com/@bitbraindev">my gamedev journey</a> I have found some specific patterns quite useful when working with <a href="https://gdscript.com">GDScript</a>. In this post, I'd like to show you some of them (Godot 4) and maybe you can make use of it, too.</p>
+<h1 id="combine-setters-with-signals">Combine setters with signals</h1>
+<p>You might find yourself wanting to do something in case a specific variable changes. Now, you could check it either every <code>_tick()</code> or keep track of places where you might change the variable but a much better way is using a setter:</p>
+<pre data-lang="gd" style="background-color:#090a0c;color:#dae4ed;" class="language-gd "><code class="language-gd" data-lang="gd"><span style="color:#5981f5;">signal </span><span>direction_changed</span><span style="color:#b7c3ce;">(</span><span style="color:#ffffff;">new_direction</span><span>: </span><span style="color:#ffffff;">Vector2</span><span style="color:#b7c3ce;">)
+</span><span>
+</span><span>@</span><span style="color:#5981f5;">onready var </span><span style="color:#ffffff;">direction</span><span>: </span><span style="color:#5981f5;">Vector2</span><span>:
+</span><span>   </span><span style="color:#ffffff;">set</span><span style="color:#b7c3ce;">(</span><span>v</span><span style="color:#b7c3ce;">)</span><span>:
+</span><span>      direction </span><span style="color:#b7c3ce;">=</span><span> v
+</span><span>      direction_changed.</span><span style="color:#ffffff;">emit</span><span style="color:#b7c3ce;">(</span><span>v</span><span style="color:#b7c3ce;">)
+</span></code></pre>
+<p>This then allows anybody outside of that component to react to variable changes by simply connecting to the signal:</p>
+<pre data-lang="gd" style="background-color:#090a0c;color:#dae4ed;" class="language-gd "><code class="language-gd" data-lang="gd"><span style="color:#5981f5;">func </span><span style="color:#ffffff;">_ready</span><span style="color:#b7c3ce;">():
+</span><span>   player.direction_changed.</span><span style="color:#ffffff;">connect</span><span style="color:#b7c3ce;">(</span><span>_player_direction_changed</span><span style="color:#b7c3ce;">)
+</span><span>
+</span><span style="color:#5981f5;">func </span><span style="color:#ffffff;">_player_direction_changed</span><span style="color:#b7c3ce;">(</span><span style="color:#ffffff;">direction</span><span>: </span><span style="color:#ffffff;">Vector2</span><span style="color:#b7c3ce;">):
+</span><span>   </span><span style="color:#5981f5;">pass </span><span style="color:#353e4a;"># do something here
+</span></code></pre>
+<p>This can be extremely powerful to separate your <strong>concerns</strong> and <strong>responsibilities</strong>. Often, we tent to combine everything inside a single node/script but this makes it more difficult to reuse things across the board.</p>
+<h1 id="reusable-configurations">Reusable configurations</h1>
+<p>One challenge is to define configuration for your game. You want to tweak for example the color of your player. This can be done via simple <code>@export</code> variable:</p>
+<pre data-lang="gd" style="background-color:#090a0c;color:#dae4ed;" class="language-gd "><code class="language-gd" data-lang="gd"><span>@</span><span style="color:#5981f5;">export var </span><span style="color:#ffffff;">player_color</span><span>:</span><span style="color:#5981f5;">Color
+</span></code></pre>
+<p>and a corresponding color picker will show up in the Godot UI. However, there are cases where you want to make these configurations <em>reusable</em>. For example, in my game I have a procedural cave generation system where I can control the kinds of ores that should spawn and how they should spawn. I could hardcode this into some form of "cavegen" script but what if I want to reuse certain ore spawns for different caves? How do I "remember" the configuration without having to duplicate nodes? Resources are the answer:</p>
+<pre data-lang="gd" style="background-color:#090a0c;color:#dae4ed;" class="language-gd "><code class="language-gd" data-lang="gd"><span>class_name OreSpawn </span><span style="color:#5981f5;">extends</span><span> Resource
+</span><span>
+</span><span>@</span><span style="color:#5981f5;">export var </span><span style="color:#ffffff;">ore</span><span>:OreItem
+</span><span>@</span><span style="color:#5981f5;">export var </span><span style="color:#ffffff;">noise</span><span>:FastNoiseLite </span><span style="color:#b7c3ce;">=</span><span> FastNoiseLite.</span><span style="color:#ffffff;">new</span><span style="color:#b7c3ce;">()
+</span><span>@</span><span style="color:#ffffff;">export_range</span><span style="color:#b7c3ce;">(-</span><span style="color:#ea9433;">1.0</span><span style="color:#b7c3ce;">, </span><span style="color:#ea9433;">1.0</span><span style="color:#b7c3ce;">) </span><span style="color:#5981f5;">var </span><span style="color:#ffffff;">lower_threshold</span><span>:</span><span style="color:#5981f5;">float </span><span style="color:#b7c3ce;">= </span><span style="color:#ea9433;">0.0
+</span><span>@</span><span style="color:#ffffff;">export_range</span><span style="color:#b7c3ce;">(-</span><span style="color:#ea9433;">1.0</span><span style="color:#b7c3ce;">, </span><span style="color:#ea9433;">1.0</span><span style="color:#b7c3ce;">) </span><span style="color:#5981f5;">var </span><span style="color:#ffffff;">upper_threshold</span><span>:</span><span style="color:#5981f5;">float </span><span style="color:#b7c3ce;">= </span><span style="color:#ea9433;">0.0
+</span><span>
+</span><span style="color:#5981f5;">func </span><span style="color:#ffffff;">is_spawnable</span><span style="color:#b7c3ce;">(</span><span style="color:#ffffff;">seed_number</span><span>:</span><span style="color:#ffffff;">int</span><span style="color:#b7c3ce;">, </span><span style="color:#ffffff;">x</span><span>:</span><span style="color:#ffffff;">float</span><span style="color:#b7c3ce;">, </span><span style="color:#ffffff;">y</span><span>:</span><span style="color:#ffffff;">float</span><span style="color:#b7c3ce;">) -&gt; </span><span style="color:#5981f5;">bool</span><span style="color:#b7c3ce;">:
+</span><span>	</span><span style="color:#5981f5;">if</span><span> ore </span><span style="color:#b7c3ce;">== </span><span style="color:#ea9433;">null</span><span>:
+</span><span>		</span><span style="color:#5981f5;">return </span><span style="color:#ea9433;">false
+</span><span>	</span><span style="color:#5981f5;">if</span><span> noise </span><span style="color:#b7c3ce;">== </span><span style="color:#ea9433;">null</span><span>:
+</span><span>		</span><span style="color:#5981f5;">return </span><span style="color:#ea9433;">false
+</span><span>	noise.seed </span><span style="color:#b7c3ce;">=</span><span> seed_number
+</span><span>	</span><span style="color:#5981f5;">var </span><span style="color:#ffffff;">value </span><span style="color:#b7c3ce;">=</span><span> noise.</span><span style="color:#ffffff;">get_noise_2d</span><span style="color:#b7c3ce;">(</span><span>x</span><span style="color:#b7c3ce;">,</span><span> y</span><span style="color:#b7c3ce;">)
+</span><span>	</span><span style="color:#5981f5;">return</span><span> value </span><span style="color:#b7c3ce;">&gt;</span><span> lower_threshold </span><span style="color:#b7c3ce;">and</span><span> value </span><span style="color:#b7c3ce;">&lt;</span><span> upper_threshold
+</span></code></pre>
+<p>This pattern then allows me to accept a list of possible ore spawns in my cave generator like so:</p>
+<pre data-lang="gd" style="background-color:#090a0c;color:#dae4ed;" class="language-gd "><code class="language-gd" data-lang="gd"><span>@</span><span style="color:#5981f5;">export var </span><span style="color:#ffffff;">spawns</span><span>:</span><span style="color:#5981f5;">Array</span><span>[OreSpawn]
+</span></code></pre>
+<p>The generator basically won't care about how the spawn is configured. All it needs to do is call the <code>is_spawnable</code> function for a given seed and x/y position to determine what should be spawned where.</p>
+<h1 id="torch-flickering">Torch flickering</h1>
+<p>One challenge I found for my game is to make torches flicker. There is a <a href="https://docs.godotengine.org/en/stable/classes/class_light2d.html">Light2D</a> those <code>energy</code> I modified over time like so:</p>
+<pre data-lang="gd" style="background-color:#090a0c;color:#dae4ed;" class="language-gd "><code class="language-gd" data-lang="gd"><span>@</span><span style="color:#5981f5;">onready var </span><span style="color:#ffffff;">light</span><span>:Light2D
+</span><span>
+</span><span style="color:#5981f5;">var </span><span style="color:#ffffff;">time</span><span>:</span><span style="color:#5981f5;">float </span><span style="color:#b7c3ce;">= </span><span style="color:#ea9433;">0.0
+</span><span>
+</span><span style="color:#5981f5;">func </span><span style="color:#ffffff;">_process</span><span style="color:#b7c3ce;">(</span><span style="color:#ffffff;">delta</span><span>:</span><span style="color:#ffffff;">float</span><span style="color:#b7c3ce;">):
+</span><span>   light.energy </span><span style="color:#b7c3ce;">= </span><span style="color:#ffffff;">_calculate_energy</span><span style="color:#b7c3ce;">(</span><span>time</span><span style="color:#b7c3ce;">)
+</span><span>   time </span><span style="color:#b7c3ce;">+=</span><span> delta
+</span><span>
+</span><span style="color:#5981f5;">func </span><span style="color:#ffffff;">_calculate_energy</span><span style="color:#b7c3ce;">(</span><span style="color:#ffffff;">time</span><span>:</span><span style="color:#ffffff;">float</span><span style="color:#b7c3ce;">) -&gt; </span><span style="color:#5981f5;">float</span><span style="color:#b7c3ce;">:
+</span><span>   </span><span style="color:#5981f5;">return </span><span style="color:#ea9433;">0.8</span><span style="color:#b7c3ce;">+((</span><span style="color:#ffffff;">sin</span><span style="color:#b7c3ce;">(</span><span>time</span><span style="color:#b7c3ce;">*</span><span>time</span><span style="color:#b7c3ce;">/</span><span style="color:#ea9433;">10</span><span style="color:#b7c3ce;">)+(</span><span style="color:#ffffff;">cos</span><span style="color:#b7c3ce;">(</span><span>time</span><span style="color:#b7c3ce;">*</span><span>time</span><span style="color:#b7c3ce;">/</span><span style="color:#ea9433;">10</span><span style="color:#b7c3ce;">)+</span><span style="color:#ffffff;">sin</span><span style="color:#b7c3ce;">(</span><span>time</span><span style="color:#b7c3ce;">)</span><span>)) </span><span style="color:#b7c3ce;">/</span><span style="color:#ea9433;">30</span><span>)
+</span></code></pre>
+<p>Do not ask me how I came up with this abomination of a calculation! It took many hours of tweaking and adjustments. Well, until I realised that this is a silly approach and there is a <strong>much better</strong> solution by utilizing <a href="https://docs.godotengine.org/en/stable/classes/class_fastnoiselite.html">FastNoiseLite</a>:</p>
+<pre data-lang="gd" style="background-color:#090a0c;color:#dae4ed;" class="language-gd "><code class="language-gd" data-lang="gd"><span>@</span><span style="color:#5981f5;">onready var </span><span style="color:#ffffff;">light</span><span>:Light2D
+</span><span>@</span><span style="color:#5981f5;">export var </span><span style="color:#ffffff;">noise</span><span>:FastNoiseLite </span><span style="color:#b7c3ce;">=</span><span> FastNoiseLite.</span><span style="color:#ffffff;">new</span><span style="color:#b7c3ce;">()
+</span><span>
+</span><span style="color:#5981f5;">var </span><span style="color:#ffffff;">time</span><span>:</span><span style="color:#5981f5;">float </span><span style="color:#b7c3ce;">= </span><span style="color:#ea9433;">0.0
+</span><span>
+</span><span style="color:#5981f5;">func </span><span style="color:#ffffff;">_process</span><span style="color:#b7c3ce;">(</span><span style="color:#ffffff;">delta</span><span>:</span><span style="color:#ffffff;">float</span><span style="color:#b7c3ce;">):
+</span><span>   light.energy </span><span style="color:#b7c3ce;">= </span><span style="color:#ffffff;">_calculate_energy</span><span style="color:#b7c3ce;">(</span><span>time</span><span style="color:#b7c3ce;">)
+</span><span>   time </span><span style="color:#b7c3ce;">+=</span><span> delta
+</span><span>
+</span><span style="color:#5981f5;">func </span><span style="color:#ffffff;">_calculate_energy</span><span style="color:#b7c3ce;">(</span><span style="color:#ffffff;">time</span><span>:</span><span style="color:#ffffff;">float</span><span style="color:#b7c3ce;">) -&gt; </span><span style="color:#5981f5;">float</span><span style="color:#b7c3ce;">:
+</span><span>   </span><span style="color:#5981f5;">return</span><span> flicker_noise.</span><span style="color:#ffffff;">get_noise_1d</span><span style="color:#b7c3ce;">(</span><span>time</span><span style="color:#b7c3ce;">)
+</span></code></pre>
+<p>The way it works is that we can basically "scroll" from left to right over an infinite noise texture and the current value of the noise texture dictates the intensity of the light. This makes the torch flickering much more smooth and hyper-consistent.</p>
+<h1 id="day-night-cycle-2d">Day &amp; Night cycle (2D)</h1>
+<p>A cheap trick to do a day&amp;night cycle is by using <a href="https://docs.godotengine.org/en/stable/classes/class_canvasmodulate.html">CanvasModulate</a> and working with <code>lerp</code> on <a href="https://docs.godotengine.org/en/stable/classes/class_color.html">Color</a> class:</p>
+<pre data-lang="gd" style="background-color:#090a0c;color:#dae4ed;" class="language-gd "><code class="language-gd" data-lang="gd"><span style="color:#5981f5;">extends</span><span> CanvasModulate
+</span><span>
+</span><span style="color:#5981f5;">const </span><span style="color:#ffffff;">NIGHT_COLOR </span><span style="color:#b7c3ce;">= </span><span style="color:#5981f5;">Color</span><span style="color:#b7c3ce;">(&quot;</span><span style="color:#4ebc6b;">#091d3a</span><span style="color:#b7c3ce;">&quot;)
+</span><span style="color:#5981f5;">const </span><span style="color:#ffffff;">DAY_COLOR </span><span style="color:#b7c3ce;">= </span><span style="color:#5981f5;">Color</span><span style="color:#b7c3ce;">(&quot;</span><span style="color:#4ebc6b;">#ffffff</span><span style="color:#b7c3ce;">&quot;)
+</span><span style="color:#5981f5;">const </span><span style="color:#ffffff;">EVENING_COLOR </span><span style="color:#b7c3ce;">= </span><span style="color:#5981f5;">Color</span><span style="color:#b7c3ce;">(&quot;</span><span style="color:#4ebc6b;">#ff3300</span><span style="color:#b7c3ce;">&quot;)
+</span><span>
+</span><span style="color:#5981f5;">const </span><span style="color:#ffffff;">TIME_SCALE </span><span style="color:#b7c3ce;">= </span><span style="color:#ea9433;">0.1
+</span><span>
+</span><span style="color:#5981f5;">var </span><span style="color:#ffffff;">time </span><span style="color:#b7c3ce;">= </span><span style="color:#ea9433;">0
+</span><span>
+</span><span style="color:#5981f5;">func </span><span style="color:#ffffff;">_process</span><span style="color:#b7c3ce;">(</span><span style="color:#ffffff;">delta</span><span>:</span><span style="color:#ffffff;">float</span><span style="color:#b7c3ce;">) -&gt; </span><span style="color:#5981f5;">void</span><span style="color:#b7c3ce;">:
+</span><span>	self.time </span><span style="color:#b7c3ce;">+=</span><span> delta </span><span style="color:#b7c3ce;">*</span><span> TIME_SCALE
+</span><span>	</span><span style="color:#5981f5;">var </span><span style="color:#ffffff;">value </span><span style="color:#b7c3ce;">= (</span><span style="color:#ffffff;">sin</span><span style="color:#b7c3ce;">(</span><span>time</span><span style="color:#b7c3ce;">) + </span><span style="color:#ea9433;">1</span><span>) </span><span style="color:#b7c3ce;">/ </span><span style="color:#ea9433;">2
+</span><span>	self.color </span><span style="color:#b7c3ce;">= </span><span style="color:#ffffff;">get_source_colour</span><span style="color:#b7c3ce;">(</span><span>value</span><span style="color:#b7c3ce;">)</span><span>.</span><span style="color:#ffffff;">lerp</span><span style="color:#b7c3ce;">(</span><span style="color:#ffffff;">get_target_colour</span><span style="color:#b7c3ce;">(</span><span>value</span><span style="color:#b7c3ce;">)</span><span>, value)
+</span><span>	
+</span><span style="color:#5981f5;">func </span><span style="color:#ffffff;">get_source_colour</span><span style="color:#b7c3ce;">(</span><span style="color:#ffffff;">value</span><span style="color:#b7c3ce;">):
+</span><span>	</span><span style="color:#5981f5;">return</span><span> NIGHT_COLOR.</span><span style="color:#ffffff;">lerp</span><span style="color:#b7c3ce;">(</span><span>EVENING_COLOR</span><span style="color:#b7c3ce;">,</span><span> value</span><span style="color:#b7c3ce;">)
+</span><span>
+</span><span style="color:#5981f5;">func </span><span style="color:#ffffff;">get_target_colour</span><span style="color:#b7c3ce;">(</span><span style="color:#ffffff;">value</span><span style="color:#b7c3ce;">):
+</span><span>	</span><span style="color:#5981f5;">return</span><span> EVENING_COLOR.</span><span style="color:#ffffff;">lerp</span><span style="color:#b7c3ce;">(</span><span>DAY_COLOR</span><span style="color:#b7c3ce;">,</span><span> value</span><span style="color:#b7c3ce;">)
+</span></code></pre>
+<p>This code interpolates the modulate color smoothly between the day, night and evening color. Modifying colors at runtime via <code>lerp</code> is rather powerful!</p>
+<h1 id="inner-classes">Inner classes</h1>
+<p>Classes in gdscript can be quite powerful and make your life much easier. Often, you see classes mentioned together with <a href="https://en.wikipedia.org/wiki/Inheritance_(object-oriented_programming)">inheritance</a> but this is not at all what this is about. I'd rather discourage inheritance as much as possible (I rarely ever use it).
+Instead, classes can help you to make your code more organized and readable. Let me show you.</p>
+<p>Let's say you have to store some information about your game state. You might utilise a dictionary for that:</p>
+<pre data-lang="gd" style="background-color:#090a0c;color:#dae4ed;" class="language-gd "><code class="language-gd" data-lang="gd"><span style="color:#5981f5;">var </span><span style="color:#ffffff;">data </span><span style="color:#b7c3ce;">= {
+</span><span>	</span><span style="color:#b7c3ce;">&quot;</span><span style="color:#4ebc6b;">waves</span><span style="color:#b7c3ce;">&quot;: </span><span>[
+</span><span>		</span><span style="color:#b7c3ce;">{&quot;</span><span style="color:#4ebc6b;">spawn</span><span style="color:#b7c3ce;">&quot;: {&quot;</span><span style="color:#4ebc6b;">pos</span><span style="color:#b7c3ce;">&quot;: </span><span style="color:#5981f5;">Vector2</span><span style="color:#b7c3ce;">(</span><span style="color:#ea9433;">100</span><span style="color:#b7c3ce;">, </span><span style="color:#ea9433;">200</span><span style="color:#b7c3ce;">)}</span><span>,
+</span><span>		 </span><span style="color:#b7c3ce;">&quot;</span><span style="color:#4ebc6b;">enemy</span><span style="color:#b7c3ce;">&quot;</span><span>: </span><span style="color:#b7c3ce;">{&quot;</span><span style="color:#4ebc6b;">type</span><span style="color:#b7c3ce;">&quot;: &quot;</span><span style="color:#4ebc6b;">slime</span><span style="color:#b7c3ce;">&quot;, &quot;</span><span style="color:#4ebc6b;">hp</span><span style="color:#b7c3ce;">&quot;: </span><span style="color:#ea9433;">10</span><span style="color:#b7c3ce;">}</span><span>}
+</span><span>	]
+</span><span>}
+</span><span>
+</span><span style="color:#ffffff;">print</span><span style="color:#b7c3ce;">(</span><span>data[</span><span style="color:#b7c3ce;">&quot;</span><span style="color:#4ebc6b;">waves</span><span style="color:#b7c3ce;">&quot;</span><span>][</span><span style="color:#ea9433;">0</span><span>][</span><span style="color:#b7c3ce;">&quot;</span><span style="color:#4ebc6b;">spawn</span><span style="color:#b7c3ce;">&quot;</span><span>][</span><span style="color:#b7c3ce;">&quot;</span><span style="color:#4ebc6b;">pos</span><span style="color:#b7c3ce;">&quot;</span><span>]</span><span style="color:#b7c3ce;">)
+</span><span style="color:#ffffff;">print</span><span style="color:#b7c3ce;">(</span><span>data[</span><span style="color:#b7c3ce;">&quot;</span><span style="color:#4ebc6b;">waves</span><span style="color:#b7c3ce;">&quot;</span><span>][</span><span style="color:#ea9433;">0</span><span>][</span><span style="color:#b7c3ce;">&quot;</span><span style="color:#4ebc6b;">enemy</span><span style="color:#b7c3ce;">&quot;</span><span>][</span><span style="color:#b7c3ce;">&quot;</span><span style="color:#4ebc6b;">type</span><span style="color:#b7c3ce;">&quot;</span><span>]</span><span style="color:#b7c3ce;">)
+</span></code></pre>
+<p>While this can work, it is very difficult to understand at a glance what e.g. <code>data["waves"][0]</code> contains. Yes, with the recent addition of types to dictionaries and arrays, gdscript can tell us the type, but the type itself will be just another dictionary. You end up in a jungle of dictionaries and arrays and it becomes much more difficult to wrap your head around things, especially when you need to debug an issue.</p>
+<p>Classes come to the rescue and they can make things much more readable and organized:</p>
+<pre data-lang="gd" style="background-color:#090a0c;color:#dae4ed;" class="language-gd "><code class="language-gd" data-lang="gd"><span style="color:#5981f5;">class </span><span style="color:#e8447e;">Spawn</span><span>: </span><span style="color:#5981f5;">var </span><span style="color:#ffffff;">pos</span><span> :</span><span style="color:#b7c3ce;">= </span><span style="color:#5981f5;">Vector2</span><span style="color:#b7c3ce;">()
+</span><span style="color:#5981f5;">class </span><span style="color:#e8447e;">Enemy</span><span>: </span><span style="color:#5981f5;">var </span><span style="color:#ffffff;">type</span><span> :</span><span style="color:#b7c3ce;">= &quot;&quot;</span><span>; </span><span style="color:#5981f5;">var </span><span style="color:#ffffff;">hp</span><span> :</span><span style="color:#b7c3ce;">= </span><span style="color:#ea9433;">0
+</span><span style="color:#5981f5;">class </span><span style="color:#e8447e;">Wave</span><span>: </span><span style="color:#5981f5;">var </span><span style="color:#ffffff;">spawn</span><span> :</span><span style="color:#b7c3ce;">=</span><span> Spawn.</span><span style="color:#ffffff;">new</span><span style="color:#b7c3ce;">()</span><span>; </span><span style="color:#5981f5;">var </span><span style="color:#ffffff;">enemy</span><span> :</span><span style="color:#b7c3ce;">=</span><span> Enemy.</span><span style="color:#ffffff;">new</span><span style="color:#b7c3ce;">()
+</span><span>
+</span><span style="color:#5981f5;">var </span><span style="color:#ffffff;">wave </span><span style="color:#b7c3ce;">=</span><span> Wave.</span><span style="color:#ffffff;">new</span><span style="color:#b7c3ce;">()
+</span><span>wave.spawn.pos </span><span style="color:#b7c3ce;">= </span><span style="color:#5981f5;">Vector2</span><span style="color:#b7c3ce;">(</span><span style="color:#ea9433;">100</span><span style="color:#b7c3ce;">, </span><span style="color:#ea9433;">200</span><span style="color:#b7c3ce;">)
+</span><span>wave.enemy.type </span><span style="color:#b7c3ce;">= &quot;</span><span style="color:#4ebc6b;">slime</span><span style="color:#b7c3ce;">&quot;
+</span><span>wave.enemy.hp </span><span style="color:#b7c3ce;">= </span><span style="color:#ea9433;">10
+</span><span>
+</span><span style="color:#ffffff;">print</span><span style="color:#b7c3ce;">(</span><span>wave.spawn.pos</span><span style="color:#b7c3ce;">)
+</span><span style="color:#ffffff;">print</span><span style="color:#b7c3ce;">(</span><span>wave.enemy.type</span><span style="color:#b7c3ce;">)
+</span></code></pre>
+<p>The beauty of this is that these classes are purely internal to your script and do not need to be exposed. There is also no inheritance or any other complex concept. This pattern uses classes purely as <strong>named data container</strong>.</p>
+<h1 id="unique-ids">Unique ids</h1>
+<p>Sometimes, you might need unique ids. Using a counter could work but it brings its own problems: it is <strong>state dependent</strong> and therefore you need to "remember" the counter somehow. There are various algorithms that generate a random strings, such as the <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier">UUID spec</a> however, in gdscript you can create something much simpler: <a href="https://alex7kom.github.io/nano-nanoid-cc/">Nano ID</a>. I am using this exact script in my RPG data management plugin called <a href="https://github.com/bitbrain/pandora">Pandora</a> to generate entity ids:</p>
+<pre data-lang="gd" style="background-color:#090a0c;color:#dae4ed;" class="language-gd "><code class="language-gd" data-lang="gd"><span style="color:#353e4a;"># nanoid.gd
+</span><span style="color:#5981f5;">extends</span><span> RefCounted
+</span><span>
+</span><span style="color:#5981f5;">const </span><span style="color:#ffffff;">ALPHABET</span><span> :</span><span style="color:#b7c3ce;">= &quot;</span><span style="color:#4ebc6b;">useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzrict</span><span style="color:#b7c3ce;">&quot;
+</span><span style="color:#5981f5;">const </span><span style="color:#ffffff;">DEFAULT_LENGTH</span><span> :</span><span style="color:#b7c3ce;">= </span><span style="color:#ea9433;">21
+</span><span>
+</span><span style="color:#5981f5;">var </span><span style="color:#ffffff;">default_length</span><span> :</span><span style="color:#b7c3ce;">=</span><span> DEFAULT_LENGTH
+</span><span>
+</span><span style="color:#5981f5;">func </span><span style="color:#ffffff;">_init</span><span style="color:#b7c3ce;">(</span><span style="color:#ffffff;">length</span><span> := </span><span style="color:#ffffff;">DEFAULT_LENGTH</span><span style="color:#b7c3ce;">) -&gt; </span><span style="color:#5981f5;">void</span><span style="color:#b7c3ce;">:
+</span><span>	default_length </span><span style="color:#b7c3ce;">=</span><span> length
+</span><span>
+</span><span style="color:#5981f5;">func </span><span style="color:#ffffff;">generate</span><span style="color:#b7c3ce;">(</span><span style="color:#ffffff;">length</span><span> := </span><span style="color:#ffffff;">default_length</span><span style="color:#b7c3ce;">) -&gt; </span><span style="color:#5981f5;">String</span><span style="color:#b7c3ce;">:
+</span><span>	</span><span style="color:#5981f5;">var </span><span style="color:#ffffff;">id</span><span>: </span><span style="color:#5981f5;">String
+</span><span>	</span><span style="color:#5981f5;">for</span><span> i </span><span style="color:#b7c3ce;">in </span><span style="color:#ffffff;">range</span><span style="color:#b7c3ce;">(</span><span>length</span><span style="color:#b7c3ce;">)</span><span>:
+</span><span>		id </span><span style="color:#b7c3ce;">+=</span><span> ALPHABET[</span><span style="color:#ffffff;">randi</span><span style="color:#b7c3ce;">() %</span><span> ALPHABET.</span><span style="color:#ffffff;">length</span><span style="color:#b7c3ce;">()</span><span>]
+</span><span>	</span><span style="color:#5981f5;">return</span><span> id
+</span></code></pre>
+<p>Then you can use it as such:</p>
+<pre data-lang="gd" style="background-color:#090a0c;color:#dae4ed;" class="language-gd "><code class="language-gd" data-lang="gd"><span style="color:#5981f5;">const </span><span style="color:#ffffff;">NanoID </span><span style="color:#b7c3ce;">= </span><span style="color:#ffffff;">preload</span><span style="color:#b7c3ce;">(&#39;</span><span style="color:#4ebc6b;">nanoid.gd</span><span style="color:#b7c3ce;">&#39;)
+</span><span style="color:#ffffff;">print</span><span style="color:#b7c3ce;">(</span><span>NanoID.</span><span style="color:#ffffff;">generate</span><span style="color:#b7c3ce;">()</span><span>)
+</span></code></pre>
+<p>I hope you found these somewhat useful. Rock and stone! 💎⛏️</p>
+
+        </div>
+        
+        
+        
+        <div class="bg-slate-100 dark:bg-slate-800 mt-12">
+            <div class="flex items-stretch lg:items-stretch">
+                
+                
+                
+                
+                    
+                
+                
+                    
+                    
+                        
+                    
+                    <div class="author-box__media">
+                        <img src="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg" alt="" class="author-box__avatar"/>
+                    </div>
+                
+                <div class="text-4xl lg:text-base text-slate-700 dark:text-slate-400 flex-1 author-box__content">
+                    
+                        <h2 class="font-serif text-6xl lg:text-2xl text-slate-900 dark:text-slate-300 m-0 author-box__title">bitbrain</h2>
+                    
+                    
+                        <div class="font-sans text-5xl lg:text-xl text-slate-600 dark:text-slate-500 mb-4 author-box__subtitle">Lead Software Engineer. Godot Engine evangelist.</div>
+                    
+                    
+                    
+                        
+                    
+                    
+                        <div class="mt-2 text-8xl lg:text-4xl flex gap-3 homepage-social author-box__social">
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;github.com&#x2F;bitbrain" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-github"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;youtube.com&#x2F;@bitbraindev" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-youtube"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;bsky.app&#x2F;profile&#x2F;bitbra.in" target="_blank" rel="me noopener noreferrer">
+                                        <i class="las la-at"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;mastodon.gamedev.place&#x2F;@bitbraindev" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-mastodon"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                        </div>
+                    
+            </div>
+        </div>
+        
+    </div>
+
+        </section>
+    </body>
+</html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+    <head>
+        <meta charset="utf-8">
+        
+        <script>
+            const isDarkMode = localStorage.getItem('is_darkmode_set') === 'true';
+            if (isDarkMode) {
+                document.documentElement.classList.add('dark');
+            }
+        </script>
+        
+        <meta name="color-scheme" content="light dark">
+
+        
+        
+        
+            
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        
+                        
+                            
+                            
+                            
+                                
+                            
+                        
+                    
+                
+            
+            
+            
+        
+        
+        
+            <link rel="me" href="https:&#x2F;&#x2F;mastodon.gamedev.place&#x2F;@bitbraindev">
+        
+
+        
+        
+
+        
+        <link rel="alternate"
+              type="application/atom+xml"
+              title="bitbrain feed"
+              href="https://bitbra.in/atom.xml">
+        
+
+        
+        <link rel="icon" type="image/webp" href="https://bitbra.in/favicon.webp?h=0d4aaa30fc76312a3ebe">
+        <link rel="icon" type="image/png" href="https://bitbra.in/favicon.png?h=44b76b5cf66397d57be1" sizes="32x32">
+
+        <link rel="stylesheet" href="https://bitbra.in/css/style.css?h=02ededa3d6ae0ee7a513"/>
+        <link rel="stylesheet" href="https://bitbra.in/line-awesome/css/line-awesome.min.css?h=ce61a18cf084f1500379"/>
+        <script src="https://bitbra.in/js/main.js?h=6ebbb40a03fcd672fbed" defer></script>
+        
+    <title>Goodbye, Jekyll. | bitbrain</title>
+    
+    
+    
+    
+    
+    
+        
+    
+    
+        
+        
+            
+        
+    
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Goodbye, Jekyll.">
+    
+    <meta property="og:url" content="https:&#x2F;&#x2F;bitbra.in&#x2F;blog&#x2F;goodbye-jekyll&#x2F;">
+    <meta property="og:site_name" content="bitbrain">
+    <meta property="og:image" content="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Goodbye, Jekyll.">
+    
+    <meta name="twitter:image" content="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg">
+    
+    
+    
+        
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                    
+                    
+                        
+                        
+                        
+                            
+                        
+                    
+                
+            
+        
+        
+        
+    
+    
+    
+        
+        
+        
+        
+            
+            
+            <meta name="fediverse:creator" content="@bitbraindev@mastodon.gamedev.place">
+        
+    
+
+    </head>
+
+    <body class="bg-white dark:bg-slate-900 transition ease-in-out">
+        <section>
+            
+    
+<div class="sticky top-0 bg-slate-100 dark:bg-slate-800">
+    <div class="container mx-auto flex place-content-between
+        py-16 lg:py-8 font-sans text-6xl lg:text-2xl text-slate-900
+        dark:text-white">
+        <div class="flex">
+            
+            
+            
+            
+            <a class="m-0 p-0 text-slate-900 hover:text-slate-700
+                            dark:text-white dark:hover:text-white" href="&#x2F;blog&#x2F;">
+                /blog
+            </a>
+            
+            
+            
+            
+            
+            
+        </div>
+        <div class="flex gap-4 header-links">
+            <div id="back-to-top" class="hidden cursor-pointer">
+                <i class="las la-level-up-alt"></i>
+            </div>
+            <a href="/"><i class="las la-home"></i></a>
+            
+            <a href="https://bitbra.in/atom.xml"><i class="las la-rss"></i></a>
+            
+            <div id="darkmode-toggle" class="cursor-pointer">
+                <div class="hidden dark:inline">
+                    <i class="las la-sun"></i>
+                </div>
+                <div class="inline dark:hidden">
+                    <i class="las la-moon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="container mb-16">
+        <div class="mt-4 font-serif text-slate-600 dark:text-slate-500 text-4xl lg:text-base">
+            2025-08-07
+        </div>
+        <h1 class="w-full mt-4 mb-8 font-serif text-8xl lg:text-4xl text-slate-900 dark:text-slate-300">
+            Goodbye, Jekyll.
+        </h1>
+        <div class="w-100 border-t mb-8 border-slate-300 dark:border-slate-700"></div>
+        <div class="prose-boring">
+            <p><a href="https://jekyllrb.com">Jekyll</a> is a <a href="https://www.ruby-lang.org">Ruby</a> based static site generator created by <strong>Github</strong> that I have been using for many many years. It pains me to say goodbye but today is the day where I moved my blog off Jekyll for good. It was a fun ride and most notably, I created <a href="https://github.com/bitbrain/jekyll-dash">jekyll-dash</a>, a custom theme for Jekyll that had all the fancy features one would love to see from an SSG generator: tags, fontawesome, cool animations... and all that jazz. I did maintain that for many years but eventually, the fun turned into annoyance.</p>
+<h1 id="too-many-caveats">Too many caveats</h1>
+<p>Working with Jekyll can be rather annoying, especially when trying to get it running on Github Pages. Yes, Github automatically deploys your Jekyll page without you having to worry about anything, <strong>unless</strong> you are trying to use anything <a href="https://pages.github.com/versions">other than these versions</a>. Oh, you want to use Jekyll 4? Tough luck, you gotta roll your own workflow to deploy + build things.</p>
+<p>To make matters worse, you cannot just "install" Jekyll and get started. You need to setup Ruby first, which <a href="https://www.reddit.com/r/ruby/comments/wovmt1/difference_between_ruby_2_and_ruby_3">itself has different versions</a>, should you install Ruby 2? Should you install Ruby 3? <a href="https://talk.jekyllrb.com/t/incompatible-with-the-current-version-ruby-3-0/5821">People in the past stumbled on issues</a> where using Ruby 3 did not work with Jekyll.</p>
+<p>Then, there is the <a href="https://rubygems.org/">gem system</a>: this is not a Jekyll concept but comes from Ruby. The idea sounds neat: you can build a theme for Ruby and then bundle it into a "gem". Then, you can publish the gem and others can download it and use your Jekyll theme, without having to worry about checking out dubious git repositories or running some dodgy commands. Instead, in your <code>Gemfile</code> you can define dependencies like so:</p>
+<pre data-lang="gemfile" style="background-color:#090a0c;color:#dae4ed;" class="language-gemfile "><code class="language-gemfile" data-lang="gemfile"><span>source </span><span style="color:#b7c3ce;">&#39;</span><span style="color:#4ebc6b;">https://rubygems.org</span><span style="color:#b7c3ce;">&#39;
+</span><span>
+</span><span style="color:#5981f5;">gem </span><span style="color:#b7c3ce;">&#39;</span><span style="color:#4ebc6b;">jekyll-dash</span><span style="color:#b7c3ce;">&#39;, &#39;</span><span style="color:#4ebc6b;">~&gt; 2</span><span style="color:#b7c3ce;">&#39;
+</span><span style="color:#5981f5;">gem </span><span style="color:#b7c3ce;">&#39;</span><span style="color:#4ebc6b;">jekyll-sass-converter</span><span style="color:#b7c3ce;">&#39;, &#39;</span><span style="color:#4ebc6b;">~&gt; 2.0</span><span style="color:#b7c3ce;">&#39;
+</span><span style="color:#5981f5;">gem </span><span style="color:#b7c3ce;">&#39;</span><span style="color:#4ebc6b;">liquid-md5</span><span style="color:#b7c3ce;">&#39;
+</span><span style="color:#5981f5;">gem </span><span style="color:#b7c3ce;">&#39;</span><span style="color:#4ebc6b;">jekyll-tagging</span><span style="color:#b7c3ce;">&#39;
+</span></code></pre>
+<p>The <code>jekyll-dash</code> there is my own theme I created. You may notice something, though: it has a <code>~&gt; 2</code>, meaning that the version is 2.0—no, this is not because it is so advanced! I wanted to upgrade my blog to latest Jekyll features (Jekyll 4) and unfortunately, <strong>all jekyll gems</strong> stopped working and had to be upgraded, too. This was quite a pain to maintain and keeping track of which gems I can use under which circumstances made this whole setup rather cumbersome. The whole point of using Static Site Generation to me is to have a <em>clean</em> and <em>elegant</em> and <em>minimal</em> setup without any databases, without any annoyances. Just some files hosted in a repository and Bob's your uncle.</p>
+<h1 id="zola">Zola!</h1>
+<p>I went and researched what is trendy in 2025 and discovered some interesting alternatives:</p>
+<ul>
+<li><a href="https://gohugo.io">Hugo</a> seemed great but it is quite advanced and not a great fit for super-minimal blog setups</li>
+<li><a href="https://getpublii.com/">Publii</a> is another interesting approach to SSG. It seems very minimal and light-weight but again, too "enterprisey" for my liking. I NEED LESS!</li>
+<li><a href="https://www.getzola.org/">Zola</a> surprised me. It reminded me of the "good old days" and it seems to be <em>extremely</em> light-weight, <strong>and</strong> built in <a href="https://www.rust-lang.org/">Rust</a></li>
+</ul>
+<p>I browsed their themes and was impressed. The <a href="https://www.getzola.org/themes/boring/">boring theme</a> was <strong>exactly</strong> what I was looking for. Also, the way it works is rather brilliant: you just use a binary to generate the page and that's it. Heck, it even comes with its own Github action!</p>
+<p>I'm excited to use this light-weight technology.</p>
+
+        </div>
+        
+        
+        
+        <div class="bg-slate-100 dark:bg-slate-800 mt-12">
+            <div class="flex items-stretch lg:items-stretch">
+                
+                
+                
+                
+                    
+                
+                
+                    
+                    
+                        
+                    
+                    <div class="author-box__media">
+                        <img src="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg" alt="" class="author-box__avatar"/>
+                    </div>
+                
+                <div class="text-4xl lg:text-base text-slate-700 dark:text-slate-400 flex-1 author-box__content">
+                    
+                        <h2 class="font-serif text-6xl lg:text-2xl text-slate-900 dark:text-slate-300 m-0 author-box__title">bitbrain</h2>
+                    
+                    
+                        <div class="font-sans text-5xl lg:text-xl text-slate-600 dark:text-slate-500 mb-4 author-box__subtitle">Lead Software Engineer. Godot Engine evangelist.</div>
+                    
+                    
+                    
+                        
+                    
+                    
+                        <div class="mt-2 text-8xl lg:text-4xl flex gap-3 homepage-social author-box__social">
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;github.com&#x2F;bitbrain" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-github"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;youtube.com&#x2F;@bitbraindev" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-youtube"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;bsky.app&#x2F;profile&#x2F;bitbra.in" target="_blank" rel="me noopener noreferrer">
+                                        <i class="las la-at"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;mastodon.gamedev.place&#x2F;@bitbraindev" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-mastodon"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                        </div>
+                    
+            </div>
+        </div>
+        
+    </div>
+
+        </section>
+    </body>
+</html>

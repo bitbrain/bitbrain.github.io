@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+    <head>
+        <meta charset="utf-8">
+        
+        <script>
+            const isDarkMode = localStorage.getItem('is_darkmode_set') === 'true';
+            if (isDarkMode) {
+                document.documentElement.classList.add('dark');
+            }
+        </script>
+        
+        <meta name="color-scheme" content="light dark">
+
+        
+        
+        
+            
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        
+                        
+                            
+                            
+                            
+                                
+                            
+                        
+                    
+                
+            
+            
+            
+        
+        
+        
+            <link rel="me" href="https:&#x2F;&#x2F;mastodon.gamedev.place&#x2F;@bitbraindev">
+        
+
+        
+        
+
+        
+        <link rel="alternate"
+              type="application/atom+xml"
+              title="bitbrain feed"
+              href="https://bitbra.in/atom.xml">
+        
+
+        
+        <link rel="icon" type="image/webp" href="https://bitbra.in/favicon.webp?h=0d4aaa30fc76312a3ebe">
+        <link rel="icon" type="image/png" href="https://bitbra.in/favicon.png?h=44b76b5cf66397d57be1" sizes="32x32">
+
+        <link rel="stylesheet" href="https://bitbra.in/css/style.css?h=02ededa3d6ae0ee7a513"/>
+        <link rel="stylesheet" href="https://bitbra.in/line-awesome/css/line-awesome.min.css?h=ce61a18cf084f1500379"/>
+        <script src="https://bitbra.in/js/main.js?h=6ebbb40a03fcd672fbed" defer></script>
+        
+    <title>Godot Types: The Good, The Bad, The Ugly | bitbrain</title>
+    
+    
+    
+    
+    
+    
+        
+    
+    
+        
+        
+            
+        
+    
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Godot Types: The Good, The Bad, The Ugly">
+    
+    <meta property="og:url" content="https:&#x2F;&#x2F;bitbra.in&#x2F;blog&#x2F;godot-types&#x2F;">
+    <meta property="og:site_name" content="bitbrain">
+    <meta property="og:image" content="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Godot Types: The Good, The Bad, The Ugly">
+    
+    <meta name="twitter:image" content="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg">
+    
+    
+    
+        
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                    
+                    
+                        
+                        
+                        
+                            
+                        
+                    
+                
+            
+        
+        
+        
+    
+    
+    
+        
+        
+        
+        
+            
+            
+            <meta name="fediverse:creator" content="@bitbraindev@mastodon.gamedev.place">
+        
+    
+
+    </head>
+
+    <body class="bg-white dark:bg-slate-900 transition ease-in-out">
+        <section>
+            
+    
+<div class="sticky top-0 bg-slate-100 dark:bg-slate-800">
+    <div class="container mx-auto flex place-content-between
+        py-16 lg:py-8 font-sans text-6xl lg:text-2xl text-slate-900
+        dark:text-white">
+        <div class="flex">
+            
+            
+            
+            
+            <a class="m-0 p-0 text-slate-900 hover:text-slate-700
+                            dark:text-white dark:hover:text-white" href="&#x2F;blog&#x2F;">
+                /blog
+            </a>
+            
+            
+            
+            
+            
+            
+        </div>
+        <div class="flex gap-4 header-links">
+            <div id="back-to-top" class="hidden cursor-pointer">
+                <i class="las la-level-up-alt"></i>
+            </div>
+            <a href="/"><i class="las la-home"></i></a>
+            
+            <a href="https://bitbra.in/atom.xml"><i class="las la-rss"></i></a>
+            
+            <div id="darkmode-toggle" class="cursor-pointer">
+                <div class="hidden dark:inline">
+                    <i class="las la-sun"></i>
+                </div>
+                <div class="inline dark:hidden">
+                    <i class="las la-moon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="container mb-16">
+        <div class="mt-4 font-serif text-slate-600 dark:text-slate-500 text-4xl lg:text-base">
+            2025-10-23
+        </div>
+        <h1 class="w-full mt-4 mb-8 font-serif text-8xl lg:text-4xl text-slate-900 dark:text-slate-300">
+            Godot Types: The Good, The Bad, The Ugly
+        </h1>
+        <div class="w-100 border-t mb-8 border-slate-300 dark:border-slate-700"></div>
+        <div class="prose-boring">
+            <p>I have seen a lot of confusion about how types work in <a href="https://godotengine.org">Godot Engine</a>. Specifically, the difference between <a href="https://docs.godotengine.org/en/stable/classes/class_refcounted.html">RefCounted</a>, <a href="https://docs.godotengine.org/en/stable/classes/class_object.html#class-object">Object</a> and built-in types like <a href="https://docs.godotengine.org/en/stable/classes/class_string.html">String</a> or <a href="https://docs.godotengine.org/en/stable/classes/class_color.html">Color</a>. At the end of this post, you will understand the exact differences between them.</p>
+<p><img src="/images/clint-eastwood.webp" alt="clint-eastwood" /></p>
+<h1 id="the-good-refcounted-and-built-in-types">The Good: RefCounted and Built-in Types</h1>
+<p>Many types in Godot such as <a href="https://docs.godotengine.org/en/stable/classes/class_astar3d.html#class-astar3d">AStar3D</a> are of type <a href="https://docs.godotengine.org/en/stable/classes/class_refcounted.html#class-refcounted">RefCounted</a>. Godot will keep track of how many references you have for a given instance. If the reference count becomes 0, the instance will be freed:</p>
+<pre data-lang="gd" style="background-color:#090a0c;color:#dae4ed;" class="language-gd "><code class="language-gd" data-lang="gd"><span style="color:#5981f5;">extends</span><span> Node
+</span><span>
+</span><span style="color:#5981f5;">func </span><span style="color:#ffffff;">fun_with_refs</span><span style="color:#b7c3ce;">() -&gt; </span><span style="color:#5981f5;">void</span><span style="color:#b7c3ce;">:
+</span><span>   </span><span style="color:#5981f5;">var </span><span style="color:#ffffff;">my_ref </span><span style="color:#b7c3ce;">=</span><span> AStar3D.</span><span style="color:#ffffff;">new</span><span style="color:#b7c3ce;">() </span><span style="color:#353e4a;"># AStar3D is of type RefCounted
+</span><span>
+</span><span style="color:#5981f5;">func </span><span style="color:#ffffff;">_ready</span><span style="color:#b7c3ce;">() -&gt; </span><span style="color:#5981f5;">void</span><span style="color:#b7c3ce;">:
+</span><span>   </span><span style="color:#ffffff;">fun_with_refs</span><span style="color:#b7c3ce;">()
+</span><span>   </span><span style="color:#353e4a;"># the AStar3D instance will be gone! Nothing is referencing it!
+</span></code></pre>
+<p>This can be extremely handy: you don't actually have to worry about freeing objects or any sort of memory management. Godot will take care of it automatically. Prefer <code>RefCounted</code> if you don't want to worry about freeing instances and you have mostly short-lived objects anyways.</p>
+<p>For in-built types like <code>Color</code> or <code>String</code>, Godot utilizes <strong>value semantics</strong>, this means that when you assign a color or string, it will create always an independent copy.</p>
+<pre data-lang="gd" style="background-color:#090a0c;color:#dae4ed;" class="language-gd "><code class="language-gd" data-lang="gd"><span style="color:#5981f5;">var </span><span style="color:#ffffff;">a </span><span style="color:#b7c3ce;">= </span><span style="color:#5981f5;">Vector2</span><span style="color:#b7c3ce;">(</span><span style="color:#ea9433;">5</span><span style="color:#b7c3ce;">, </span><span style="color:#ea9433;">10</span><span style="color:#b7c3ce;">) </span><span style="color:#353e4a;"># Vector2 is an inbuilt-type
+</span><span style="color:#5981f5;">var </span><span style="color:#ffffff;">b </span><span style="color:#b7c3ce;">=</span><span> a
+</span><span>b.x </span><span style="color:#b7c3ce;">= </span><span style="color:#ea9433;">99
+</span><span>
+</span><span style="color:#ffffff;">print</span><span style="color:#b7c3ce;">(</span><span>a</span><span style="color:#b7c3ce;">) </span><span style="color:#353e4a;"># (5, 10)
+</span><span style="color:#ffffff;">print</span><span style="color:#b7c3ce;">(</span><span>b</span><span style="color:#b7c3ce;">) </span><span style="color:#353e4a;"># (99, 10)
+</span></code></pre>
+<h1 id="the-bad-object">The Bad: Object</h1>
+<p>Well... not really bad. Just bad for beginners. <code>Object</code> type can bite you if you don't actually understand how it works! Godot will <strong>not</strong> free objects for you. When you are not careful, it can lead to a <a href="https://en.wikipedia.org/wiki/Memory_leak">memory leak</a>:</p>
+<pre data-lang="gd" style="background-color:#090a0c;color:#dae4ed;" class="language-gd "><code class="language-gd" data-lang="gd"><span style="color:#5981f5;">extends</span><span> Node
+</span><span>
+</span><span style="color:#5981f5;">func </span><span style="color:#ffffff;">memory_leak</span><span style="color:#b7c3ce;">() -&gt; </span><span style="color:#5981f5;">void</span><span style="color:#b7c3ce;">:
+</span><span>   </span><span style="color:#5981f5;">var </span><span style="color:#ffffff;">node </span><span style="color:#b7c3ce;">=</span><span> Node.</span><span style="color:#ffffff;">new</span><span style="color:#b7c3ce;">() </span><span style="color:#353e4a;"># Node is of type Object
+</span><span>
+</span><span style="color:#5981f5;">func </span><span style="color:#ffffff;">_ready</span><span style="color:#b7c3ce;">() -&gt; </span><span style="color:#5981f5;">void</span><span style="color:#b7c3ce;">:
+</span><span>   </span><span style="color:#ffffff;">memory_leak</span><span style="color:#b7c3ce;">()
+</span><span>   </span><span style="color:#353e4a;"># oops, memory for the node instance is still reserved!
+</span></code></pre>
+<p>In order to free <code>Object</code> you have to call <code>.free()</code> on it. You are in luck, though: most <code>Object</code> instances that Godot creates (like nodes) it will free for you! So while technically, <code>Object</code> requires manual memory management, Godot will do a lot for you. However, when rolling your own <code>Object</code> types you need to be careful!</p>
+<h1 id="the-ugly-invisible-side-effects">The Ugly: Invisible Side-Effects</h1>
+<p>I have been recently contributing again to the <a href="https://github.com/utopia-rise/fmod-gdextension">FMOD GDExtension</a> by <a href="https://github.com/utopia-rise">utopia-rise</a> because I was trying to investigate an issue in my game where no sound was playing. I won't go into too much technical detail here, but <a href="https://www.fmod.com/">FMOD</a> basically is an audo engine that I am using for <a href="https://bitbrain.itch.io/cave">my game</a>. FMOD has the concept of "audio banks" that you gotta load at runtime, and those banks contain the audio to play. The code usually looks like this:</p>
+<pre data-lang="gd" style="background-color:#090a0c;color:#dae4ed;" class="language-gd "><code class="language-gd" data-lang="gd"><span style="color:#353e4a;"># init.gd autoload script
+</span><span style="color:#5981f5;">extends</span><span> Node
+</span><span>
+</span><span style="color:#5981f5;">func </span><span style="color:#ffffff;">_init</span><span style="color:#b7c3ce;">() -&gt; </span><span style="color:#5981f5;">void</span><span style="color:#b7c3ce;">:
+</span><span>    FmodServer.</span><span style="color:#ffffff;">load_bank</span><span style="color:#b7c3ce;">(&quot;</span><span style="color:#4ebc6b;">res://fmod/main.bank</span><span style="color:#b7c3ce;">&quot;,</span><span> FmodServer.FMOD_STUDIO_LOAD_BANK_NORMAL</span><span style="color:#b7c3ce;">)
+</span></code></pre>
+<p>This used to work fine but at some point, it stopped working. After a long time of debugging, it turned out that the signature of <code>load_bank</code> had been changed. <code>FmodBank</code> no longer was of type <code>Object</code> but of type <code>RefCounted</code>!</p>
+<p><img src="/images/worried-kermit.webp" alt="worried-kermit" /></p>
+<p>If you have paid attention before, you should already know what the problem is: the GDExtension correctly loads the <code>main.bank</code> file into memory but we are actually not referencing it! Godot will then go ahead and free the instance again (because it is a <code>RefCounted</code> and its reference count reaches <code>0</code>). So the correct fix is this:</p>
+<pre data-lang="gd" style="background-color:#090a0c;color:#dae4ed;" class="language-gd "><code class="language-gd" data-lang="gd"><span style="color:#353e4a;"># init.gd autoload script
+</span><span style="color:#5981f5;">extends</span><span> Node
+</span><span>
+</span><span style="color:#5981f5;">var </span><span style="color:#ffffff;">banks </span><span style="color:#b7c3ce;">=</span><span> []
+</span><span>
+</span><span style="color:#5981f5;">func </span><span style="color:#ffffff;">_init</span><span style="color:#b7c3ce;">() -&gt; </span><span style="color:#5981f5;">void</span><span style="color:#b7c3ce;">:
+</span><span>    banks.</span><span style="color:#ffffff;">append</span><span style="color:#b7c3ce;">(</span><span>FmodServer.</span><span style="color:#ffffff;">load_bank</span><span style="color:#b7c3ce;">(&quot;</span><span style="color:#4ebc6b;">res://fmod/main.bank</span><span style="color:#b7c3ce;">&quot;,</span><span> FmodServer.FMOD_STUDIO_LOAD_BANK_NORMAL</span><span style="color:#b7c3ce;">)</span><span>)
+</span></code></pre>
+<p>since <code>banks</code> itself is a reference that will stay around as long the <code>init.gd</code> autoload is around (for the entire duration of the game's runtime). We are saved!</p>
+<h1 id="confusion-about-valid-instances">Confusion about valid instances</h1>
+<p>Before we finish, I wanted to say a few more words about <a href="https://docs.godotengine.org/en/stable/classes/class_%40globalscope.html#class-globalscope-method-is-instance-valid">is_instance_valid</a>. Code like this may seem confusing at first:</p>
+<pre data-lang="gd" style="background-color:#090a0c;color:#dae4ed;" class="language-gd "><code class="language-gd" data-lang="gd"><span style="color:#5981f5;">var </span><span style="color:#ffffff;">my_color </span><span style="color:#b7c3ce;">= </span><span style="color:#5981f5;">Color</span><span style="color:#b7c3ce;">(</span><span style="color:#ea9433;">255</span><span style="color:#b7c3ce;">, </span><span style="color:#ea9433;">255</span><span style="color:#b7c3ce;">, </span><span style="color:#ea9433;">255</span><span style="color:#b7c3ce;">)
+</span><span style="color:#ffffff;">print</span><span style="color:#b7c3ce;">(</span><span style="color:#ffffff;">is_instance_valid</span><span style="color:#b7c3ce;">(</span><span>my_color</span><span style="color:#b7c3ce;">)</span><span>) </span><span style="color:#353e4a;"># returns false
+</span></code></pre>
+<p>but this is intended behaviour: <code>Color</code> is an in-built type and won't have an <strong>instance id</strong>. <code>is_instance_valid</code> only operates on <strong>instance ids</strong> so Godot cannot know if it is valid or not -&gt; it will always be <code>false</code>.</p>
+<p>I hope this was somewhat useful. If you have follow up questions, you can always reach me on 🐘<a href="https://mastodon.gamedev.place/@bitbraindev">Mastodon</a> or over at ⛅<a href="https://bsky.app/profile/bitbra.in">BlueSky</a>.</p>
+
+        </div>
+        
+        
+        
+        <div class="bg-slate-100 dark:bg-slate-800 mt-12">
+            <div class="flex items-stretch lg:items-stretch">
+                
+                
+                
+                
+                    
+                
+                
+                    
+                    
+                        
+                    
+                    <div class="author-box__media">
+                        <img src="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg" alt="" class="author-box__avatar"/>
+                    </div>
+                
+                <div class="text-4xl lg:text-base text-slate-700 dark:text-slate-400 flex-1 author-box__content">
+                    
+                        <h2 class="font-serif text-6xl lg:text-2xl text-slate-900 dark:text-slate-300 m-0 author-box__title">bitbrain</h2>
+                    
+                    
+                        <div class="font-sans text-5xl lg:text-xl text-slate-600 dark:text-slate-500 mb-4 author-box__subtitle">Lead Software Engineer. Godot Engine evangelist.</div>
+                    
+                    
+                    
+                        
+                    
+                    
+                        <div class="mt-2 text-8xl lg:text-4xl flex gap-3 homepage-social author-box__social">
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;github.com&#x2F;bitbrain" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-github"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;youtube.com&#x2F;@bitbraindev" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-youtube"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;bsky.app&#x2F;profile&#x2F;bitbra.in" target="_blank" rel="me noopener noreferrer">
+                                        <i class="las la-at"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;mastodon.gamedev.place&#x2F;@bitbraindev" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-mastodon"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                        </div>
+                    
+            </div>
+        </div>
+        
+    </div>
+
+        </section>
+    </body>
+</html>

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+    <head>
+        <meta charset="utf-8">
+        
+        <script>
+            const isDarkMode = localStorage.getItem('is_darkmode_set') === 'true';
+            if (isDarkMode) {
+                document.documentElement.classList.add('dark');
+            }
+        </script>
+        
+        <meta name="color-scheme" content="light dark">
+
+        
+        
+        
+            
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        
+                        
+                            
+                            
+                            
+                                
+                            
+                        
+                    
+                
+            
+            
+            
+        
+        
+        
+            <link rel="me" href="https:&#x2F;&#x2F;mastodon.gamedev.place&#x2F;@bitbraindev">
+        
+
+        
+        
+
+        
+        <link rel="alternate"
+              type="application/atom+xml"
+              title="bitbrain feed"
+              href="https://bitbra.in/atom.xml">
+        
+
+        
+        <link rel="icon" type="image/webp" href="https://bitbra.in/favicon.webp?h=0d4aaa30fc76312a3ebe">
+        <link rel="icon" type="image/png" href="https://bitbra.in/favicon.png?h=44b76b5cf66397d57be1" sizes="32x32">
+
+        <link rel="stylesheet" href="https://bitbra.in/css/style.css?h=02ededa3d6ae0ee7a513"/>
+        <link rel="stylesheet" href="https://bitbra.in/line-awesome/css/line-awesome.min.css?h=ce61a18cf084f1500379"/>
+        <script src="https://bitbra.in/js/main.js?h=6ebbb40a03fcd672fbed" defer></script>
+        
+    <title>Creating braingdx: orthogonal tilemaps | bitbrain</title>
+    
+    
+    
+    
+    
+    
+        
+    
+    
+        
+        
+            
+        
+    
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Creating braingdx: orthogonal tilemaps">
+    <meta property="og:description" content="Fist part of a blog-series about my gamejam framework called braingdx.">
+    <meta property="og:url" content="https:&#x2F;&#x2F;bitbra.in&#x2F;blog&#x2F;creating-braingdx-orthogonal-tilemaps&#x2F;">
+    <meta property="og:site_name" content="bitbrain">
+    <meta property="og:image" content="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Creating braingdx: orthogonal tilemaps">
+    <meta name="twitter:description" content="Fist part of a blog-series about my gamejam framework called braingdx.">
+    <meta name="twitter:image" content="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg">
+    
+    
+    
+        
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                    
+                    
+                        
+                        
+                        
+                            
+                        
+                    
+                
+            
+        
+        
+        
+    
+    
+    
+        
+        
+        
+        
+            
+            
+            <meta name="fediverse:creator" content="@bitbraindev@mastodon.gamedev.place">
+        
+    
+
+    </head>
+
+    <body class="bg-white dark:bg-slate-900 transition ease-in-out">
+        <section>
+            
+    
+<div class="sticky top-0 bg-slate-100 dark:bg-slate-800">
+    <div class="container mx-auto flex place-content-between
+        py-16 lg:py-8 font-sans text-6xl lg:text-2xl text-slate-900
+        dark:text-white">
+        <div class="flex">
+            
+            
+            
+            
+            <a class="m-0 p-0 text-slate-900 hover:text-slate-700
+                            dark:text-white dark:hover:text-white" href="&#x2F;blog&#x2F;">
+                /blog
+            </a>
+            
+            
+            
+            
+            
+            
+        </div>
+        <div class="flex gap-4 header-links">
+            <div id="back-to-top" class="hidden cursor-pointer">
+                <i class="las la-level-up-alt"></i>
+            </div>
+            <a href="/"><i class="las la-home"></i></a>
+            
+            <a href="https://bitbra.in/atom.xml"><i class="las la-rss"></i></a>
+            
+            <div id="darkmode-toggle" class="cursor-pointer">
+                <div class="hidden dark:inline">
+                    <i class="las la-sun"></i>
+                </div>
+                <div class="inline dark:hidden">
+                    <i class="las la-moon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="container mb-16">
+        <div class="mt-4 font-serif text-slate-600 dark:text-slate-500 text-4xl lg:text-base">
+            2019-07-08
+        </div>
+        <h1 class="w-full mt-4 mb-8 font-serif text-8xl lg:text-4xl text-slate-900 dark:text-slate-300">
+            Creating braingdx: orthogonal tilemaps
+        </h1>
+        <div class="w-100 border-t mb-8 border-slate-300 dark:border-slate-700"></div>
+        <div class="prose-boring">
+            <p>Welcome to my new blog series where I talk in more detail about a personal project of mine called <a href="https://github.com/bitbrain/braingdx">braingdx</a>. It builds upon <a href="https://libgdx.badlogicgames.com">libgdx</a> and extends it <a href="https://github.com/bitbrain/braingdx#features">with game engine features</a> to avoid writing boilerplate-code.</p>
+<p>In this part I will present how the tiledmap integration works in <strong>braingdx</strong> compared to <strong>libgdx</strong> itself. As mentioned before, this framework uses <strong>libgdx</strong> and its APIs in order to integrate tiled maps.</p>
+<h2 id="why-extending-already-existing-tiledmap-support">Why extending already existing tiledmap support?</h2>
+<p>Before I started writing my own framework, I would use something like this to get tiledmaps drawn onto screen:</p>
+<pre data-lang="java" style="background-color:#090a0c;color:#dae4ed;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#353e4a;">/* somewhere in your create() method */
+</span><span style="color:#ffffff;">this</span><span style="color:#b7c3ce;">.</span><span>camera </span><span style="color:#b7c3ce;">= </span><span style="color:#5981f5;">new </span><span>OrthographicCamera</span><span style="color:#b7c3ce;">();
+</span><span>camera</span><span style="color:#b7c3ce;">.</span><span style="color:#ffffff;">setToOrtho</span><span style="color:#b7c3ce;">(</span><span style="color:#ea9433;">false</span><span style="color:#b7c3ce;">, </span><span>Gdx</span><span style="color:#b7c3ce;">.</span><span>graphics</span><span style="color:#b7c3ce;">.</span><span style="color:#ffffff;">getWidth</span><span style="color:#b7c3ce;">(), </span><span>Gdx</span><span style="color:#b7c3ce;">.</span><span>graphics</span><span style="color:#b7c3ce;">.</span><span style="color:#ffffff;">getHeight</span><span style="color:#b7c3ce;">());
+</span><span>camera</span><span style="color:#b7c3ce;">.</span><span style="color:#ffffff;">update</span><span style="color:#b7c3ce;">();
+</span><span>
+</span><span style="color:#ffffff;">this</span><span style="color:#b7c3ce;">.</span><span>tiledMap </span><span style="color:#b7c3ce;">= </span><span style="color:#5981f5;">new </span><span>TmxMapLoader</span><span style="color:#b7c3ce;">().</span><span style="color:#ffffff;">load</span><span style="color:#b7c3ce;">(&quot;</span><span style="color:#4ebc6b;">orthogonal-map.tmx</span><span style="color:#b7c3ce;">&quot;);
+</span><span style="color:#ffffff;">this</span><span style="color:#b7c3ce;">.</span><span>tiledMapRenderer </span><span style="color:#b7c3ce;">= </span><span style="color:#5981f5;">new </span><span>OrthogonalTiledMapRenderer</span><span style="color:#b7c3ce;">(</span><span>tiledMap</span><span style="color:#b7c3ce;">);
+</span><span>
+</span><span style="color:#353e4a;">/* somewhere in your render() method */
+</span><span>camera</span><span style="color:#b7c3ce;">.</span><span style="color:#ffffff;">update</span><span style="color:#b7c3ce;">();
+</span><span>tiledMapRenderer</span><span style="color:#b7c3ce;">.</span><span style="color:#ffffff;">setView</span><span style="color:#b7c3ce;">(</span><span>camera</span><span style="color:#b7c3ce;">);
+</span><span>tiledMapRenderer</span><span style="color:#b7c3ce;">.</span><span style="color:#ffffff;">render</span><span style="color:#b7c3ce;">();
+</span></code></pre>
+<p>This will render your multi-layered map onto the screen. Job is done then. Or  is it? Before I even started thinking about writing a tiledmap integration, I had to know the challenges ahead of me. I realised that using a simple <code>OrthogonalTiledMapRenderer</code> does not do the trick at all: the problem are game objects itself.</p>
+<blockquote>
+<p>a game object is a stateful, dynamic object within a game world which represents anything the player can interact with: characters, items, events, etc.</p>
+</blockquote>
+<p>Given a multi-layered map like this in <a href="https://www.mapeditor.org/">Tiled</a>:</p>
+<p><a href="https://bitbrain.itch.io/the-legend-of-studentenfutter"><img src="/images/legend-of-studentenfutter-screenshot.webp" alt="los-screenshot" /></a></p>
+<p>Do you note the bridge? How can I achieve that the player gets either rendered below the bridge (when walking beneath it) or is walking on the bridge? What about automatic collision detection? How can I prevent that the player is able to fall off the bridge, but can walk beneath it without problems? All these challenges can not be solved by using <code>OrthogonalTiledMapRenderer</code>.
+Instead, you have to write your own z-index ordering logic. Don't worry though, these challenges have been solved within <strong>braingdx</strong>:</p>
+<pre data-lang="java" style="background-color:#090a0c;color:#dae4ed;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#353e4a;">/* within braingdx you simply have this */
+</span><span style="color:#b7c3ce;">@</span><span style="color:#ffffff;">Override
+</span><span style="color:#5981f5;">public</span><span> void </span><span style="color:#ffffff;">onCreate</span><span style="color:#b7c3ce;">(</span><span>GameContext2D context</span><span style="color:#b7c3ce;">) {
+</span><span>   TiledMap map </span><span style="color:#b7c3ce;">=</span><span> context</span><span style="color:#b7c3ce;">.</span><span style="color:#ffffff;">getAssetLoader</span><span style="color:#b7c3ce;">().</span><span style="color:#ffffff;">get</span><span style="color:#b7c3ce;">(
+</span><span>         </span><span style="color:#b7c3ce;">&quot;</span><span style="color:#4ebc6b;">orthogonal-map.tmx</span><span style="color:#b7c3ce;">&quot;,
+</span><span>         TiledMap</span><span style="color:#b7c3ce;">.</span><span style="color:#ffffff;">class
+</span><span>   </span><span style="color:#b7c3ce;">);
+</span><span>   </span><span style="color:#353e4a;">// Obtain the tiledmap manager from the game context
+</span><span>   TiledMapManager tiledMapManager </span><span style="color:#b7c3ce;">=</span><span> context</span><span style="color:#b7c3ce;">.</span><span style="color:#ffffff;">getTiledMapManager</span><span style="color:#b7c3ce;">();
+</span><span>   TiledMapContext tiledMapContext </span><span style="color:#b7c3ce;">=</span><span> tiledMapManager</span><span style="color:#b7c3ce;">.</span><span style="color:#ffffff;">load</span><span style="color:#b7c3ce;">(
+</span><span>         </span><span style="color:#353e4a;">// the map we want to load
+</span><span>         map</span><span style="color:#b7c3ce;">,
+</span><span>         </span><span style="color:#353e4a;">// passing the internal Camera object
+</span><span>         context</span><span style="color:#b7c3ce;">.</span><span style="color:#ffffff;">getGameCamera</span><span style="color:#b7c3ce;">().</span><span style="color:#ffffff;">getInternal</span><span style="color:#b7c3ce;">()
+</span><span>   </span><span style="color:#b7c3ce;">);
+</span><span style="color:#b7c3ce;">}
+</span></code></pre>
+<p>That's all you need! In this blog series I am going to show you how I achieved that.</p>
+<h2 id="how-braingdx-renders-stuff-onto-the-screen">How braingdx renders stuff onto the screen</h2>
+<p>Before we get to the meat, let us talk a bit about how my framework actually displays stuff and why it does it that way. This is important to know so it becomes easier to integrate tiled maps directly into the framework:</p>
+<p><img src="/images/braingdx-render-pipeline.webp" alt="pipeline" /></p>
+<p>The framework renders different layers onto each other which result in the final frame:</p>
+<ol>
+<li>First, it renders the <strong>background</strong> layer, this is mostly something like a parallax layer or a static background image.</li>
+<li>Onto the background, we can now render the <strong>game world</strong>. Simply put, the game world contains dynamic <strong>game objects</strong> which can change attributes like position, shape, rotation etc. dynamically</li>
+<li>The lighting is rendered onto all previous layers.</li>
+<li>At last, we can now render the UI onto the screen</li>
+</ol>
+<p>Since this order is static, where do we render our tiled map? Rendering it as part of the background layer does not allow us to render game objects behind particular layers. So, we have to render the tiledmap somehow as part of the game world.</p>
+<h2 id="bringing-everything-together">Bringing everything together</h2>
+<p>Initially, I never wanted to write my own framework. Reinventing the wheel should be avoided whenever possible. We can save a ton of time by just using what already exists. However, in case of tiled maps I could not find a single solution which satisfies my requirements.</p>
+<p>When creating this framework, I did not want to force new APIs onto the user - many parts are just re-using existing <a href="https://libgdx.badlogicgames.com">libgdx</a> APIs. In case of tiled maps, I found a very simple solution to my problem:</p>
+<blockquote>
+<p><strong>braingdx</strong> treats each tiledmap layer as an individual <strong>game object</strong> and renders them as part of the <strong>world layer</strong>.</p>
+</blockquote>
+<p>Each <strong>game object</strong> has its own z-index, which defines the order in which game objects are rendered. When drawing tiledmap layers as part of the gameworld render process, it allows us to have dynamic ordering. However, this begs a question:</p>
+<p><strong>What should be the z-index of a particular tiledmap layer?</strong></p>
+<p>The formular looks as follows:</p>
+<pre style="background-color:#090a0c;color:#dae4ed;"><code><span>zIndex = (layerIndex + 1) * rows - yIndex
+</span></code></pre>
+<p>The <code>layerIndex</code> is the number of the layer, counting from <code>0</code> upwards. The <code>rows</code> attribute is the number of total rows as part of the tiled map. Finally, the <code>yIndex</code> is the vertical index of the cell, the particular game object is currently on.</p>
+<p>As a concrete example, let's imagine the following setup:</p>
+<ul>
+<li>a <code>10x10</code> orthogonal tiledmap with a tile resolution of <code>32x32</code> pixels</li>
+<li>the map consists of <code>2</code> tiled layers and a single object layer in between those</li>
+<li>a player object is located on the object layer at position <code>x = 60, y = 110</code></li>
+</ul>
+<p><strong>braingdx</strong> will automatically compute the z-index according to the given properties.</p>
+<p>At first, the framework calculates the so called <code>yIndex</code> as follows:</p>
+<pre style="background-color:#090a0c;color:#dae4ed;"><code><span>yIndex = floor(110 / 32) = 3
+</span></code></pre>
+<p>So the game object is positioned at a <code>yIndex</code> of <strong>3</strong>. The framework does not have a concept of object layers, since each game object is rendered separately, depending on their position. Instead, <strong>braingdx</strong> only keeps tiledmap layers. A game object is always translated onto the layer underneath. So, a tiledmap layer above the game object will always be rendered above the game object. As a result, the <code>layerIndex</code> of the assigned tiledmap layer is <strong>0</strong>.</p>
+<p>This results to the following computation:</p>
+<pre style="background-color:#090a0c;color:#dae4ed;"><code><span>zIndex = (0 + 1) * 10 - 3 = 7
+</span></code></pre>
+<p>So the player at its current position will have a <code>zIndex</code> of <strong>7</strong>. This is all done by <strong>braingdx</strong> internally. Since game objects are rendered in the order of their <code>zIndex</code> attribute, it is ensured that game objects can be dynamically drawn before or after a particular tiledmap layer.</p>
+<h2 id="what-about-tiledmap-layers-then">What about tiledmap layers then?</h2>
+<p>We have learned how <strong>braingdx</strong> computes <code>zIndex</code> of game objects and that all game objects are drawn in the order of that index value. However, what about the layers itself? You might remember, that <strong>braingdx</strong> treats an entire tiledmap layer as a single game object. This means that <strong>braingdx</strong> does the following when loading tiled maps:</p>
+<ol>
+<li>iterate over all layers of the tiledMap</li>
+<li>in case of a object layer, add a new game object to the game world and assign all the properties such as dimensions, position, type etc. to the game object</li>
+<li>in case of a tiledmap layer, add a new game object to the game at position <code>x = 0, y = 0</code> and set the game object to <code>active = false</code>. This ensures that the layer itself is excluded from collision detection</li>
+</ol>
+<p>Since the framework separates the rendering of game objects, we have to define an own <code>GameObject2DRenderer</code> for our tiledmap objects:</p>
+<pre data-lang="java" style="background-color:#090a0c;color:#dae4ed;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#5981f5;">class </span><span>OrthogonalMapLayerRenderer </span><span style="color:#5981f5;">extends </span><span>GameObject2DRenderer </span><span style="color:#b7c3ce;">{
+</span><span>
+</span><span>   </span><span style="color:#5981f5;">private final </span><span>TiledMapTileLayer layer</span><span style="color:#b7c3ce;">;
+</span><span>   </span><span style="color:#5981f5;">private final </span><span>OrthographicCamera camera</span><span style="color:#b7c3ce;">;
+</span><span>   </span><span style="color:#5981f5;">private final </span><span>TiledMap map</span><span style="color:#b7c3ce;">;
+</span><span>   </span><span style="color:#5981f5;">private </span><span>OrthogonalTiledMapRenderer renderer</span><span style="color:#b7c3ce;">;
+</span><span>
+</span><span>   </span><span style="color:#ffffff;">OrthogonalMapLayerRenderer</span><span style="color:#b7c3ce;">(
+</span><span>         TiledMapTileLayer </span><span style="color:#ffffff;">layer</span><span style="color:#b7c3ce;">,
+</span><span>         TiledMap </span><span style="color:#ffffff;">map</span><span style="color:#b7c3ce;">,
+</span><span>         OrthographicCamera </span><span style="color:#ffffff;">camera</span><span style="color:#b7c3ce;">) {
+</span><span>      </span><span style="color:#ffffff;">this</span><span style="color:#b7c3ce;">.</span><span>layer </span><span style="color:#b7c3ce;">=</span><span> layer</span><span style="color:#b7c3ce;">;
+</span><span>      </span><span style="color:#ffffff;">this</span><span style="color:#b7c3ce;">.</span><span>camera </span><span style="color:#b7c3ce;">=</span><span> camera</span><span style="color:#b7c3ce;">;
+</span><span>      </span><span style="color:#ffffff;">this</span><span style="color:#b7c3ce;">.</span><span>map </span><span style="color:#b7c3ce;">=</span><span> map</span><span style="color:#b7c3ce;">;
+</span><span>   </span><span style="color:#b7c3ce;">}
+</span><span>
+</span><span>   </span><span style="color:#b7c3ce;">@</span><span style="color:#ffffff;">Override
+</span><span style="color:#e8447e;">   </span><span style="color:#5981f5;">public void </span><span style="color:#ffffff;">render</span><span style="color:#b7c3ce;">(</span><span>GameObject </span><span style="color:#ffffff;">object</span><span style="color:#b7c3ce;">, </span><span>Batch </span><span style="color:#ffffff;">batch</span><span style="color:#b7c3ce;">, </span><span style="color:#5981f5;">float </span><span style="color:#ffffff;">delta</span><span style="color:#b7c3ce;">) {
+</span><span>      </span><span style="color:#353e4a;">// we dynamically create the renderer for performance/testing reasons
+</span><span>      </span><span style="color:#5981f5;">if </span><span style="color:#b7c3ce;">(</span><span>renderer </span><span style="color:#b7c3ce;">== </span><span style="color:#ea9433;">null</span><span style="color:#b7c3ce;">) {
+</span><span>         renderer </span><span style="color:#b7c3ce;">= </span><span style="color:#5981f5;">new </span><span>OrthogonalTiledMapRenderer</span><span style="color:#b7c3ce;">(</span><span>map</span><span style="color:#b7c3ce;">,</span><span> batch</span><span style="color:#b7c3ce;">);
+</span><span>      </span><span style="color:#b7c3ce;">}
+</span><span>      AnimatedTiledMapTile</span><span style="color:#b7c3ce;">.</span><span style="color:#ffffff;">updateAnimationBaseTime</span><span style="color:#b7c3ce;">();
+</span><span>      renderer</span><span style="color:#b7c3ce;">.</span><span style="color:#ffffff;">setView</span><span style="color:#b7c3ce;">(</span><span>camera</span><span style="color:#b7c3ce;">);
+</span><span>      renderer</span><span style="color:#b7c3ce;">.</span><span style="color:#ffffff;">renderTileLayer</span><span style="color:#b7c3ce;">(</span><span>layer</span><span style="color:#b7c3ce;">);
+</span><span>   </span><span style="color:#b7c3ce;">}
+</span><span style="color:#b7c3ce;">}
+</span></code></pre>
+<p>The <code>render</code> method will be called whenever our tiledmap layer object gets drawn. Since we want to ensure that each layer has its own renderer, we have to generate the game object type for the tiledmap layer and register it to the <strong>RenderManager</strong>:</p>
+<pre data-lang="java" style="background-color:#090a0c;color:#dae4ed;" class="language-java "><code class="language-java" data-lang="java"><span>String id </span><span style="color:#b7c3ce;">= </span><span>UUID</span><span style="color:#b7c3ce;">.</span><span style="color:#ffffff;">randomUUID</span><span style="color:#b7c3ce;">().</span><span style="color:#ffffff;">toString</span><span style="color:#b7c3ce;">();
+</span><span>context</span><span style="color:#b7c3ce;">.</span><span style="color:#ffffff;">getRenderManager</span><span style="color:#b7c3ce;">().</span><span style="color:#ffffff;">register</span><span style="color:#b7c3ce;">(</span><span>id</span><span style="color:#b7c3ce;">,</span><span> renderer</span><span style="color:#b7c3ce;">);
+</span></code></pre>
+<h2 id="conclusion">Conclusion</h2>
+<p>A lot of time is wasted during gamejams sorting out render issues with tiledmaps. Modern game engines like <strong>Unity</strong> or <strong>Unreal Engine</strong> will do that for you - however for us Java folks there is not a simple way. Most of the time, we copy-paste together config from gamedev forums or Github, but we always had to re-invent the wheel each time. With <strong>braingdx</strong> this changes everything!</p>
+<p><a href="https://github.com/bitbrain/braingdx">Checkout braingdx</a> and see for yourself: it can save you a lot of time when participating in gamejams!</p>
+
+        </div>
+        
+        
+        
+        <div class="bg-slate-100 dark:bg-slate-800 mt-12">
+            <div class="flex items-stretch lg:items-stretch">
+                
+                
+                
+                
+                    
+                
+                
+                    
+                    
+                        
+                    
+                    <div class="author-box__media">
+                        <img src="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg" alt="" class="author-box__avatar"/>
+                    </div>
+                
+                <div class="text-4xl lg:text-base text-slate-700 dark:text-slate-400 flex-1 author-box__content">
+                    
+                        <h2 class="font-serif text-6xl lg:text-2xl text-slate-900 dark:text-slate-300 m-0 author-box__title">bitbrain</h2>
+                    
+                    
+                        <div class="font-sans text-5xl lg:text-xl text-slate-600 dark:text-slate-500 mb-4 author-box__subtitle">Lead Software Engineer. Godot Engine evangelist.</div>
+                    
+                    
+                    
+                        
+                    
+                    
+                        <div class="mt-2 text-8xl lg:text-4xl flex gap-3 homepage-social author-box__social">
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;github.com&#x2F;bitbrain" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-github"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;youtube.com&#x2F;@bitbraindev" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-youtube"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;bsky.app&#x2F;profile&#x2F;bitbra.in" target="_blank" rel="me noopener noreferrer">
+                                        <i class="las la-at"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;mastodon.gamedev.place&#x2F;@bitbraindev" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-mastodon"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                        </div>
+                    
+            </div>
+        </div>
+        
+    </div>
+
+        </section>
+    </body>
+</html>

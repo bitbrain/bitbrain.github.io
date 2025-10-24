@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+    <head>
+        <meta charset="utf-8">
+        
+        <script>
+            const isDarkMode = localStorage.getItem('is_darkmode_set') === 'true';
+            if (isDarkMode) {
+                document.documentElement.classList.add('dark');
+            }
+        </script>
+        
+        <meta name="color-scheme" content="light dark">
+
+        
+        
+        
+            
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        
+                        
+                            
+                            
+                            
+                                
+                            
+                        
+                    
+                
+            
+            
+            
+        
+        
+        
+            <link rel="me" href="https:&#x2F;&#x2F;mastodon.gamedev.place&#x2F;@bitbraindev">
+        
+
+        
+        
+
+        
+        <link rel="alternate"
+              type="application/atom+xml"
+              title="bitbrain feed"
+              href="https://bitbra.in/atom.xml">
+        
+
+        
+        <link rel="icon" type="image/webp" href="https://bitbra.in/favicon.webp?h=0d4aaa30fc76312a3ebe">
+        <link rel="icon" type="image/png" href="https://bitbra.in/favicon.png?h=44b76b5cf66397d57be1" sizes="32x32">
+
+        <link rel="stylesheet" href="https://bitbra.in/css/style.css?h=02ededa3d6ae0ee7a513"/>
+        <link rel="stylesheet" href="https://bitbra.in/line-awesome/css/line-awesome.min.css?h=ce61a18cf084f1500379"/>
+        <script src="https://bitbra.in/js/main.js?h=6ebbb40a03fcd672fbed" defer></script>
+        
+    <title>Continuous Delivery with Travis and Github | bitbrain</title>
+    
+    
+    
+    
+    
+    
+        
+    
+    
+        
+        
+            
+        
+    
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Continuous Delivery with Travis and Github">
+    <meta property="og:description" content="I have released a new library on Maven central. Let me explain how I did that.">
+    <meta property="og:url" content="https:&#x2F;&#x2F;bitbra.in&#x2F;blog&#x2F;cd-with-travis&#x2F;">
+    <meta property="og:site_name" content="bitbrain">
+    <meta property="og:image" content="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Continuous Delivery with Travis and Github">
+    <meta name="twitter:description" content="I have released a new library on Maven central. Let me explain how I did that.">
+    <meta name="twitter:image" content="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg">
+    
+    
+    
+        
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                    
+                    
+                        
+                        
+                        
+                            
+                        
+                    
+                
+            
+        
+        
+        
+    
+    
+    
+        
+        
+        
+        
+            
+            
+            <meta name="fediverse:creator" content="@bitbraindev@mastodon.gamedev.place">
+        
+    
+
+    </head>
+
+    <body class="bg-white dark:bg-slate-900 transition ease-in-out">
+        <section>
+            
+    
+<div class="sticky top-0 bg-slate-100 dark:bg-slate-800">
+    <div class="container mx-auto flex place-content-between
+        py-16 lg:py-8 font-sans text-6xl lg:text-2xl text-slate-900
+        dark:text-white">
+        <div class="flex">
+            
+            
+            
+            
+            <a class="m-0 p-0 text-slate-900 hover:text-slate-700
+                            dark:text-white dark:hover:text-white" href="&#x2F;blog&#x2F;">
+                /blog
+            </a>
+            
+            
+            
+            
+            
+            
+        </div>
+        <div class="flex gap-4 header-links">
+            <div id="back-to-top" class="hidden cursor-pointer">
+                <i class="las la-level-up-alt"></i>
+            </div>
+            <a href="/"><i class="las la-home"></i></a>
+            
+            <a href="https://bitbra.in/atom.xml"><i class="las la-rss"></i></a>
+            
+            <div id="darkmode-toggle" class="cursor-pointer">
+                <div class="hidden dark:inline">
+                    <i class="las la-sun"></i>
+                </div>
+                <div class="inline dark:hidden">
+                    <i class="las la-moon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="container mb-16">
+        <div class="mt-4 font-serif text-slate-600 dark:text-slate-500 text-4xl lg:text-base">
+            2018-07-15
+        </div>
+        <h1 class="w-full mt-4 mb-8 font-serif text-8xl lg:text-4xl text-slate-900 dark:text-slate-300">
+            Continuous Delivery with Travis and Github
+        </h1>
+        <div class="w-100 border-t mb-8 border-slate-300 dark:border-slate-700"></div>
+        <div class="prose-boring">
+            <p>Some years ago I started working on a project called <a href="https://github.com/bitbrain/braingdx">braingdx</a>. It is a gamejam framework based on <a href="https://libgdx.badlogicgames.com/">libgdx</a>, fully written in <strong>Java</strong>. At some point I decided to make the artifact available for a broader audience. As a result I required a deployment flow to automatically upload the <strong>.jar</strong> files to an artifactory of my choice.</p>
+<h1 id="the-silly-approach">The silly approach</h1>
+<p>I just wanted to publish artifacts, but not on each commit. Instead, I decided to go for a multi-<a href="https://git-scm.com/docs/git-branch">branch</a> configuration like this:</p>
+<p><img src="/images/silly-git-flow.svg" alt="silly-git-flow" /></p>
+<p>We have a <code>master</code> branch where we commit on. When we decide to release an artifact, we manually (locally) merge into <code>deploy</code>, push the changes and <a href="https://travis-ci.org/">Travis CI</a> will pickup the build, thanks to the <code>.travis.yml</code> file configured:</p>
+<pre data-lang="yml" style="background-color:#090a0c;color:#dae4ed;" class="language-yml "><code class="language-yml" data-lang="yml"><span style="color:#4ebc6b;">language</span><span style="color:#b7c3ce;">: </span><span style="color:#4ebc6b;">java
+</span><span>
+</span><span style="color:#4ebc6b;">services</span><span style="color:#b7c3ce;">:
+</span><span>  </span><span style="color:#b7c3ce;">- </span><span style="color:#4ebc6b;">docker
+</span><span>
+</span><span style="color:#4ebc6b;">jdk</span><span style="color:#b7c3ce;">:
+</span><span>  </span><span style="color:#b7c3ce;">- </span><span style="color:#4ebc6b;">openjdk7
+</span><span>
+</span><span style="color:#4ebc6b;">cache</span><span style="color:#b7c3ce;">:
+</span><span>    </span><span style="color:#4ebc6b;">directories</span><span style="color:#b7c3ce;">:
+</span><span>        </span><span style="color:#b7c3ce;">- </span><span style="color:#4ebc6b;">$HOME/.m2
+</span><span>
+</span><span style="color:#4ebc6b;">branches</span><span style="color:#b7c3ce;">:
+</span><span>  </span><span style="color:#4ebc6b;">only</span><span style="color:#b7c3ce;">:
+</span><span>  </span><span style="color:#b7c3ce;">- </span><span style="color:#4ebc6b;">deploy
+</span><span>
+</span><span style="color:#4ebc6b;">env</span><span style="color:#b7c3ce;">:
+</span><span>  </span><span style="color:#4ebc6b;">global</span><span style="color:#b7c3ce;">:
+</span><span>    </span><span style="color:#b7c3ce;">- </span><span style="color:#4ebc6b;">COMMIT=${TRAVIS_COMMIT::8}
+</span><span>
+</span><span style="color:#4ebc6b;">before_install</span><span style="color:#b7c3ce;">:
+</span><span>  </span><span style="color:#b7c3ce;">- </span><span style="color:#4ebc6b;">export CH_VERSION=$(docker run -v $(pwd):/chime bitbrain/chime:latest CHANGELOG.md version)
+</span><span>  </span><span style="color:#b7c3ce;">- </span><span style="color:#4ebc6b;">export CH_TEXT=$(docker run -v $(pwd):/chime bitbrain/chime:latest CHANGELOG.md text)
+</span><span>  </span><span style="color:#b7c3ce;">- </span><span style="color:#4ebc6b;">mvn versions:set -DnewVersion=$CH_VERSION
+</span><span>  </span><span style="color:#b7c3ce;">- </span><span style="color:#4ebc6b;">chmod +x deployment/deploy.sh
+</span><span>
+</span><span style="color:#4ebc6b;">install</span><span style="color:#b7c3ce;">:
+</span><span>  </span><span style="color:#b7c3ce;">- </span><span style="color:#4ebc6b;">./deployment/deploy.sh
+</span></code></pre>
+<p>The configuration file has a <code>before_install</code> section. In there we use a tool written by me called <a href="https://github.com/bitbrain/chime">chime</a>. We run this tool as a Docker container to extract version and changelog information from a <code>CHANGELOG.md</code> provided. For example, we have a file like this:</p>
+<pre data-lang="markdown" style="background-color:#090a0c;color:#dae4ed;" class="language-markdown "><code class="language-markdown" data-lang="markdown"><span style="color:#b7c3ce;"># </span><span>Version 1.1
+</span><span>
+</span><span>This is version 1.1 description.
+</span><span>
+</span><span style="color:#b7c3ce;">* </span><span>some patchnotes
+</span><span style="color:#b7c3ce;">*</span><span> more patchnotes
+</span><span>
+</span><span style="color:#b7c3ce;"># </span><span>Version 1.0
+</span><span>
+</span><span>This is version 1.0 description.
+</span><span>
+</span><span style="color:#b7c3ce;">* </span><span>some patchnotes
+</span><span style="color:#b7c3ce;">*</span><span> more patchnotes
+</span></code></pre>
+<p>The resulting environment variables would look like this (after <code>before_install</code> execution):</p>
+<pre data-lang="bash" style="background-color:#090a0c;color:#dae4ed;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#b7c3ce;">&gt;</span><span> echo </span><span style="color:#b7c3ce;">$</span><span style="color:#ffffff;">CH_VERSION
+</span><span style="color:#ffffff;">Version</span><span> 1.1
+</span><span style="color:#b7c3ce;">&gt;</span><span> echo </span><span style="color:#b7c3ce;">$</span><span style="color:#ffffff;">CH_TEXT
+</span><span style="color:#ffffff;">This</span><span> is version 1.0 description.</span><span style="color:#ea9433;">\n</span><span style="color:#b7c3ce;">*</span><span> some patchnotes</span><span style="color:#ea9433;">\n</span><span style="color:#b7c3ce;">*</span><span> more patchnotes
+</span></code></pre>
+<p>Using this approach we can define versions within a <code>CHANGELOG.md</code> file and it should automatically pick up the latest version from the file. We update the version of the library temporarily via <code>mvn versions:set</code> with the latest version extracted from the changelog file.</p>
+<p>Afterwards we run a <code>deploy.sh</code> script during the <code>install</code> stage:</p>
+<pre data-lang="bash" style="background-color:#090a0c;color:#dae4ed;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffffff;">mvn</span><span> deploy </span><span style="color:#b7c3ce;">\
+</span><span style="color:#b7c3ce;">    -</span><span style="color:#ffffff;">DskipTests </span><span style="color:#b7c3ce;">\
+</span><span style="color:#b7c3ce;">    --</span><span style="color:#ffffff;">settings</span><span> deployment/settings.xml
+</span></code></pre>
+<p>I configured a custom Nexus inside my <code>settings.xml</code> to push my artifacts to. Users of my library then would need to add the repository via repository statement in their configuration.</p>
+<h1 id="silly-approach-lots-of-problems">Silly approach, lots of problems</h1>
+<p>The approach worked fine, however it was not as refined as I hoped it to be:</p>
+<ul>
+<li>my custom Nexus caused SSL Certificate issues on some Windows and Mac machines when trying to download dependencies</li>
+<li>it is truly cumbersome to manually switch between <code>master</code> and <code>deploy</code> locally and merge all the time</li>
+<li>the current multi-branch approach causes lots of merge commits (if we are not able to fast-forward)</li>
+<li>sometimes you would forget to switch from <code>deploy</code> back to <code>master</code> locally and suddenly commiting on a wrong branch</li>
+<li>not easy to have a mapping from version to commit history (missing <a href="https://git-scm.com/book/en/v2/Git-Basics-Tagging">tagging</a> functionality)</li>
+<li>Travis only builds the <code>deploy</code> branch, not the master branch. We never truly compile each commit on <code>master</code> nor run any tests</li>
+</ul>
+<p>After putting some thought into it I came up with a much better, more light-weighted approach.</p>
+<h1 id="one-branch-to-rule-them-all">One branch to rule them all</h1>
+<p>I eventually decided to get rid of the <code>deploy</code> branch after all. All commits should go to <code>master</code> and should be tested and/or deployed on Travis. I would keep the <code>CHANGELOG.md</code> version extraction and do additional checks to avoid deploying already deployed versions twice:</p>
+<p><img src="/images/simple-branch-flow.svg" alt="simple-branch-flow" /></p>
+<p>The new flow is executed whenever a new commit is pushed onto <code>master</code>:</p>
+<ol>
+<li>checkout from SCM</li>
+<li>extract version and changelog from <code>CHANGELOG.md</code></li>
+<li>Sign artifacts - this is required in order to push artifacts to <a href="https://search.maven.org/">Maven Central</a></li>
+<li>Install/Deployment
+<ul>
+<li>verify if the latest git tag is different than version extracted. Run deployment when extracted version from <code>CHANGELOG.md</code> is newer</li>
+<li>when there is no difference in version, the version had been deployed already. Instead, run unit tests and generate code coverage reports</li>
+</ul>
+</li>
+<li>Upload additional artifacts
+<ul>
+<li>happens on <strong>after_install</strong> stage</li>
+<li>when the new version is different than the latest tag create a new <a href="https://help.github.com/articles/creating-releases/">Github Release</a> which will automatically create a new tag with the current version</li>
+<li>upload <a href="http://bitbrain.github.io/braingdx/docs/latest/">latest Javadoc</a> to Github</li>
+</ul>
+</li>
+</ol>
+<p>In the rest of this article I will explain how some of these steps work in detail.</p>
+<h1 id="sign-your-artifacts">Sign your Artifacts</h1>
+<p>In order to upload your artifacts to Central you require to sign your artifacts with a GPG signature. I recommend <a href="http://www.debonair.io/post/maven-cd/">reading this tutorial</a> to learn how to do that.</p>
+<p>In the tutorial the author explains that we want to encrypt our <code>codesigning.asc</code> file to prevent strangers from stealing it. We do that by installing and using the <strong>travis</strong> CLI:</p>
+<pre data-lang="bash" style="background-color:#090a0c;color:#dae4ed;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffffff;">gem</span><span> install travis
+</span><span style="color:#ffffff;">travis</span><span> login
+</span><span style="color:#ffffff;">travis</span><span> encrypt-file codesigning.asc
+</span></code></pre>
+<p>When running this I discovered that Travis would fail the build:</p>
+<pre style="background-color:#090a0c;color:#dae4ed;"><code><span>bad decrypt
+</span><span>gpg: invalid radix64 character AE skipped
+</span><span>gpg: invalid radix64 character 13 skipped
+</span><span>gpg: invalid radix64 character F5 skipped
+</span><span>gpg: invalid radix64 character BE skipped
+</span><span>gpg: invalid radix64 character C5 skipped
+</span><span>gpg: invalid radix64 character AF skipped
+</span><span>gpg: invalid radix64 character C8 skipped
+</span><span>gpg: invalid radix64 character 14 skipped
+</span><span>gpg: invalid radix64 character 82 skipped
+</span><span>gpg: invalid radix64 character DF skipped
+</span><span>...
+</span></code></pre>
+<p>What is going on?! I followed the tutorial step by step and for me it did not want to work. After hours of desperation and crying on the floor I found <a href="https://github.com/travis-ci/travis-ci/issues/6936">something on Github</a>. Apparently, on my Windows 10 machine the <code>travis encrypt-file</code> operation is broken and produces a corrupted encryption. WOW! Thanks for that. How did I fix it? A little bit of Docker 🐳 for the win. Let's create a <code>Dockerfile</code>:</p>
+<pre data-lang="dockerfile" style="background-color:#090a0c;color:#dae4ed;" class="language-dockerfile "><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#5981f5;">FROM</span><span> ubuntu
+</span><span style="color:#5981f5;">RUN </span><span>apt-get update &amp;&amp; apt-get install ruby ruby-dev gcc g++ make &amp;&amp; gem install travis
+</span><span style="color:#5981f5;">VOLUME </span><span>/test
+</span><span style="color:#5981f5;">COPY</span><span> codesigning.asc /test/codesigning.asc
+</span><span style="color:#5981f5;">ENV </span><span>GITHUB_TOKEN=</span><span style="color:#b7c3ce;">&quot;&quot;
+</span><span style="color:#b7c3ce;">CMD </span><span>[</span><span style="color:#b7c3ce;">&quot;</span><span style="color:#4ebc6b;">bash</span><span style="color:#b7c3ce;">&quot;</span><span>, </span><span style="color:#b7c3ce;">&quot;</span><span style="color:#4ebc6b;">travis login --github-token $GITHUB_TOKEN &amp;&amp; travis-encrypt codesigning.asc &amp;&amp; echo codesigning.asc.enc</span><span style="color:#b7c3ce;">&quot;</span><span>]
+</span></code></pre>
+<p>And then:</p>
+<pre data-lang="bash" style="background-color:#090a0c;color:#dae4ed;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#353e4a;"># Build our image
+</span><span style="color:#ffffff;">docker</span><span> build</span><span style="color:#b7c3ce;"> -</span><span style="color:#ffffff;">t</span><span> encrypt-asc .
+</span><span style="color:#353e4a;"># Encrypt the file and produce it
+</span><span style="color:#ffffff;">docker</span><span> run</span><span style="color:#b7c3ce;"> -</span><span style="color:#ffffff;">e</span><span> GITHUB_TOKEN=xxx encrypt-asc </span><span style="color:#b7c3ce;">&gt;</span><span> codesigning.asc.enc
+</span><span style="color:#353e4a;"># Clean up the dirty mess!
+</span><span style="color:#ffffff;">docker</span><span> rm encrypt-asc</span><span style="color:#b7c3ce;"> -</span><span style="color:#ffffff;">f
+</span></code></pre>
+<p>After committing the <strong>codesigning.asc.enc</strong> file Travis was able to decrypt the GPG private key which is required to sign the artifacts.</p>
+<h1 id="check-if-version-is-changed">Check if version is changed</h1>
+<p>In order to check if the version has changed I did the following during the <code>before_install</code> stage:</p>
+<pre data-lang="bash" style="background-color:#090a0c;color:#dae4ed;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#5981f5;">export </span><span style="color:#ffffff;">LATEST_TAG</span><span style="color:#b7c3ce;">=$(</span><span style="color:#ffffff;">git</span><span style="color:#4ebc6b;"> describe</span><span style="color:#b7c3ce;"> --</span><span style="color:#ffffff;">abbrev</span><span style="color:#b7c3ce;">=</span><span style="color:#4ebc6b;">0</span><span style="color:#b7c3ce;"> --</span><span style="color:#ffffff;">tags</span><span style="color:#b7c3ce;">)
+</span></code></pre>
+<p>After that we can deploy or just run the tests, depending of the version:</p>
+<pre data-lang="bash" style="background-color:#090a0c;color:#dae4ed;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#5981f5;">if </span><span style="color:#ffffff;">[ </span><span style="color:#b7c3ce;">&quot;$</span><span style="color:#ffffff;">LATEST_TAG</span><span style="color:#b7c3ce;">&quot; != &quot;$</span><span style="color:#ffffff;">CH_VERSION</span><span style="color:#b7c3ce;">&quot; </span><span style="color:#ffffff;">]</span><span style="color:#b7c3ce;">; </span><span style="color:#5981f5;">then
+</span><span style="color:#ffffff;">echo </span><span style="color:#b7c3ce;">&quot;</span><span style="color:#4ebc6b;">Latest deployed version=</span><span style="color:#b7c3ce;">$</span><span style="color:#ffffff;">LATEST_TAG</span><span style="color:#4ebc6b;"> not equal new version=</span><span style="color:#b7c3ce;">$</span><span style="color:#ffffff;">CH_VERSION</span><span style="color:#4ebc6b;">. Deploying...</span><span style="color:#b7c3ce;">&quot;
+</span><span style="color:#ffffff;">mvn</span><span> deploy </span><span style="color:#b7c3ce;">\
+</span><span style="color:#b7c3ce;">    -</span><span style="color:#ffffff;">Psign </span><span style="color:#b7c3ce;">\
+</span><span style="color:#b7c3ce;">    --</span><span style="color:#ffffff;">settings</span><span> deployment/settings.xml
+</span><span style="color:#5981f5;">else
+</span><span style="color:#ffffff;">echo </span><span style="color:#b7c3ce;">&quot;</span><span style="color:#4ebc6b;">Skipping release! </span><span style="color:#b7c3ce;">$</span><span style="color:#ffffff;">LATEST_TAG</span><span style="color:#4ebc6b;"> already released to Nexus! Running tests...</span><span style="color:#b7c3ce;">&quot;
+</span><span style="color:#ffffff;">mvn</span><span> clean test</span><span style="color:#b7c3ce;"> -</span><span style="color:#ffffff;">T4
+</span><span style="color:#5981f5;">fi
+</span></code></pre>
+<h1 id="pushing-new-release-to-github">Pushing new release to Github</h1>
+<p>In order to push the new release automatically to Github, we do the following on the <code>after_install</code> stage:</p>
+<pre data-lang="bash" style="background-color:#090a0c;color:#dae4ed;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffffff;">cd </span><span style="color:#b7c3ce;">$</span><span style="color:#ffffff;">HOME
+</span><span style="color:#ffffff;">git</span><span> config</span><span style="color:#b7c3ce;"> --</span><span style="color:#ffffff;">global</span><span> user.email </span><span style="color:#b7c3ce;">&quot;</span><span style="color:#4ebc6b;">sirlancelbot@gmail.com</span><span style="color:#b7c3ce;">&quot;
+</span><span style="color:#ffffff;">git</span><span> config</span><span style="color:#b7c3ce;"> --</span><span style="color:#ffffff;">global</span><span> user.name </span><span style="color:#b7c3ce;">&quot;</span><span style="color:#4ebc6b;">Sir Lancelbot</span><span style="color:#b7c3ce;">&quot;
+</span><span style="color:#ffffff;">git</span><span> clone</span><span style="color:#b7c3ce;"> --</span><span style="color:#ffffff;">quiet</span><span style="color:#b7c3ce;"> --</span><span style="color:#ffffff;">branch</span><span style="color:#b7c3ce;">=</span><span>master https://</span><span style="color:#b7c3ce;">${</span><span style="color:#ffffff;">GITHUB_TOKEN</span><span style="color:#b7c3ce;">}</span><span>@github.com/bitbrain/braingdx
+</span><span>
+</span><span style="color:#353e4a;"># Replacing line endings in body
+</span><span style="color:#ffffff;">body</span><span style="color:#b7c3ce;">=$(</span><span style="color:#ffffff;">sed</span><span style="color:#b7c3ce;"> -</span><span style="color:#ffffff;">E </span><span style="color:#b7c3ce;">&#39;</span><span style="color:#4ebc6b;">:a;N;$!ba;s/\r{0,1}\n/\\n/g</span><span style="color:#b7c3ce;">&#39; &lt;(</span><span style="color:#ffffff;">echo </span><span style="color:#b7c3ce;">&quot;$</span><span style="color:#ffffff;">CH_TEXT</span><span style="color:#b7c3ce;">&quot;))
+</span><span style="color:#ffffff;">json</span><span style="color:#b7c3ce;">=&#39;</span><span style="color:#4ebc6b;">{&quot;tag_name&quot;:&quot;</span><span style="color:#b7c3ce;">&#39;$</span><span style="color:#ffffff;">CH_VERSION</span><span style="color:#b7c3ce;">&#39;</span><span style="color:#4ebc6b;">&quot;,&quot;target_commitish&quot;:&quot;</span><span style="color:#b7c3ce;">&#39;$</span><span style="color:#ffffff;">TRAVIS_BRANCH</span><span style="color:#b7c3ce;">&#39;</span><span style="color:#4ebc6b;">&quot;,&quot;name&quot;:&quot;Version </span><span style="color:#b7c3ce;">&#39;$</span><span style="color:#ffffff;">CH_VERSION</span><span style="color:#b7c3ce;">&#39;</span><span style="color:#4ebc6b;">&quot;,&quot;body&quot;:&quot;</span><span style="color:#b7c3ce;">&#39;$</span><span style="color:#ffffff;">body</span><span style="color:#b7c3ce;">&#39;</span><span style="color:#4ebc6b;">&quot;,&quot;draft&quot;:false,&quot;prerelease&quot;:false}</span><span style="color:#b7c3ce;">&#39;
+</span><span>
+</span><span style="color:#ffffff;">curl</span><span style="color:#b7c3ce;"> -</span><span style="color:#ffffff;">X</span><span> POST </span><span style="color:#b7c3ce;">\
+</span><span style="color:#b7c3ce;">-</span><span style="color:#ffffff;">u</span><span> bitbrain:</span><span style="color:#b7c3ce;">$</span><span style="color:#ffffff;">GITHUB_TOKEN </span><span style="color:#b7c3ce;">\
+</span><span style="color:#b7c3ce;">-</span><span style="color:#ffffff;">d </span><span style="color:#b7c3ce;">&quot;$</span><span style="color:#ffffff;">json</span><span style="color:#b7c3ce;">&quot;</span><span> https://api.github.com/repos/bitbrain/braingdx/releases
+</span></code></pre>
+<p>This will ensure that a latest release has been pushed (including latest changelog content from <code>CHANGELOG.md</code> and Github will automatically create a tag for us. Next time we run the pipeline, it won't deploy again since the tag has been updated.</p>
+<h1 id="uploading-javadoc-to-github-pages">Uploading Javadoc to Github pages</h1>
+<p>Uploading Javadoc to Github pages is a little bit more tricky. I want to have the following requirements fullfilled:</p>
+<ul>
+<li>each version is persisted in Github pages, e.g. <code>/docs/1.0.0</code></li>
+<li>the latest docs should be available via <code>/docs/latest</code></li>
+</ul>
+<pre data-lang="bash" style="background-color:#090a0c;color:#dae4ed;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#353e4a;"># Create temporary directory
+</span><span style="color:#ffffff;">mkdir</span><span> cd </span><span style="color:#b7c3ce;">$</span><span style="color:#ffffff;">HOME</span><span>/docs
+</span><span style="color:#ffffff;">cd </span><span style="color:#b7c3ce;">$</span><span style="color:#ffffff;">HOME</span><span>/braingdx
+</span><span style="color:#ffffff;">mvn</span><span> versions:set</span><span style="color:#b7c3ce;"> -</span><span style="color:#ffffff;">DskipTests</span><span style="color:#b7c3ce;"> -</span><span style="color:#ffffff;">DnewVersion</span><span style="color:#b7c3ce;">=$</span><span style="color:#ffffff;">CH_VERSION</span><span style="color:#b7c3ce;"> -</span><span style="color:#ffffff;">T4 </span><span style="color:#b7c3ce;">&amp;&amp; </span><span style="color:#ffffff;">mvn</span><span> javadoc:javadoc</span><span style="color:#b7c3ce;"> -</span><span style="color:#ffffff;">DskipTests</span><span style="color:#b7c3ce;"> -</span><span style="color:#ffffff;">T4
+</span><span style="color:#ffffff;">cd </span><span style="color:#b7c3ce;">$</span><span style="color:#ffffff;">HOME</span><span>/docs
+</span><span style="color:#353e4a;"># Copy generated Javadocs into a temporary directory
+</span><span style="color:#ffffff;">cp</span><span style="color:#b7c3ce;"> -</span><span style="color:#ffffff;">r </span><span style="color:#b7c3ce;">$</span><span style="color:#ffffff;">HOME</span><span>/braingdx/core/target/site/apidocs/</span><span style="color:#b7c3ce;">* $</span><span style="color:#ffffff;">HOME</span><span>/docs
+</span><span>
+</span><span style="color:#353e4a;"># Cleanup
+</span><span style="color:#ffffff;">rm</span><span style="color:#b7c3ce;"> -</span><span style="color:#ffffff;">rf </span><span style="color:#b7c3ce;">$</span><span style="color:#ffffff;">HOME</span><span>/braingdx/</span><span style="color:#b7c3ce;">*
+</span><span style="color:#ffffff;">cd </span><span style="color:#b7c3ce;">$</span><span style="color:#ffffff;">HOME</span><span>/braingdx
+</span><span>
+</span><span style="color:#353e4a;"># Checkout Jekyll branch and create new folder with new version
+</span><span style="color:#ffffff;">git</span><span> checkout gh-pages
+</span><span style="color:#ffffff;">mkdir</span><span style="color:#b7c3ce;"> -</span><span style="color:#ffffff;">p </span><span style="color:#b7c3ce;">$</span><span style="color:#ffffff;">HOME</span><span>/braingdx/docs/</span><span style="color:#b7c3ce;">$</span><span style="color:#ffffff;">CH_VERSION
+</span><span style="color:#ffffff;">cp</span><span style="color:#b7c3ce;"> -</span><span style="color:#ffffff;">r </span><span style="color:#b7c3ce;">$</span><span style="color:#ffffff;">HOME</span><span>/docs/</span><span style="color:#b7c3ce;">* $</span><span style="color:#ffffff;">HOME</span><span>/braingdx/docs/</span><span style="color:#b7c3ce;">$</span><span style="color:#ffffff;">CH_VERSION
+</span><span>
+</span><span style="color:#353e4a;"># Copy also into &quot;latest&quot; docs
+</span><span style="color:#ffffff;">rm</span><span style="color:#b7c3ce;"> -</span><span style="color:#ffffff;">rf </span><span style="color:#b7c3ce;">$</span><span style="color:#ffffff;">HOME</span><span>/braingdx/docs/latest
+</span><span style="color:#ffffff;">mkdir</span><span style="color:#b7c3ce;"> -</span><span style="color:#ffffff;">p </span><span style="color:#b7c3ce;">$</span><span style="color:#ffffff;">HOME</span><span>/braingdx/docs/latest
+</span><span style="color:#ffffff;">cp</span><span style="color:#b7c3ce;"> -</span><span style="color:#ffffff;">r </span><span style="color:#b7c3ce;">$</span><span style="color:#ffffff;">HOME</span><span>/docs/</span><span style="color:#b7c3ce;">* $</span><span style="color:#ffffff;">HOME</span><span>/braingdx/docs/latest
+</span><span>
+</span><span style="color:#353e4a;"># Add everything and push!
+</span><span style="color:#ffffff;">git</span><span> add</span><span style="color:#b7c3ce;"> -</span><span style="color:#ffffff;">f </span><span style="color:#b7c3ce;">*
+</span><span style="color:#ffffff;">git</span><span> commit</span><span style="color:#b7c3ce;"> -</span><span style="color:#ffffff;">m </span><span style="color:#b7c3ce;">&quot;</span><span style="color:#4ebc6b;">Travis build </span><span style="color:#b7c3ce;">$</span><span style="color:#ffffff;">TRAVIS_BUILD_NUMBER</span><span style="color:#4ebc6b;"> - update Javadoc</span><span style="color:#b7c3ce;">&quot;
+</span><span style="color:#ffffff;">git</span><span> push</span><span style="color:#b7c3ce;"> -</span><span style="color:#ffffff;">fq</span><span> origin gh-pages </span><span style="color:#b7c3ce;">&amp;&amp; </span><span style="color:#ffffff;">echo </span><span style="color:#b7c3ce;">&quot;</span><span style="color:#4ebc6b;">Successfully deployed Javadoc to /docs</span><span style="color:#b7c3ce;">&quot;
+</span></code></pre>
+<p><a href="http://bitbrain.github.io/braingdx/docs/latest/">Click here</a> to see an example of the generated page created.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>The new flow allows me to have:</p>
+<ul>
+<li>single branch</li>
+<li>every commit is tested in Travis</li>
+<li>I control deployments via <code>CHANGELOG.md</code></li>
+<li>Github releases and tags are automatically created</li>
+<li>Javadoc is automatically created</li>
+<li>on release, artifacts are signed and pushed to Maven Central</li>
+</ul>
+<p>Do you have feedback? Make sure to follow me <a href="https://twitter.com/bitbrain_">@bitbrain_</a> on <strong>Twitter</strong> and <a href="https://github.com/bitbrain">@bitbrain</a> on <strong>Github</strong>.</p>
+
+        </div>
+        
+        
+        
+        <div class="bg-slate-100 dark:bg-slate-800 mt-12">
+            <div class="flex items-stretch lg:items-stretch">
+                
+                
+                
+                
+                    
+                
+                
+                    
+                    
+                        
+                    
+                    <div class="author-box__media">
+                        <img src="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg" alt="" class="author-box__avatar"/>
+                    </div>
+                
+                <div class="text-4xl lg:text-base text-slate-700 dark:text-slate-400 flex-1 author-box__content">
+                    
+                        <h2 class="font-serif text-6xl lg:text-2xl text-slate-900 dark:text-slate-300 m-0 author-box__title">bitbrain</h2>
+                    
+                    
+                        <div class="font-sans text-5xl lg:text-xl text-slate-600 dark:text-slate-500 mb-4 author-box__subtitle">Lead Software Engineer. Godot Engine evangelist.</div>
+                    
+                    
+                    
+                        
+                    
+                    
+                        <div class="mt-2 text-8xl lg:text-4xl flex gap-3 homepage-social author-box__social">
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;github.com&#x2F;bitbrain" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-github"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;youtube.com&#x2F;@bitbraindev" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-youtube"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;bsky.app&#x2F;profile&#x2F;bitbra.in" target="_blank" rel="me noopener noreferrer">
+                                        <i class="las la-at"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;mastodon.gamedev.place&#x2F;@bitbraindev" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-mastodon"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                        </div>
+                    
+            </div>
+        </div>
+        
+    </div>
+
+        </section>
+    </body>
+</html>
