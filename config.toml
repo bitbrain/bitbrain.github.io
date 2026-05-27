@@ -16,11 +16,11 @@ build_search_index = true
 generate_feeds = true
 
 [markdown]
-# Whether to do syntax highlighting
-# Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
-highlight_code = true
-highlight_theme = "dash"
-extra_syntaxes_and_themes = ["themes/zola-dash/syntax_themes"]
+
+[markdown.highlighting]
+theme = "dash"
+extra_themes = ["themes/zola-dash/syntax_themes/dash.json"]
+error_on_missing_language = true
 
 [extra]
 # Put all your custom variables here

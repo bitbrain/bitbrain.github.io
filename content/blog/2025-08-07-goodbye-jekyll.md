@@ -12,7 +12,7 @@ Working with Jekyll can be rather annoying, especially when trying to get it run
 To make matters worse, you cannot just "install" Jekyll and get started. You need to setup Ruby first, which [itself has different versions](https://www.reddit.com/r/ruby/comments/wovmt1/difference_between_ruby_2_and_ruby_3), should you install Ruby 2? Should you install Ruby 3? [People in the past stumbled on issues](https://talk.jekyllrb.com/t/incompatible-with-the-current-version-ruby-3-0/5821) where using Ruby 3 did not work with Jekyll. 
 
 Then, there is the [gem system](https://rubygems.org/): this is not a Jekyll concept but comes from Ruby. The idea sounds neat: you can build a theme for Ruby and then bundle it into a "gem". Then, you can publish the gem and others can download it and use your Jekyll theme, without having to worry about checking out dubious git repositories or running some dodgy commands. Instead, in your `Gemfile` you can define dependencies like so:
-```gemfile
+```ruby
 source 'https://rubygems.org'
 
 gem 'jekyll-dash', '~> 2'

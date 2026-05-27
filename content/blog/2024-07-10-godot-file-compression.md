@@ -27,13 +27,13 @@ Imagine you have some json like so:
 
 and you want to store that to a file. Usually, in Godot you can do this:
 
-```gd
+```gdscript
 var file = FileAccess.open('item.json', FileAccess.WRITE)
 ```
 
 This then allows you to write to the file our item like so:
 
-```gd
+```gdscript
 var data:Dictionary = { item: "Golden Axe" }
 file.store_string(JSON.stringify(data))
 file.close()
@@ -43,7 +43,7 @@ file.close()
 
 So far, so good. Now, how would we actually store compressed files? The code looks surprisingly similar!
 
-```gd
+```gdscript
 var file = FileAccess.open_compressed('item.json', FileAccess.WRITE)
 var data:Dictionary = { item: "Golden Axe" }
 file.store_string(JSON.stringify(data))
@@ -64,7 +64,7 @@ When exporting the game, one would need to define the exported files explicitly 
 
 However, this is not sustainable and having to remember to register random files whenever you want to export your game does not scale. This is why Godot introduced the `EditorExportPlugin`:
 
-```gd
+```gdscript
 @tool
 extends EditorPlugin
 
@@ -103,7 +103,7 @@ func _export_begin(features: PackedStringArray, is_debug: bool, path: String, fl
 
 so, how do we store the file compressed? We cannot use `open_compressed` here because the file we are trying to store compressed is uncompressed:
 
-```gd
+```gdscript
 var pandora_path = "res://data.pandora"
   # This will fail! `data.pandora` file is not compressed!
   var file = FileAccess.open_compressed(pandora_path, FileAccess.READ)
@@ -157,7 +157,7 @@ In case you are confused now, stay with me - this all will make sense in a bit. 
 
 To decompress for a bit (pun intended), let us take a step back and understand how our exported file actually looks like. Remember, we previously attempted to export our file like so:
 
-```gd
+```gdscript
 var data:PackedByteArray = file.get_buffer(file.get_length())
 add_file(pandora_path, data.compress(), false)
 ```
@@ -199,7 +199,7 @@ The remaining bytes will be the compressed data that gets produced by compressin
 
 With our gained knowledge, let us create a new script that is able to compress any text into Godot compatible `PackedByteArray` format!
 
-```gd
+```gdscript
 # The block size which we hardcode
 const BLOCK_SIZE = 4096
 # Godot Compression magic keyword
@@ -274,7 +274,7 @@ static func _encode_string(value: String) -> PackedByteArray:
 
 With this component, we can now easily adjust our previous code:
 
-```gd
+```gdscript
 const Compression = preload('compression.gd')
 
 func _export_begin(features: PackedStringArray, is_debug: bool, path: String, flags: int):

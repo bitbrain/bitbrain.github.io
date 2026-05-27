@@ -10,7 +10,7 @@ I have seen a lot of confusion about how types work in [Godot Engine](https://go
 # The Good: RefCounted and Built-in Types
 
 Many types in Godot such as [AStar3D](https://docs.godotengine.org/en/stable/classes/class_astar3d.html#class-astar3d) are of type [RefCounted](https://docs.godotengine.org/en/stable/classes/class_refcounted.html#class-refcounted). Godot will keep track of how many references you have for a given instance. If the reference count becomes 0, the instance will be freed:
-```gd
+```gdscript
 extends Node
 
 func fun_with_refs() -> void:
@@ -23,7 +23,7 @@ func _ready() -> void:
 This can be extremely handy: you don't actually have to worry about freeing objects or any sort of memory management. Godot will take care of it automatically. Prefer `RefCounted` if you don't want to worry about freeing instances and you have mostly short-lived objects anyways.
 
 For in-built types like `Color` or `String`, Godot utilizes **value semantics**, this means that when you assign a color or string, it will create always an independent copy.
-```gd
+```gdscript
 var a = Vector2(5, 10) # Vector2 is an inbuilt-type
 var b = a
 b.x = 99
@@ -36,7 +36,7 @@ print(b) # (99, 10)
 
 Well... not really bad. Just bad for beginners. `Object` type can bite you if you don't actually understand how it works! Godot will **not** free objects for you. When you are not careful, it can lead to a [memory leak](https://en.wikipedia.org/wiki/Memory_leak):
 
-```gd
+```gdscript
 extends Node
 
 func memory_leak() -> void:
@@ -51,7 +51,7 @@ In order to free `Object` you have to call `.free()` on it. You are in luck, tho
 # The Ugly: Invisible Side-Effects
 
 I have been recently contributing again to the [FMOD GDExtension](https://github.com/utopia-rise/fmod-gdextension) by [utopia-rise](https://github.com/utopia-rise) because I was trying to investigate an issue in my game where no sound was playing. I won't go into too much technical detail here, but [FMOD](https://www.fmod.com/) basically is an audo engine that I am using for [my game](https://bitbrain.itch.io/cave). FMOD has the concept of "audio banks" that you gotta load at runtime, and those banks contain the audio to play. The code usually looks like this:
-```gd
+```gdscript
 # init.gd autoload script
 extends Node
 
@@ -64,7 +64,7 @@ This used to work fine but at some point, it stopped working. After a long time 
 
 If you have paid attention before, you should already know what the problem is: the GDExtension correctly loads the `main.bank` file into memory but we are actually not referencing it! Godot will then go ahead and free the instance again (because it is a `RefCounted` and its reference count reaches `0`). So the correct fix is this:
 
-```gd
+```gdscript
 # init.gd autoload script
 extends Node
 
@@ -78,7 +78,7 @@ since `banks` itself is a reference that will stay around as long the `init.gd` 
 # Confusion about valid instances
 
 Before we finish, I wanted to say a few more words about [is_instance_valid](https://docs.godotengine.org/en/stable/classes/class_%40globalscope.html#class-globalscope-method-is-instance-valid). Code like this may seem confusing at first:
-```gd
+```gdscript
 var my_color = Color(255, 255, 255)
 print(is_instance_valid(my_color)) # returns false
 ```
