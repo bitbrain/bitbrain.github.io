@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+    <head>
+        <meta charset="utf-8">
+        
+        <script>
+            const isDarkMode = localStorage.getItem('is_darkmode_set') === 'true';
+            if (isDarkMode) {
+                document.documentElement.classList.add('dark');
+            }
+        </script>
+        
+        <meta name="color-scheme" content="light dark">
+
+        
+        
+        
+            
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        
+                        
+                            
+                            
+                            
+                                
+                            
+                        
+                    
+                
+            
+            
+            
+        
+        
+        
+            <link rel="me" href="https:&#x2F;&#x2F;mastodon.gamedev.place&#x2F;@bitbraindev">
+        
+
+        
+        
+
+        
+        <link rel="alternate"
+              type="application/atom+xml"
+              title="bitbrain feed"
+              href="https://bitbra.in/atom.xml">
+        
+
+        
+        <link rel="icon" type="image/webp" href="https://bitbra.in/favicon.webp?h=0d4aaa30fc76312a3ebe">
+        <link rel="icon" type="image/png" href="https://bitbra.in/favicon.png?h=44b76b5cf66397d57be1" sizes="32x32">
+
+        <link rel="stylesheet" href="https://bitbra.in/css/style.css?h=9fa014b9f60f72867302"/>
+        <link rel="stylesheet" href="https://bitbra.in/line-awesome/css/line-awesome.min.css?h=ce61a18cf084f1500379"/>
+        <script src="https://bitbra.in/js/main.js?h=6ebbb40a03fcd672fbed" defer></script>
+        
+    <title>Goodbye Windows | bitbrain</title>
+    
+    
+    
+    
+    
+    
+        
+    
+    
+        
+        
+            
+        
+    
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Goodbye Windows">
+    
+    <meta property="og:url" content="https:&#x2F;&#x2F;bitbra.in&#x2F;blog&#x2F;goodbye-windows&#x2F;">
+    <meta property="og:site_name" content="bitbrain">
+    <meta property="og:image" content="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Goodbye Windows">
+    
+    <meta name="twitter:image" content="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg">
+    
+    
+    
+        
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                    
+                    
+                        
+                        
+                        
+                            
+                        
+                    
+                
+            
+        
+        
+        
+    
+    
+    
+        
+        
+        
+        
+            
+            
+            <meta name="fediverse:creator" content="@bitbraindev@mastodon.gamedev.place">
+        
+    
+
+    </head>
+
+    <body class="bg-white dark:bg-slate-900 transition ease-in-out">
+        <section>
+            
+    
+<div class="sticky top-0 bg-slate-100 dark:bg-slate-800">
+    <div class="container mx-auto flex place-content-between
+        py-16 lg:py-8 font-sans text-6xl lg:text-2xl text-slate-900
+        dark:text-white">
+        <div class="flex">
+            
+            
+            
+            
+            <a class="m-0 p-0 text-slate-900 hover:text-slate-700
+                            dark:text-white dark:hover:text-white" href="&#x2F;blog&#x2F;">
+                /blog
+            </a>
+            
+            
+            
+            
+            
+            
+        </div>
+        <div class="flex gap-4 header-links">
+            <div id="back-to-top" class="hidden cursor-pointer">
+                <i class="las la-level-up-alt"></i>
+            </div>
+            <a href="/"><i class="las la-home"></i></a>
+            
+            <a href="https://bitbra.in/atom.xml"><i class="las la-rss"></i></a>
+            
+            <div id="darkmode-toggle" class="cursor-pointer">
+                <div class="hidden dark:inline">
+                    <i class="las la-sun"></i>
+                </div>
+                <div class="inline dark:hidden">
+                    <i class="las la-moon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="container mb-16">
+        <div class="mt-4 font-serif text-slate-600 dark:text-slate-500 text-4xl lg:text-base">
+            2026-05-28
+        </div>
+        <h1 class="w-full mt-4 mb-8 font-serif text-8xl lg:text-4xl text-slate-900 dark:text-slate-300">
+            Goodbye Windows
+        </h1>
+        <div class="w-100 border-t mb-8 border-slate-300 dark:border-slate-700"></div>
+        <div class="prose-boring">
+            <p>We all know this: you start your computer and are greeted by some annoying ad popup by Microsoft, begging you to subscribe to their Office 365 subscription. After you spent minutes looking for the "skip for now" button, you try to open a folder but the file explorer somehow takes several seconds to load... you are unsure why. Then you open the task manager to check and notice that Copilot eats all your CPU and RAM but there is nothing you can do... or is there?</p>
+<p>I have been in that exact situation many times, where frustration took over because there was no feasable alternative... I love playing games and most games only work for Windows and app support on platforms like Linux is lackluster... also dealing with drivers and compatibility issues on Linux is a problem so Windows it is. Also, a few more frustrations got my blood boiling like nothing else:</p>
+<ul>
+<li>my wireless bluetooth headphones randomly stopped working and after doing a Windows registry check, it appeared Windows corrupted itself. After 2 weeks of trying out dozens of solutions I had to re-install Windows from scratch!</li>
+<li>while gaming, Windows may decide to do some checks in the background, causing lags</li>
+<li>randomly Windows may download the next update and take up my wifi broadband. I am aware this can be disabled but it is still annoying that this is default behaviour</li>
+<li>randomly, the wallpaper reset after system updates</li>
+<li>random freezes where the computer just froze and I had to force restart to fix it</li>
+</ul>
+<p>Then I discovered <a rel="external" href="https://bazzite.gg">Bazzite</a>. Actually, a friend recommended it to me. Apparently, it is inspired by <a rel="external" href="https://store.steampowered.com/steamos">SteamOS</a> and you can play most Steam games out of the box!</p>
+<p><img src="/images/bazzite-desktop.webp" alt="bazzite" /></p>
+<p>Installing it was a breeze and to my surprise, all games on Steam just worked straight away. To truly replicate my Windows experience, a few things were needed:</p>
+<ul>
+<li><strong>Discord</strong>: works out of the box, nice.</li>
+<li><strong>Steam</strong>: pre-installed, with graphics driver working out of the box.</li>
+<li><strong>DaVinci Resolve</strong>: I use this for video editing, works quite well on Linux without problems.</li>
+<li><strong>Battle.net</strong> uh oh... this does not work out of the box. But I got it working (see below)</li>
+<li><strong>Epic Games Launcher</strong> this is needed for games like Rocket League to play online but does not work out of the box. I got it working though (see below)</li>
+</ul>
+<h1 id="installing-battle-net">Installing Battle.net</h1>
+<p><a rel="external" href="https://eu.shop.battle.net">Battle.net</a> does not work on Linux natively. However, thanks to <a rel="external" href="https://en.wikipedia.org/wiki/Steam">Steam</a> this is possible:</p>
+<ol>
+<li>Download the Battle.net installer (it's an .exe file)</li>
+<li>Open Steam and click <code>Games &gt; Add Non Steam Game to my library</code></li>
+<li>Select the Battle.net installer</li>
+<li>Launch the installer from within Steam</li>
+</ol>
+<p>Now, you are actually <strong>not</strong> installing Battle.net on Linux itself but Steam kinda "tricks" the system by emulating a Windows file system (including the usual file structure you'd expect from a Windows file system) so when installing Battle.net you are actually installing it within a folder controlled by Steam itself.</p>
+<p><strong>Very important</strong> after finishing the install, do <strong>not</strong> delete the Battle.net installer from Steam (I did this mistake once) because doing so wipes the mentioned file system and the installation is gone. Instead, we are going to edit the existing Battle.net Installer entry in Steam by editing it and changing the Shortcut target to:</p>
+<pre class="giallo" style="color: #DAE4ED; background-color: #090A0C;"><code data-lang="plain"><span class="giallo-l"><span>&quot;/home/bitbrain/.local/share/Steam/steamapps/compatdata/3475908885/pfx/drive_c/Program Files (x86)/Battle.net/Battle.net.exe&quot;</span></span></code></pre>
+<p>and "Start in" to</p>
+<pre class="giallo" style="color: #DAE4ED; background-color: #090A0C;"><code data-lang="plain"><span class="giallo-l"><span>/home/bitbrain/.local/share/Steam/steamapps/compatdata/3475908885/pfx/drive_c/Program Files (x86)/Battle.net/</span></span></code></pre>
+<p>The <code>3475908885</code> is the steam id of Battle.net installer and <code>$HOME/.local/share/Steam/steamapps/compatdata</code> is the path on Bazzite where Steam stores the various files for Steam games. You notice it contains a <code>drive_c</code> which emulates the <code>C:/</code> on Windows and as expected, there is a <code>Program Files (x86)/Battle.net</code> folder now where we installed Battle.net into.</p>
+<p><img src="/images/battle-net-steam.webp" alt="battlenet" /></p>
+<p>By the way, all those files actually exist in your Linux file system as well, it's just that Linux itself would not know what to do with it. Thanks to Proton, it can. Also rename <code>Battle.net Installer</code> -&gt; <code>Battle.net</code> as we now repointed the installer to the actual .exe of Battle.net. When we now launch it (after you login with your Battle.net account) you can use Battle.net without problems and install all the usual games you like:</p>
+<p><img src="/images/battle-net-steam-launcher.webp" alt="battlenet" /></p>
+<h1 id="supporting-epic-games-launcher">Supporting Epic Games launcher</h1>
+<p><a rel="external" href="https://store.epicgames.com/download">Epic Games Launcher</a> does only work on Windows. I love Rocket League and want to play it but playing it through Steam on Linux <strong>does not work online</strong>. Yes, you can launch and play it but any online match is disabled on Linux. We could try to use Steam with Proton again to install the Epic Games Launcher with it but there is a much simpler way on Bazzite: <a rel="external" href="https://heroicgameslauncher.com">Heroic Games Launcher</a>! All you gotta do is:</p>
+<ol>
+<li>Install <a rel="external" href="https://heroicgameslauncher.com">Heroic Games Launcher</a></li>
+<li>Login with your Epic Games account</li>
+<li>Install the games you want, e.g. Rocket League</li>
+</ol>
+<p>This works rather well and I did not encounter any issues with it.</p>
+<p><img src="/images/heroic-games-launcher.webp" alt="heroic-games-launcher" /></p>
+<h1 id="there-is-a-catch">There is a catch</h1>
+<p>Now, let's talk about the things that don't work well: <strong>Anti-Cheat</strong> I bought on Steam Call of Duty: Modern Warfare (Remake) until I realised that this game does not allow me to start it due to Anti Cheat <a rel="external" href="https://www.protondb.com/app/2000950">that is unsupported on Linux</a> (as of 2026). I highly recommend <a rel="external" href="https://www.protondb.com">protondb</a> which tells you which game works well on Linux.</p>
+<p><img src="/images/borked-cod.webp" alt="borked-mw" /></p>
+<p>Another issue I faced is Bluetooth support: plugging in my Xbox controller did not work wirelessly at first. This is because Microsoft changed something under the hood which doesn't work any longer for older Xbox controllers. The solution is to connect your Xbox controller to a Windows machine (or Xbox) and update the controller firmware. Even after that, the problems would not stop: although the controller is detected fine, it seems to spam the bluetooth channel like crazy so connecting wireless headphones together with the controller causes severe audio stuttering. I even tried to disable "power saving mode" without success. For now, I am using a USB cable to connect my controller but not sure yet how to solve this.</p>
+<h1 id="6-month-verdict">6 month verdict</h1>
+<p>I would generally recommend switching to <strong>Bazzite</strong> and leaving Windows behind. In 2026, the OS is mature enough to do <strong>most things</strong> without any issue and after just a few days, the UX feels very similar. I am using KDE and it is quite similar to Windows 11 UX. However, make sure before you switch to check every app you use for its compatibility. When in doubt, install it first via dual-boot so you can always use Windows still if you are unsure.</p>
+<p>I really liked Windows and used it for many years but here I am, no longer needing it. Goodbye Windows.</p>
+
+        </div>
+        
+        
+        
+        <div class="bg-slate-100 dark:bg-slate-800 mt-12">
+            <div class="flex items-stretch lg:items-stretch">
+                
+                
+                
+                
+                    
+                
+                
+                    
+                    
+                        
+                    
+                    <div class="author-box__media">
+                        <img src="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg" alt="" class="author-box__avatar"/>
+                    </div>
+                
+                <div class="text-4xl lg:text-base text-slate-700 dark:text-slate-400 flex-1 author-box__content">
+                    
+                        <h2 class="font-serif text-6xl lg:text-2xl text-slate-900 dark:text-slate-300 m-0 author-box__title">bitbrain</h2>
+                    
+                    
+                        <div class="font-sans text-5xl lg:text-xl text-slate-600 dark:text-slate-500 mb-4 author-box__subtitle">Lead Software Engineer. Godot Engine evangelist.</div>
+                    
+                    
+                    
+                        
+                    
+                    
+                        <div class="mt-2 text-8xl lg:text-4xl flex gap-3 homepage-social author-box__social">
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;github.com&#x2F;bitbrain" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-github"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;youtube.com&#x2F;@bitbraindev" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-youtube"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;bsky.app&#x2F;profile&#x2F;bitbra.in" target="_blank" rel="me noopener noreferrer">
+                                        <i class="las la-at"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;mastodon.gamedev.place&#x2F;@bitbraindev" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-mastodon"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                        </div>
+                    
+            </div>
+        </div>
+        
+    </div>
+
+        </section>
+    </body>
+</html>

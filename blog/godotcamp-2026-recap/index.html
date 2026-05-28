@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+    <head>
+        <meta charset="utf-8">
+        
+        <script>
+            const isDarkMode = localStorage.getItem('is_darkmode_set') === 'true';
+            if (isDarkMode) {
+                document.documentElement.classList.add('dark');
+            }
+        </script>
+        
+        <meta name="color-scheme" content="light dark">
+
+        
+        
+        
+            
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+            
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        
+                        
+                            
+                            
+                            
+                                
+                            
+                        
+                    
+                
+            
+            
+            
+        
+        
+        
+            <link rel="me" href="https:&#x2F;&#x2F;mastodon.gamedev.place&#x2F;@bitbraindev">
+        
+
+        
+        
+
+        
+        <link rel="alternate"
+              type="application/atom+xml"
+              title="bitbrain feed"
+              href="https://bitbra.in/atom.xml">
+        
+
+        
+        <link rel="icon" type="image/webp" href="https://bitbra.in/favicon.webp?h=0d4aaa30fc76312a3ebe">
+        <link rel="icon" type="image/png" href="https://bitbra.in/favicon.png?h=44b76b5cf66397d57be1" sizes="32x32">
+
+        <link rel="stylesheet" href="https://bitbra.in/css/style.css?h=9fa014b9f60f72867302"/>
+        <link rel="stylesheet" href="https://bitbra.in/line-awesome/css/line-awesome.min.css?h=ce61a18cf084f1500379"/>
+        <script src="https://bitbra.in/js/main.js?h=6ebbb40a03fcd672fbed" defer></script>
+        
+    <title>GodotCamp 2026 | bitbrain</title>
+    
+    
+    
+    
+    
+    
+        
+    
+    
+        
+        
+            
+        
+    
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="GodotCamp 2026">
+    
+    <meta property="og:url" content="https:&#x2F;&#x2F;bitbra.in&#x2F;blog&#x2F;godotcamp-2026-recap&#x2F;">
+    <meta property="og:site_name" content="bitbrain">
+    <meta property="og:image" content="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="GodotCamp 2026">
+    
+    <meta name="twitter:image" content="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg">
+    
+    
+    
+        
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                    
+                    
+                        
+                        
+                        
+                            
+                        
+                    
+                
+            
+        
+        
+        
+    
+    
+    
+        
+        
+        
+        
+            
+            
+            <meta name="fediverse:creator" content="@bitbraindev@mastodon.gamedev.place">
+        
+    
+
+    </head>
+
+    <body class="bg-white dark:bg-slate-900 transition ease-in-out">
+        <section>
+            
+    
+<div class="sticky top-0 bg-slate-100 dark:bg-slate-800">
+    <div class="container mx-auto flex place-content-between
+        py-16 lg:py-8 font-sans text-6xl lg:text-2xl text-slate-900
+        dark:text-white">
+        <div class="flex">
+            
+            
+            
+            
+            <a class="m-0 p-0 text-slate-900 hover:text-slate-700
+                            dark:text-white dark:hover:text-white" href="&#x2F;blog&#x2F;">
+                /blog
+            </a>
+            
+            
+            
+            
+            
+            
+        </div>
+        <div class="flex gap-4 header-links">
+            <div id="back-to-top" class="hidden cursor-pointer">
+                <i class="las la-level-up-alt"></i>
+            </div>
+            <a href="/"><i class="las la-home"></i></a>
+            
+            <a href="https://bitbra.in/atom.xml"><i class="las la-rss"></i></a>
+            
+            <div id="darkmode-toggle" class="cursor-pointer">
+                <div class="hidden dark:inline">
+                    <i class="las la-sun"></i>
+                </div>
+                <div class="inline dark:hidden">
+                    <i class="las la-moon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="container mb-16">
+        <div class="mt-4 font-serif text-slate-600 dark:text-slate-500 text-4xl lg:text-base">
+            2026-05-27
+        </div>
+        <h1 class="w-full mt-4 mb-8 font-serif text-8xl lg:text-4xl text-slate-900 dark:text-slate-300">
+            GodotCamp 2026
+        </h1>
+        <div class="w-100 border-t mb-8 border-slate-300 dark:border-slate-700"></div>
+        <div class="prose-boring">
+            <p>I love <a rel="external" href="https://godotengine.org">Godot Engine</a>, especially its community and events. Last year <a rel="external" href="https://bsky.app/profile/yeoldone.bsky.social">Joachim</a> from the <a rel="external" href="https://godot-karlsruhe.de/">Godot Stammtisch Karlsruhe</a> approached me and told me about a thing they tried called <strong>GodotCamp</strong>. At first I was a bit confused what that one is: a gamejam? another Godot conference with speakers? Actually, it is none of that... it's a <a rel="external" href="https://en.wikipedia.org/wiki/BarCamp">BarCamp</a>!</p>
+<h1 id="what-is-a-barcamp">What is a BarCamp?</h1>
+<blockquote>
+<p>BarCamp is an international network of user-generated conferences primarily focused on technology and the web. They are open, participatory workshop-events, the content of which is provided by participants, sometimes called unconferences.</p>
+</blockquote>
+<p>The idea behind <strong>BarCamp</strong> is straightforward: a bunch of people meet at an agreed time and then decide together what they wanna do. That's it. No prior plan, no speaker list, no prep needed. This has a massive advantage because the organisers do not have to worry about the exact content of the event but only about <strong>facilitating</strong> the event itself (venue, food, tech etc.) which in itself is already a massive undertaking. BarCamps are extremely spontaneous and things happen organically. When you come to a conference you are mentally prepared to be a "listener" with certain <strong>expectations</strong>: there will be speakers.</p>
+<p><img src="/images/godotcamp-2026/godotcamp-gameforge.webp" alt="godotcamp-gameforge" /></p>
+<p>There will be large rooms where people have to sit down and be quiet while speaker presents something. This is inherently not bad, quite the opposite. However, it restricts certain aspects of creativity and exchange of ideas. At BarCamps, every participant decides what they want to talk about do: maybe a gamejam, maybe a show&amp;tell about a specific thing they discovered, or a discussion round about a topic they need clarification on. Anything is possible at a BarCamp! Such an event is GodotCamp and I visited it this year in <strong>May 2026</strong>.</p>
+<h1 id="travelling-to-godotcamp">Travelling to GodotCamp</h1>
+<p>I am currently based in London, UK, so to get to the camp I flew by plane. Connections between London and Karlsruhe are usually great so this was not an issue at all. I wanted to get from the airport to my hotel. You have to know that the airport is actually <strong>not</strong> in Karlsruhe but around 20km further south. Effectively, I had two options: book a Uber or get the bus (there are no trains). The thing about Germany is though that only drivers with a valid taxi license are allowed to use Uber, so a single trip can cost up to 90 Euros. So bus it was. Usually you can book your bus ticket online via an app but for some reason the app crashed for me constantly. Luckily, I had some cash with me and the bus station right outside the airport offers tickets to the city. Keep an eye out for those "H" signs as they denote the bus stop!</p>
+<p><img src="/images/godotcamp-2026/godotcamp-bussign.webp" alt="miguel-bus" /></p>
+<p>The journey was quite smooth and I eventually arrived at my hotel an hour later.</p>
+<h1 id="godotcamp-day-1">GodotCamp: Day 1</h1>
+<p>GodotCamp 2026 was hosted at FZI House of Living Labs, the lab site of the <strong>F</strong>orschungs-<strong>Z</strong>entrum <strong>I</strong>nformatik Karlsruhe (research center of informatics). It is honestly the perfect venue for such an event, as it comes with rooms, a large hall and lots of powersockets. (yes, power sockets are the life blood of gamedevelopers). After a tasty breakfast of German bread ("Butterbrot") the event was kicked off!</p>
+<p><img src="/images/godotcamp-2026/godotcamp-keynote.webp" alt="godotcamp-keynote" /></p>
+<p>The organizers prepared an app where you can submit any topic you want to talk about. Afterwards, the entire room would raise their hands in case they were interested in joining a certain activity. I personally submitted two ideas on the first day:</p>
+<ul>
+<li><strong>Optimising PBR assets</strong>: I recently started dabbling with 3D in Godot and found it incredebly difficult to keep VRAM usage low when using lots of different PBR textures</li>
+<li><strong>3D Inverse Kinematics Rigging in Godot</strong>: for my horror game FPS I wanted to understand how I could do bone rigging in Godot to have a character that can walk around</li>
+</ul>
+<p>Overall, the first day was <strong>packed</strong> which lots of activities:
+<img src="/images/godotcamp-2026/godotcamp-plan.webp" alt="schedule" /></p>
+<p>I first attended the <strong>How to Godette</strong> session. Yes, we had an actual Godette cosplayer on site who showed us how she made the outfit and the challenges faced. It was genuinly fascinating.</p>
+<p><img src="/images/godotcamp-2026/godotcamp-godette.webp" alt="godette" /></p>
+<p>Afterwards I attended the <strong>Procedural Generation</strong> talk by Tyrix where amazing procgen tips were shared. The audience also chimed in and we all collaborated on cool procgen concepts and ideas.</p>
+<p>The color grading discussion was useful as I learned new tricks by using <code>ColorRect</code> and shaders as it gives much more control over the actual colour grading compared to <code>WorldEnvironment</code>. For example, a shader can colour-grade different parts of the screen based on depth buffer.
+As a final session, I attended the <strong>Scene Transitions</strong> discussion of Jan who wanted to learn how to do them. Luckily, I already implemented my own scene transitioning system for <a rel="external" href="https://bitbrain.itch.io/cave">cave</a> so sharing that knowledge was super useful.</p>
+<p>In the evening, we all headed to the <a rel="external" href="https://gameforge.com">Gameforge HQ</a> who kindly sponsored the location for us to have an afterparty. I met really cool people there and together we did some collaborative art:</p>
+<p><img src="/images/godotcamp-2026/godotcamp-artjam.webp" alt="collab-art" /></p>
+<p>All of us were drawing and creating together. It was truly wholesome and I will never forget that evening.</p>
+<h1 id="godotcamp-day-2">GodotCamp: Day 2</h1>
+<p>The second day started similar to the first one: we started proposing new topics to talk about (since most topics from the previous day were already covered). My topics were:</p>
+<ul>
+<li><strong>Favourite Nodes</strong>: Godot has over 200+ inbuilt nodes but what are our favourite ones?</li>
+<li><strong>Pixelart for Absolute Beginners</strong>: before I went to the camp I had in mind showing some pixelart basics to absolute beginners. On the first day was already a pixelart workshop (so I didn't wanna overlap with that) so I decided to do a little session on pixelart the 2nd day.</li>
+</ul>
+<p>I attended many sessions again, which all were equally interesting. My highlight was us designing Godot merch and we came up with some pretty wild ideas that hopefully will see the light of day at some point :)</p>
+<p>On the previous day, some folks held a 90 minute gamejam and on the 2nd day they showed those games off. It was truly inspiring to see what is possible in such a short amount of time. We had quite a laugh about some of the ideas. My highlight was a game where a mouse is on drugs and the camera is shaking intentionally like crazy. It was hilarious!</p>
+<h1 id="10-10-event">10/10 Event</h1>
+<p>I will <strong>definitely</strong> attend <strong>GodotCamp 2027</strong> again. I had such a blast and I highly recommend it to anyone who is either interested in game developent as a whole or Godot.</p>
+
+        </div>
+        
+        
+        
+        <div class="bg-slate-100 dark:bg-slate-800 mt-12">
+            <div class="flex items-stretch lg:items-stretch">
+                
+                
+                
+                
+                    
+                
+                
+                    
+                    
+                        
+                    
+                    <div class="author-box__media">
+                        <img src="https:&#x2F;&#x2F;bitbra.in&#x2F;images&#x2F;hello.jpg" alt="" class="author-box__avatar"/>
+                    </div>
+                
+                <div class="text-4xl lg:text-base text-slate-700 dark:text-slate-400 flex-1 author-box__content">
+                    
+                        <h2 class="font-serif text-6xl lg:text-2xl text-slate-900 dark:text-slate-300 m-0 author-box__title">bitbrain</h2>
+                    
+                    
+                        <div class="font-sans text-5xl lg:text-xl text-slate-600 dark:text-slate-500 mb-4 author-box__subtitle">Lead Software Engineer. Godot Engine evangelist.</div>
+                    
+                    
+                    
+                        
+                    
+                    
+                        <div class="mt-2 text-8xl lg:text-4xl flex gap-3 homepage-social author-box__social">
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;github.com&#x2F;bitbrain" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-github"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;youtube.com&#x2F;@bitbraindev" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-youtube"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;bsky.app&#x2F;profile&#x2F;bitbra.in" target="_blank" rel="me noopener noreferrer">
+                                        <i class="las la-at"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                                
+                                <div class="text-slate-500 hover:text-slate-700 transition">
+                                    <a href="https:&#x2F;&#x2F;mastodon.gamedev.place&#x2F;@bitbraindev" target="_blank" rel="me noopener noreferrer">
+                                        <i class="lab la-mastodon"></i>
+                                    </a>
+                                </div>
+                                
+                            
+                        </div>
+                    
+            </div>
+        </div>
+        
+    </div>
+
+        </section>
+    </body>
+</html>
