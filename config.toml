@@ -31,6 +31,12 @@ homepage_img_url = "/images/hello.jpg"
 # Refer https://support.google.com/analytics/answer/9539598?hl=en
 google_analytics_measurement_id = ""
 
+[extra.footer]
+enabled = true
+prompt = "whoami"
+theme_name = "zola-dash"
+version = "v2"
+
 # Refer https://icons8.com/line-awesome for list of icons
 # Both `url` and `icon` should be set for each entry
 [[extra.social]]
