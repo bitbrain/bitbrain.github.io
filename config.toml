@@ -16,9 +16,6 @@ build_search_index = true
 # RSS Feed
 generate_feeds = true
 
-[markdown]
-lazy_async_image = true
-
 [markdown.highlighting]
 theme = "dash"
 extra_themes = ["themes/zola-dash/syntax_themes/dash.json"]
