@@ -9,7 +9,7 @@ I recently participated in [ARD Game Jam 2026](https://itch.io/jam/-ard-game-jam
 
 Similar to hackathons, a game jam is an event where for a limited time (e.g. 48 hours) people come together and build games, often with limitations applied: in my case, I did handwrite all code myself and did not use any auto-complete or LLM to guide me. Then I [live-streamed it all](https://twitch.tv/bitbraindev). Most gamejams are very beginner friendly, so if you are thinking about joining a jam, I recommend checking out the [itch.io jam calendar](https://itch.io/jams)!
 
-![ard-jam](/images/ard-gamejam.jpg)
+![ard-jam](/images/ard-gamejam.webp)
 
 # Tip 1: Limit scope
 

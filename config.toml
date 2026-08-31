@@ -5,6 +5,7 @@ base_url = "https://bitbra.in"
 theme = "zola-dash"
 
 title = "bitbrain"
+minify_html = true
 
 # Whether to automatically compile all Sass files in the sass directory
 compile_sass = false
@@ -16,6 +17,7 @@ build_search_index = true
 generate_feeds = true
 
 [markdown]
+lazy_async_image = true
 
 [markdown.highlighting]
 theme = "dash"
@@ -26,10 +28,18 @@ error_on_missing_language = true
 # Put all your custom variables here
 homepage_title = "bitbrain"
 homepage_subtitle = "Lead Software Engineer. Godot Engine evangelist."
-homepage_img_url = "/images/hello.jpg"
+homepage_img_url = "/images/hello-960.webp"
 
 # Refer https://support.google.com/analytics/answer/9539598?hl=en
 google_analytics_measurement_id = ""
+
+[extra.homepage_image]
+src = "/images/hello-960.webp"
+srcset = "/images/hello-480.webp 480w, /images/hello-960.webp 960w"
+sizes = "(min-width: 1024px) 50vw, 100vw"
+author_sizes = "96px"
+width = 960
+height = 1707
 
 [extra.footer]
 enabled = true
@@ -37,7 +47,6 @@ prompt = "whoami"
 theme_name = "zola-dash"
 version = "v2"
 
-# Refer https://icons8.com/line-awesome for list of icons
 # Both `url` and `icon` should be set for each entry
 [[extra.social]]
 url = "https://github.com/bitbrain"
